@@ -46,6 +46,19 @@
                  <version>1.1.10</version>
              </dependency>
 
+<!--微信工具类-->
+             <dependency>
+                 <groupId>com.github.binarywang</groupId>
+                 <artifactId>weixin-java-pay</artifactId>
+                 <version>3.3.0</version>
+             </dependency>
+
+             <dependency>
+                 <groupId>com.github.binarywang</groupId>
+                 <artifactId>weixin-java-miniapp</artifactId>
+                 <version>3.3.0</version>
+             </dependency>
+
              <!-- Spring Boot pagehelper 依赖 -->
              <dependency>
                  <groupId>com.github.pagehelper</groupId>

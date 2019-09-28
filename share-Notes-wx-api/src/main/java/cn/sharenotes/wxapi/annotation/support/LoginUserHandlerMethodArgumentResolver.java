@@ -10,7 +10,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    public static final String LOGIN_TOKEN_KEY = "shareNotes-Token";
+    public static final String LOGIN_TOKEN_KEY = "F-shareNotes-Token";
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -21,7 +21,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container,
                                   NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
 
-//        return new Integer(1);
+
         String token = request.getHeader(LOGIN_TOKEN_KEY);
         if (token == null || token.isEmpty()) {
             return null;

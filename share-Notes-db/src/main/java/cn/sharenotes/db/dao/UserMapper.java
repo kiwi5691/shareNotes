@@ -3,8 +3,11 @@ package cn.sharenotes.db.dao;
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.domain.UserExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserMapper {
     long countByExample(UserExample example);
 
@@ -17,6 +20,8 @@ public interface UserMapper {
     int insertSelective(User record);
 
     List<User> selectByExample(UserExample example);
+
+    User selectOneByExample(UserExample example);
 
     User selectByPrimaryKey(Integer id);
 

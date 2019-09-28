@@ -1,0 +1,4 @@
+FROM java:8
+VOLUME /tmp
+ADD /share-Notes-wx-api/target/share-Notes-wx-api-0.0.1 /master.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/master.jar"]

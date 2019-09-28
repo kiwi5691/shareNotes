@@ -36,21 +36,21 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         
-        <!-- table指定每个表的生成策略 -->
-        <table tableName="admin" domainObjectName="Admin"></table>
-        <table tableName="categories" domainObjectName="Categories"></table>
-        <table tableName="comments" domainObjectName="Comments"></table>
-        <table tableName="logs" domainObjectName="Logs"></table>
-        <table tableName="menus" domainObjectName="Menus"></table>
-        <table tableName="msg_request" domainObjectName="MsgRequest"></table>
-        <table tableName="posts" domainObjectName="Posts"></table>
-        <table tableName="post_categories" domainObjectName="PostCategories"></table>
-        <table tableName="sys_msg" domainObjectName="SysMsg"></table>
-        <table tableName="sys_msg_log" domainObjectName="SysMsgLog"></table>
-        <table tableName="tb_search_history" domainObjectName="TbSearchHistory"></table>
-        <table tableName="user" domainObjectName="User"></table>
-        <table tableName="user_formid" domainObjectName="UserFormid"></table>
-        <table tableName="user_groups" domainObjectName="UserGroups"></table>
+<!--        &lt;!&ndash; table指定每个表的生成策略 &ndash;&gt;-->
+<!--        <table tableName="admin" domainObjectName="Admin"></table>-->
+<!--        <table tableName="categories" domainObjectName="Categories"></table>-->
+<!--        <table tableName="comments" domainObjectName="Comments"></table>-->
+<!--        <table tableName="logs" domainObjectName="Logs"></table>-->
+<!--        <table tableName="menus" domainObjectName="Menus"></table>-->
+<!--        <table tableName="msg_request" domainObjectName="MsgRequest"></table>-->
+<!--        <table tableName="posts" domainObjectName="Posts"></table>-->
+<!--        <table tableName="post_categories" domainObjectName="PostCategories"></table>-->
+<!--        <table tableName="sys_msg" domainObjectName="SysMsg"></table>-->
+<!--        <table tableName="sys_msg_log" domainObjectName="SysMsgLog"></table>-->
+<!--        <table tableName="tb_search_history" domainObjectName="TbSearchHistory"></table>-->
+<!--        <table tableName="user" domainObjectName="User"></table>-->
+<!--        <table tableName="user_formid" domainObjectName="UserFormid"></table>-->
+<!--        <table tableName="user_groups" domainObjectName="UserGroups"></table>-->
 
     </context>
 
