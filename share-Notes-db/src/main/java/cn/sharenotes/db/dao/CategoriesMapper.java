@@ -2,8 +2,9 @@ package cn.sharenotes.db.dao;
 
 import cn.sharenotes.db.domain.Categories;
 import cn.sharenotes.db.domain.CategoriesExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CategoriesMapper {
     long countByExample(CategoriesExample example);
