@@ -35,8 +35,22 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="cn.sharenotes.db.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <!--生成对应表及类名-->
-        <table domainObjectName="ItemDesc" tableName="tb_item_desc" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
+        
+        <!-- table指定每个表的生成策略 -->
+        <table tableName="admin" domainObjectName="Admin"></table>
+        <table tableName="categories" domainObjectName="Categories"></table>
+        <table tableName="comments" domainObjectName="Comments"></table>
+        <table tableName="logs" domainObjectName="Logs"></table>
+        <table tableName="menus" domainObjectName="Menus"></table>
+        <table tableName="msg_request" domainObjectName="MsgRequest"></table>
+        <table tableName="posts" domainObjectName="Posts"></table>
+        <table tableName="post_categories" domainObjectName="PostCategories"></table>
+        <table tableName="sys_msg" domainObjectName="SysMsg"></table>
+        <table tableName="sys_msg_log" domainObjectName="SysMsgLog"></table>
+        <table tableName="tb_search_history" domainObjectName="TbSearchHistory"></table>
+        <table tableName="user" domainObjectName="User"></table>
+        <table tableName="user_formid" domainObjectName="UserFormid"></table>
+        <table tableName="user_groups" domainObjectName="UserGroups"></table>
 
     </context>
 
