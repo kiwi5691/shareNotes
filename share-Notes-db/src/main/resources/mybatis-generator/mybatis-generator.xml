@@ -10,15 +10,15 @@
         </commentGenerator>
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://134.175.132.161:3306/b2b_mall?characterEncoding=UTF-8"
-                        userId="b2b_mall"
-                        password="hmjZRkaiJPMSTMdh" >
+                        connectionURL="jdbc:mysql://134.175.132.161:3306/sharenotes_dev?characterEncoding=UTF-8"
+                        userId="sharenotes_dev"
+                        password="YwbTrt5C8LFxXXbm" >
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.b2b.mall.db.domain" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="cn.sharenotes.db.domain" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -32,7 +32,7 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.b2b.mall.db.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.sharenotes.db.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->

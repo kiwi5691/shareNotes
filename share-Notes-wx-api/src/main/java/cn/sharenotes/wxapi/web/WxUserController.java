@@ -2,6 +2,9 @@ package cn.sharenotes.wxapi.web;
 
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.wxapi.annotation.LoginUser;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,10 @@ public class WxUserController {
      * @param userId 用户ID
      * @return 用户个人页面数据
      */
+    @ApiOperation(value = "用户个人页面数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name ="userId",value = "用户id",paramType = "path",required = true,dataType = "Integer")
+    })
     @GetMapping("index")
     public Object list(@LoginUser Integer userId) {
         if (userId == null) {
