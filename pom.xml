@@ -46,6 +46,13 @@
                  <version>1.1.10</version>
              </dependency>
 
+             <!-- Spring Boot pagehelper 依赖 -->
+             <dependency>
+                 <groupId>com.github.pagehelper</groupId>
+                 <artifactId>pagehelper-spring-boot-starter</artifactId>
+                 <version>1.2.5</version>
+             </dependency>
+
          </dependencies>
 
     </dependencyManagement>
@@ -55,6 +62,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>

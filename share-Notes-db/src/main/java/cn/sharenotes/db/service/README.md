@@ -1,0 +1,1 @@
+请把dao管理的service写此，需要耦合core，再在wx-api 模块写
