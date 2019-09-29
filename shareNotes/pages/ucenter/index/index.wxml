@@ -1,10 +1,10 @@
-<view class="container">
   <view class="profile-info" bindtap="goLogin">
-    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
     <view class="info">
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
       <text class="name">{{userInfo.nickName}}</text>
     </view>
   </view>
+
 
   <view class='separate'></view>
 
@@ -44,4 +44,3 @@
     </view>
   </view>
 
-</view>

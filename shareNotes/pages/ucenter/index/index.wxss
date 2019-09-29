@@ -12,43 +12,38 @@ page {
 }
 
 .profile-info {
-  background-color: #ab956d;
+  background-color: #87b7cfde;
   color: #f4f4f4;
-  display: flex;
-  align-items: center;
   padding: 30rpx;
   font-size: 28rpx;
 }
 
 .profile-info .avatar {
-  height: 148rpx;
-  width: 148rpx;
+  height: 150rpx;
+  width: 150rpx;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .profile-info .info {
   flex: 1;
-  height: 85rpx;
-  padding-left: 31.25rpx;
+  height: 350rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-info .name {
-  display: block;
-  height: 45rpx;
-  line-height: 45rpx;
-  color: #fff;
+  line-height: 350rpx;
+  color: rgb(10, 10, 10);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   font-size: 37.5rpx;
-  margin-bottom: 10rpx;
-}
-
-.profile-info .level {
-  display: block;
-  height: 30rpx;
-  line-height: 30rpx;
-  margin-bottom: 10rpx;
-  color: #7f7f7f;
-  font-size: 30rpx;
-}
+ }
 
 .user_area {
   /* border: 1px solid black; */
