@@ -9,21 +9,21 @@ Page({
     // 页面渲染完成
 
   },
-  onReady: function() {
+  onReady: function () {
 
   },
-  onShow: function() {
+  onShow: function () {
     // 页面显示
   },
-  onHide: function() {
+  onHide: function () {
     // 页面隐藏
 
   },
-  onUnload: function() {
+  onUnload: function () {
     // 页面关闭
 
   },
-  wxLogin: function(e) {
+  wxLogin: function (e) {
     if (e.detail.userInfo == undefined) {
       app.globalData.hasLogin = false;
       util.showErrorToast('微信登录失败');
@@ -45,7 +45,7 @@ Page({
 
     });
   },
-  accountLogin: function() {
+  accountLogin: function () {
     wx.navigateTo({
       url: "/pages/auth/accountLogin/accountLogin"
     });

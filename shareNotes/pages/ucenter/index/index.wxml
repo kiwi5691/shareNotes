@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="profile-info" bindtap="goLogin">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+    <view class="info">
+      <text class="name">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+
+  <view class='separate'></view>
+
+  <view class='user_area'>
+    <view class='user_row' bindtap='goOrder'>
+      <view class='user_row_left'>我的消息</view>
+      <image class='user_row_right' src='/static/images/goright.png'></image>
+     </view>
+  </view>
+
+  <view class='separate'></view>
+
+
+
+  <view class='user_row'>
+    <view class='user_row_left'>联系</view>
+  </view>
+  <view class='user_column'>
+
+    <view class='user_column_item' bindtap='goHelp'>
+      <image class='user_column_item_image' src='/static/images/ic_menu_topic_nor.png'></image>
+      <view class='user_column_item_text'>帮助中心</view>
+    </view>
+    <view class='user_column_item' bindtap='goFeedback'>
+      <image class='user_column_item_image' src='/static/images/feedback.png'></image>
+      <view class='user_column_item_text'>意见反馈</view>
+    </view>
+    <view class='user_column_item'>
+      <contact-button style="opacity:0;position:absolute;" type="default-dark" session-from="weapp" size="27">
+      </contact-button>
+      <image class='user_column_item_image' src='/static/images/customer.png'></image>
+      <view class='user_column_item_text'>联系客服</view>
+    </view>
+    <view class='user_column_item' bindtap='aboutUs'>
+      <image class='user_column_item_image' src='/static/images/about_us.png'></image>
+      <view class='user_column_item_text'>关于我们</view>
+    </view>
+  </view>
+
+</view>

@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/ucenter/index/index",
     "pages/auth/login/login"
   ],
   "window":{
@@ -28,7 +29,7 @@
         "text": "笔记"
       },     
       {
-        "pagePath": "pages/auth/login/login",
+        "pagePath": "pages/ucenter/index/index",
         "iconPath": "static/images/my.png",
         "selectedIconPath": "static/images/my@selected.png",
         "text": "个人"
