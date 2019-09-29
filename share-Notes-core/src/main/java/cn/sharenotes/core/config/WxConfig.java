@@ -7,20 +7,29 @@ import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
 import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
+@Slf4j
 @Configuration
+@PropertySource(value = "classpath:wxconf.properties")
 public class WxConfig {
-    @Autowired
-    private WxProperties properties;
+
+    @Value("${APP_ID}")
+    private String appId;
+    @Value("${APP_SERCET}")
+    private String appSecret;
 
     @Bean
     public WxMaConfig wxMaConfig() {
         WxMaInMemoryConfig config = new WxMaInMemoryConfig();
-        config.setAppid(properties.getAppId());
-        config.setSecret(properties.getAppSecret());
+        config.setAppid(appId);
+        config.setSecret(appSecret);
+        log.info("id"+appId);
+        log.info("key"+appSecret);
         return config;
     }
 
@@ -35,7 +44,7 @@ public class WxConfig {
     @Bean
     public WxPayConfig wxPayConfig() {
         WxPayConfig payConfig = new WxPayConfig();
-        payConfig.setAppId(properties.getAppId());
+        payConfig.setAppId(appId);
         payConfig.setTradeType("JSAPI");
         payConfig.setSignType("MD5");
         return payConfig;

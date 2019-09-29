@@ -15,6 +15,8 @@ import cn.sharenotes.db.model.dto.WxLoginInfo;
 import cn.sharenotes.db.service.UserService;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.UserTokenManager;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -36,11 +38,11 @@ import static cn.sharenotes.core.utils.WxResponseCode.*;
 /**
  * 鉴权服务
  */
+@Slf4j
 @RestController
 @RequestMapping("/wx/auth")
 @Validated
 public class WxAuthController {
-    private final Log logger = LogFactory.getLog(WxAuthController.class);
 
     @Autowired
     private UserService userService;
@@ -106,6 +108,7 @@ public class WxAuthController {
      * @param request     请求对象
      * @return 登录结果
      */
+    @ApiOperation(value = "通过微信openid登录")
     @PostMapping("login_by_weixin")
     public Object loginByWeixin(@RequestBody WxLoginInfo wxLoginInfo, HttpServletRequest request) {
         String code = wxLoginInfo.getCode();
@@ -120,6 +123,8 @@ public class WxAuthController {
             WxMaJscode2SessionResult result = this.wxService.getUserService().getSessionInfo(code);
             sessionKey = result.getSessionKey();
             openId = result.getOpenid();
+            log.info("id",openId);
+            log.info("key",sessionKey);
         } catch (Exception e) {
             e.printStackTrace();
         }

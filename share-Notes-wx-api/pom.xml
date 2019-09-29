@@ -31,16 +31,6 @@
             <version>1.4.0</version>
         </dependency>
 
-        <!--        微信工具类-->
-
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-pay</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
-        </dependency>
 
 
         <dependency>
@@ -115,11 +105,7 @@
             <version>0.0.1</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
-            <version>3.3.0</version>
-        </dependency>
+
     </dependencies>
 
     <build>
