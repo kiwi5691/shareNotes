@@ -38,6 +38,9 @@ import java.util.Map;
  *  <ul>
  *  <li> 601, 用户菜单下没有目录
  *  <ul/>
+ *  <ul>
+ *  <li> 701, 用户菜单下没有朋友
+ *  <ul/>
  * </ul>
  * @author kiwi
  */
