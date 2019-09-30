@@ -1,0 +1,20 @@
+<i-divider content="加载完成"></i-divider>
+
+<i-cell-group>
+    <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
+    <view slot="content">内容1111</view>
+    </i-card>
+     <i-card bindtap="goPostDetail"  title="标题" extra="2019/1/35 19:12:203">    
+    <view slot="content">内容1111</view>
+    </i-card>
+     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
+    <view slot="content">内容1111</view>
+    </i-card>
+     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
+    <view slot="content">内容1111</view>
+    </i-card>
+
+
+</i-cell-group>
+
+

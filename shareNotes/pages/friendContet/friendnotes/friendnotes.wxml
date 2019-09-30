@@ -1,0 +1,40 @@
+<i-panel>
+<view class="main">
+    <view style="font-size:20px;margin-left: 15rpx;">kiwiwiwiwiwiw</view>
+    <view class="visit">
+      <i-badge count="66" i-class-alone="demo-badge-alone" />
+     </view> 
+</view>
+</i-panel>    
+<i-panel title="内容">
+    <text class='dialog-close' decode='true' >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</text>
+</i-panel>   
+
+<i-divider content="评论" ></i-divider>
+
+
+<i-cell-group>
+    <i-card thumb="/static/images/head.png"  title="标题" extra="2019/1/35 19:12:20">    
+    <view slot="content">内容1111</view>
+    </i-card>
+     <i-card thumb="/static/images/head.png"   title="标题" extra="2019/1/35 19:12:203">    
+    <view slot="content">内容1111</view>
+    </i-card>
+     <i-card thumb="/static/images/head.png"  title="标题" extra="2019/1/35 19:12:20">    
+    <view slot="content">内容1111</view>
+    </i-card>
+
+
+</i-cell-group>
+
+<i-panel title="您的评论">
+    <i-input value="{{ value5 }}" placeholder="请输入您的评论" />
+</i-panel>
+<i-cell-group>
+    <i-cell title="是否匿名">
+        <i-switch value="{{switch1}}" bind:change="onChange" slot="footer"></i-switch>
+    </i-cell>
+</i-cell-group>
+
+<i-button bind:click="handleClick" type="primary" shape="circle" size="small">提交评论</i-button>
+

@@ -1,0 +1,18 @@
+<i-panel title="关于">
+<i-card  full="true" extra="kiwi"  thumb="https://wx.qlogo.cn/mmopen/vi_32/jztWyPiaickdpCJCMFFsBVGeBBwVmQGm3Og3icPsff2qhiagianseQg8D1zksCmycPKYhAxCHA7OODjaTnDufj4BCGw/132">
+    <view slot="content">Share Notes</view>
+</i-card></i-panel>
+
+
+<i-panel title="联系邮件">
+    <view style="padding: 15px;"><i-icon type="remind" size="28"/>~~805344479@qq.com</view>
+</i-panel>
+<i-panel title="当前版本">
+    <view style="padding: 15px;"><i-icon type="dynamic" size="28"/>~~0.1.0</view>
+</i-panel>
+<i-panel title="组件">
+    <view style="padding: 15px;"><i-icon type="like" size="28"/>~~感谢iView组件，我真的不是写前端的料</view>
+</i-panel>
+<i-panel title="开发者">
+    <view style="padding: 15px;"><i-icon type="group" size="28"/>~~kiwi,hu,46</view>
+</i-panel>

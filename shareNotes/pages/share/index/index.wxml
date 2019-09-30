@@ -8,12 +8,14 @@
 
         <view class="address_top">{{group.region}}</view>
 
+     
         <view wx:for="{{group.items}}" wx:for-item="item" wx:key="{{item.brandId}}">
-
-                <view class="address_bottom" data-id='{{item.brandId}}'>{{item.name}}</view>
+ <view class="main" bindtap="goFriendCate" >
+        <image  src="/static/images/head.png" style="margin-left: 15rpx; height: 120rpx;width:120rpx;"></image> 
+        <view class="address_bottom"  data-id='{{item.brandId}}'>{{item.name}}</view>
 
         </view>
-
+    </view>
     </view>
 
 </scroll-view>

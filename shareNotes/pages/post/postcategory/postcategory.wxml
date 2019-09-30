@@ -1,24 +1,42 @@
-<i-button bind:click="handleOpen5" shape="circle" size="small">删除目录</i-button>
+<i-divider content="目录修改时间:2019/1/35 19:12:20" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
 <i-cell-group>
-    <i-card bindtap="goPostDetail" title="标题" extra="2019.12.15.8:10:13">    
+    <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
     <view slot="content">内容1111</view>
     </i-card>
-     <i-card bindtap="goPostDetail"  title="标题" extra="2019.12.15.8:10:13">    
+     <i-card bindtap="goPostDetail"  title="标题" extra="2019/1/35 19:12:203">    
     <view slot="content">内容1111</view>
     </i-card>
-     <i-card bindtap="goPostDetail" title="标题" extra="2019.12.15.8:10:13">    
+     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
     <view slot="content">内容1111</view>
     </i-card>
-     <i-card bindtap="goPostDetail" title="标题" extra="2019.12.15.8:10:13">    
+     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
     <view slot="content">内容1111</view>
     </i-card>
 
 
 </i-cell-group>
 
+<i-divider content="目录创建时间:2019/1/25 19:12:20" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+
+
 
 <i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
-    <view>删除后无法恢复哦</view>
+    <view>会删除整个目录的笔记，并且删除后无法恢复哦</view>
 </i-modal>
 <i-message id="message" />
+
+<i-drawer mode="right" visible="{{showRight2}}" mask-closable="{{false}}">
+    <view class="demo-container">
+        请选择您的操作
+   <i-button bind:click="goCreatePost" shape="circle"  type="error" >创建笔记</i-button>
+   <i-button bind:click="goEditCate" shape="circle"  type="success" >修改目录</i-button>
+     <i-button bind:click="handleOpen5" shape="circle"  type="warning">删除目录</i-button>
+      <i-button bind:click="toggleRight2" shape="circle" type="primary">关闭抽屉</i-button>
+
+    </view>
+</i-drawer>
+
+<view bindtap="toggleRight2">
+    <image class="add_icon" src="/static/images/edit.png"></image>
+</view>

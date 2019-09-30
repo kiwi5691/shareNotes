@@ -1,8 +1,8 @@
 // 本机开发时使用
-var WxApiRoot = 'http://localhost:8888/wx/';
+// var WxApiRoot = 'http://localhost:8080/wx/';
 
 // 云平台部署时使用
-// var WxApiRoot = 'http://3.14.127.134:8080/wx/';
+var WxApiRoot = 'http://3.14.127.134:8080/wx/';
 // 云平台上线时使用
 // var WxApiRoot = 'https://www.kiwi1.cn/wx/';
 

@@ -2,7 +2,8 @@
   "usingComponents": {
 
     "i-panel": "../../dist/panel/index",
-    "i-icon": "../../dist/icon/index"
+    "i-icon": "../../dist/icon/index",
+     "i-badge": "../../dist/badge/index"
   },
   "backgroundColor": "#f4f4f4",
   "navigationBarTitleText": "个人中心",

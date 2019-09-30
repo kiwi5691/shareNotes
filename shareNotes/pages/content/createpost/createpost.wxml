@@ -1,0 +1,21 @@
+<i-tab-bar  >
+    <i-tab-bar-item ></i-tab-bar-item>
+</i-tab-bar>
+<i-tab-bar  >
+    <i-tab-bar-item ></i-tab-bar-item>
+</i-tab-bar>
+<view class="h1">
+<text style="font-size: 50rpx;">创建笔记</text>
+</view>
+<i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+<i-panel >
+    <i-input type="text" value="{{ value1 }}" title="笔记名" autofocus placeholder="请输入笔记名" />
+</i-panel>
+  <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+
+  <i-button bind:click="handleOpen5" type="success" shape="circle" size="large">创建完毕</i-button>
+  <i-modal title="创建确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>创建修改吗</view>
+</i-modal>
+
+<i-message id="message" />

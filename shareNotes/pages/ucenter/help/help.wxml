@@ -1,0 +1,15 @@
+<i-panel title="抽屉">
+    <view style="padding: 15px;"><i-icon type="barrage" size="28"/>~~点击右下角的按钮后。再点击关闭抽屉后可关闭</view>
+</i-panel>
+<i-panel title="登录">
+    <view style="padding: 15px;"><i-icon type="remind" size="28"/>~~登录可能会比较久，因为服务器不好</view>
+</i-panel>
+<i-panel title="目录">
+    <view style="padding: 15px;"><i-icon type="picture" size="28"/>~~目录的头像是随机生成的</view>
+</i-panel>
+<i-panel title="朋友">
+    <view style="padding: 15px;"><i-icon type="group" size="28"/>~~添加朋友可以点击右上角的分享来添加</view>
+</i-panel>
+<i-panel title="评论">
+    <view style="padding: 15px;"><i-icon type="share" size="28"/>~~别人的给你的评论是不能评论的，他人的同理。因为这个小程序就是只是分享笔记，不打算作为其他平台一样可以聊天的</view>
+</i-panel>

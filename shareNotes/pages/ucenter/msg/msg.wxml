@@ -1,0 +1,14 @@
+<i-cell-group>
+    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
+    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
+    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
+    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
+
+</i-cell-group>
+
+<i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>删除后无法恢复哦</view>
+</i-modal>
+
+<i-button style="width: 100%;position: fixed;bottom:0px;display: flex;justify-content: center;" bind:click="handleOpen5">删除所有消息</i-button>
+

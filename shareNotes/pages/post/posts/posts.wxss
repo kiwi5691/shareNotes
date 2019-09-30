@@ -1,1 +1,50 @@
-/* pages/post/posts/posts.wxss */
+
+.add_icon{
+
+  position: fixed;
+
+  width:42px;
+
+  height:42px;
+
+bottom: 30px;
+
+right: 20px;
+
+}
+
+.main {
+ display: flex;
+  flex-direction: row;
+}
+
+.main .visit{
+margin-left: 300rpx;
+color:#A2A2A2;
+}
+
+
+page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.detail {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15rpx;
+  margin-bottom: 0rpx;
+}
+.detail .title {
+  font-size: 40rpx;
+  margin: 10rpx;
+  color: black;
+  text-align: justify;
+}
+.info{
+    word-break:break-all;
+
+}
+
+
+ 

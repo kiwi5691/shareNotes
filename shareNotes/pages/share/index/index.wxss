@@ -184,7 +184,13 @@ page {
 
 .address_top { height: 36px; line-height: 36px; background: #f5f5f5; color:rgba(153,153,153,1); font-size: 28rpx; padding: 0 20rpx;}
 
-.address_bottom { height: 88rpx; line-height: 88rpx; background: #fff; color: #000; font-size: 28rpx; padding: 0 20rpx; border-bottom: 2rpx #ebebeb solid; margin-left: 15rpx;}
+.address_bottom { height: 88rpx; line-height: 118rpx; background: #fff; color: #000; font-size: 28rpx; padding: 0 20rpx; border-bottom: 2rpx #ebebeb solid; }
+
+.main {
+ display: flex;
+  flex-direction: row;
+}
+
 
 .location_img { width: 48rpx; height: 48rpx; position: absolute; right: 20rpx; top: 125rpx;}
 

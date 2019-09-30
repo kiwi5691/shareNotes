@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    visibleCom: false,
+    switch1: true,
     showRigh2: false,
     visible5: false,
     actions5: [
@@ -18,6 +20,11 @@ Page({
       }
     ]
 
+  },
+  handleOpenDel() {
+    this.setData({
+      visibleCom: true
+    });
   },
   toggleRight2() {
     this.setData({
@@ -54,6 +61,44 @@ Page({
         });
       }, 2000);
     }
+  },
+  handleClickDelCo({ detail }) {
+    if (detail.index === 0) {
+      this.setData({
+        visibleCom: false
+      });
+    } else {
+      const action = [...this.data.actions5];
+      action[1].loading = true;
+
+      this.setData({
+        actions5: action
+      });
+
+      setTimeout(() => {
+        action[1].loading = false;
+        this.setData({
+          visibleCom: false,
+          actions5: action
+        });
+        $Message({
+          content: '删除成功！',
+          type: 'success'
+        });
+      }, 2000);
+    }
+  },
+  onChange(event) {
+    const detail = event.detail;
+    this.setData({
+      'switch1': detail.value
+    })
+
+  },
+  goEditPost() {
+    wx.navigateTo({
+      url: "/pages/content/editpost/editpost"
+    })
   },
   /**
    * 生命周期函数--监听页面加载

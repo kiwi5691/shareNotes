@@ -94,5 +94,10 @@ Page({
 
     that.getBrands();
 
-  }
+  },
+  goFriendCate() {
+    wx.navigateTo({
+      url: "/pages/friendContet/friendCate/friendCate"
+    })
+  },
 })

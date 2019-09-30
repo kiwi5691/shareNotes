@@ -1,12 +1,11 @@
-// pages/post/postcategory/postcategory.js
-var app = getApp();
-
+// pages/post/posts/posts.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    showRigh2: false,
     visible5: false,
     actions5: [
       {
@@ -18,11 +17,12 @@ Page({
         loading: false
       }
     ]
+
   },
-  goPostDetail() {
-      wx.navigateTo({
-        url: "/pages/post/posts/posts"
-    })
+  toggleRight2() {
+    this.setData({
+      showRight2: !this.data.showRight2
+    });
   },
   handleOpen5() {
     this.setData({
@@ -55,6 +55,21 @@ Page({
       }, 2000);
     }
   },
+  goPostDetail() {
+    wx.navigateTo({
+      url: "/pages/post/posts/posts"
+    })
+  },
+  goEditCate() {
+    wx.navigateTo({
+      url: "/pages/content/editcategory/editcategory"
+    })
+  },
+  goCreatePost() {
+    wx.navigateTo({
+      url: "/pages/content/createpost/createpost"
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -75,6 +90,7 @@ Page({
   onShow: function () {
 
   },
+
   /**
    * 生命周期函数--监听页面隐藏
    */

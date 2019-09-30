@@ -1,0 +1,12 @@
+<i-panel title="关于">
+<i-card  full="true"title="categories1" extra="kiwi"  thumb="https://wx.qlogo.cn/mmopen/vi_32/jztWyPiaickdpCJCMFFsBVGeBBwVmQGm3Og3icPsff2qhiagianseQg8D1zksCmycPKYhAxCHA7OODjaTnDufj4BCGw/132">
+    <view slot="content">笔记111:写得酷哦</view>
+</i-card></i-panel>
+
+<i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>删除后无法恢复哦</view>
+</i-modal>
+
+<i-button style="width: 100%;position: fixed;bottom:0px;display: flex;justify-content: center;" bind:click="handleOpen5">删除此消息</i-button>
+
+<!-- 判断是否匿名 -->

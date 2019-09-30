@@ -17,7 +17,7 @@ Page({
 
     wx.navigateTo({
 
-      url: '../adddetial/adddetial',
+      url: '../content/adddetial/adddetial',
 
       success: function (res) { },
 

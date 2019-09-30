@@ -5,7 +5,18 @@
     "pages/auth/login/login",
     "pages/share/index/index",
     "pages/post/postcategory/postcategory",
-    "pages/post/posts/posts"
+    "pages/post/posts/posts",
+    "pages/content/adddetial/adddetial",
+    "pages/content/editcategory/editcategory",
+    "pages/content/createpost/createpost",
+    "pages/content/editpost/editpost",
+    "pages/friendContet/friendCate/friendCate",
+    "pages/friendContet/friendCateDel/friendCateDel",
+    "pages/friendContet/friendnotes/friendnotes",
+    "pages/ucenter/about/about",
+    "pages/ucenter/help/help",
+    "pages/ucenter/msg/msg",
+    "pages/ucenter/msgDetail/msgDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

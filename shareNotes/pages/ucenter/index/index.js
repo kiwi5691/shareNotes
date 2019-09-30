@@ -11,6 +11,21 @@ Page({
     },
     hasLogin: false
   },
+  goMsg() {
+    wx.navigateTo({
+      url: "/pages/ucenter/msg/msg"
+    })
+  },
+  goHelp() {
+    wx.navigateTo({
+      url: "/pages/ucenter/help/help"
+    })
+  },
+  goAbout() {
+    wx.navigateTo({
+      url: "/pages/ucenter/about/about"
+    })
+  },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
   },

@@ -19,8 +19,15 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
+    flex-direction: column ;
+
 }
 
+
+.main .visit{
+margin-left: 300rpx;
+color:#A2A2A2;
+}
 .profile-info .avatar {
   height: 150rpx;
   width: 150rpx;
@@ -32,18 +39,24 @@ page {
   flex: 1;
   height: 350rpx;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .profile-info .name {
-  line-height: 350rpx;
   color: rgb(10, 10, 10);
   display: flex;
-  justify-content: center;
-  flex-direction: column;
   font-size: 37.5rpx;
  }
+
+.main {
+ display: flex;
+  flex-direction: row;
+}
+
+.main .visit{
+margin-left: 410rpx;
+}
+
+
 
 .user_area {
   /* border: 1px solid black; */

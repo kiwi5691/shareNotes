@@ -1,0 +1,14 @@
+<!--index.wxml-->
+<i-tabs current="{{ current }}" bindchange="handleChange">
+    <i-tab key="tab1" title="私人目录"></i-tab>
+</i-tabs>
+
+  <i-cell-group >
+    <i-cell  is-link url="/pages/friendContet/friendCateDel/friendCateDel"><i-icon type="activity" size="28"/>  category3</i-cell>
+    <i-cell  is-link url="/pages/friendContet/friendCateDel/friendCateDel"><i-icon type="barrage" size="28"/>   category2</i-cell>
+    <i-cell  is-link url="/pages/friendContet/friendCateDel/friendCateDel" ><i-icon type="brush" size="28"/>    category1</i-cell>
+</i-cell-group>
+  
+
+
+ 

@@ -5,15 +5,19 @@
     
   </button>
 
-  <i-panel title="消息">
-    <view style="padding: 15px;"><i-icon type="message"size="28" />   查看我的消息</view>
+  <i-panel title="消息" bindtap="goMsg">
+<view class="main">
+
+    <view style="padding: 15px;"><i-icon type="message"size="28" />   查看我的消息<i-badge class="visit" count="66" i-class-alone="demo-badge-alone" />
+</view>
+</view>
 </i-panel>
 
- <i-panel title="帮助">
+ <i-panel title="帮助" bindtap="goHelp">
     <view style="padding: 15px;"><i-icon type="createtask"size="28" />   快速上手</view>
 </i-panel>
 
-  <i-panel title="关于">
+  <i-panel title="关于" bindtap="goAbout">
     <view style="padding: 15px;"><i-icon type="feedback"size="28" />   欢迎来提交issue呀</view>
 </i-panel>
 

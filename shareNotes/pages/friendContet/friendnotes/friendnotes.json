@@ -1,0 +1,17 @@
+{
+  "usingComponents": {
+    "i-cell-group": "../../dist/cell-group/index",
+    "i-cell": "../../dist/cell/index",
+    "i-button": "../../dist/button/index",
+    "i-card": "../../dist/card/index",
+    "i-panel": "../../dist/panel/index",
+    "i-drawer": "../../dist/drawer/index",
+    "i-modal": "../../dist/modal/index",
+    "i-divider": "../../dist/divider/index",
+    "i-badge": "../../dist/badge/index",
+    "i-switch": "../../dist/switch/index",
+    "i-icon": "../../dist/icon/index",
+    "i-input": "../../dist/input/index"
+  },
+  "navigationBarTitleText": "笔记详细"
+}
