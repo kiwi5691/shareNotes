@@ -1,1 +1,205 @@
-/* pages/share/index/index.wxss */
+page {
+
+    height: 100%; 
+
+}
+
+.search {
+
+    display: flex;
+
+    position: relative;
+
+    padding: 20rpx 30rpx;
+
+    background: #fff;
+
+}
+
+.search .input-wrapper {
+
+    background: #f2f2f2;
+
+    width: 80%;
+
+    display: flex;
+
+    height: 68rpx;
+
+    border-radius: 68rpx;
+
+    position: relative;
+
+}
+
+.search .input-wrapper input {
+
+    height: 68rpx;
+
+    width: calc(100% - 84rpx);
+
+    margin-left: 20rpx;
+
+}
+
+.search .input-wrapper .searchImg {
+
+    width: 32rpx;
+
+    height: 32rpx;
+
+    margin-left: 32rpx;
+
+    position: relative;
+
+    top: 50%;
+
+    margin-top: -18rpx;
+
+}
+
+.search .input-wrapper .delImg {
+
+    width: 32rpx;
+
+    height: 32rpx;
+
+    position: relative;
+
+    top: 50%;
+
+    margin-top: -16rpx;
+
+    right: 32rpx;
+
+    vertical-align: top;
+
+}
+
+.search .searchBtn {
+
+    color: #348efa;
+
+    width: 20%;
+
+    text-align: center;
+
+    line-height: 68rpx;
+
+    font-size: 36rpx;
+
+}
+
+.currentCity {
+
+    padding: 20rpx 30rpx;
+
+}
+
+.currentCity .subTitle {
+
+    font-weight: bold;
+
+    font-size: 28rpx;
+
+}
+
+.currentCity .city {
+
+    border: 1px solid #ccc;
+
+    display: inline-block;
+
+    padding: 10rpx 40rpx;
+
+    border-radius: 8rpx;
+
+    margin-top: 20rpx;
+
+}
+
+.currentCity .city image {
+
+    width: 26rpx;
+
+    height: 32rpx;
+
+    vertical-align: top;
+
+}
+
+.hotCity {
+
+    padding: 0 80rpx 0 30rpx;
+
+}
+
+.hotCity .subTitle {
+
+    font-weight: bold;
+
+}
+
+.hotCity .content {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+}
+
+.hotCity .content {
+
+    margin-top: 20rpx;
+
+}
+
+.hotCity .content .unit {
+
+    width: 30%;
+
+    border: 1px solid#CCCCCC;
+
+    text-align: center;
+
+    border-radius: 8rpx;
+
+    padding: 10rpx 0;
+
+    margin-bottom: 20rpx;
+
+}
+
+.allCity { height:50px; line-height: 50px; padding: 0 30rpx; font-weight: bold; font-size: 30rpx;}
+
+.contentList { padding-bottom: 20rpx; box-sizing: border-box; height: 100%; bottom: 0; position: absolute;}
+
+.location { width: 100%;}
+
+.location_top { height: 76rpx; line-height: 76rpx; background: #f4f4f4; color: #606660; font-size: 28rpx; padding: 0 20rpx;}
+
+.location_bottom { height: 140rpx; line-height: 140rpx; color: #d91f16; font-size: 28rpx; border-top: 2rpx #ebebeb solid; border-bottom: 2rpx #ebebeb solid; padding: 0 20rpx; align-items: center; display: -webkit-flex;}
+
+.address_top { height: 36px; line-height: 36px; background: #f5f5f5; color:rgba(153,153,153,1); font-size: 28rpx; padding: 0 20rpx;}
+
+.address_bottom { height: 88rpx; line-height: 88rpx; background: #fff; color: #000; font-size: 28rpx; padding: 0 20rpx; border-bottom: 2rpx #ebebeb solid; margin-left: 15rpx;}
+
+.location_img { width: 48rpx; height: 48rpx; position: absolute; right: 20rpx; top: 125rpx;}
+
+.add_city { width: 228rpx; height: 60rpx; line-height: 60rpx; text-align: center; border: 2rpx solid #ebebeb; color: #000; margin-right: 20rpx;}
+
+.add_citying { width: 228rpx; height: 60rpx; line-height: 60rpx; text-align: center; border: 2rpx solid #09bb07; color: #09bb07; margin-right: 20rpx;}
+
+.orientation { white-space: normal; display: inline-block; width: 45rpx; height: 50rpx; font-size: 28rpx; font-weight: bold; color: rgb(88, 87, 87); text-align: center;}
+
+.orientation_region { padding: 5px 0px; width: 45rpx; font-size: 20rpx; position: fixed; top: 50%; right: 6rpx; transform: translate(0, -50%); background: rgb(199, 198, 198); border-radius: 10px;}
+
+.orientation_city { height: 40rpx; line-height: 40rpx; color: #000; text-align: center;}
+
+.active { color: #2cc1d1;}
+
+.list-fixed { position: absolute; width: 100%; z-index: 999; height: 36px; line-height: 36px; background: #ebebeb; color: #999; font-size: 28rpx; padding: 0 20rpx;}
+
+.fixed-title { color: #2cc1d1;}.hide{ display: none;}

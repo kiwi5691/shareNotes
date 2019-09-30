@@ -1,7 +1,4 @@
 {
-  "usingComponents": {
-    "i-index": "../../dist/index/index",
-    "i-index-item": "../../dist/index-item/index"
-  },
-  "navigationBarTitleText": "分享"
+  
+  "navigationBarTitleText": "我的朋友们"
 }

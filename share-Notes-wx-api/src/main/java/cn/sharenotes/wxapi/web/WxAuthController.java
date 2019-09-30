@@ -123,8 +123,6 @@ public class WxAuthController {
             WxMaJscode2SessionResult result = this.wxService.getUserService().getSessionInfo(code);
             sessionKey = result.getSessionKey();
             openId = result.getOpenid();
-            log.info("id",openId);
-            log.info("key",sessionKey);
         } catch (Exception e) {
             e.printStackTrace();
         }

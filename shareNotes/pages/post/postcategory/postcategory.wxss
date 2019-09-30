@@ -1,4 +1,3 @@
-/**index.wxss**/
 .add_icon{
 
   position: fixed;
@@ -12,5 +11,3 @@ bottom: 30px;
 right: 20px;
 
 }
-
-

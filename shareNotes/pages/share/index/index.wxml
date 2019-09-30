@@ -1,18 +1,47 @@
-<view class="i-index-demo">
-    <i-index height="100%" bind:change="onChange">
-        <i-index-item 
-            wx:for="{{ cities }}" 
-            wx:for-index="index" 
-            wx:key="{{index}}" 
-            wx:for-item="item" name="{{item.key}}">
-            <view 
-                class="i-index-demo-item" 
-                wx:for="{{item.list}}" 
-                wx:for-index="in" 
-                wx:key="{{in}}" 
-                wx:for-item="it">
-                {{it.name}}
-            </view>
-        </i-index-item>
-    </i-index>
+<view>
+
+<!-- 左侧列表内容部分 -->
+
+<scroll-view class="contentList" enable-back-to-top scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="onPageScroll">
+
+    <view wx:for="{{listMain}}" wx:for-item="group" wx:key="{{group.id}}" id="{{ 'inTo'+group.id}}" data-id='{{group.id}}'>
+
+        <view class="address_top">{{group.region}}</view>
+
+        <view wx:for="{{group.items}}" wx:for-item="item" wx:key="{{item.brandId}}">
+
+                <view class="address_bottom" data-id='{{item.brandId}}'>{{item.name}}</view>
+
+        </view>
+
+    </view>
+
+</scroll-view>
+
+<!-- 顶部固定分类 -->
+
+<view class="list-fixed {{fixedTitle==null ? 'hide':''}}" style="transform:translate3d(0,{{fixedTop}}px,0);">
+
+    <view class="fixed-title"> {{fixedTitle}} </view>
+
+</view>
+
+<!-- 右侧字母导航 -->
+
+<view class="orientation_region">
+
+    <view class="orientation">#</view>
+
+    <block wx:for="{{listMain}}" wx:key="{{item.id}}">
+
+        <view class="orientation_city {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}">
+
+                {{item.region}}
+
+        </view>
+
+    </block>
+
+</view>
+
 </view>

@@ -5,7 +5,6 @@ const app = getApp()
 Page({
   data: {
     current: 'tab1',
-    current_scroll: 'tab1',
   },
   handleChange({ detail }) {
     this.setData({
@@ -13,14 +12,8 @@ Page({
     });
   },
 
-  handleChangeScroll({ detail }) {
-    this.setData({
-      current_scroll: detail.key
-    });
-  },
+
   adddetial: function () {
-
-
 
     wx.navigateTo({
 

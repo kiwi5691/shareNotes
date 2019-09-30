@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+        "i-button": "../../dist/button/index",
+        "i-drawer": "../../dist/drawer/index",
+        "i-modal": "../../dist/modal/index"
+              
+  }
+}

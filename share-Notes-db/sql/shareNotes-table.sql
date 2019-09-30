@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `description` varchar(100) DEFAULT '',
   `name` varchar(50) NOT NULL,
   `parent_id` int(11) DEFAULT '0',
-  `slug_name` varchar(50) NOT NULL,
+  `slug_name` varchar(63) NOT NULL COMMENT '用户id',
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(1023) NOT NULL,
-  `user_id` varchar(1023) DEFAULT '' COMMENT "用户id",
+  `user_id` varchar(1023) DEFAULT '' COMMENT '用户id',
   `type` int(11) NOT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4;
