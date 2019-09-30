@@ -7,6 +7,9 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author 76905
+ */
 @Slf4j
 public class DtoUtils {
     /**
@@ -35,7 +38,7 @@ public class DtoUtils {
         List<T> output = new ArrayList<>();
         if (!CollectionUtils.isEmpty(input)) {
             for (E source : input) {
-                T target = BeanUtils.instantiate(clzz);
+                T target = BeanUtils.instantiateClass(clzz);
                 BeanUtils.copyProperties(source,target);
                 output.add(target);
             }

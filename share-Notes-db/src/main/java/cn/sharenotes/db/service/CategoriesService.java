@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface CategoriesService {
 
-    public List<CategoryDTO> findCategoriesByUserOpenId(Integer userId);
+    public List<CategoryDTO> findCategoriesByUserOpenId(Integer userId,Integer menuId);
 
 }
