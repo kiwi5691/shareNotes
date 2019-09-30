@@ -10,4 +10,8 @@
     <i-cell title="category1" is-link url="/pages/dashboard/index" ></i-cell>
 </i-cell-group>
   
+<view bindtap='adddetial'>
+    <image class="add_icon" src="/static/images/addicon.png"></image>
+</view>
 
+ 

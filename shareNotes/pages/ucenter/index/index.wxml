@@ -1,9 +1,9 @@
-  <view class="profile-info" bindtap="goLogin">
-    <view class="info">
+  <button class="profile-info"  open-type="getUserInfo" bindgetuserinfo="wxLogin">
+    
       <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
       <text class="name">{{userInfo.nickName}}</text>
-    </view>
-  </view>
+    
+  </button>
 
 
   <view class='separate'></view>

@@ -16,15 +16,15 @@ page {
   color: #f4f4f4;
   padding: 30rpx;
   font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-info .avatar {
   height: 150rpx;
   width: 150rpx;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
 }
 

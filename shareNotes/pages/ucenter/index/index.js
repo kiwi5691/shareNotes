@@ -9,12 +9,6 @@ Page({
       nickName: '点击登录',
       avatarUrl: 'http://yanxuan.nosdn.127.net/8945ae63d940cc42406c3f67019c5cb6.png'
     },
-    order: {
-      unpaid: 0,
-      unship: 0,
-      unrecv: 0,
-      uncomment: 0
-    },
     hasLogin: false
   },
   onLoad: function (options) {
@@ -33,14 +27,14 @@ Page({
         hasLogin: true
       });
 
-      let that = this;
-      util.request(api.UserIndex).then(function (res) {
-        if (res.errno === 0) {
-          that.setData({
-            order: res.data.order
-          });
-        }
-      });
+      // let that = this;
+      // util.request(api.UserIndex).then(function (res) {
+      //   if (res.errno === 0) {
+      //     that.setData({
+      //       order: res.data.order
+      //     });
+      //   }
+      // });
     }
 
   },
@@ -51,160 +45,32 @@ Page({
   onUnload: function () {
     // 页面关闭
   },
+  wxLogin: function (e) {
+    if (e.detail.userInfo == undefined) {
+      app.globalData.hasLogin = false;
+      util.showErrorToast('微信登录失败');
+      return;
+    }
+
+    user.checkLogin().catch(() => {
+
+      user.loginByWeixin(e.detail.userInfo).then(res => {
+        app.globalData.hasLogin = true;
+
+        this.onShow();
+      }).catch((err) => {
+        app.globalData.hasLogin = false;
+        util.showErrorToast('微信登录失败');
+      });
+
+    });
+  },
   goLogin() {
     if (!this.data.hasLogin) {
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
     }
-  },
-  goOrder() {
-    if (this.data.hasLogin) {
-      try {
-        wx.setStorageSync('tab', 0);
-      } catch (e) {
-
-      }
-      wx.navigateTo({
-        url: "/pages/ucenter/order/order"
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    }
-  },
-  goOrderIndex(e) {
-    if (this.data.hasLogin) {
-      let tab = e.currentTarget.dataset.index
-      let route = e.currentTarget.dataset.route
-      try {
-        wx.setStorageSync('tab', tab);
-      } catch (e) {
-
-      }
-      wx.navigateTo({
-        url: route,
-        success: function (res) { },
-        fail: function (res) { },
-        complete: function (res) { },
-      })
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    };
-  },
-  goCoupon() {
-    if (this.data.hasLogin) {
-      wx.navigateTo({
-        url: "/pages/ucenter/couponList/couponList"
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    };
-  },
-  goGroupon() {
-    if (this.data.hasLogin) {
-      wx.navigateTo({
-        url: "/pages/groupon/myGroupon/myGroupon"
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    };
-  },
-  goCollect() {
-    if (this.data.hasLogin) {
-      wx.navigateTo({
-        url: "/pages/ucenter/collect/collect"
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    };
-  },
-  goFeedback(e) {
-    if (this.data.hasLogin) {
-      wx.navigateTo({
-        url: "/pages/ucenter/feedback/feedback"
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    };
-  },
-  goFootprint() {
-    if (this.data.hasLogin) {
-      wx.navigateTo({
-        url: "/pages/ucenter/footprint/footprint"
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    };
-  },
-  goAddress() {
-    if (this.data.hasLogin) {
-      wx.navigateTo({
-        url: "/pages/ucenter/address/address"
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/auth/login/login"
-      });
-    };
-  },
-  bindPhoneNumber: function (e) {
-    if (e.detail.errMsg !== "getPhoneNumber:ok") {
-      // 拒绝授权
-      return;
-    }
-
-    if (!this.data.hasLogin) {
-      wx.showToast({
-        title: '绑定失败：请先登录',
-        icon: 'none',
-        duration: 2000
-      });
-      return;
-    }
-
-    util.request(api.AuthBindPhone, {
-      iv: e.detail.iv,
-      encryptedData: e.detail.encryptedData
-    }, 'POST').then(function (res) {
-      if (res.errno === 0) {
-        wx.showToast({
-          title: '绑定手机号码成功',
-          icon: 'success',
-          duration: 2000
-        });
-      }
-    });
-  },
-  goAfterSale: function () {
-    wx.showToast({
-      title: '目前不支持',
-      icon: 'none',
-      duration: 2000
-    });
-  },
-  aboutUs: function () {
-    wx.navigateTo({
-      url: '/pages/about/about'
-    });
-  },
-  goHelp: function () {
-    wx.navigateTo({
-      url: '/pages/help/help'
-    });
   },
   exitLogin: function () {
     wx.showModal({
