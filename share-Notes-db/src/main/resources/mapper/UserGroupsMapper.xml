@@ -134,6 +134,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="selectFrindByUseId" resultType="java.lang.Integer">
+    select
+    friend_id
+    from user_groups
+   where user_id = #{userId};
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update user_groups
     <set>

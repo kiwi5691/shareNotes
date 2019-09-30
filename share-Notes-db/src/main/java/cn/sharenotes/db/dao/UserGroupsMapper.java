@@ -16,6 +16,13 @@ public interface UserGroupsMapper {
 
     int insertSelective(UserGroups record);
 
+    /**
+     * 通过用户id获取朋友id集合
+     *
+     * @return 朋友id集合<XxxxDO>
+     */
+    List<Integer> selectFrindByUseId(Integer id);
+
     List<UserGroups> selectByExample(UserGroupsExample example);
 
     UserGroups selectByPrimaryKey(Integer id);
