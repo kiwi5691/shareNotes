@@ -7,6 +7,7 @@ Page({
   data: {
     visible5: false,    
     switch1: false,
+    name:'',
     actions5: [
       {
         name: '取消'
@@ -53,17 +54,15 @@ Page({
       this.setData({
         actions5: action
       });
-
+      console.log(this.data.name);
       setTimeout(() => {
         action[1].loading = false;
         this.setData({
           visible5: false,
           actions5: action
         });
-        $Message({
-          content: '创建成功！',
-          type: 'success'
-        });
+    
+        console.log(this.data.name);
       }, 2000);
     }
   },

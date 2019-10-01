@@ -4,10 +4,40 @@
     <i-tab key="tab2" title="私人"></i-tab>
 </i-tabs>
 
-  <i-cell-group wx:for="{{publicCate}}" wx:key="id">
-    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="activity" size="28"/>  {{item.name}}</i-cell>
+<view hidden="{{hasLogin}}">
+<i-alert   show-icon desc>
+    您尚登录
+    <view slot="desc">点击个人页面登录</view>
+</i-alert>
+</view>
+
+<view wx:if="{{ current =='tab1'}}">
+<view hidden="{{hiddenAlertPu}}">
+<i-alert   show-icon desc>
+    您尚未创建目录
+    <view slot="desc">点击右下角添加符号来添加</view>
+</i-alert>
+</view>
+<i-cell-group wx:for="{{publicCate}}" wx:key="id">
+    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}         </i-cell>
 </i-cell-group>
-  
+</view>
+<view wx:if="{{ current =='tab2'}}">
+<view hidden="{{hiddenAlertPr}}">
+<i-alert   show-icon desc>
+    您尚未创建目录
+    <view slot="desc">点击右下角添加符号来添加</view>
+</i-alert>
+</view>
+<i-cell-group  wx:for="{{privateCate}}" wx:key="id">
+    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}         </i-cell>
+</i-cell-group>
+</view>
+
+<i-modal visible="{{ visible2 }}" bind:ok="toLogin" bind:cancel="handleClose2">
+    <view>创建目录需要登录</view>
+</i-modal>
+
 <view bindtap='adddetial'>
     <image class="add_icon" src="/static/images/addicon.png"></image>
 </view>
