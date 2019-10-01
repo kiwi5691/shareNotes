@@ -1,3 +1,9 @@
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+var user = require('../../../utils/user.js');
+var app = getApp();
+
+
 Page({
 
   /** * 页面的初始数据 */
@@ -5,11 +11,8 @@ Page({
   data: {
 
     isActive: null,
-
-    listMain: [{ id: "1", region: "A", items: [{ id: "..", name: "阿明" }, { id: "..", name: "阿乐" }, { id: "..", name: "奥特曼" }, { id: "..", name: "安庆" }] }, { id: "2", region: "B", items: [{ id: "..", name: "爸爸" }, { id: "..", name: "八仔" }] }, { id: "3", region: "C", items: [{ id: "..", name: "车仔面" }, { id: "..", name: "吃货" }, { id: "..", name: "蠢货" }] }, { id: "4", region: "D", items: [{ id: "..", name: "担担面" }, { id: "..", name: "刀仔" }, { id: "..", name: "兑兑" }] }, { id: "5", region: "E", items: [{ id: "..", name: "担担面" }, { id: "..", name: "刀" }, { id: "..", name: "对对" }] }, { id: "6", region: "F", items: [{ id: "..", name: "冯洁" }, { id: "..", name: "峰仔" }, { id: "..", name: "凤姐" }] },],
-
+    listMain: [],
     fixedTitle: null,
-
     toView: 'inTo0',
 
     oHeight: [],
@@ -18,6 +21,45 @@ Page({
 
     fixedTop: 0
   },
+  getListMain:function(){
+    let that = this;
+    util.request(api.ShowFriendList).then(function (res) {
+      console.log("回调函数:" + res.data.friendList)
+
+      if (res.errno === 0) {
+        that.setData({
+          listMain: JSON.parse(res.data.friendList),
+        });
+ 
+
+        // var temp = res.data.friendList
+        // for (var i in temp) {
+        //   listMain.push(temp[i]);
+
+        // }
+    
+        console.log("函数:" + that.listMain)
+
+        // that.setData({
+        //   checkedAllStatus: that.isCheckedAll()
+        // });
+      }
+    });
+  },
+
+  
+  //   util.request(api.ShowFriendList, {
+  //     showType: that.data.showType,
+  //   }).then(function (res) {
+  //     if (res.errno === 0) {
+  //       console.log(res.data);
+  //       that.setData({
+  //         listMain: that.data.groupDtoMap.concat(res.data.list),
+  //       });
+  //     }
+  //   });
+  // },
+  
 
   //点击右侧字母导航定位触发
 
@@ -55,7 +97,7 @@ Page({
 
           isActive: this.data.oHeight[i].key,
 
-          fixedTitle: this.data.oHeight[i].name
+          fixedTitle: this.data.oHeight[i].nickname
 
         });
 
@@ -76,7 +118,7 @@ Page({
     for (let i = 0; i < that.data.listMain.length; ++i) {
 
       wx.createSelectorQuery().select('#inTo' + that.data.listMain[i].id).boundingClientRect(function (rect) {
-        number = rect.height + number; var newArry = [{ 'height': number, 'key': rect.dataset.id, "name": that.data.listMain[i].region }]
+        number = rect.height + number; var newArry = [{ 'height': number, 'key': rect.dataset.id, "nickname": that.data.listMain[i].region }]
 
         that.setData({
 
@@ -89,6 +131,8 @@ Page({
   },
 
   onLoad: function (options) {
+
+    this.getListMain();  
 
     var that = this;
 

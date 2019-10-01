@@ -30,7 +30,7 @@ function request(url, data = {}, method = "GET") {
       method: method,
       header: {
         'Content-Type': 'application/json',
-        'X-Litemall-Token': wx.getStorageSync('token')
+        'F-shareNotes-Token': wx.getStorageSync('token')
       },
       success: function (res) {
 

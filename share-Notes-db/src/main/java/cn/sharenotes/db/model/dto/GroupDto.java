@@ -25,10 +25,9 @@ public class GroupDto  {
     @Override
     public String toString() {
         return "{" +
-                ", id=" + id +
-                "nickname='" + nickname + '\'' +
+                "id=" + id +
+                ",nickname='" + nickname + '\'' +
                 ", avatar='" + avatar + '\'' +
-
                 '}';
     }
 }

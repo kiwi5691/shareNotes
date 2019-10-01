@@ -8,7 +8,7 @@
   <i-panel title="消息" bindtap="goMsg">
 <view class="main">
 
-    <view style="padding: 15px;"><i-icon type="message"size="28" />   查看我的消息<i-badge class="visit" count="66" i-class-alone="demo-badge-alone" />
+    <view style="padding: 15px;"><i-icon type="message"size="28" />   查看我的消息<i-badge class="visit" count="4" i-class-alone="demo-badge-alone" />
 </view>
 </view>
 </i-panel>

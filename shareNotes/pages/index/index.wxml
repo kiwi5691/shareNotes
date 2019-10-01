@@ -4,10 +4,8 @@
     <i-tab key="tab2" title="私人"></i-tab>
 </i-tabs>
 
-  <i-cell-group >
-    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="activity" size="28"/>  category3</i-cell>
-    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="barrage" size="28"/>   category2</i-cell>
-    <i-cell  is-link url="/pages/post/postcategory/postcategory" ><i-icon type="brush" size="28"/>    category1</i-cell>
+  <i-cell-group wx:for="{{publicCate}}" wx:key="id">
+    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="activity" size="28"/>  {{item.name}}</i-cell>
 </i-cell-group>
   
 <view bindtap='adddetial'>
