@@ -1,8 +1,11 @@
 package cn.sharenotes.db.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.Date;
 
 /**
  * Category output dto.
@@ -16,8 +19,10 @@ public class CategoryDTO{
 
     private String name;
 
-    private String createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
-    private String updateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
 
 }
