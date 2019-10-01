@@ -24,10 +24,11 @@ public class GroupDto  {
 
     @Override
     public String toString() {
+        String s = "\"";
         return "{" +
-                "id=" + id +
-                ",nickname='" + nickname + '\'' +
-                ", avatar='" + avatar + '\'' +
-                '}';
+                "id:\"" + id +
+                "\",nickname=\"" + nickname + '\"' +
+                "\", avatar=\"" + avatar  +
+                "\"}";
     }
 }

@@ -42,7 +42,7 @@ public class WxFriendGroupController {
             return ResponseUtil.fail(701,"没有朋友");
         }
         Map<String, Object> result = new HashMap<>();
-        String jsonStr = JSONChange.objToJson(groupDtoMap);
+       // String jsonStr = JSONChange.objToJson(groupDtoMap);
 //        List<User> userList = new ArrayList<>();
 //        User user = new User();
 //        user.setId(1);
@@ -51,7 +51,7 @@ public class WxFriendGroupController {
 //        userList.add(user);
 //        userList.add(user);
 //        userList.add(user);
-        result.put("friendList", jsonStr);
+        result.put("friendList", groupDtoMap);
 //        String jsonStr1 = JSONChange.objToJson(userList);
 //        result.put("userList", jsonStr1);
         return ResponseUtil.ok(result);

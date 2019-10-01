@@ -21,9 +21,11 @@ public class GroupDtoKey {
 
     @Override
     public String toString() {
-        return "{" +
-                "id=" + id +
-                ", region=" + region +
-                '}';
+        return "[{" +
+                "id:" + id +
+                ", region:" + region +
+                "}" ;
     }
+
+
 }

@@ -143,7 +143,7 @@ public  class NameIdUtils {
             for (int i = 0; i < list.size(); i++) {//为了排序都返回大写字母
 
                 if (a.equals(String2AlphaFirst(list.get(i).getNickname(), "b"))) {
-                    arraylist.add(list.get(i).toString());
+                    arraylist.add(list.get(i));
                     flag = 0;
                 }
             }
