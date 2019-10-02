@@ -6,7 +6,7 @@
 </view>
 <i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 <i-panel >
-    <i-input type="text"  value="{{ name }}" title="目录名" autofocus placeholder="请输入目录名" />
+    <i-input type="text"  value="{{ cateName }}" maxlength="8"  title="目录名" focus bind:change	="categoryNameInput" placeholder="请输入目录名" />
 </i-panel>
  <i-cell title="目录分类">
         <i-switch value="{{switch1}}" size="large" bind:change="onChange" slot="footer">
@@ -26,3 +26,5 @@
   <i-modal title="创建确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
     <view>确定创建吗</view>
 </i-modal>
+
+<i-message id="message" />

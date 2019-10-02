@@ -23,4 +23,7 @@ module.exports = {
 
   GetPrivateCategory: WxApiRoot + 'category/getAll/'+2, //获取私人目录,
   GetPublicCategory: WxApiRoot + 'category/getAll/'+1, //获取公共目录,
+
+  AddCategory: WxApiRoot + 'category/add', //添加目录,
+
 };

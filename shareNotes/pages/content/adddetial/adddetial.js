@@ -1,4 +1,10 @@
 // pages/content/adddetial/adddetial.js
+const { $Message } = require('../../../dist/base/index');
+
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+var app = getApp();
+
 Page({
 
   /**
@@ -7,7 +13,7 @@ Page({
   data: {
     visible5: false,    
     switch1: false,
-    name:'',
+    cateName:'',
     actions5: [
       {
         name: '取消'
@@ -42,6 +48,11 @@ Page({
     });
   },
 
+  categoryNameInput:function(e){
+      this.setData({
+        cateName: e.detail.detail.value
+      })
+  },
   handleClick5({ detail }) {
     if (detail.index === 0) {
       this.setData({
@@ -53,17 +64,39 @@ Page({
 
       this.setData({
         actions5: action
-      });
-      console.log(this.data.name);
+      }); 
+
+      console.log(this.data.cateName);
+      console.log(this.data.switch1);
+      console.log(this.data.current);
+      if (this.data.cateName == ""){
+        this.setData({
+          visible5: false,
+        });
+        $Message({
+          content: '目录名不能空！',
+          type: 'error'
+        });
+      }else{
       setTimeout(() => {
         action[1].loading = false;
         this.setData({
           visible5: false,
           actions5: action
         });
-    
-        console.log(this.data.name);
-      }, 2000);
+        util.request(api.AddCategory, {
+          name: this.data.cateName,
+          isPcOrPr: this.data.switch1,
+          iconSelected: this.data.current
+        }, 'POST').then(function (res) {
+          if (res.errno === 0) {
+            $Message({
+              content: '创建成功！',
+              type: 'success'
+            });
+        }});
+        }, 1000);
+      }
     }
   },
   onChange(event) {
@@ -79,7 +112,7 @@ Page({
    */
   onLoad: function (options) {
 
-  },
+  },  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
