@@ -12,6 +12,7 @@ import java.util.Map;
 public class ForMateFriendUtil {
     public  static  String friendList(Map<GroupDtoKey, List<GroupDto>> groupDtoMap){
         StringBuffer result = new StringBuffer();
+    
         for (GroupDtoKey groupKey:
              groupDtoMap.keySet()) {
             result.append("{id:"+groupKey.getId()+",region:"+groupKey.getRegion()+",");
@@ -25,12 +26,14 @@ public class ForMateFriendUtil {
 
                 GroupDto groupDto= groupDtos.get(i);
 
-                result.append("{id:"+groupDto.getId()+",name:"+groupDto.getNickname()+",avatar:"+groupDto.getAvatar()+"}");
+                result.append("id:"+groupDto.getId()+",name:"+groupDto.getNickname()+",avatar:"+groupDto.getAvatar()+"}");
                 result.append(",");
             }
-            result.delete(result.lastIndexOf(","),result.lastIndexOf(","));
-            result.append("}]}");
+            result.deleteCharAt(result.length()-1);
+            result.append("]}");
+            result.append(",");
         }
+
         return  result.toString();
     }
 

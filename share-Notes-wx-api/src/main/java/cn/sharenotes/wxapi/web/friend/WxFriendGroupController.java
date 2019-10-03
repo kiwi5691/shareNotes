@@ -42,7 +42,7 @@ public class WxFriendGroupController {
         if(CollectionUtils.isEmpty(groupDtoMap)){
             return ResponseUtil.fail(701,"没有朋友");
         }
-        Map<String, Object> result = new HashMap<>();
+
        // String jsonStr = JSONChange.objToJson(groupDtoMap);
 //        List<User> userList = new ArrayList<>();
 //        User user = new User();
@@ -54,9 +54,11 @@ public class WxFriendGroupController {
 //        userList.add(user);
 
         String res = ForMateFriendUtil.friendList(groupDtoMap);
-        result.put("friendList", res);
+        List<String> listMain = new  ArrayList<String> ();
+        listMain.add(res);
+
 //        String jsonStr1 = JSONChange.objToJson(userList);
 //        result.put("userList", jsonStr1);
-        return ResponseUtil.ok(result);
+        return ResponseUtil.ok(listMain);
     }
 }
