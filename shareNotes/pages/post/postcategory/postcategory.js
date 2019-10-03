@@ -7,6 +7,10 @@ Page({
   data: {
     showRigh2: false,
     visible5: false,
+    cate_id:0,
+    title:'',
+    updateTime:'',
+    createTime:'',
     actions5: [
       {
         name: '取消'
@@ -62,7 +66,7 @@ Page({
   },
   goEditCate() {
     wx.navigateTo({
-      url: "/pages/content/editcategory/editcategory"
+      url: "/pages/content/editcategory/editcategory"  //todo 后台获取。
     })
   },
   goCreatePost() {
@@ -75,8 +79,36 @@ Page({
    */
   onLoad: function (options) {
 
+    this.setData({
+      createTime : options.creTime,
+      updateTime : options.upTime,
+      cate_id: options.id,
+      title: options.title
+    });
+  
+    wx.setNavigationBarTitle({
+      title: options.title
+    })
+
+    getPostsAll();
   },
 
+  getPostsAll: function () {
+    let that = this;
+    util.request(api.getPostsAll + cate_id).then(function (res) {
+
+      if (res.errno === 0) {
+        that.setData({
+          publicCate: res.data.publicCate,
+        });
+
+      } else if (res.errno === 601) {
+        that.setData({
+          hiddenAlertPu: !that.data.hiddenAlertPu
+        })
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

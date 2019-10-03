@@ -11,7 +11,7 @@ Page({
   data: {
 
     isActive: null,
-    listMain: [],
+    listMain: '',
     fixedTitle: null,
     toView: 'inTo0',
 
@@ -24,11 +24,11 @@ Page({
   getListMain:function(){
     let that = this;
     util.request(api.ShowFriendList).then(function (res) {
-      console.log("回调函数:" + res.data.friendList)
+      console.log("回调函数:" + res.data.listMain)
 
       if (res.errno === 0) {
         that.setData({
-          listMain: res.data.friendList,
+          listMain: JSON.parse(res.data.listMain),
         });
  
 

@@ -1,4 +1,4 @@
-<i-divider content="目录修改时间:2019/1/35 19:12:20" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+<i-divider content="目录修改时间:{{updateTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
 <i-cell-group>
     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
@@ -17,7 +17,7 @@
 
 </i-cell-group>
 
-<i-divider content="目录创建时间:2019/1/25 19:12:20" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+<i-divider content="目录创建时间:{{createTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
 
 

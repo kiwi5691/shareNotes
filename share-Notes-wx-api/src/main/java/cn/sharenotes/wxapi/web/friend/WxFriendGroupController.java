@@ -55,10 +55,14 @@ public class WxFriendGroupController {
 
         String res = ForMateFriendUtil.friendList(groupDtoMap);
         List<String> listMain = new  ArrayList<String> ();
+
         listMain.add(res);
 
-//        String jsonStr1 = JSONChange.objToJson(userList);
-//        result.put("userList", jsonStr1);
-        return ResponseUtil.ok(listMain);
+//        String str=JSONChange.objToJson(listMain).toString();
+        Map<String, Object> result = new HashMap<>();
+
+//       String jsonStr1 = JSONChange.objToJson(listMain);
+//        result.put("listMain", jsonStr1);
+        return ResponseUtil.ok(result);
     }
 }
