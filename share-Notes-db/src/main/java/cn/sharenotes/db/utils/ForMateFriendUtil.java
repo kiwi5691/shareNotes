@@ -3,7 +3,6 @@ package cn.sharenotes.db.utils;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;

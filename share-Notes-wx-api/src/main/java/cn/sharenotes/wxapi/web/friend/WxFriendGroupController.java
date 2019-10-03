@@ -1,4 +1,4 @@
-package cn.sharenotes.wxapi.web.category;
+package cn.sharenotes.wxapi.web.friend;
 
 import cn.sharenotes.core.utils.JSONChange;
 import cn.sharenotes.core.utils.ResponseUtil;
@@ -7,6 +7,7 @@ import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 import cn.sharenotes.db.service.CategoriesService;
+import cn.sharenotes.db.utils.ForMateFriendUtil;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.UserGroupsSerive;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -51,7 +52,9 @@ public class WxFriendGroupController {
 //        userList.add(user);
 //        userList.add(user);
 //        userList.add(user);
-        result.put("friendList", groupDtoMap);
+
+        String res = ForMateFriendUtil.friendList(groupDtoMap);
+        result.put("friendList", res);
 //        String jsonStr1 = JSONChange.objToJson(userList);
 //        result.put("userList", jsonStr1);
         return ResponseUtil.ok(result);

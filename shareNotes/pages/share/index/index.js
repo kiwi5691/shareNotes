@@ -28,7 +28,7 @@ Page({
 
       if (res.errno === 0) {
         that.setData({
-          listMain: JSON.parse(res.data.friendList),
+          listMain: res.data.friendList,
         });
  
 
@@ -38,12 +38,13 @@ Page({
 
         // }
     
-        console.log("函数:" + that.listMain)
-
         // that.setData({
         //   checkedAllStatus: that.isCheckedAll()
         // });
       }
+
+      console.log("函数:" + this.listMain);
+
     });
   },
 
