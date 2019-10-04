@@ -9,5 +9,6 @@
        "i-drawer": "../../dist/drawer/index",
        "i-divider": "../../dist/divider/index"                  
   },
-  "navigationBarTitleText": "目录详细"
+  "navigationBarTitleText": "目录详细",
+    "enablePullDownRefresh": true
 }

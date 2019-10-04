@@ -95,7 +95,7 @@ Page({
 
   getPostsAll: function () {
     let that = this;
-    util.request(api.getPostsAll + cate_id).then(function (res) {
+    util.request(api.GetPostsAll + cate_id).then(function (res) {
 
       if (res.errno === 0) {
         that.setData({

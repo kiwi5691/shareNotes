@@ -2,7 +2,6 @@
   "pages": [
     "pages/index/index",
     "pages/ucenter/index/index",
-    "pages/auth/login/login",
     "pages/share/index/index",
     "pages/post/postcategory/postcategory",
     "pages/post/posts/posts",
@@ -58,5 +57,4 @@
   },
   "debug": true,
   "sitemapLocation": "sitemap.json"
-  
 }

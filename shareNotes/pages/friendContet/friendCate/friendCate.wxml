@@ -1,6 +1,10 @@
-<!--index.wxml-->
+<view hidden="{{hiddenAlertPr}}">
+<i-alert   show-icon desc>
+    您的朋友还没有目录
+</i-alert>
+</view>
 <i-tabs current="{{ current }}" bindchange="handleChange">
-    <i-tab key="tab1" title="私人目录"></i-tab>
+    <i-tab key="tab1" title="公共目录"></i-tab>
 </i-tabs>
 
   <i-cell-group >

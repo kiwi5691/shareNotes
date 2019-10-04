@@ -131,8 +131,9 @@ Page({
   },
   goFriendCate:function(e) {
     var fid = e.currentTarget.dataset.fid
+    var fname = e.currentTarget.dataset.fname
     wx.navigateTo({
-      url: "/pages/friendContet/friendCate/friendCate?Fid=" + fid
+      url: "/pages/friendContet/friendCate/friendCate?fid=" + fid+"&fname="+fname
     })
   },
   onPullDownRefresh() {

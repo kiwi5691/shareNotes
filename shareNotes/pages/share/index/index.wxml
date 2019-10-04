@@ -14,7 +14,7 @@
         <view class="address_top">{{group.region}}</view>
 
         <view wx:for="{{group.items}}" wx:for-item="item"  wx:key="{{item.brandId}}">
- <view class="main" bindtap="goFriendCate" data-fid="{{item.id}}" >
+ <view class="main" bindtap="goFriendCate" data-fname="{{item.nickname}}" data-fid="{{item.id}}" >
         <image  src="{{item.avatar}}"  style="margin-left: 15rpx; height: 120rpx;width:120rpx;"></image> 
         <view class="address_bottom"  data-id='{{item.brandId}}'>{{item.nickname}}</view>
 
