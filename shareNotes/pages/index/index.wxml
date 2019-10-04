@@ -19,7 +19,8 @@
 </i-alert>
 </view>
 <i-cell-group wx:for="{{publicCate}}" wx:key="id">
-    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}         </i-cell>
+    <i-cell  is-link url="/pages/post/postcategory/postcategory?title={{item.name}}&id={{item.id}}&upTime={{item.updateTime}}&creTime={{item.createTime}}"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}        
+     </i-cell>
 </i-cell-group>
 </view>
 <view wx:if="{{ current =='tab2'}}">
@@ -30,7 +31,8 @@
 </i-alert>
 </view>
 <i-cell-group  wx:for="{{privateCate}}" wx:key="id">
-    <i-cell  is-link url="/pages/post/postcategory/postcategory"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}         </i-cell>
+    <i-cell  is-link url="/pages/post/postcategory/postcategory?title={{item.name}}&id={{item.id}}&upTime={{item.updateTime}}&creTime={{item.createTime}}"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}         
+    </i-cell>
 </i-cell-group>
 </view>
 

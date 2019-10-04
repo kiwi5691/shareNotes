@@ -8,7 +8,7 @@ var WxApiRoot = 'http://localhost:8080/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口
-  
+
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录
   AuthRegister: WxApiRoot + 'auth/register', //账号注册
   AuthReset: WxApiRoot + 'auth/reset', //账号密码重置
@@ -18,11 +18,12 @@ module.exports = {
   StorageUpload: WxApiRoot + 'storage/upload', //图片上传,
 
   UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息
-  
+
   ShowFriendList: WxApiRoot + 'friend/getAll', //获取朋友列表,
 
-  GetPrivateCategory: WxApiRoot + 'category/getAll/'+2, //获取私人目录,
-  GetPublicCategory: WxApiRoot + 'category/getAll/'+1, //获取公共目录,
+  GetPrivateCategory: WxApiRoot + 'category/getAll/' + 2, //获取私人目录,
+  GetPublicCategory: WxApiRoot + 'category/getAll/' + 1, //获取公共目录,
+  getPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
 
   AddCategory: WxApiRoot + 'category/add', //添加目录,
 

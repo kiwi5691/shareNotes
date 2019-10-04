@@ -131,7 +131,6 @@ Page({
   },
   goFriendCate:function(e) {
     var fid = e.currentTarget.dataset.fid
-    console.log(fid);
     wx.navigateTo({
       url: "/pages/friendContet/friendCate/friendCate?Fid=" + fid
     })
