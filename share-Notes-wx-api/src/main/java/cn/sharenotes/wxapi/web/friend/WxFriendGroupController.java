@@ -36,23 +36,11 @@ public class WxFriendGroupController {
     @ApiOperation(value = "通过 UserId 获取目录")
     @GetMapping("/getAll")
     public Object getAllCategories() throws JsonProcessingException {
-//        if (userId == null) {
-//            return ResponseUtil.unlogin();
-//        }
         Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(3);
         if(CollectionUtils.isEmpty(groupDtoMap)){
             return ResponseUtil.fail(701,"没有朋友");
         }
 
-       // String jsonStr = JSONChange.objToJson(groupDtoMap);
-//        List<User> userList = new ArrayList<>();
-//        User user = new User();
-//        user.setId(1);
-//        user.setNickname("sadsa");
-//        userList.add(user);
-//        userList.add(user);
-//        userList.add(user);
-//        userList.add(user);
 
         String res = ForMateFriendUtil.friendList(groupDtoMap);
         List<GroupEndDto> listMain = new  ArrayList<> ();
@@ -64,7 +52,7 @@ public class WxFriendGroupController {
 
 
         String jsonStr1 = JSONChange.objToJson(listMain);
-//        result.put("userList", jsonStr1);
-        return ResponseUtil.ok(jsonStr1);
+
+        return ResponseUtil.ok(listMain);
     }
 }

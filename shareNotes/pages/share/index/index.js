@@ -11,39 +11,28 @@ Page({
   data: {
 
     isActive: null,
-    listMain: [],
+    listMain: '',
     fixedTitle: null,
     toView: 'inTo0',
-
+    hiddenAlertPu: true,
     oHeight: [],
-
     scroolHeight: 0,
-
     fixedTop: 0
   },
   getListMain:function(){
     let that = this;
     util.request(api.ShowFriendList).then(function (res) {
-      console.log("回调函数:" + res.data.friendList)
+
 
       if (res.errno === 0) {
         that.setData({
-          listMain: res.data.friendList,
+          listMain: res.data,
         });
- 
-
-        // var temp = res.data.friendList
-        // for (var i in temp) {
-        //   listMain.push(temp[i]);
-
-        // }
-    
-        // that.setData({
-        //   checkedAllStatus: that.isCheckedAll()
-        // });
+      } else if (res.errno === 701) {
+        that.setData({
+          hiddenAlertPu: !that.data.hiddenAlertPu
+        })
       }
-
-      console.log("函数:" + this.listMain);
 
     });
   },
@@ -64,7 +53,7 @@ Page({
 
   //点击右侧字母导航定位触发
 
-  scrollToViewFn: fun ction (e) {
+  scrollToViewFn: function (e) {
 
     var that = this; var _id = e.target.dataset.id;
 
@@ -140,9 +129,17 @@ Page({
     that.getBrands();
 
   },
-  goFriendCate() {
+  goFriendCate:function(e) {
+    var fid = e.currentTarget.dataset.fid
+    console.log(fid);
     wx.navigateTo({
-      url: "/pages/friendContet/friendCate/friendCate"
+      url: "/pages/friendContet/friendCate/friendCate?Fid=" + fid
     })
+  },
+  onPullDownRefresh() {
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.getListMain();  
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
   },
 })

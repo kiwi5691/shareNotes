@@ -1,5 +1,10 @@
 <view>
-
+<view hidden="{{hiddenAlertPu}}">
+<i-alert   show-icon desc>
+    您还没有朋友
+    <view slot="desc">按上方分享来添加新朋友</view>
+</i-alert>
+</view>
 <!-- 左侧列表内容部分 -->
 
 <scroll-view class="contentList" enable-back-to-top scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="onPageScroll">
@@ -8,10 +13,9 @@
 
         <view class="address_top">{{group.region}}</view>
 
-     
-        <view wx:for="{{group.items}}" wx:for-item="item" wx:key="{{item.brandId}}">
- <view class="main" bindtap="goFriendCate" >
-        <image  src="/static/images/head.png" style="margin-left: 15rpx; height: 120rpx;width:120rpx;"></image> 
+        <view wx:for="{{group.items}}" wx:for-item="item"  wx:key="{{item.brandId}}">
+ <view class="main" bindtap="goFriendCate" data-fid="{{item.id}}" >
+        <image  src="{{item.avatar}}"  style="margin-left: 15rpx; height: 120rpx;width:120rpx;"></image> 
         <view class="address_bottom"  data-id='{{item.brandId}}'>{{item.nickname}}</view>
 
         </view>
