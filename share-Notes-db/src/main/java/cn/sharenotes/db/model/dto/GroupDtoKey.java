@@ -10,7 +10,7 @@ import java.util.List;
  * @author hu
  */
 @Data
-public class GroupDtoKey {
+public class GroupDtoKey implements Comparable<GroupDtoKey>{
     int id;
     char region;
 
@@ -28,4 +28,8 @@ public class GroupDtoKey {
     }
 
 
+    @Override
+    public int compareTo(GroupDtoKey o) {
+        return this.id - o.getId();
+    }
 }

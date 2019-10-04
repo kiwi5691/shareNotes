@@ -12,15 +12,13 @@ import cn.sharenotes.db.utils.ForMateFriendUtil;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.UserGroupsSerive;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mysql.cj.xdevapi.Collection;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author 76905
@@ -50,8 +48,12 @@ public class WxFriendGroupController {
             listMain.add(groupEndDto);
         }
 
-
-        String jsonStr1 = JSONChange.objToJson(listMain);
+        Collections.sort(listMain, new Comparator<GroupEndDto>() {
+            @Override
+            public int compare(GroupEndDto o1, GroupEndDto o2) {
+                return o2.getId() - o1.getId();
+            }
+        });
 
         return ResponseUtil.ok(listMain);
     }

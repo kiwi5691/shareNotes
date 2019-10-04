@@ -4,10 +4,7 @@ import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public  class NameIdUtils {
 
@@ -153,6 +150,7 @@ public  class NameIdUtils {
             if(flag == 0) {
                 map.put(groupDtoKey, arraylist);
             }
+            Collections.sort(arraylist);
             arraylist = new ArrayList();
         }
         return map;
