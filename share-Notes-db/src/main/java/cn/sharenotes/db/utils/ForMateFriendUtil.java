@@ -12,10 +12,10 @@ import java.util.Map;
 public class ForMateFriendUtil {
     public  static  String friendList(Map<GroupDtoKey, List<GroupDto>> groupDtoMap){
         StringBuffer result = new StringBuffer();
-    
+
         for (GroupDtoKey groupKey:
              groupDtoMap.keySet()) {
-            result.append("{id:"+groupKey.getId()+",region:"+groupKey.getRegion()+",");
+            result.append("{id:\""+groupKey.getId()+"\",region:"+groupKey.getRegion()+",");
             log.info("huhuhuu"+groupDtoMap.get(groupKey).toString());
             List<GroupDto> groupDtos = new ArrayList<>();
             groupDtos =   groupDtoMap.get(groupKey);

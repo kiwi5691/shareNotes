@@ -64,7 +64,7 @@ Page({
 
   //点击右侧字母导航定位触发
 
-  scrollToViewFn: function (e) {
+  scrollToViewFn: fun ction (e) {
 
     var that = this; var _id = e.target.dataset.id;
 

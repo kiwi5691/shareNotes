@@ -6,6 +6,7 @@ import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
+import cn.sharenotes.db.model.dto.GroupEndDto;
 import cn.sharenotes.db.service.CategoriesService;
 import cn.sharenotes.db.utils.ForMateFriendUtil;
 import cn.sharenotes.wxapi.annotation.LoginUser;
@@ -54,11 +55,16 @@ public class WxFriendGroupController {
 //        userList.add(user);
 
         String res = ForMateFriendUtil.friendList(groupDtoMap);
-        List<String> listMain = new  ArrayList<String> ();
-        listMain.add(res);
+        List<GroupEndDto> listMain = new  ArrayList<> ();
+        for (GroupDtoKey groupDtoKey:
+                groupDtoMap.keySet()) {
+            GroupEndDto groupEndDto = new GroupEndDto(groupDtoKey.getId(),groupDtoKey.getRegion(),groupDtoMap.get(groupDtoKey));
+            listMain.add(groupEndDto);
+        }
 
-//        String jsonStr1 = JSONChange.objToJson(userList);
+
+        String jsonStr1 = JSONChange.objToJson(listMain);
 //        result.put("userList", jsonStr1);
-        return ResponseUtil.ok(listMain);
+        return ResponseUtil.ok(jsonStr1);
     }
 }
