@@ -10,8 +10,8 @@
       "i-divider": "../../dist/divider/index",
       "i-badge": "../../dist/badge/index",
       "i-switch": "../../dist/switch/index",
-       "i-icon": "../../dist/icon/index"
-              
+       "i-icon": "../../dist/icon/index",
+      "htmltowxml": "plugin://htmltowxml/view"        
   },
   "navigationBarTitleText": "笔记详细"
     

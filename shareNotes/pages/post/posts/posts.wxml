@@ -8,7 +8,8 @@
 </view>
 </i-panel>    
 <i-panel title="内容">
-    <text class='dialog-close' decode='true' >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</text>
+<htmltowxml text="JAVA反射机制是在运行状态中，\n对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h1>都能够调用它的任意方</h1>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。" bindWxmlTagATap="wxmlTagATap" >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h>都能够调用它的任意方</h>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</htmltowxml>
+
 </i-panel>   
 
 <i-divider content="评论" ></i-divider>

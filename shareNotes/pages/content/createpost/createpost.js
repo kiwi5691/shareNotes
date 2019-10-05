@@ -5,7 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    text:"最少5字",
     visible5: false,
+    switch1: false,
+    visible1: false,
+    titleName:'',
+    context:'',
+    min:5,
+    max: 500,
     actions5: [
       {
         name: '取消'
@@ -23,7 +30,8 @@ Page({
       visible5: true
     });
   },
-
+  handleClick:function(){
+  },
   handleClick5({ detail }) {
     if (detail.index === 0) {
       this.setData({
@@ -105,5 +113,55 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  onChange(event) {
+    const detail = event.detail;
+    this.setData({
+      'switch1': detail.value
+    })
+
+  },
+  handleOpen1() {
+    this.setData({
+      visible1: true
+    });
+  },
+
+  handleClose1() {
+    this.setData({
+      visible1: false
+    });
+  },
+  titleNameInput: function (e) {
+    this.setData({
+      titleName: e.detail.detail.value
+    })
+  },
+  contextInput: function (e) {
+    this.setData({
+      context: e.detail.value
+    })
+  },
+  inputs: function (e) {
+    // 获取输入框的内容
+    var value = e.detail.value;
+    // 获取输入框内容的长度
+    var len = parseInt(value.length);
+
+    //最少字数限制
+    if (len <= this.data.min)
+      this.setData({
+        texts: "最低五个字"
+      })
+    else if (len > this.data.min)
+      this.setData({
+        texts: " "
+      })
+
+    if (len > this.data.max) return;
+    this.setData({
+      currentWordNumber: len 
+    });
   }
+
 })

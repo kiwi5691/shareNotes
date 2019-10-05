@@ -10,7 +10,8 @@
     "i-icon": "../../dist/icon/index",
     "i-divider": "../../dist/divider/index",
     "i-button": "../../dist/button/index",
-    "i-modal": "../../dist/modal/index"
+    "i-modal": "../../dist/modal/index",
+    "htmltowxml": "plugin://htmltowxml/view"
   },
   "navigationBarTitleText": "创建笔记"
 }

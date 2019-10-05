@@ -55,6 +55,12 @@
     "uploadFile": 10000,
     "downloadFile": 10000
   },
+  "plugins": {
+    "htmltowxml": {
+      "version": "1.4.0",
+      "provider": "wxa51b9c855ae38f3c"
+    }
+  },
   "debug": true,
   "sitemapLocation": "sitemap.json"
 }

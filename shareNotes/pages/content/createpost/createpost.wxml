@@ -1,21 +1,35 @@
-<i-tab-bar  >
-    <i-tab-bar-item ></i-tab-bar-item>
-</i-tab-bar>
-<i-tab-bar  >
-    <i-tab-bar-item ></i-tab-bar-item>
-</i-tab-bar>
+
 <view class="h1">
 <text style="font-size: 50rpx;">创建笔记</text>
 </view>
 <i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 <i-panel >
-    <i-input type="text" value="{{ value1 }}" title="笔记名" autofocus placeholder="请输入笔记名" />
+    <i-input type="text" value="{{ titleName }}" title="笔记名"  maxlength="8" bind:change	="titleNameInput" autofocus placeholder="请输入笔记名" />
 </i-panel>
-  <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+ <i-cell title="输入类型">
+        <i-switch value="{{switch1}}" size="large" bind:change="onChange" slot="footer">
+            <view slot="open">html</view>
+            <view slot="close">mark</view>
+        </i-switch>
+  </i-cell>
+  <view class="conts">
+<textarea class="areas" bindblur="contextInput" value="{{ context }}" placeholder='笔记内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
+<text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
+<text class="hint">{{texts}}</text>
+</textarea>
+</view>
 
-  <i-button bind:click="handleOpen5" type="success" shape="circle" size="large">创建完毕</i-button>
+
+  <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+  <i-button bind:click="handleOpen1"  shape="circle" size="small" type="info" >浏览</i-button>
+  <i-button bind:click="handleOpen5" type="success" shape="circle" size="small">创建完毕</i-button>
   <i-modal title="创建确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
     <view>创建修改吗</view>
 </i-modal>
 
 <i-message id="message" />
+
+
+<i-modal title="{{ titleName }}" visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
+<htmltowxml type="markdown" text="## JAVA反射机制是在运行状态中，\n对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h1>都能够调用它的任意方</h1>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。" bindWxmlTagATap="wxmlTagATap" >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h>都能够调用它的任意方</h>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</htmltowxml>
+</i-modal>

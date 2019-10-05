@@ -6,6 +6,7 @@ Page({
    */
   data: {
     visible5: false,
+    switch1: false,
     actions5: [
       {
         name: '取消'
@@ -105,5 +106,12 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  onChange(event) {
+    const detail = event.detail;
+    this.setData({
+      'switch1': detail.value
+    })
+
+  },
 })
