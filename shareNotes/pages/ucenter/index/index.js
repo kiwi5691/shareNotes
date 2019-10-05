@@ -7,7 +7,7 @@ Page({
   data: {
     userInfo: {
       nickName: '点击登录',
-      avatarUrl: 'http://yanxuan.nosdn.127.net/8945ae63d940cc42406c3f67019c5cb6.png'
+      avatarUrl: 'http://kiwi1.cn/upload/2019/10/8945ae63d940cc42406c3f67019c5cb6-5e06cb0be8494edb8a9ba891e4eea558.png'
     },
     hasLogin: false
   },
@@ -24,6 +24,11 @@ Page({
   goAbout() {
     wx.navigateTo({
       url: "/pages/ucenter/about/about"
+    })
+  },
+  goLeaning() {
+    wx.navigateTo({
+      url: "/pages/ucenter/leaning/leaning"
     })
   },
   onLoad: function (options) {

@@ -17,6 +17,10 @@
     <view style="padding: 15px;"><i-icon type="createtask"size="28" />   快速上手</view>
 </i-panel>
 
+ <i-panel title="笔记" bindtap="goLeaning">
+    <view style="padding: 15px;"><i-icon type="flashlight"size="28" />   学习html和markdown</view>
+</i-panel>
+
   <i-panel title="关于" bindtap="goAbout">
     <view style="padding: 15px;"><i-icon type="feedback"size="28" />   欢迎来提交issue呀</view>
 </i-panel>

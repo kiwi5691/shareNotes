@@ -1,0 +1,130 @@
+<i-tabs current="{{ current }}" bindchange="handleChange">
+    <i-tab key="tab1" title="html"></i-tab>
+    <i-tab key="tab2" title="markdown"></i-tab>
+</i-tabs>
+<view wx:if="{{ current =='tab1'}}">
+<i-notice-bar>
+    html格式通过成对标签定义，结尾标签需加上/前缀。
+</i-notice-bar>
+
+ <i-panel title="使用标题" >
+     <i-cell title="<h1>我是标题</h1>" ></i-cell>
+ <htmltowxml type="html" text="<h1>我是标题</h1>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+ <i-panel title="标题大小，通过修改h后面的数字，1到6" >
+     <i-cell title="<h6>我是标题</h6>" ></i-cell>
+ <htmltowxml type="html" text="<h6>我是标题</h6>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+ <i-panel title="使用段落" >
+     <i-cell title="<p>我是段落</p>" ></i-cell>
+ <htmltowxml type="html" text="<p>我是段落</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+
+<i-panel title="使用无序列表" >
+     <i-cell title="<ul><li>kiki</li><li>wiwi</li></ul>" ></i-cell> 
+ <htmltowxml type="html" text="<ul><li>kiki</li><li>wiwi</li></ul>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+
+<i-panel title="使用有序列表" >
+     <i-cell title="<ol><li>kiki</li><li>wiwi</li></ol>" ></i-cell> 
+ <htmltowxml type="html" text="<ol><li>kiki</li><li>wiwi</li></ol>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+
+<i-panel title="使用表格" >
+     <i-cell title="<table>" ></i-cell> 
+      <i-cell title="<tr><th>头1</th><th>头2</th></tr>" ></i-cell> 
+     <i-cell title="<tr><td>行 1</td> <td>行 1</td> </tr>" ></i-cell> 
+     <i-cell title="</table>" ></i-cell> 
+
+ <htmltowxml type="html" text="<table ><tr><th>头1</th><th>头2</th></tr><tr><td>行 1</td><td>行 1</td></tr></table>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+
+ <i-panel title="使用图片" >
+     <i-cell title="<img src='图片地址' height='10'>我是图片</img>" ></i-cell> 
+  <image src="/static/images/img.png" mode='aspectFill' >    </image>  
+</i-panel>
+
+ <i-panel title="关于超链接" >
+     <i-cell title="小程序中使用不了超连接，但是a标签可以使用，但是没有效果" ></i-cell> 
+</i-panel>
+
+ <i-panel title="emoji" >
+     <i-cell title="作者作为emoji控，肯定是可以使用emoji的！" ></i-cell> 
+      <htmltowxml type="html" text="🍇🍈🍉🍊🍋🍌" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+ <i-panel title="style" >
+     <i-cell title="<p style='color:red'>我是红色段落</p>" ></i-cell> 
+      <htmltowxml type="html" text="<p style='color:red'>我是红色段落</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+ <i-panel title="学习" >
+     <i-cell title="如果你会html，可以使用其他用法，不会的的话可以去网上查询学习一下" ></i-cell> 
+</i-panel>
+
+<i-divider  color="#2d8cf0" lineColor="#2d8cf0">html end</i-divider>
+</view>
+
+<view wx:if="{{ current =='tab2'}}">
+<i-notice-bar>
+    推荐使用markdown格式，这是最方便，最geek的格式
+</i-notice-bar>
+ <i-panel title="使用标题" >
+     <i-cell title="# 我是标题（注意要有空格）" ></i-cell>
+ <htmltowxml type="markdown" text="# 我是标题（注意要有空格）" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+ <i-panel title="标题大小" >
+     <i-cell title="#### 我是标题，通过增加#的数量，让标题变小）" ></i-cell>
+ <htmltowxml type="markdown" text="#### 我是标题（注意要有空格）" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+ <i-panel title="字体加厚" >
+     <i-cell title="**字体加厚**" ></i-cell>
+ <htmltowxml type="markdown" text="**字体加厚**" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+<i-panel title="字体变斜" >
+     <i-cell title="*字体变斜*" ></i-cell>
+ <htmltowxml type="markdown" text="*字体变斜*" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+<i-panel title="字体下划线" >
+     <i-cell title="++字体下划线++" ></i-cell>
+ <htmltowxml type="markdown" text="++字体下划线++" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+<i-panel title="~~字体删除~~" >
+     <i-cell title="~~字体删除~~" ></i-cell>
+ <htmltowxml type="markdown" text="~~字体删除~~" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+<i-panel title="段落引用" >
+     <i-cell title="> 段落引用" ></i-cell>
+ <htmltowxml type="markdown" text="> 段落引用" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+<i-panel title="无序列表" >
+     <i-cell title="- ki" ></i-cell>
+     <i-cell title="- wi" ></i-cell>
+ <htmltowxml  text="- ki <br>- wi" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+<i-panel title="有序列表" >
+     <i-cell title="1. ki" ></i-cell>
+     <i-cell title="2. ki" ></i-cell>
+ <htmltowxml  text="1. ki <br>2. wi" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+
+<i-panel title="表格">
+     <i-cell title="|头1|头2|" ></i-cell>
+     <i-cell title="|-|-|" ></i-cell>
+     <i-cell title="|行1|行1|" ></i-cell>
+<htmltowxml type="html" text="<table ><tr><th>头1</th><th>头2</th></tr><tr><td>行 1</td><td>行 1</td></tr></table>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+<i-divider  color="#2d8cf0" lineColor="#2d8cf0">markdown end</i-divider>
+
+</view>

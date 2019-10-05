@@ -15,7 +15,8 @@
     "pages/ucenter/about/about",
     "pages/ucenter/help/help",
     "pages/ucenter/msg/msg",
-    "pages/ucenter/msgDetail/msgDetail"
+    "pages/ucenter/msgDetail/msgDetail",
+    "pages/ucenter/leaning/leaning"
   ],
   "window": {
     "backgroundTextStyle": "light",

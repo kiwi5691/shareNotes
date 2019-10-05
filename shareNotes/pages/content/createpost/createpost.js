@@ -132,6 +132,7 @@ Page({
         'htmlDisplay': true
       })
     }
+    console.log(this.data.context)
   },
   handleOpen1() {
     this.setData({
