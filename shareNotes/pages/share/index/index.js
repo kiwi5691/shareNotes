@@ -12,6 +12,7 @@ Page({
 
     isActive: null,
     listMain: '',
+    hasLogin: false,
     fixedTitle: null,
     toView: 'inTo0',
     hiddenAlertPu: true,
@@ -141,5 +142,15 @@ Page({
     this.getListMain();  
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
+  },
+  onShow: function () {
+    if (app.globalData.hasLogin) {
+      let userInfo = wx.getStorageSync('userInfo');
+      this.setData({
+        userInfo: userInfo,
+        hasLogin: true
+      });
+    }
+
   },
 })

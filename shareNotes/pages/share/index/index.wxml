@@ -1,4 +1,11 @@
 <view>
+<view hidden="{{hasLogin}}">
+<i-alert   show-icon desc>
+    您尚登录
+    <view slot="desc" >点击个人标签栏登录</view>
+</i-alert>
+</view>
+
 <view hidden="{{hiddenAlertPu}}">
 <i-alert   show-icon desc>
     您还没有朋友
