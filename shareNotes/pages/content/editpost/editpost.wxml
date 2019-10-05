@@ -1,15 +1,10 @@
-<i-tab-bar  >
-    <i-tab-bar-item ></i-tab-bar-item>
-</i-tab-bar>
-<i-tab-bar  >
-    <i-tab-bar-item ></i-tab-bar-item>
-</i-tab-bar>
+
 <view class="h1">
 <text style="font-size: 50rpx;">修改笔记</text>
 </view>
 <i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 <i-panel >
-    <i-input type="text" value="{{ value1 }}" title="笔记名" autofocus placeholder="请输入笔记名" />
+    <i-input type="text" value="{{ titleName }}" title="笔记名"  maxlength="8" bind:change	="titleNameInput" autofocus placeholder="请输入笔记名" />
 </i-panel>
  <i-cell title="输入类型">
         <i-switch value="{{switch1}}" size="large" bind:change="onChange" slot="footer">
@@ -17,11 +12,29 @@
             <view slot="close">mark</view>
         </i-switch>
   </i-cell>
-  <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+  <view class="conts">
+<textarea class="areas" bindblur="contextInput" value="{{ context }}" placeholder='笔记内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
+<text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
+<text class="hint">{{texts}}</text>
+</textarea>
+</view>
 
-  <i-button bind:click="handleOpen5" type="success" shape="circle" size="large">修改完毕</i-button>
+
+  <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+  <i-button bind:click="handleOpen1"  shape="circle" size="small" type="info" >浏览</i-button>
+  <i-button bind:click="handleOpen5" type="success" shape="circle" size="small">修改完毕</i-button>
   <i-modal title="修改确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
-    <view>修改修改吗</view>
+    <view>确定修改吗</view>
 </i-modal>
 
 <i-message id="message" />
+
+
+<i-modal title="{{ titleName }}" visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
+<view hidden="{{mdDisplay}}">
+<htmltowxml type="markdown" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</view>
+<view hidden="{{htmlDisplay}}">
+<htmltowxml type="html" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</view>
+</i-modal>

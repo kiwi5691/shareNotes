@@ -10,6 +10,8 @@ Page({
     switch1: false,
     visible1: false,
     titleName:'',
+    mdDisplay: false,
+    htmlDisplay:true,
     context:'',
     min:5,
     max: 500,
@@ -18,7 +20,7 @@ Page({
         name: '取消'
       },
       {
-        name: '修改',
+        name: '创建',
         color: '#00FF7F',
         loading: false
       }
@@ -119,7 +121,17 @@ Page({
     this.setData({
       'switch1': detail.value
     })
-
+    if (this.data.switch1 === true){
+      this.setData({
+        'mdDisplay': true,
+        'htmlDisplay':false
+      })
+    }else{
+      this.setData({
+        'mdDisplay': false,
+        'htmlDisplay': true
+      })
+    }
   },
   handleOpen1() {
     this.setData({

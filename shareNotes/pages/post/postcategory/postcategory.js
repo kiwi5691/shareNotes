@@ -1,4 +1,7 @@
 // pages/post/posts/posts.js
+const { $Message } = require('../../../dist/base/index');
+
+
 Page({
 
   /**
@@ -8,6 +11,7 @@ Page({
     showRigh2: false,
     visible5: false,
     cate_id: 0,
+    confirm:'',
     title: '',
     updateTime: '',
     createTime: '',
@@ -45,7 +49,17 @@ Page({
       this.setData({
         actions5: action
       });
+      
 
+      if (this.data.confirm != this.data.title) {
+        this.setData({
+          visible5: false,
+        });
+        $Message({
+          content: '目录名输入错误！',
+          type: 'error'
+        });
+      } else {
       setTimeout(() => {
         action[1].loading = false;
         this.setData({
@@ -57,6 +71,7 @@ Page({
           type: 'success'
         });
       }, 2000);
+     }
     }
   },
   goPostDetail() {
@@ -150,7 +165,11 @@ Page({
   onReachBottom: function () {
 
   },
-
+  confirmDel: function (e) {
+    this.setData({
+      confirm: e.detail.detail.value
+    })
+  },
   /**
    * 用户点击右上角分享
    */

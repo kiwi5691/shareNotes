@@ -24,12 +24,18 @@
   <i-button bind:click="handleOpen1"  shape="circle" size="small" type="info" >浏览</i-button>
   <i-button bind:click="handleOpen5" type="success" shape="circle" size="small">创建完毕</i-button>
   <i-modal title="创建确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
-    <view>创建修改吗</view>
+    <view>确定创建吗</view>
 </i-modal>
 
 <i-message id="message" />
 
 
 <i-modal title="{{ titleName }}" visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
-<htmltowxml type="markdown" text="## JAVA反射机制是在运行状态中，\n对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h1>都能够调用它的任意方</h1>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。" bindWxmlTagATap="wxmlTagATap" >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h>都能够调用它的任意方</h>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</htmltowxml>
+<view hidden="{{mdDisplay}}">
+<!-- <htmltowxml type="markdown" text="## JAVA反射机制是在运行状态中，\n对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h1>都能够调用它的任意方</h1>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。" bindWxmlTagATap="wxmlTagATap" >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h>都能够调用它的任意方</h>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</htmltowxml> -->
+<htmltowxml type="markdown" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</view>
+<view hidden="{{htmlDisplay}}">
+<htmltowxml type="html" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</view>
 </i-modal>

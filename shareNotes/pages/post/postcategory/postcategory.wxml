@@ -8,7 +8,8 @@
     <view slot="content">内容1111</view>
     </i-card>
      <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
+    <view slot="content"><htmltowxml type="markdown" text="## saffas fasf" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</view>
     </i-card>
      <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
     <view slot="content">内容1111</view>
@@ -22,7 +23,8 @@
 
 
 <i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
-    <view>会删除整个目录的笔记，并且删除后无法恢复哦</view>
+    <view>会删除整个目录的笔记</view>
+    <i-input value="{{ confirm }}" maxlength="15" bind:change	="confirmDel" title="目录名" autofocus placeholder="输入目录名" />
 </i-modal>
 <i-message id="message" />
 
