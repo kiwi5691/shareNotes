@@ -2,7 +2,7 @@ package cn.sharenotes.wxapi.web.content;
 
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.PostDTO;
-import cn.sharenotes.db.service.PostContentService;
+import cn.sharenotes.core.service.PostContentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 

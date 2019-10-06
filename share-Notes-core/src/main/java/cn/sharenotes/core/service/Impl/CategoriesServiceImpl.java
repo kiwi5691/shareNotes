@@ -1,4 +1,4 @@
-package cn.sharenotes.db.service.Impl;
+package cn.sharenotes.core.service.Impl;
 
 import cn.sharenotes.db.mapper.CategoriesMapper;
 import cn.sharenotes.db.mapper.UserMapper;
@@ -6,7 +6,7 @@ import cn.sharenotes.db.domain.Categories;
 import cn.sharenotes.db.domain.CategoriesExample;
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.dto.CategoryDTO;
-import cn.sharenotes.db.service.CategoriesService;
+import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.db.utils.DtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

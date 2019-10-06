@@ -1,4 +1,4 @@
-package cn.sharenotes.db.service;
+package cn.sharenotes.core.service;
 
 /**
  * @author 76905

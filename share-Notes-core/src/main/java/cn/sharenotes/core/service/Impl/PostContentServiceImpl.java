@@ -1,21 +1,16 @@
-package cn.sharenotes.db.service.Impl;
+package cn.sharenotes.core.service.Impl;
 
-import cn.sharenotes.db.domain.Posts;
+import cn.sharenotes.db.domain.*;
 import cn.sharenotes.db.mapper.PostCategoriesMapper;
 import cn.sharenotes.db.mapper.PostsMapper;
-import cn.sharenotes.db.domain.PostCategories;
-import cn.sharenotes.db.domain.PostCategoriesExample;
-import cn.sharenotes.db.domain.PostsExample;
 import cn.sharenotes.db.model.dto.PostDTO;
-import cn.sharenotes.db.service.PostContentService;
+import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.db.utils.DtoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -34,6 +29,9 @@ public class PostContentServiceImpl implements PostContentService {
 
     @Override
     public List<PostDTO> findPostsByUserId(Integer userId, Integer cateId) {
+
+        //// TODO: 2019/10/6 添加redis 存储 从cate获取postids
+
         PostCategoriesExample postCategoriesExample = new PostCategoriesExample();
         postCategoriesExample.setOrderByClause("create_time DESC");
         postCategoriesExample.createCriteria().andCategoryIdEqualTo(cateId);
@@ -45,7 +43,7 @@ public class PostContentServiceImpl implements PostContentService {
         postsExample.setOrderByClause("update_time DESC");
         postsExample.createCriteria().andCreateFromEqualTo(userId).
                 andIdIn(postIds);
-        List<Posts> posts =postsMapper.selectByExample(postsExample);
+        List<PostsWithBLOBs> posts =postsMapper.selectByExampleWithBLOBs(postsExample);
         List<PostDTO> postDTOS = DtoUtils.convertList2List(posts,PostDTO.class);
 
         return postDTOS;

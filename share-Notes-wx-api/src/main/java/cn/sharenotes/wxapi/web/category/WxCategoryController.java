@@ -2,7 +2,7 @@ package cn.sharenotes.wxapi.web.category;
 
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
-import cn.sharenotes.db.service.CategoriesService;
+import cn.sharenotes.core.service.CategoriesService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;

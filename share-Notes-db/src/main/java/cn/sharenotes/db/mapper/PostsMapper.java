@@ -19,8 +19,6 @@ public interface PostsMapper {
 
     List<PostsWithBLOBs> selectByExampleWithBLOBs(PostsExample example);
 
-    List<PostsWithBLOBs> findPostsByUserId(Integer userId, Integer CateId);
-
     List<Posts> selectByExample(PostsExample example);
 
     PostsWithBLOBs selectByPrimaryKey(Integer id);

@@ -12,13 +12,11 @@ import cn.sharenotes.core.utils.bcrypt.BCryptPasswordEncoder;
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.dto.UserDto;
 import cn.sharenotes.db.model.dto.WxLoginInfo;
-import cn.sharenotes.db.service.UserService;
+import cn.sharenotes.core.service.UserService;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.UserTokenManager;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -26,7 +24,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

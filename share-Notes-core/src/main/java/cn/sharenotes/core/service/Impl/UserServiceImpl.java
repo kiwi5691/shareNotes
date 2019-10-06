@@ -1,10 +1,10 @@
-package cn.sharenotes.db.service.Impl;
+package cn.sharenotes.core.service.Impl;
 
 import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.domain.UserExample;
 import cn.sharenotes.db.model.vo.UserVo;
-import cn.sharenotes.db.service.UserService;
+import cn.sharenotes.core.service.UserService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

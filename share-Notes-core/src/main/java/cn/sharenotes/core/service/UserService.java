@@ -1,4 +1,4 @@
-package cn.sharenotes.db.service;
+package cn.sharenotes.core.service;
 
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.vo.UserVo;

@@ -1,18 +1,13 @@
 package cn.sharenotes.wxapi.web.friend;
 
-import cn.sharenotes.core.utils.JSONChange;
 import cn.sharenotes.core.utils.ResponseUtil;
-import cn.sharenotes.db.domain.User;
-import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 import cn.sharenotes.db.model.dto.GroupEndDto;
-import cn.sharenotes.db.service.CategoriesService;
+import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.db.utils.ForMateFriendUtil;
-import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.UserGroupsSerive;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mysql.cj.xdevapi.Collection;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
