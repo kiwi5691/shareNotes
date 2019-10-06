@@ -1,5 +1,9 @@
 // pages/post/posts/posts.js
 const { $Message } = require('../../../dist/base/index');
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+var user = require('../../../utils/user.js');
+var app = getApp();
 
 
 Page({
@@ -13,8 +17,11 @@ Page({
     cate_id: 0,
     confirm:'',
     title: '',
+    hiddenAlertPu: true,
+    posts:[],
     updateTime: '',
     createTime: '',
+    failMes:'',
     actions5: [
       {
         name: '取消'
@@ -105,20 +112,21 @@ Page({
       title: options.title
     })
 
-    getPostsAll();
+    this.getPostsAll();
   },
 
   getPostsAll: function () {
     let that = this;
-    util.request(api.GetPostsAll + cate_id).then(function (res) {
+    util.request(api.GetPostsAll + this.data.cate_id).then(function (res) {
 
       if (res.errno === 0) {
         that.setData({
-          publicCate: res.data.publicCate,
+          posts: res.data.posts,
         });
 
-      } else if (res.errno === 601) {
+      } else if (res.errno === 801) {
         that.setData({
+          failMes: res.data.errmsg,
           hiddenAlertPu: !that.data.hiddenAlertPu
         })
       }

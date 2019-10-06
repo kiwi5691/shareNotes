@@ -1,21 +1,18 @@
 <i-divider content="目录修改时间:{{updateTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
-<i-cell-group>
-    <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card bindtap="goPostDetail"  title="标题" extra="2019/1/35 19:12:203">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content"><htmltowxml type="markdown" text="## saffas fasf" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+<view hidden="{{hiddenAlertPu}}">
+<i-alert   show-icon desc>
+    {{failMes}}
+    <view slot="desc">点击右下角符号创建</view>
+</i-alert>
 </view>
-    </i-card>
-     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
 
 
+<i-cell-group wx:for="{{posts}}" wx:key="id">
+     <i-card bindtap="goPostDetail" title="{{item.title}}" data-id='{{item.id}}' extra="{{item.updateTime}}">    
+   <view slot="content"><htmltowxml text="{{item.formatContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+       </view>
+       </i-card>
 </i-cell-group>
 
 <i-divider content="目录创建时间:{{createTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>

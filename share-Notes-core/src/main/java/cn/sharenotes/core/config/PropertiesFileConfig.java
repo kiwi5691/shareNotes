@@ -1,4 +1,4 @@
-package cn.sharenotes.wxapi.config;
+package cn.sharenotes.core.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

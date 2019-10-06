@@ -1,0 +1,1 @@
+根据postContent里的redis读写修删缓存。还有加key前缀
