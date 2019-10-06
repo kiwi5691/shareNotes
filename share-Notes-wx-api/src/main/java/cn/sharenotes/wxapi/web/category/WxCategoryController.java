@@ -1,6 +1,7 @@
 package cn.sharenotes.wxapi.web.category;
 
 import cn.sharenotes.core.service.CategoriesService;
+import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
@@ -42,7 +43,10 @@ public class WxCategoryController {
 
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
-    public Object addCategories(/*@LoginUser Integer userId,*/String name, boolean isPcOrPr, String iconSelected) {
+    public Object addCategories(/*@LoginUser Integer userId,*/@RequestBody String body) {
+        String name = JacksonUtil.parseString(body, "name");
+        boolean isPcOrPr = JacksonUtil.parseBoolean(body, "isPcOrPr");
+        String iconSelected = JacksonUtil.parseString(body, "iconSelected");
         String description = null;
         Integer menuId = null;
         if (isPcOrPr == true) {
