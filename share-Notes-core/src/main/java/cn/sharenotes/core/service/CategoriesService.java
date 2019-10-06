@@ -16,4 +16,6 @@ public interface CategoriesService {
 
     List<String> findAllCategoriesNameByUserOpenIdWithMenuId(Integer userId, Integer menuId);
 
+    boolean delectCategorieByMenuId(Integer menuId);
+
 }

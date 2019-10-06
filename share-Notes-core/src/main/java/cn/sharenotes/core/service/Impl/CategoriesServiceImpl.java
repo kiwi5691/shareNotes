@@ -78,5 +78,12 @@ public class CategoriesServiceImpl implements CategoriesService {
         return strings;
     }
 
+    @Override
+    public boolean delectCategorieByMenuId(Integer menuId) {
+
+        categoriesMapper.deleteByPrimaryKey(menuId);
+        return true;
+    }
+
 
 }

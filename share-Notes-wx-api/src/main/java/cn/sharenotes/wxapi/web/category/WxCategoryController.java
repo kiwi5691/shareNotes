@@ -71,4 +71,10 @@ public class WxCategoryController {
         }
         return ResponseUtil.ok();
     }
+    @ApiOperation(value = "通过 meanId 删除目录")
+    @GetMapping("/delect/{menuId}")
+    public Object delectCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId) {
+       categoriesService.delectCategorieByMenuId(menuId);
+        return ResponseUtil.ok();
+    }
 }
