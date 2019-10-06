@@ -25,16 +25,16 @@ public class WxCategoryController {
 
     @ApiOperation(value = "通过 meanId 获取目录")
     @GetMapping("/getAll/{menuId}")
-    public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId){
-        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenId(5,menuId);
-        if(CollectionUtils.isEmpty(categoryDTOS)){
-            return ResponseUtil.fail(601,"没有目录");
+    public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId) {
+        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(5, menuId);
+        if (CollectionUtils.isEmpty(categoryDTOS)) {
+            return ResponseUtil.fail(601, "没有目录");
         }
         Map<String, Object> result = new HashMap<>();
-        if(menuId==1){
+        if (menuId == 1) {
             result.put("publicCate", categoryDTOS);
         }
-        if(menuId==2){
+        if (menuId == 2) {
             result.put("privateCate", categoryDTOS);
         }
         return ResponseUtil.ok(result);
@@ -42,30 +42,32 @@ public class WxCategoryController {
 
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
-    public Object addCategories(/*@LoginUser Integer userId,*/String name,boolean isPcOrPr,String iconSelected){
-        List<String> allCategoriesName = categoriesService.findAllCategoriesName();
-        if(!allCategoriesName.contains(name)){
-            return ResponseUtil.fail(602,"添加目录失败，目录名存在");
+    public Object addCategories(/*@LoginUser Integer userId,*/String name, boolean isPcOrPr, String iconSelected) {
+        String description = null;
+        Integer menuId = null;
+        if (isPcOrPr == true) {
+            menuId = 1;
+        } else {
+            menuId = 2;
+        }
+        List<String> dtos = categoriesService.findAllCategoriesNameByUserOpenIdWithMenuId(5, menuId);
+        if (dtos.contains(name)) {
+            return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
         CategoryVO categoryVO = new CategoryVO();
         categoryVO.setName(name);
-        if(isPcOrPr == true){
-            categoryVO.setParentId(1);
-        }else {
-            categoryVO.setParentId(2);
-        }
-        String description = null;
-        if(iconSelected.equals("活动")){
+        categoryVO.setParentId(menuId);
+        if (iconSelected.equals("活动")) {
             description = "activity";
-        }else if(iconSelected.equals("手记")){
+        } else if (iconSelected.equals("手记")) {
             description = "barrage";
-        }else {
+        } else {
             description = "brush";
         }
         categoryVO.setDescription(description);
-        int i = categoriesService.addCategories(5,categoryVO);
-        if(i<0){
-            return ResponseUtil.fail(603,"添加目录失败");
+        int i = categoriesService.addCategories(5, categoryVO);
+        if (i < 0) {
+            return ResponseUtil.fail(603, "添加目录失败");
         }
         return ResponseUtil.ok();
     }

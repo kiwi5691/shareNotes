@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface CategoriesService {
 
-    List<CategoryDTO> findCategoriesByUserOpenId(Integer userId,Integer menuId);
+    List<CategoryDTO> findCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId);
 
     int addCategories(Integer userId,CategoryVO categoryVO);
 
-    List<String> findAllCategoriesName();
+    List<String> findAllCategoriesNameByUserOpenIdWithMenuId(Integer userId, Integer menuId);
 
 }

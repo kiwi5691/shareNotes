@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author 76905
@@ -39,7 +36,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     private String OWNER_MENUID;
 
     @Override
-    public List<CategoryDTO> findCategoriesByUserOpenId(Integer userId,Integer menuId) {
+    public List<CategoryDTO> findCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId) {
         List<CategoryDTO> categoryDTOS =null;
         List<Categories> categories =null;
 
@@ -72,8 +69,14 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public List<String> findAllCategoriesName() {
-        return categoriesMapper.selectAllName();
+    public List<String> findAllCategoriesNameByUserOpenIdWithMenuId(Integer userId, Integer menuId) {
+        List<String> strings = new ArrayList<>();
+        List<CategoryDTO> categoryDTOS = findCategoriesByUserOpenIdWithMenuId(userId, menuId);
+        for(CategoryDTO categoryDTO : categoryDTOS){
+            strings.add(categoryDTO.getName());
+        }
+        return strings;
     }
+
 
 }
