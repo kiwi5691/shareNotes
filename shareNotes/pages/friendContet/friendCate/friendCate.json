@@ -8,5 +8,7 @@
     "i-icon": "../../dist/icon/index"
   },
   "navigationBarTitleText": "朋友的目录",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#f4f4f4",
     "enablePullDownRefresh": true
 }

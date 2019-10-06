@@ -13,5 +13,5 @@
   },
   "backgroundColor": "#f4f4f4",
   "navigationBarTitleText": "笔记格式",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": true
 }

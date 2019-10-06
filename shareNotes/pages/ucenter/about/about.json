@@ -4,5 +4,7 @@
         "i-panel": "../../dist/panel/index",
         "i-icon": "../../dist/icon/index"
   },
-  "navigationBarTitleText": "关于"
+  "navigationBarTitleText": "关于",
+  "backgroundColor": "#f4f4f4",
+  "enablePullDownRefresh": true
 }

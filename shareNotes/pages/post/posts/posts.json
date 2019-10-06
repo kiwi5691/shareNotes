@@ -13,6 +13,8 @@
        "i-icon": "../../dist/icon/index",
       "htmltowxml": "plugin://htmltowxml/view"        
   },
-  "navigationBarTitleText": "笔记详细"
-    
+  
+  "navigationBarTitleText": "笔记详细",
+  "backgroundColor": "#f4f4f4",
+   "enablePullDownRefresh": true
 }

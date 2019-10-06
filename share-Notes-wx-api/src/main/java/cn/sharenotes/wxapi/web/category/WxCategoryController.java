@@ -48,9 +48,8 @@ public class WxCategoryController {
         if(categoryVO == null){
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
-        int i = categoriesService.addCategory(5, categoryVO);
-        if (i < 0) {
-            return ResponseUtil.fail();
+        if (categoriesService.addCategory(5, categoryVO)==0) {
+            return ResponseUtil.updatedDataFailed();
         }
         return ResponseUtil.ok();
     }

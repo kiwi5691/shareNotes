@@ -9,5 +9,7 @@
     "i-drawer": "../../dist/drawer/index",
     "i-divider": "../../dist/divider/index"
   },
-  "navigationBarTitleText": "目录详细"
+  "navigationBarTitleText": "目录详细",
+  "backgroundColor": "#f4f4f4",
+  "enablePullDownRefresh": true
 }

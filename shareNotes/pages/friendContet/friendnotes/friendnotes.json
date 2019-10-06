@@ -13,5 +13,7 @@
     "i-icon": "../../dist/icon/index",
     "i-input": "../../dist/input/index"
   },
-  "navigationBarTitleText": "笔记详细"
+  "navigationBarTitleText": "笔记详细",
+  "backgroundColor": "#f4f4f4",
+  "enablePullDownRefresh": true
 }

@@ -4,5 +4,7 @@
     "i-panel": "../../dist/panel/index",
     "i-icon": "../../dist/icon/index"
   },
-  "navigationBarTitleText": "快速上手"
+  "navigationBarTitleText": "快速上手",
+  "backgroundColor": "#f4f4f4",
+  "enablePullDownRefresh": true
 }

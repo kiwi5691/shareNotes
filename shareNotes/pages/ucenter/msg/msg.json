@@ -6,5 +6,7 @@
       "i-modal": "../../dist/modal/index",
       "i-button": "../../dist/button/index"
   },
-  "navigationBarTitleText": "所有消息"
+  "navigationBarTitleText": "所有消息",
+  "backgroundColor": "#f4f4f4",
+  "enablePullDownRefresh": true
 }
