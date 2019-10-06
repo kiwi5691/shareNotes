@@ -1,4 +1,4 @@
-package cn.sharenotes.db.dao;
+package cn.sharenotes.db.mapper;
 
 import cn.sharenotes.db.domain.PostCategories;
 import cn.sharenotes.db.domain.PostCategoriesExample;

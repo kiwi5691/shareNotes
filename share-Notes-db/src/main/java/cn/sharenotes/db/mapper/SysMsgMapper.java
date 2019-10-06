@@ -1,4 +1,4 @@
-package cn.sharenotes.db.dao;
+package cn.sharenotes.db.mapper;
 
 import cn.sharenotes.db.domain.SysMsg;
 import cn.sharenotes.db.domain.SysMsgExample;

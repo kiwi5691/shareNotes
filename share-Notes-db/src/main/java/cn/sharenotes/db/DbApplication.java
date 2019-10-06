@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication(scanBasePackages = {"cn.sharenotes.db"})
-@MapperScan("cn.sharenotes.db.dao")
 public class DbApplication {
 
     public static void main(String[] args) {

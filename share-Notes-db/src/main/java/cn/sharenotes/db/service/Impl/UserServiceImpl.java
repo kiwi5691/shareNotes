@@ -1,6 +1,6 @@
 package cn.sharenotes.db.service.Impl;
 
-import cn.sharenotes.db.dao.UserMapper;
+import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.domain.UserExample;
 import cn.sharenotes.db.model.vo.UserVo;

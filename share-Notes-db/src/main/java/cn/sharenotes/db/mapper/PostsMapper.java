@@ -1,4 +1,4 @@
-package cn.sharenotes.db.dao;
+package cn.sharenotes.db.mapper;
 
 import cn.sharenotes.db.domain.Posts;
 import cn.sharenotes.db.domain.PostsExample;
@@ -18,6 +18,8 @@ public interface PostsMapper {
     int insertSelective(PostsWithBLOBs record);
 
     List<PostsWithBLOBs> selectByExampleWithBLOBs(PostsExample example);
+
+    List<PostsWithBLOBs> findPostsByUserId(Integer userId, Integer CateId);
 
     List<Posts> selectByExample(PostsExample example);
 

@@ -1,7 +1,7 @@
 package cn.sharenotes.db.service.Impl;
 
-import cn.sharenotes.db.dao.CategoriesMapper;
-import cn.sharenotes.db.dao.UserMapper;
+import cn.sharenotes.db.mapper.CategoriesMapper;
+import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.domain.Categories;
 import cn.sharenotes.db.domain.CategoriesExample;
 import cn.sharenotes.db.domain.User;

@@ -1,6 +1,15 @@
 package cn.sharenotes.wxapi.web.content;
 
+import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.db.model.dto.PostDTO;
+import cn.sharenotes.db.service.PostContentService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Post controller.
@@ -10,16 +19,20 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/wx/posts")
-public class PostController {
+public class WxPostController {
 
 
+    @Resource
+    private PostContentService postContentService;
 
-
-//  todo
-//    @GetMapping
-//    @ApiOperation("Lists posts")
-//    public Page<?> pageBy(Integer page, Integer size,排序方式
-//    }
+    @ApiOperation("Lists posts")
+    @GetMapping("/getAll/{cate_id}")
+    public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id){
+        List<PostDTO> postDTOS = postContentService.findPostsByUserId(3,cate_id);
+        Map<String, Object> result = new HashMap<>();
+        result.put("post", postDTOS);
+        return ResponseUtil.ok(result);
+    }
 
 
 

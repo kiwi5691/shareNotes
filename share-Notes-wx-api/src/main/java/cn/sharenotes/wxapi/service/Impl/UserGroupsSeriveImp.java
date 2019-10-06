@@ -1,8 +1,8 @@
 package cn.sharenotes.wxapi.service.Impl;
 
 import cn.sharenotes.core.utils.NameIdUtils;
-import cn.sharenotes.db.dao.UserGroupsMapper;
-import cn.sharenotes.db.dao.UserMapper;
+import cn.sharenotes.db.mapper.UserGroupsMapper;
+import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 import cn.sharenotes.db.utils.DtoUtils;

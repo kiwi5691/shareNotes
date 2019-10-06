@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.sharenotes.db.dao.SysMsgLogMapper">
+<mapper namespace="cn.sharenotes.db.mapper.SysMsgLogMapper">
   <resultMap id="BaseResultMap" type="cn.sharenotes.db.domain.SysMsgLog">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="rec_id" jdbcType="VARCHAR" property="recId" />
