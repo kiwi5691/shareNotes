@@ -56,14 +56,14 @@ public class WxCategoryController {
     }
 
     @ApiOperation(value = "通过 categoryId 删除目录")
-    @GetMapping("/delete/{categoryId}")
+    @DeleteMapping("/delete/{categoryId}")
     public Object deleteCategory(/*@LoginUser Integer userId,*/ @PathVariable("categoryId") Integer categoryId) {
        categoriesService.deleteCategoryByCategoryId(categoryId);
         return ResponseUtil.ok();
     }
 
     @ApiOperation(value = "通过 categoryId 修改目录")
-    @PostMapping("update/{categoryId}")
+    @PutMapping("update/{categoryId}")
     public Object updateCategoryByCategoryId(@PathVariable("categoryId") Integer categoryId,@RequestBody String body){
         CategoryVO categoryVO = getBodyIntoCategoryVO(body);
         if(categoryVO == null){
