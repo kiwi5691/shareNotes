@@ -4,6 +4,7 @@ import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.core.service.PostContentService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,12 +28,17 @@ public class WxPostController {
 
     @ApiOperation("Lists posts")
     @GetMapping("/getAll/{cate_id}")
-    public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id){
-        List<PostDTO> postDTOS = postContentService.findPostsByUserId(3,cate_id);
+    public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
+        List<PostDTO> postDTOS = postContentService.findPostsByUserId(3, cate_id);
         Map<String, Object> result = new HashMap<>();
-        result.put("post", postDTOS);
-        return ResponseUtil.ok(result);
+        if (CollectionUtils.isEmpty(postDTOS)) {
+            return ResponseUtil.fail(801,"您尚未创建文章");
+        } else {
+            result.put("posts", postDTOS);
+            return ResponseUtil.ok(result);
+        }
     }
+
 
 
 

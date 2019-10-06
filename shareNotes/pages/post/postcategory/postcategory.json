@@ -13,5 +13,6 @@
        "i-message": "../../dist/message/index"
   },
   "navigationBarTitleText": "目录详细",
+    "backgroundColor": "#f4f4f4",
     "enablePullDownRefresh": true
 }

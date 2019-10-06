@@ -1,4 +1,4 @@
-package cn.sharenotes.wxapi.redis.KeyPrefix;
+package cn.sharenotes.core.redis.KeyPrefix.base;
 
 
 public abstract class BasePrefix implements KeyPrefix {

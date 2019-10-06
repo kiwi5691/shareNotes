@@ -1,11 +1,9 @@
-package cn.sharenotes.wxapi.redis;
+package cn.sharenotes.core.redis;
 
 import cn.sharenotes.core.utils.SerializeUtil;
-import cn.sharenotes.wxapi.redis.KeyPrefix.KeyPrefix;
+import cn.sharenotes.core.redis.KeyPrefix.base.KeyPrefix;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -24,7 +22,6 @@ import java.util.Map;
 @Slf4j
 public class RedisManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisManager.class);
 
     @Autowired
     JedisPool jedisPool;
@@ -112,14 +109,14 @@ public class RedisManager {
             try {
                 keys.addAll(connection.keys(pattern));
             } catch(Exception e){
-                logger.error("获取key异常", e);
+                log.error("获取key异常", e);
             } finally{
-                logger.info("关闭连接");
+                log.info("关闭连接");
                 //一定要关闭连接！
                 connection.close();
             }
         }
-        logger.info("已获取所有keys");
+        log.info("已获取所有keys");
         return keys;
     }
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 /**
- * @author 76905
+ * @author hu
  */
 @RestController
 @RequestMapping("/wx/friend")
@@ -29,7 +29,7 @@ public class WxFriendGroupController {
     @ApiOperation(value = "通过 UserId 获取目录")
     @GetMapping("/getAll")
     public Object getAllCategories() throws JsonProcessingException {
-        Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(3);
+        Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(4);
         if(CollectionUtils.isEmpty(groupDtoMap)){
             return ResponseUtil.fail(701,"没有朋友");
         }
@@ -46,7 +46,7 @@ public class WxFriendGroupController {
         Collections.sort(listMain, new Comparator<GroupEndDto>() {
             @Override
             public int compare(GroupEndDto o1, GroupEndDto o2) {
-                return o2.getId() - o1.getId();
+                return o1.getId()-o2.getId();
             }
         });
 

@@ -14,6 +14,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 public class CategoryDTO{
+    private Integer id;
 
     private String name;
 
