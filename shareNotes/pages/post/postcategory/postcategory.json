@@ -10,7 +10,8 @@
       "i-divider": "../../dist/divider/index",
       "i-input": "../../dist/input/index",
       "htmltowxml": "plugin://htmltowxml/view",
-       "i-message": "../../dist/message/index"
+      "i-message": "../../dist/message/index",
+       "i-alert": "../../dist/alert/index"
   },
   "navigationBarTitleText": "目录详细",
     "backgroundColor": "#f4f4f4",

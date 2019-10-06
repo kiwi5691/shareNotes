@@ -9,6 +9,7 @@ import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.db.utils.DtoUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -32,6 +33,8 @@ public class PostContentServiceImpl implements PostContentService {
     @Resource
     private RedisManager redisManager;
 
+    @Value("${OWNER_POSTS_BY_CATID}")
+    private String OWNER_POSTS_BY_CATID;
     @Resource
     private PostCategoriesMapper postCategoriesMapper;
 
@@ -56,14 +59,21 @@ public class PostContentServiceImpl implements PostContentService {
         }
 
         if(!CollectionUtils.isEmpty(postIds)){
-              PostsExample postsExample = new PostsExample();
-              postsExample.setOrderByClause("update_time DESC");
-              postsExample.createCriteria().andCreateFromEqualTo(userId)
-                                            .andIdIn(postIds);
-              posts =postsMapper.selectByExampleWithBLOBs(postsExample);
-              postDTOS = DtoUtils.convertList2List(posts,PostDTO.class);
+            String Key=OwnerContentKey.board.getPrefix();
+            postDTOS = (List<PostDTO>) redisManager.getList(OWNER_POSTS_BY_CATID+":"+"posts :"+cateId);
+            if(postDTOS==null) {
+                PostsExample postsExample = new PostsExample();
+                postsExample.setOrderByClause("update_time DESC");
+                postsExample.createCriteria().andCreateFromEqualTo(userId)
+                        .andIdIn(postIds);
+                posts = postsMapper.selectByExampleWithBLOBs(postsExample);
+                postDTOS = DtoUtils.convertList2List(posts, PostDTO.class);
+                postDTOS = Optional.ofNullable(postDTOS).orElseGet(Collections::emptyList);
+                redisManager.setList( OWNER_POSTS_BY_CATID+":"+"posts :"+cateId, postDTOS);
+            }
             return postDTOS;
         }
+
         postDTOS = DtoUtils.convertList2List(posts,PostDTO.class);
         return postDTOS;
     }

@@ -1,5 +1,6 @@
 package cn.sharenotes.core.service.Impl;
 
+import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.db.domain.Categories;
 import cn.sharenotes.db.domain.CategoriesExample;
@@ -10,10 +11,14 @@ import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
 import cn.sharenotes.db.utils.DtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 76905
@@ -27,14 +32,27 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Autowired
     private UserMapper userMapper;
 
+    @Resource
+    private RedisManager redisManager;
+    @Value("${OWNER_MENUID}")
+    private String OWNER_MENUID;
+
     @Override
     public List<CategoryDTO> findCategoriesByUserOpenId(Integer userId,Integer menuId) {
-        User user = userMapper.selectByPrimaryKey(userId);
-        CategoriesExample categoriesExample = new CategoriesExample();
-        CategoriesExample.Criteria criteria = categoriesExample.createCriteria();
-        criteria.andSlugNameEqualTo(user.getWeixinOpenid()).andParentIdEqualTo(menuId);
-        List<Categories> categories = categoriesMapper.selectByExample(categoriesExample);
-        List<CategoryDTO> categoryDTOS = DtoUtils.convertList2List(categories,CategoryDTO.class);
+        List<CategoryDTO> categoryDTOS =null;
+        List<Categories> categories =null;
+
+        categoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId);
+        if(categoryDTOS == null) {
+            User user = userMapper.selectByPrimaryKey(userId);
+            CategoriesExample categoriesExample = new CategoriesExample();
+            CategoriesExample.Criteria criteria = categoriesExample.createCriteria();
+            criteria.andSlugNameEqualTo(user.getWeixinOpenid()).andParentIdEqualTo(menuId);
+            categories = categoriesMapper.selectByExample(categoriesExample);
+            categoryDTOS = DtoUtils.convertList2List(categories, CategoryDTO.class);
+            categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
+            redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
+        }
         return categoryDTOS;
     }
 

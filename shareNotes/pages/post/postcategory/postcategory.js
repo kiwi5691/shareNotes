@@ -126,7 +126,7 @@ Page({
 
       } else if (res.errno === 801) {
         that.setData({
-          failMes: res.data.errmsg,
+          failMes: res.errmsg,
           hiddenAlertPu: !that.data.hiddenAlertPu
         })
       }
@@ -164,7 +164,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+      wx.showNavigationBarLoading() //在标题栏中显示加载
+      this.getPostsAll()
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
   },
 
   /**

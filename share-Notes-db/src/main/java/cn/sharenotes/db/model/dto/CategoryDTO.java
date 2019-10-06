@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode
-public class CategoryDTO{
+public class CategoryDTO  implements Serializable {
     private Integer id;
 
     private String name;

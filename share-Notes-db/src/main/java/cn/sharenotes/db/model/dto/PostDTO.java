@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
 @Data
 @ToString
 @EqualsAndHashCode
-public class PostDTO {
+public class PostDTO implements Serializable {
     private Integer id;
 
     private Integer type;
