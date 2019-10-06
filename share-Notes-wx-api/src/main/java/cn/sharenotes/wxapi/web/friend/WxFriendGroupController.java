@@ -28,7 +28,7 @@ public class WxFriendGroupController {
     private UserGroupsSerive userGroupsMapper;
     @ApiOperation(value = "通过 UserId 获取目录")
     @GetMapping("/getAll")
-    public Object getAllCategories() throws JsonProcessingException {
+    public Object getAllCategories(/*@LoginUser Integer userId,*/ ) throws JsonProcessingException {
         Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(4);
         if(CollectionUtils.isEmpty(groupDtoMap)){
             return ResponseUtil.fail(701,"没有朋友");

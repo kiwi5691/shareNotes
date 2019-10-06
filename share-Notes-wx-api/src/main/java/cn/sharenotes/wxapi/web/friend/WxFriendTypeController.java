@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,15 +31,15 @@ public class WxFriendTypeController {
     @Autowired
     private UserGroupsSerive userGroupsMapper;
     @ApiOperation(value = "通过 UserId 获取目录")
-    @GetMapping("/getAll/menu")
-    public Object getAllCategories() throws JsonProcessingException {
-        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenId(5,1);
+    @GetMapping("/getAll/menu/{fid}")
+    public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("fid") Integer fid){
+        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenId(fid,2);
         if(CollectionUtils.isEmpty(categoryDTOS)){
-            return ResponseUtil.fail(601,"没有目录");
+            return ResponseUtil.fail(601,"您的朋友还没有目录");
         }
         Map<String, Object> result = new HashMap<>();
 
-            result.put("publicCate", categoryDTOS);
+        result.put("publicCate", categoryDTOS);
 
         return ResponseUtil.ok(result);
     }

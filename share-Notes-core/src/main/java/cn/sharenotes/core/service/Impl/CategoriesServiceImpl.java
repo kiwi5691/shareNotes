@@ -13,6 +13,7 @@ import cn.sharenotes.db.utils.DtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -43,13 +44,16 @@ public class CategoriesServiceImpl implements CategoriesService {
         List<Categories> categories =null;
 
         categoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId);
-        if(categoryDTOS == null) {
+        if(CollectionUtils.isEmpty(categoryDTOS)) {
             User user = userMapper.selectByPrimaryKey(userId);
             CategoriesExample categoriesExample = new CategoriesExample();
             CategoriesExample.Criteria criteria = categoriesExample.createCriteria();
             criteria.andSlugNameEqualTo(user.getWeixinOpenid()).andParentIdEqualTo(menuId);
             categories = categoriesMapper.selectByExample(categoriesExample);
             categoryDTOS = DtoUtils.convertList2List(categories, CategoryDTO.class);
+            if(CollectionUtils.isEmpty(categoryDTOS)){
+                return categoryDTOS;
+            }
             categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
             redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
         }

@@ -55,7 +55,12 @@ public class RedisManager {
         }
         byte[] data = jedis.get(key.getBytes());
         jedis.close();
-        return SerializeUtil.unserializeList(data);
+        if(data.length==0) {
+            return null;
+        }else {
+            return SerializeUtil.unserializeList(data);
+
+        }
     }
 
     /**

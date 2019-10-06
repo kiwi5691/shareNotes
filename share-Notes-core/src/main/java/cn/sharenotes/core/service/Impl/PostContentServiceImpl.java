@@ -61,7 +61,7 @@ public class PostContentServiceImpl implements PostContentService {
         if(!CollectionUtils.isEmpty(postIds)){
             String Key=OwnerContentKey.board.getPrefix();
             postDTOS = (List<PostDTO>) redisManager.getList(OWNER_POSTS_BY_CATID+":"+"posts :"+cateId);
-            if(postDTOS==null) {
+            if(CollectionUtils.isEmpty(postDTOS)) {
                 PostsExample postsExample = new PostsExample();
                 postsExample.setOrderByClause("update_time DESC");
                 postsExample.createCriteria().andCreateFromEqualTo(userId)
