@@ -84,17 +84,10 @@ Page({
           visible5: false,
           actions5: action
         });
-        util.request(api.AddCategory, {
-          name: this.data.cateName,
-          isPcOrPr: this.data.switch1,
-          iconSelected: this.data.current
-        }, 'POST').then(function (res) {
-          if (res.errno === 0) {
-            $Message({
-              content: '创建成功！',
-              type: 'success'
-            });
-        }});
+        var name = this.data.cateName;
+        var isPcOrPr = this.data.switch1;
+        var iconSelected = this.data.current;
+        this.addCategory(name, isPcOrPr, iconSelected);
         }, 1000);
       }
     }
@@ -105,6 +98,26 @@ Page({
       'switch1': detail.value
     })
 
+  },
+  addCategory: function (name, isPcOrPr, iconSelected){
+    let that = this;
+    util.request(api.AddCategory, {
+      name: name,
+      isPcOrPr: isPcOrPr,
+      iconSelected: iconSelected
+    }, 'POST').then(function (res) {
+      if (res.errno === 0) {
+        $Message({
+          content: '创建成功！',
+          type: 'success'
+        });
+      } else if (res.errno === 603) {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
   },
 
   /**
