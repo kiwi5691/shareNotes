@@ -164,6 +164,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="selectAllName" resultType="java.lang.String">
+    select name from categories
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update categories
     <set>

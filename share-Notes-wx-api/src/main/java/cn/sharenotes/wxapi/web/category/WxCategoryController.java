@@ -1,15 +1,13 @@
 package cn.sharenotes.wxapi.web.category;
 
+import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
-import cn.sharenotes.core.service.CategoriesService;
+import cn.sharenotes.db.model.vo.CategoryVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,5 +38,35 @@ public class WxCategoryController {
             result.put("privateCate", categoryDTOS);
         }
         return ResponseUtil.ok(result);
+    }
+
+    @ApiOperation(value = "添加目录")
+    @PostMapping("/add")
+    public Object addCategories(/*@LoginUser Integer userId,*/String name,boolean isPcOrPr,String iconSelected){
+        List<String> allCategoriesName = categoriesService.findAllCategoriesName();
+        if(!allCategoriesName.contains(name)){
+            return ResponseUtil.fail(602,"添加目录失败，目录名存在");
+        }
+        CategoryVO categoryVO = new CategoryVO();
+        categoryVO.setName(name);
+        if(isPcOrPr == true){
+            categoryVO.setParentId(1);
+        }else {
+            categoryVO.setParentId(2);
+        }
+        String description = null;
+        if(iconSelected.equals("活动")){
+            description = "activity";
+        }else if(iconSelected.equals("手记")){
+            description = "barrage";
+        }else {
+            description = "brush";
+        }
+        categoryVO.setDescription(description);
+        int i = categoriesService.addCategories(5,categoryVO);
+        if(i<0){
+            return ResponseUtil.fail(603,"添加目录失败");
+        }
+        return ResponseUtil.ok();
     }
 }

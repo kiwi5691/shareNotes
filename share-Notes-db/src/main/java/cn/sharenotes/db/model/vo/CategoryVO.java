@@ -1,21 +1,24 @@
 package cn.sharenotes.db.model.vo;
 
-import cn.sharenotes.db.model.dto.CategoryDTO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 /**
- * Category vo.
- *
- * @author kiwi
+ * @author 76905
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class CategoryVO extends CategoryDTO {
 
-    private List<CategoryVO> children;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoryVO {
+
+    private String slugName;
+
+    private Integer parentId;
+
+    private String name;
+
+    private String description;
+
 }

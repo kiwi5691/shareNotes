@@ -3,17 +3,15 @@ package cn.sharenotes.db.model.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import java.util.Date;
 
 /**
  * Category output dto.
  *
- * @author kiwi
+ * @author 76905
  */
 @Data
-@ToString
 @EqualsAndHashCode
 public class CategoryDTO{
 

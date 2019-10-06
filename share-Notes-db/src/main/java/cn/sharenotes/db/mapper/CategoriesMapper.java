@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author 76905
+ */
 public interface CategoriesMapper {
     long countByExample(CategoriesExample example);
 
@@ -28,4 +31,6 @@ public interface CategoriesMapper {
     int updateByPrimaryKeySelective(Categories record);
 
     int updateByPrimaryKey(Categories record);
+
+    List<String> selectAllName();
 }
