@@ -18,6 +18,6 @@ public interface CategoriesService {
 
     boolean deleteCategoryByCategoryId(Integer categoryId);
 
-    boolean updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO);
+    int updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO);
 
 }

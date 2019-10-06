@@ -85,16 +85,12 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public boolean updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO) {
+    public int updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO) {
         Categories categories = new Categories();
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setId(categoryId);
         categories.setUpdateTime(new Date());
-        int i = categoriesMapper.updateByPrimaryKeySelective(categories);
-        if(i<0){
-            return false;
-        }
-        return true;
+        return categoriesMapper.updateByPrimaryKeySelective(categories);
     }
 
 

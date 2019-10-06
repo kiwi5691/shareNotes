@@ -48,10 +48,10 @@ public class WxCategoryController {
         if(categoryVO == null){
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
-        if (categoriesService.addCategory(5, categoryVO)==0) {
-            return ResponseUtil.updatedDataFailed();
+        if (categoriesService.addCategory(5, categoryVO) > 0) {
+            return ResponseUtil.ok();
         }
-        return ResponseUtil.ok();
+        return ResponseUtil.fail();
     }
 
     @ApiOperation(value = "通过 categoryId 删除目录")
@@ -68,8 +68,7 @@ public class WxCategoryController {
         if(categoryVO == null){
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
         }
-        boolean result = categoriesService.updateCategoryByCategoryId(categoryId, categoryVO);
-        if(result){
+        if(categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0){
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
