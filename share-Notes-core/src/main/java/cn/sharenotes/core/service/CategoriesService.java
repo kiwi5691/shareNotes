@@ -12,10 +12,12 @@ public interface CategoriesService {
 
     List<CategoryDTO> findCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId);
 
-    int addCategories(Integer userId,CategoryVO categoryVO);
+    int addCategory(Integer userId,CategoryVO categoryVO);
 
-    List<String> findAllCategoriesNameByUserOpenIdWithMenuId(Integer userId, Integer menuId);
+    List<String> findAllCategoryNameByUserOpenIdWithMenuId(Integer userId, Integer menuId);
 
-    boolean delectCategorieByMenuId(Integer menuId);
+    boolean deleteCategoryByCategoryId(Integer categoryId);
+
+    boolean updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO);
 
 }

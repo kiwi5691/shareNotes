@@ -43,20 +43,53 @@ public class WxCategoryController {
 
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
-    public Object addCategories(/*@LoginUser Integer userId,*/@RequestBody String body) {
+    public Object addCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
+        CategoryVO categoryVO = getBodyIntoCategoryVO(body);
+        if(categoryVO == null){
+            return ResponseUtil.fail(602, "添加目录失败，目录名存在");
+        }
+        int i = categoriesService.addCategory(5, categoryVO);
+        if (i < 0) {
+            return ResponseUtil.fail();
+        }
+        return ResponseUtil.ok();
+    }
+
+    @ApiOperation(value = "通过 categoryId 删除目录")
+    @GetMapping("/delete/{categoryId}")
+    public Object deleteCategory(/*@LoginUser Integer userId,*/ @PathVariable("categoryId") Integer categoryId) {
+       categoriesService.deleteCategoryByCategoryId(categoryId);
+        return ResponseUtil.ok();
+    }
+
+    @ApiOperation(value = "通过 categoryId 修改目录")
+    @PostMapping("update/{categoryId}")
+    public Object updateCategoryByCategoryId(@PathVariable("categoryId") Integer categoryId,@RequestBody String body){
+        CategoryVO categoryVO = getBodyIntoCategoryVO(body);
+        if(categoryVO == null){
+            return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
+        }
+        boolean result = categoriesService.updateCategoryByCategoryId(categoryId, categoryVO);
+        if(result){
+            return ResponseUtil.ok();
+        }
+        return ResponseUtil.fail();
+    }
+
+    public CategoryVO getBodyIntoCategoryVO(String body){
         String name = JacksonUtil.parseString(body, "name");
         boolean isPcOrPr = JacksonUtil.parseBoolean(body, "isPcOrPr");
         String iconSelected = JacksonUtil.parseString(body, "iconSelected");
         String description = null;
         Integer menuId = null;
-        if (isPcOrPr == true) {
+        if (isPcOrPr) {
             menuId = 1;
         } else {
             menuId = 2;
         }
-        List<String> dtos = categoriesService.findAllCategoriesNameByUserOpenIdWithMenuId(5, menuId);
-        if (dtos.contains(name)) {
-            return ResponseUtil.fail(602, "添加目录失败，目录名存在");
+        List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(5, menuId);
+        if (nameList.contains(name)) {
+            return null;
         }
         CategoryVO categoryVO = new CategoryVO();
         categoryVO.setName(name);
@@ -69,16 +102,7 @@ public class WxCategoryController {
             description = "brush";
         }
         categoryVO.setDescription(description);
-        int i = categoriesService.addCategories(5, categoryVO);
-        if (i < 0) {
-            return ResponseUtil.fail(603, "添加目录失败");
-        }
-        return ResponseUtil.ok();
+        return categoryVO;
     }
-    @ApiOperation(value = "通过 meanId 删除目录")
-    @GetMapping("/delect/{menuId}")
-    public Object delectCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId) {
-       categoriesService.delectCategorieByMenuId(menuId);
-        return ResponseUtil.ok();
-    }
+
 }

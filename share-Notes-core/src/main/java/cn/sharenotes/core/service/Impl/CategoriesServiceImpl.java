@@ -58,7 +58,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public int addCategories(Integer userId,CategoryVO categoryVO) {
+    public int addCategory(Integer userId,CategoryVO categoryVO) {
         User user = userMapper.selectByPrimaryKey(userId);
         Categories categories = new Categories();
         categoryVO.setSlugName(user.getWeixinOpenid());
@@ -69,7 +69,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public List<String> findAllCategoriesNameByUserOpenIdWithMenuId(Integer userId, Integer menuId) {
+    public List<String> findAllCategoryNameByUserOpenIdWithMenuId(Integer userId, Integer menuId) {
         List<String> strings = new ArrayList<>();
         List<CategoryDTO> categoryDTOS = findCategoriesByUserOpenIdWithMenuId(userId, menuId);
         for(CategoryDTO categoryDTO : categoryDTOS){
@@ -79,9 +79,21 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public boolean delectCategorieByMenuId(Integer menuId) {
+    public boolean deleteCategoryByCategoryId(Integer categoryId) {
+        categoriesMapper.deleteByPrimaryKey(categoryId);
+        return true;
+    }
 
-        categoriesMapper.deleteByPrimaryKey(menuId);
+    @Override
+    public boolean updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO) {
+        Categories categories = new Categories();
+        DtoUtils.copyProperties(categoryVO,categories);
+        categories.setId(categoryId);
+        categories.setUpdateTime(new Date());
+        int i = categoriesMapper.updateByPrimaryKeySelective(categories);
+        if(i<0){
+            return false;
+        }
         return true;
     }
 
