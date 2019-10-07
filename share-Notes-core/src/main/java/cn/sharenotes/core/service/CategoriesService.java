@@ -1,6 +1,7 @@
 package cn.sharenotes.core.service;
 
 import cn.sharenotes.db.model.dto.CategoryDTO;
+import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public interface CategoriesService {
 
     List<CategoryDTO> findCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId);
+
+    CategoryDetailDTO findCategoriesDetailByCid(Integer userId, Integer categoryId);
 
     int addCategory(Integer userId,CategoryVO categoryVO);
 

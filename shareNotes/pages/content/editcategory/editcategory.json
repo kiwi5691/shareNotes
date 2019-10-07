@@ -12,7 +12,8 @@
     "i-button": "../../dist/button/index",
     "i-modal": "../../dist/modal/index",
     "i-radio-group": "../../dist/radio-group/index",
-    "i-radio": "../../dist/radio/index"
+    "i-radio": "../../dist/radio/index",
+    "i-message": "../../dist/message/index"
   },
   "navigationBarTitleText": "修改目录"
 }

@@ -5,15 +5,18 @@ import cn.sharenotes.core.utils.CategoryUtils;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
+import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author 76905
@@ -69,7 +72,7 @@ public class WxCategoryController {
 
     @ApiOperation(value = "通过 categoryId 修改目录")
     @PutMapping("update/{categoryId}")
-    public Object updateCategoryByCategoryId(@PathVariable("categoryId") Integer categoryId,@RequestBody String body){
+    public Object updateCategoryByCategoryId(/*@LoginUser Integer userId,*/ @PathVariable("categoryId") Integer categoryId,@RequestBody String body){
         Integer userId= 5;
         //到时候删除
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId,body);
@@ -77,9 +80,26 @@ public class WxCategoryController {
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
         }
         if(categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0){
+            categoriesService.updateCategoriesRedisInfo(userId,CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
+    }
+
+    @ApiOperation(value = "通过 categoryId 获取详细目录")
+    @GetMapping("detail/{categoryId}")
+    public Object getCategoryDetail(/*@LoginUser Integer userId,*/ @PathVariable("categoryId") Integer categoryId){
+        Integer userId= 5;
+        //到时候删除
+        Optional<CategoryDetailDTO> categoryDTO =null;
+
+        categoryDTO= Optional.ofNullable(categoriesService.findCategoriesDetailByCid(userId, categoryId));
+        Map<String, Object> result = new HashMap<>();
+        result.put("cateName", categoryDTO.get().getName());
+        result.put("current", categoryDTO.get().getDescription());
+        result.put("switch1", categoryDTO.get().getMenuId());
+
+        return ResponseUtil.ok(result);
     }
 
     private CategoryVO getBodyIntoCategoryVO(Integer userId, String body){

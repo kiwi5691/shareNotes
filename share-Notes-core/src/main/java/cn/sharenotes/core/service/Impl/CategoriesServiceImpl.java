@@ -8,8 +8,11 @@ import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.mapper.CategoriesMapper;
 import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.model.dto.CategoryDTO;
+import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
 import cn.sharenotes.db.utils.DtoUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import java.util.*;
 /**
  * @author 76905
  */
+@Slf4j
 @Service
 public class CategoriesServiceImpl implements CategoriesService {
 
@@ -55,6 +59,35 @@ public class CategoriesServiceImpl implements CategoriesService {
             redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
         }
         return categoryDTOS;
+    }
+
+    @Override
+    public CategoryDetailDTO findCategoriesDetailByCid(Integer userId, Integer categoryId) {
+        List<CategoryDTO> puCategoryDTOS =null;
+        List<CategoryDTO> prCategoryDTOS =null;
+        CategoryDTO outCategoryDTO =null;
+
+        puCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+1 +"userId:"+userId);
+        prCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+2 +"userId:"+userId);
+        if(!CollectionUtils.isEmpty(puCategoryDTOS)) {
+            outCategoryDTO=puCategoryDTOS.stream().filter(categoryDTO->categoryDTO.getId().equals(categoryId)).findAny().get();
+            CategoryDetailDTO categoryDetailDTO =new CategoryDetailDTO();
+            log.info(outCategoryDTO.getDescription()+":"+outCategoryDTO.getName()+":"+outCategoryDTO.getId());
+            BeanUtils.copyProperties(outCategoryDTO,categoryDetailDTO);
+            log.info(categoryDetailDTO.getDescription()+":"+categoryDetailDTO.getName()+":"+categoryDetailDTO.getId());
+
+            categoryDetailDTO.setMenuId("1");
+            return  categoryDetailDTO;
+        }else {
+            outCategoryDTO=prCategoryDTOS.stream().filter(categoryDTO->categoryDTO.getId().equals(categoryId)).findAny().get();
+            CategoryDetailDTO categoryDetailDTO =new CategoryDetailDTO();
+            log.info(outCategoryDTO.getDescription()+":"+outCategoryDTO.getName()+":"+outCategoryDTO.getId());
+
+            BeanUtils.copyProperties(outCategoryDTO,categoryDetailDTO);
+            categoryDetailDTO.setMenuId("2");
+            return  categoryDetailDTO;
+        }
+
     }
 
     @Override

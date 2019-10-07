@@ -88,7 +88,7 @@ Page({
   },
   goEditCate() {
     wx.navigateTo({
-      url: "/pages/content/editcategory/editcategory"  //todo 后台获取。
+      url: "/pages/content/editcategory/editcategory?cate_id="+this.data.cate_id  
     })
   },
   goCreatePost() {

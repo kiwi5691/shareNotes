@@ -111,7 +111,7 @@ Page({
           content: '创建成功！',
           type: 'success'
         });
-      } else if (res.errno === 603) {
+      } else {
         $Message({
           content: res.errmsg,
           type: 'error'

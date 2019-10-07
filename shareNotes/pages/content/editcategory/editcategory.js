@@ -1,4 +1,10 @@
 // pages/content/adddetial/adddetial.js
+const { $Message } = require('../../../dist/base/index');
+
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+var app = getApp();
+
 Page({
 
   /**
@@ -7,6 +13,9 @@ Page({
   data: {
     visible5: false,
     switch1: false,
+    cateName: '',
+    cate_id:'',
+    category:[],
     actions5: [
       {
         name: '取消'
@@ -34,10 +43,17 @@ Page({
       current: detail.value
     });
   },
+
   handleOpen5() {
     this.setData({
       visible5: true
     });
+  },
+
+  categoryNameInput: function (e) {
+    this.setData({
+      cateName: e.detail.detail.value
+    })
   },
   handleClick5({ detail }) {
     if (detail.index === 0) {
@@ -52,17 +68,30 @@ Page({
         actions5: action
       });
 
-      setTimeout(() => {
-        action[1].loading = false;
+      console.log(this.data.cateName);
+      console.log(this.data.switch1);
+      console.log(this.data.current);
+      if (this.data.cateName == "") {
         this.setData({
           visible5: false,
-          actions5: action
         });
         $Message({
-          content: '修改成功！',
-          type: 'success'
+          content: '目录名不能空！',
+          type: 'error'
         });
-      }, 2000);
+      } else {
+        setTimeout(() => {
+          action[1].loading = false;
+          this.setData({
+            visible5: false,
+            actions5: action
+          });
+          var name = this.data.cateName;
+          var isPcOrPr = this.data.switch1;
+          var iconSelected = this.data.current;
+          this.updateCategory(name, isPcOrPr, iconSelected);
+        }, 1000);
+      }
     }
   },
   onChange(event) {
@@ -72,14 +101,54 @@ Page({
     })
 
   },
+  updateCategory: function (name, isPcOrPr, iconSelected) {
+    let that = this;
+    util.request(api.UpdateCategory, {
+      name: name,
+      isPcOrPr: isPcOrPr,
+      iconSelected: iconSelected
+    }, 'POST').then(function (res) {
+      if (res.errno === 0) {
+        $Message({
+          content: '修改成功！',
+          type: 'success'
+        });
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      cate_id: options.cate_id,
+    });
+    console.log(this.data.cate_id);
+    this.getCateDetail();
   },
+  getCateDetail:function(){
+    let that = this;
+    util.request(api.GetCategoryDetail+this.data.cate_id).then(function (res) {
 
+      if (res.errno === 0) {
+        console.log(res.data.cateName);
+        console.log(res.data.current);
+        console.log(res.data.switch1);
+
+        that.setData({
+          cateName: res.data.cateName,
+          current: res.data.current,
+          switch1: res.data.switch1,
+        });
+      } 
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
