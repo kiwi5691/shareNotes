@@ -1,0 +1,32 @@
+
+.h1{
+  display:flex;                    
+ justify-content: center;
+}
+.areas {
+width: 700rpx;
+height: 550rpx;
+background: rgba(255, 255, 255, 1);
+font-size: 30rpx;
+text-indent: 28rpx;
+border: 1rpx solid gainsboro;
+margin-top: 30rpx;
+margin: 0 auto;
+overflow: hidden;
+position: relative;
+}
+.currentWordNumber {
+font-size: 28rpx;
+color: gray;
+position: absolute;
+left: 500rpx;
+top: 480rpx;
+}
+
+.hint {
+font-size: 28rpx;
+position: absolute;
+top: 480rpx;
+left: 0rpx;
+color: #f60;
+}

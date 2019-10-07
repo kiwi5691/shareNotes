@@ -71,7 +71,7 @@ public class WxCategoryController {
         if(categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0){
             return ResponseUtil.ok();
         }
-        return ResponseUtil.fail();
+        return ResponseUtil.updatedDataFailed();
     }
 
     public CategoryVO getBodyIntoCategoryVO(String body){

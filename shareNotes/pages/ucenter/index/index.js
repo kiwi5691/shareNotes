@@ -26,6 +26,11 @@ Page({
       url: "/pages/ucenter/about/about"
     })
   },
+  goIssue() {
+    wx.navigateTo({
+      url: "/pages/ucenter/issue/issue"
+    })
+  },
   goLeaning() {
     wx.navigateTo({
       url: "/pages/ucenter/leaning/leaning"

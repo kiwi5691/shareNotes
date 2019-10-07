@@ -22,6 +22,10 @@
 </i-panel>
 
   <i-panel title="关于" bindtap="goAbout">
+    <view style="padding: 15px;"><i-icon type="feedback"size="28" />   关于我</view>
+</i-panel>
+
+  <i-panel title="联系" bindtap="goIssue">
     <view style="padding: 15px;"><i-icon type="feedback"size="28" />   欢迎来提交issue呀</view>
 </i-panel>
 

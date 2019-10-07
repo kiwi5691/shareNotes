@@ -1,0 +1,26 @@
+<i-notice-bar>
+    可到github🔍shareNotes提交issue，作者kiwi5691
+</i-notice-bar>
+<view class="h1">
+<text style="font-size: 50rpx;">提交issuse</text>
+</view>
+<i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+<i-panel >
+    <i-input type="text"  value="{{ cateName }}" maxlength="15"  title="名字" focus bind:change	="categoryNameInput" placeholder="请输入名字" />
+</i-panel>
+  <i-divider content="输入issue" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+
+  <view class="conts">
+<textarea class="areas" bindblur="contextInput" value="{{ context }}" placeholder='issue内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
+<text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
+<text class="hint">{{texts}}</text>
+</textarea>
+</view>
+  <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+
+  <i-button bind:click="handleOpen5" type="success" shape="circle" size="large">提交</i-button>
+  <i-modal title="提交确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>确定提交吗</view>
+</i-modal>
+
+<i-message id="message" />

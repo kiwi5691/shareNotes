@@ -18,7 +18,7 @@ module.exports = {
   StorageUpload: WxApiRoot + 'storage/upload', //图片上传,
 
   UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息
-
+  SubmitIssue: WxApiRoot + 'user/submitIssue', //提交issue
   ShowFriendList: WxApiRoot + 'friend/getAll', //获取朋友列表,
 
   GetPrivateCategory: WxApiRoot + 'category/getAll/' + 2, //获取私人目录,
@@ -26,6 +26,7 @@ module.exports = {
   GetPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
   GetFriendPublicCategory: WxApiRoot + 'friend/getAll/menu/', //获取所有posts,
 
+  
   AddCategory: WxApiRoot + 'category/add', //添加目录,
 
 };

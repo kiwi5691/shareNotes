@@ -34,7 +34,7 @@ public class ActiveMQServiceImpl implements ActiveMQService {
      */
     @Override
     public void sendEmail(String to, String subject, String content) throws IOException {
-        template.send("registerBySystem", new MessageCreator() {
+        template.send("issueSend", new MessageCreator() {
                 @Override
                 public Message createMessage(Session session) throws JMSException {
                     MapMessage mapMessage = session.createMapMessage();
@@ -44,8 +44,6 @@ public class ActiveMQServiceImpl implements ActiveMQService {
                     return mapMessage;
                 }
             });
-        log.info("发送给消费者");
-
     }
 
 
