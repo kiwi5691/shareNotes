@@ -1,6 +1,7 @@
 package cn.sharenotes.wxapi.web.category;
 
 import cn.sharenotes.core.service.CategoriesService;
+import cn.sharenotes.core.utils.CategoryUtils;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
@@ -27,7 +28,9 @@ public class WxCategoryController {
     @ApiOperation(value = "通过 meanId 获取目录")
     @GetMapping("/getAll/{menuId}")
     public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId) {
-        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(5, menuId);
+        Integer userId= 5;
+        //到时候删除
+        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(userId, menuId);
         if (CollectionUtils.isEmpty(categoryDTOS)) {
             return ResponseUtil.fail(601, "没有目录");
         }
@@ -44,11 +47,14 @@ public class WxCategoryController {
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
     public Object addCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
-        CategoryVO categoryVO = getBodyIntoCategoryVO(body);
+        Integer userId= 5;
+        //到时候删除
+        CategoryVO categoryVO = getBodyIntoCategoryVO(userId,body);
         if(categoryVO == null){
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
-        if (categoriesService.addCategory(5, categoryVO) > 0) {
+        if (categoriesService.addCategory(userId, categoryVO) > 0) {
+            categoriesService.updateCategoriesRedisInfo(userId,CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -64,42 +70,31 @@ public class WxCategoryController {
     @ApiOperation(value = "通过 categoryId 修改目录")
     @PutMapping("update/{categoryId}")
     public Object updateCategoryByCategoryId(@PathVariable("categoryId") Integer categoryId,@RequestBody String body){
-        CategoryVO categoryVO = getBodyIntoCategoryVO(body);
+        Integer userId= 5;
+        //到时候删除
+        CategoryVO categoryVO = getBodyIntoCategoryVO(userId,body);
         if(categoryVO == null){
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
         }
         if(categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0){
             return ResponseUtil.ok();
         }
-        return ResponseUtil.updatedDataFailed();
+        return ResponseUtil.fail();
     }
 
-    public CategoryVO getBodyIntoCategoryVO(String body){
+    private CategoryVO getBodyIntoCategoryVO(Integer userId, String body){
         String name = JacksonUtil.parseString(body, "name");
         boolean isPcOrPr = JacksonUtil.parseBoolean(body, "isPcOrPr");
         String iconSelected = JacksonUtil.parseString(body, "iconSelected");
-        String description = null;
-        Integer menuId = null;
-        if (isPcOrPr) {
-            menuId = 1;
-        } else {
-            menuId = 2;
-        }
-        List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(5, menuId);
+        List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(userId, CategoryUtils.chekcIsPcOrPr(isPcOrPr));
         if (nameList.contains(name)) {
             return null;
         }
         CategoryVO categoryVO = new CategoryVO();
         categoryVO.setName(name);
-        categoryVO.setParentId(menuId);
-        if (iconSelected.equals("活动")) {
-            description = "activity";
-        } else if (iconSelected.equals("手记")) {
-            description = "barrage";
-        } else {
-            description = "brush";
-        }
-        categoryVO.setDescription(description);
+        categoryVO.setParentId(CategoryUtils.chekcIsPcOrPr(isPcOrPr));
+        assert iconSelected != null;
+        categoryVO.setDescription(CategoryUtils.chekciconSelected(iconSelected));
         return categoryVO;
     }
 

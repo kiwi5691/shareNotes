@@ -85,6 +85,23 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
+    public void updateCategoriesRedisInfo(Integer userId, Integer menuId) {
+        List<CategoryDTO> categoryDTOS =null;
+        List<Categories> categories =null;
+
+         redisManager.del(Collections.singleton(OWNER_MENUID + ":" + "menuIds :" + menuId + "userId:" + userId));
+          User user = userMapper.selectByPrimaryKey(userId);
+          CategoriesExample categoriesExample = new CategoriesExample();
+          CategoriesExample.Criteria criteria = categoriesExample.createCriteria();
+          criteria.andSlugNameEqualTo(user.getWeixinOpenid()).andParentIdEqualTo(menuId);
+          categories = categoriesMapper.selectByExample(categoriesExample);
+          categoryDTOS = DtoUtils.convertList2List(categories, CategoryDTO.class);
+
+          categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
+          redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
+    }
+
+    @Override
     public int updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO) {
         Categories categories = new Categories();
         DtoUtils.copyProperties(categoryVO,categories);

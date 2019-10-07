@@ -18,6 +18,8 @@ public interface CategoriesService {
 
     boolean deleteCategoryByCategoryId(Integer categoryId);
 
+    void updateCategoriesRedisInfo(Integer userId, Integer menuId);
+
     int updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO);
 
 }
