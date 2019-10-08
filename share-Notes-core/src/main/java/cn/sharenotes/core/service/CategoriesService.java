@@ -19,7 +19,7 @@ public interface CategoriesService {
 
     List<String> findAllCategoryNameByUserOpenIdWithMenuId(Integer userId, Integer menuId);
 
-    boolean deleteCategoryByCategoryId(Integer categoryId);
+    Integer deleteCategoryByCategoryId(Integer categoryId);
 
     void updateCategoriesRedisInfo(Integer userId, Integer menuId);
 

@@ -107,9 +107,9 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public boolean deleteCategoryByCategoryId(Integer categoryId) {
-        categoriesMapper.deleteByPrimaryKey(categoryId);
-        return true;
+    public Integer deleteCategoryByCategoryId(Integer categoryId) {
+
+        return categoriesMapper.deleteByPrimaryKey(categoryId);
     }
 
     @Override

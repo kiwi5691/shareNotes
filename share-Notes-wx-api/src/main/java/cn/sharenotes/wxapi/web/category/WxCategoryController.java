@@ -66,10 +66,14 @@ public class WxCategoryController {
     }
 
     @ApiOperation(value = "通过 categoryId 删除目录")
-    @DeleteMapping("/delete/{categoryId}")
-    public Object deleteCategory(/*@LoginUser Integer userId,*/ @PathVariable("categoryId") Integer categoryId) {
-       categoriesService.deleteCategoryByCategoryId(categoryId);
-        return ResponseUtil.ok();
+    @DeleteMapping("/delete")
+    public Object deleteCategory(/*@LoginUser Integer userId,*/@RequestBody String body ) {
+        log.info("id"+JacksonUtil.parseInteger(body, "cateId"));
+        int categoryId = JacksonUtil.parseInteger(body, "cateId");
+       if(categoriesService.deleteCategoryByCategoryId(categoryId)>0){
+           return ResponseUtil.ok();
+       }
+        return ResponseUtil.fail();
     }
 
     @ApiOperation(value = "通过 categoryId 修改目录")
@@ -79,6 +83,7 @@ public class WxCategoryController {
 
         Integer userId= 5;
         //到时候删除
+
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId,body);
         if(categoryVO == null){
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
