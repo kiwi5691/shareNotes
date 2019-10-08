@@ -1,17 +1,23 @@
 <i-divider content="笔记修改时间:2019/1/35 19:12:20" color="#2d8cf0" ></i-divider>
+
+<view hidden="{{hiddenAlertPu}}">
+<i-alert   show-icon desc>
+    {{failMes}}
+    <view slot="desc">点击右下角符号创建</view>
+</i-alert>
+</view>
 <i-panel>
 <view class="main">
-    <view style="font-size:20px;margin-left: 15rpx;">kiwiwiwiwiwiw</view>
+    <view style="font-size:20px;margin-left: 15rpx;">{{title}}</view>
     <view class="visit">
-      <text >访问量:9</text>
+      <text >访问量:{{visits}}</text>
      </view> 
 </view>
 </i-panel>    
 <i-panel title="内容">
-<htmltowxml text="JAVA反射机制是在运行状态中，\n对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h1>都能够调用它的任意方</h1>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。" bindWxmlTagATap="wxmlTagATap" >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h>都能够调用它的任意方</h>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</htmltowxml>
+<htmltowxml text="{{originalContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 
 </i-panel>   
-
 <i-divider content="评论" ></i-divider>
 
 <i-cell-group>
@@ -23,7 +29,6 @@
     </i-cell>
 
 </i-cell-group>
-
 <i-cell-group>
     <i-card thumb="/static/images/head.png" bindtap="handleOpenDel" title="标题" extra="2019/1/35 19:12:20">    
     <view slot="content">内容1111</view>

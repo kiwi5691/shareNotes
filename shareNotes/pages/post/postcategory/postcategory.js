@@ -103,9 +103,10 @@ Page({
       }
     });
   },
-  goPostDetail() {
+  goPostDetail(e) {
+    var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: "/pages/post/posts/posts"
+      url: "/pages/post/posts/posts?post_id=" + id
     })
   },
   goEditCate() {
@@ -130,7 +131,6 @@ Page({
       title: options.title,
       menu_id: options.menu_id
     });
-    console.log(options.menu_id);
     wx.setNavigationBarTitle({
       title: options.title
     })
