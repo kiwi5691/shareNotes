@@ -16,6 +16,10 @@ public enum ContentBase implements ValueEnum<Integer> {
 
     LIMITTIMES(10),
 
+    PRIVATEID(2),
+
+    PUBLICID(1),
+
 
     /**
      * Auditing status.

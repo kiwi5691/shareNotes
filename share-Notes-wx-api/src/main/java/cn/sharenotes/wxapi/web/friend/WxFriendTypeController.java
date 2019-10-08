@@ -1,9 +1,11 @@
 package cn.sharenotes.wxapi.web.friend;
 
+import cn.sharenotes.core.enums.ContentBase;
 import cn.sharenotes.core.service.CategoriesService;
+import cn.sharenotes.core.service.UserGroupsSerive;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
-import cn.sharenotes.wxapi.service.UserGroupsSerive;
+
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -30,7 +32,7 @@ public class WxFriendTypeController {
     @ApiOperation(value = "通过 UserId 获取目录")
     @GetMapping("/getAll/menu/{fid}")
     public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("fid") Integer fid){
-        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(fid,1);
+        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(fid, ContentBase.PUBLICID.getValue());
         if(CollectionUtils.isEmpty(categoryDTOS)){
             return ResponseUtil.fail(721,"您的朋友还没有目录");
         }

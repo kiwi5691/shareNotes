@@ -5,8 +5,8 @@ import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 import cn.sharenotes.db.model.dto.GroupEndDto;
 import cn.sharenotes.core.service.CategoriesService;
-import cn.sharenotes.db.utils.ForMateFriendUtil;
-import cn.sharenotes.wxapi.service.UserGroupsSerive;
+
+import cn.sharenotes.core.service.UserGroupsSerive;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class WxFriendGroupController {
         }
 
 
-        String res = ForMateFriendUtil.friendList(groupDtoMap);
+
         List<GroupEndDto> listMain = new  ArrayList<> ();
         for (GroupDtoKey groupDtoKey:
                 groupDtoMap.keySet()) {

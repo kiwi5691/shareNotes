@@ -4,13 +4,15 @@ import cn.sharenotes.db.domain.User;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Category group dto.
  *
  * @author hu
  */
 @Data
-public class GroupDto  {
+public class GroupDto implements Serializable {
     private String nickname;
     private String avatar;
     private int id;

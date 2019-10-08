@@ -55,6 +55,8 @@ public class PostContentServiceImpl implements PostContentService {
             List<PostCategories> postCategories = postCategoriesMapper.selectByExample(postCategoriesExample);
             postIds = postCategories.stream().map(PostCategories::getPostId).collect(Collectors.toList());
             postIds=Optional.ofNullable(postIds).orElseGet(Collections::emptyList);
+
+
             redisManager.set(OwnerContentKey.board, "catePostIds"+cateId, postIds);
         }
 

@@ -1,4 +1,4 @@
-package cn.sharenotes.wxapi.service;
+package cn.sharenotes.core.service;
 
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
