@@ -66,10 +66,27 @@ public class CategoriesServiceImpl implements CategoriesService {
         List<CategoryDTO> puCategoryDTOS =null;
         List<CategoryDTO> prCategoryDTOS =null;
         CategoryDTO outCategoryDTO =null;
-
+        final Boolean[] IsInPu = {true};
         puCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+1 +"userId:"+userId);
         prCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+2 +"userId:"+userId);
+
+
         if(!CollectionUtils.isEmpty(puCategoryDTOS)) {
+            puCategoryDTOS.stream().forEach(categoryDTO->{
+                if(categoryDTO.getId().equals(categoryId)){
+                    IsInPu[0] =true;
+                }
+            });
+        }
+        if (!CollectionUtils.isEmpty(prCategoryDTOS)){
+            prCategoryDTOS.stream().forEach(categoryDTO->{
+                if(categoryDTO.getId().equals(categoryId)){
+                    IsInPu[0] =false;
+                }
+            });
+        }
+
+        if(IsInPu[0]){
             outCategoryDTO=puCategoryDTOS.stream().filter(categoryDTO->categoryDTO.getId().equals(categoryId)).findAny().get();
             CategoryDetailDTO categoryDetailDTO =new CategoryDetailDTO();
             BeanUtils.copyProperties(outCategoryDTO,categoryDetailDTO);
@@ -82,7 +99,6 @@ public class CategoriesServiceImpl implements CategoriesService {
             categoryDetailDTO.setMenuId("2");
             return  categoryDetailDTO;
         }
-
     }
 
     @Override
