@@ -32,7 +32,7 @@ public class WxFriendTypeController {
     public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("fid") Integer fid){
         List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(fid,2);
         if(CollectionUtils.isEmpty(categoryDTOS)){
-            return ResponseUtil.fail(601,"您的朋友还没有目录");
+            return ResponseUtil.fail(721,"您的朋友还没有目录");
         }
         Map<String, Object> result = new HashMap<>();
 
