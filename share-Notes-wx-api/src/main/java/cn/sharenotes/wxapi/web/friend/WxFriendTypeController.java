@@ -30,7 +30,7 @@ public class WxFriendTypeController {
     @ApiOperation(value = "通过 UserId 获取目录")
     @GetMapping("/getAll/menu/{fid}")
     public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("fid") Integer fid){
-        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(fid,2);
+        List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(fid,1);
         if(CollectionUtils.isEmpty(categoryDTOS)){
             return ResponseUtil.fail(721,"您的朋友还没有目录");
         }

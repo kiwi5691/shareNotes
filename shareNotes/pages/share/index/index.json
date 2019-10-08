@@ -3,6 +3,5 @@
     "i-alert": "../../dist/alert/index"
   },
   "navigationBarTitleText": "我的朋友们",
-  "backgroundColor": "#f4f4f4",
-   "enablePullDownRefresh": true
+  "backgroundColor": "#f4f4f4"
 }

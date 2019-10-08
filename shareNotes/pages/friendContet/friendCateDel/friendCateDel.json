@@ -8,6 +8,7 @@
      "i-alert": "../../dist/alert/index",
     "i-button": "../../dist/button/index",
     "i-drawer": "../../dist/drawer/index",
+    "htmltowxml": "plugin://htmltowxml/view",
     "i-divider": "../../dist/divider/index"
   },
   "navigationBarTitleText": "目录详细",
