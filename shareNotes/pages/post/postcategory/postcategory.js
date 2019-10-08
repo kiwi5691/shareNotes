@@ -17,6 +17,7 @@ Page({
     cate_id: 0,
     confirm:'',
     title: '',
+    menu_id:'',
     hiddenAlertPu: true,
     posts:[],
     updateTime: '',
@@ -73,13 +74,34 @@ Page({
           visible5: false,
           actions5: action
         });
+        var cateId = this.data.cate_id;
+        var menu_id = this.data.menu_id;
+        this.delCategory(cateId, menu_id);
+      }, 1000);
+     }
+    }
+  },
+  delCategory: function (cateId, menu_id) {
+    let that = this;
+    util.request(api.DelCategory, {
+      cateId: cateId,
+      menu_id: menu_id,
+    }, 'DELETE').then(function (res) {
+      if (res.errno === 0) {
         $Message({
           content: '删除成功！',
           type: 'success'
         });
-      }, 2000);
-     }
-    }
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
   },
   goPostDetail() {
     wx.navigateTo({
@@ -105,9 +127,10 @@ Page({
       createTime: options.creTime,
       updateTime: options.upTime,
       cate_id: options.id,
-      title: options.title
+      title: options.title,
+      menu_id: options.menu_id
     });
-
+    console.log(options.menu_id);
     wx.setNavigationBarTitle({
       title: options.title
     })
