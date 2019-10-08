@@ -13,6 +13,14 @@ public class CategoryUtils {
         }
     }
 
+    public static Integer checkMenu_id(String menu_id){
+        if (menu_id.equals("tab1")) {
+            return  1;
+        } else {
+            return  2;
+        }
+    }
+
     public static Boolean getMenuBoolean(String isPcOrPr){
         return isPcOrPr.equals("1");
     }

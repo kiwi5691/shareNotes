@@ -14,10 +14,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author 76905
@@ -68,9 +65,10 @@ public class WxCategoryController {
     @ApiOperation(value = "通过 categoryId 删除目录")
     @DeleteMapping("/delete")
     public Object deleteCategory(/*@LoginUser Integer userId,*/@RequestBody String body ) {
-        log.info("id"+JacksonUtil.parseInteger(body, "cateId"));
+        Integer userId= 5;
         int categoryId = JacksonUtil.parseInteger(body, "cateId");
        if(categoriesService.deleteCategoryByCategoryId(categoryId)>0){
+           categoriesService.updateCategoriesRedisInfo(userId,CategoryUtils.checkMenu_id(Objects.requireNonNull(JacksonUtil.parseString(body, "menu_id"))));
            return ResponseUtil.ok();
        }
         return ResponseUtil.fail();
@@ -117,6 +115,10 @@ public class WxCategoryController {
         String name = JacksonUtil.parseString(body, "name");
         boolean isPcOrPr = JacksonUtil.parseBoolean(body, "isPcOrPr");
         String iconSelected = JacksonUtil.parseString(body, "iconSelected");
+        log.info("id"+JacksonUtil.parseString(body, "name"));
+        log.info("id"+JacksonUtil.parseBoolean(body, "isPcOrPr"));
+        log.info("id"+JacksonUtil.parseString(body, "iconSelected"));
+
         List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(userId, CategoryUtils.chekcIsPcOrPr(isPcOrPr));
         if (nameList.contains(name)) {
             return null;
