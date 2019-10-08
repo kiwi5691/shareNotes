@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 /**
@@ -79,6 +78,8 @@ public class WxCategoryController {
     public Object updateCategoryByCategoryId(/*@LoginUser Integer userId,*/ @RequestBody String body){
         log.info("id"+JacksonUtil.parseInteger(body, "cateId"));
 
+        Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
+
         Integer userId= 5;
         //到时候删除
 
@@ -86,8 +87,8 @@ public class WxCategoryController {
         if(categoryVO == null){
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
         }
-        log.info("id"+JacksonUtil.parseInteger(body, "cateId"));
-        if(categoriesService.updateCategoryByCategoryId(JacksonUtil.parseInteger(body, "cateId"), categoryVO) > 0){
+        log.info("id"+categoryId);
+        if(categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0){
             categoriesService.updateCategoriesRedisInfo(userId,CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
