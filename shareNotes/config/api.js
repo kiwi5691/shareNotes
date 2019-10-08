@@ -28,7 +28,7 @@ module.exports = {
 
   
   AddCategory: WxApiRoot + 'category/add', //添加目录,
-  UpdateCategory: WxApiRoot + 'category/update/', //修改目录,
+  UpdateCategory: WxApiRoot + 'category/update', //修改目录,
   GetCategoryDetail: WxApiRoot + 'category/detail/', //获取目录详细,
 
 

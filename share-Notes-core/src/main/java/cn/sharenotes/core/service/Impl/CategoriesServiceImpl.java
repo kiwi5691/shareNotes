@@ -72,18 +72,13 @@ public class CategoriesServiceImpl implements CategoriesService {
         if(!CollectionUtils.isEmpty(puCategoryDTOS)) {
             outCategoryDTO=puCategoryDTOS.stream().filter(categoryDTO->categoryDTO.getId().equals(categoryId)).findAny().get();
             CategoryDetailDTO categoryDetailDTO =new CategoryDetailDTO();
-            log.info(outCategoryDTO.getDescription()+":"+outCategoryDTO.getName()+":"+outCategoryDTO.getId());
             BeanUtils.copyProperties(outCategoryDTO,categoryDetailDTO);
-            log.info(categoryDetailDTO.getDescription()+":"+categoryDetailDTO.getName()+":"+categoryDetailDTO.getId());
-
             categoryDetailDTO.setMenuId("1");
             return  categoryDetailDTO;
         }else {
             outCategoryDTO=prCategoryDTOS.stream().filter(categoryDTO->categoryDTO.getId().equals(categoryId)).findAny().get();
             CategoryDetailDTO categoryDetailDTO =new CategoryDetailDTO();
-            log.info(outCategoryDTO.getDescription()+":"+outCategoryDTO.getName()+":"+outCategoryDTO.getId());
-
-            BeanUtils.copyProperties(outCategoryDTO,categoryDetailDTO);
+            BeanUtils.copyProperties(outCategoryDTO,categoryDetailDTO   );
             categoryDetailDTO.setMenuId("2");
             return  categoryDetailDTO;
         }

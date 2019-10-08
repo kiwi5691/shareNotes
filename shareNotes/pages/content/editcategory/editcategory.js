@@ -89,7 +89,8 @@ Page({
           var name = this.data.cateName;
           var isPcOrPr = this.data.switch1;
           var iconSelected = this.data.current;
-          this.updateCategory(name, isPcOrPr, iconSelected);
+          var cateId= this.data.cate_id;
+          this.updateCategory(cateId,name, isPcOrPr, iconSelected);
         }, 1000);
       }
     }
@@ -101,13 +102,14 @@ Page({
     })
 
   },
-  updateCategory: function (name, isPcOrPr, iconSelected) {
+  updateCategory: function (cateId,name, isPcOrPr, iconSelected) {
     let that = this;
     util.request(api.UpdateCategory, {
+      cateId: cateId,
       name: name,
       isPcOrPr: isPcOrPr,
       iconSelected: iconSelected
-    }, 'POST').then(function (res) {
+    }, 'PUT').then(function (res) {
       if (res.errno === 0) {
         $Message({
           content: '修改成功！',

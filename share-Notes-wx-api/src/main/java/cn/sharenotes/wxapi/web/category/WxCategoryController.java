@@ -8,6 +8,7 @@ import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Optional;
 /**
  * @author 76905
  */
+@Slf4j
 @RestController
 @RequestMapping("/wx/category")
 public class WxCategoryController {
@@ -71,15 +73,18 @@ public class WxCategoryController {
     }
 
     @ApiOperation(value = "通过 categoryId 修改目录")
-    @PutMapping("update/{categoryId}")
-    public Object updateCategoryByCategoryId(/*@LoginUser Integer userId,*/ @PathVariable("categoryId") Integer categoryId,@RequestBody String body){
+    @PutMapping("update")
+    public Object updateCategoryByCategoryId(/*@LoginUser Integer userId,*/ @RequestBody String body){
+        log.info("id"+JacksonUtil.parseInteger(body, "cateId"));
+
         Integer userId= 5;
         //到时候删除
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId,body);
         if(categoryVO == null){
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
         }
-        if(categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0){
+        log.info("id"+JacksonUtil.parseInteger(body, "cateId"));
+        if(categoriesService.updateCategoryByCategoryId(JacksonUtil.parseInteger(body, "cateId"), categoryVO) > 0){
             categoriesService.updateCategoriesRedisInfo(userId,CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
@@ -95,9 +100,10 @@ public class WxCategoryController {
 
         categoryDTO= Optional.ofNullable(categoriesService.findCategoriesDetailByCid(userId, categoryId));
         Map<String, Object> result = new HashMap<>();
+
         result.put("cateName", categoryDTO.get().getName());
-        result.put("current", categoryDTO.get().getDescription());
-        result.put("switch1", categoryDTO.get().getMenuId());
+        result.put("current", CategoryUtils.getDescription(categoryDTO.get().getDescription()));
+        result.put("switch1", CategoryUtils.getMenuBoolean(categoryDTO.get().getMenuId()));
 
         return ResponseUtil.ok(result);
     }
