@@ -11,6 +11,6 @@
 
 
 <i-cell-group wx:for="{{publicCate}}" wx:key="id">
-    <i-cell  is-link url="/pages/friendContet/friendCateDel/friendCateDel?title={{item.name}}&id={{item.id}}&upTime={{item.updateTime}}&creTime={{item.createTime}}"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}        
+    <i-cell  is-link url="/pages/friendContet/friendCateDel/friendCateDel?title={{item.name}}&id={{item.id}}"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}        
      </i-cell>
 </i-cell-group>

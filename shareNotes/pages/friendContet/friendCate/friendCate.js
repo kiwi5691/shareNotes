@@ -26,7 +26,7 @@ Page({
         that.setData({
           publicCate: res.data.publicCate,
         });
-      } else if (res.errno === 601) {
+      } else if (res.errno === 721) {
         that.setData({
           failMes: res.errmsg,
           hiddenAlertPr: !that.data.hiddenAlertPr

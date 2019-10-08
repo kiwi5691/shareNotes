@@ -1,20 +1,17 @@
 <i-divider content="加载完成"></i-divider>
 
-<i-cell-group>
-    <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card bindtap="goPostDetail"  title="标题" extra="2019/1/35 19:12:203">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card bindtap="goPostDetail" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
+<view hidden="{{hiddenAlertPr}}">
+<i-alert   show-icon desc>
+     {{failMes}}
+</i-alert>
+</view>
 
-
+<i-cell-group wx:for="{{posts}}" wx:key="id">
+     <i-card bindtap="goPostDetail" title="{{item.title}}" data-id='{{item.id}}' extra="{{item.updateTime}}">    
+   <view slot="content"><htmltowxml text="{{item.formatContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+       </view>
+       </i-card>
 </i-cell-group>
+
 
 
