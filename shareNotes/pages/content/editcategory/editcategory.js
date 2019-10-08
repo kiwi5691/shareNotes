@@ -115,6 +115,9 @@ Page({
           content: '修改成功！',
           type: 'success'
         });
+        wx.navigateBack({
+          delta: 1
+        })
       } else {
         $Message({
           content: res.errmsg,
