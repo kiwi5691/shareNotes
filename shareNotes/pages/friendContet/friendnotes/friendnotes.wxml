@@ -1,40 +1,60 @@
+<view hidden="{{!hiddenAlertPu}}">
+<i-alert   show-icon desc>
+    {{failMes}}
+</i-alert>
+</view>
 <i-panel>
 <view class="main">
-    <view style="font-size:20px;margin-left: 15rpx;">kiwiwiwiwiwiw</view>
+    <view style="font-size:20px;margin-left: 300rpx;">{{title}}</view>
     <view class="visit">
-      <i-badge count="66" i-class-alone="demo-badge-alone" />
+      <text >访问量:{{visits}}</text>
      </view> 
 </view>
 </i-panel>    
 <i-panel title="内容">
-    <text class='dialog-close' decode='true' >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</text>
-</i-panel>   
+<htmltowxml text="{{originalContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 
+</i-panel>   
 <i-divider content="评论" ></i-divider>
 
-
 <i-cell-group>
-    <i-card thumb="/static/images/head.png"  title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card thumb="/static/images/head.png"   title="标题" extra="2019/1/35 19:12:203">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card thumb="/static/images/head.png"  title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
-
+    <i-cell title="是否允许评论">
+        <i-switch value="{{switch1}}"  slot="footer">
+            <i-icon type="right" slot="open"></i-icon>
+            <i-icon type="close" slot="close"></i-icon>
+        </i-switch>
+    </i-cell>
 
 </i-cell-group>
+<view hidden="{{baseComment !== null}}">
+<i-alert   show-icon desc>
+    目前没有评论
+    <view slot="desc">点击右上角分享笔记给朋友呀</view>
+</i-alert>
+</view>
+
+<i-cell-group wx:for="{{baseComment}}" wx:key="id">
+<view wx:if="{{!item.anonymous}}">
+    <i-card thumb="../../../../../static/images/my.png" data-id="{{item.id}}" data-name="匿名"bindtap="handleOpenDel" title="匿名" extra="{{item.createTime}}">    
+    <view slot="content">{{item.content}}</view>
+    </i-card>
+  </view>
+<view wx:else>
+    <i-card thumb="{{item.avatar}}" data-id="{{item.id}}" bindtap="handleOpenDel" data-name="{{item.author}}" title="{{item.author}}" extra="{{item.createTime}}">    
+    <view slot="content">{{item.content}}</view>
+    </i-card>
+  </view>
+</i-cell-group>
+<i-divider content="发布评论" ></i-divider>
 
 <i-panel title="您的评论">
-    <i-input value="{{ value5 }}" placeholder="请输入您的评论" />
+    <i-input type="textarea" value="{{ value5 }}" maxlength="100" placeholder="请输入您的评论" />
 </i-panel>
 <i-cell-group>
     <i-cell title="是否匿名">
-        <i-switch value="{{switch1}}" bind:change="onChange" slot="footer"></i-switch>
+        <i-switch value="{{switch2}}" bind:change="onChange" slot="footer"></i-switch>
     </i-cell>
 </i-cell-group>
 
-<i-button bind:click="handleClick" type="primary" shape="circle" size="small">提交评论</i-button>
+<i-button bind:click="handleClick" disabled="{{!switch1}}" type="primary" shape="circle" size="small">提交评论</i-button>
 

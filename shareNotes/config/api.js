@@ -24,11 +24,12 @@ module.exports = {
   GetPrivateCategory: WxApiRoot + 'category/getAll/' + 2, //获取私人目录,
   GetPublicCategory: WxApiRoot + 'category/getAll/' + 1, //获取公共目录,
   GetPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
-  GetPostsDetail: WxApiRoot + 'posts/getAll/', //获取posts详细,
+  GetPostsDetail: WxApiRoot + 'posts/getDetail/', //获取posts详细,
 
 
   GetFriendPublicCategory: WxApiRoot + 'friend/getAll/menu/', //获取朋友共有目录,
-  GetFriendPublicPosts: WxApiRoot + 'friend/getPost/', //获取所有posts,
+  GetFriendPublicPosts: WxApiRoot + 'friend/getPost/', //获取朋友所有posts,
+  GetFriendDetail: WxApiRoot + 'friend/getDetail/', //获取朋友posts详细,
 
   
   AddCategory: WxApiRoot + 'category/add', //添加目录,

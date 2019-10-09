@@ -2,6 +2,7 @@ package cn.sharenotes.db.model.dto;
 
 import cn.sharenotes.db.domain.Comments;
 import cn.sharenotes.db.domain.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -17,6 +18,7 @@ public class CommentDto {
     private String avatar;
     private  String author;
     private  String content;
+
     private Date createTime;
     private boolean isAnonymous;
 

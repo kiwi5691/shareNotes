@@ -68,9 +68,7 @@ Page({
         actions5: action
       });
 
-      console.log(this.data.cateName);
-      console.log(this.data.switch1);
-      console.log(this.data.current);
+   
       if (this.data.cateName == "") {
         this.setData({
           visible5: false,
@@ -142,9 +140,6 @@ Page({
     util.request(api.GetCategoryDetail+this.data.cate_id).then(function (res) {
 
       if (res.errno === 0) {
-        console.log(res.data.cateName);
-        console.log(res.data.current);
-        console.log(res.data.switch1);
 
         that.setData({
           cateName: res.data.cateName,

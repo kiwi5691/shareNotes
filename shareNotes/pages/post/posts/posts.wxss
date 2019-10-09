@@ -19,7 +19,7 @@ right: 20px;
 }
 
 .main .visit{
-margin-left: 300rpx;
+margin-left: 200rpx;
 color:#A2A2A2;
 }
 

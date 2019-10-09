@@ -12,12 +12,13 @@ Page({
    */
   data: {
     visibleCom: false,
-    switch1: true,
+    switch1: false,
     post_id:'',
+    del_id:'',
+    del_name:'',
     showRigh2: false,
     visible5: false,
     baseComment:[],
-    baseContent:[],
     originalContent:'',
     visits:0,
     title:'',
@@ -35,8 +36,11 @@ Page({
     ]
 
   },
-  handleOpenDel() {
+  handleOpenDel(e) {
+
     this.setData({
+      del_id:e.currentTarget.dataset.id,
+      del_name: e.currentTarget.dataset.name,
       visibleCom: true
     });
   },
@@ -119,17 +123,17 @@ Page({
     let that = this;
     util.request(api.GetPostsDetail + this.data.post_id).then(function (res) {
 
+      console.log(res.data.updateTime);
       if (res.errno === 0) {
         that.setData({
           originalContent: res.data.originalContent,
           visits: res.data.visits,
           title: res.data.title,
-          switch1: res.data.disallowComment,
+          switch1: res.data.switch1,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
-          baseComment: res.data.posts,
+          baseComment: res.data.baseComment,
         });
-
       } else {
         that.setData({
           failMes: res.errmsg,

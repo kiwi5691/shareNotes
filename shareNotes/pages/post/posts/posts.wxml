@@ -1,14 +1,13 @@
-<i-divider content="笔记修改时间:2019/1/35 19:12:20" color="#2d8cf0" ></i-divider>
+<i-divider content="笔记修改时间:{{updateTime}}" color="#2d8cf0" ></i-divider>
 
-<view hidden="{{hiddenAlertPu}}">
+<view hidden="{{!hiddenAlertPu}}">
 <i-alert   show-icon desc>
     {{failMes}}
-    <view slot="desc">点击右下角符号创建</view>
 </i-alert>
 </view>
 <i-panel>
 <view class="main">
-    <view style="font-size:20px;margin-left: 15rpx;">{{title}}</view>
+    <view style="font-size:20px;margin-left: 300rpx;">{{title}}</view>
     <view class="visit">
       <text >访问量:{{visits}}</text>
      </view> 
@@ -29,25 +28,33 @@
     </i-cell>
 
 </i-cell-group>
-<i-cell-group>
-    <i-card thumb="/static/images/head.png" bindtap="handleOpenDel" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card thumb="/static/images/head.png" bindtap="handleOpenDel"  title="标题" extra="2019/1/35 19:12:203">    
-    <view slot="content">内容1111</view>
-    </i-card>
-     <i-card thumb="/static/images/head.png" bindtap="handleOpenDel" title="标题" extra="2019/1/35 19:12:20">    
-    <view slot="content">内容1111</view>
-    </i-card>
+<view hidden="{{baseComment !== null}}">
+<i-alert   show-icon desc>
+    目前没有评论
+    <view slot="desc">点击右上角分享笔记给朋友呀</view>
+</i-alert>
+</view>
 
-
+<i-cell-group wx:for="{{baseComment}}" wx:key="id">
+<view wx:if="{{!item.anonymous}}">
+    <i-card thumb="../../../../../static/images/my.png" data-id="{{item.id}}" data-name="匿名"bindtap="handleOpenDel" title="匿名" extra="{{item.createTime}}">    
+    <view slot="content">{{item.content}}</view>
+    </i-card>
+  </view>
+<view wx:else>
+    <i-card thumb="{{item.avatar}}" data-id="{{item.id}}" bindtap="handleOpenDel" data-name="{{item.author}}" title="{{item.author}}" extra="{{item.createTime}}">    
+    <view slot="content">{{item.content}}</view>
+    </i-card>
+  </view>
 </i-cell-group>
+
+
 
 <i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
     <view>删除笔记后无法恢复哦</view>
 </i-modal>
 
-<i-modal title="删除确认" visible="{{ visibleCom }}" actions="{{ actions5 }}" bind:click="handleClickDelCo">
+<i-modal title="确定删除{{del_name}}的评论吗" visible="{{ visibleCom }}" actions="{{ actions5 }}" bind:click="handleClickDelCo">
     <view>删除评论后无法恢复哦</view>
 </i-modal>
 <i-message id="message" />
@@ -68,4 +75,4 @@
 <view bindtap="toggleRight2">
     <image class="add_icon" src="/static/images/edit.png"></image>
 </view>
-<i-divider content="笔记创建时间:2019/1/25 19:12:20" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+<i-divider content="笔记创建时间:{{createTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>

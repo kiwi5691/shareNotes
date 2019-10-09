@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    text:"最少5字",
+    text:"最少10字",
     visible5: false,
     switch1: false,
     visible1: false,
@@ -13,7 +13,7 @@ Page({
     mdDisplay: false,
     htmlDisplay:true,
     context:'',
-    min:5,
+    min:10,
     max: 500,
     actions5: [
       {
@@ -164,7 +164,7 @@ Page({
     //最少字数限制
     if (len <= this.data.min)
       this.setData({
-        texts: "最低五个字"
+        texts: "最低十个字"
       })
     else if (len > this.data.min)
       this.setData({

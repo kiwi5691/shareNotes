@@ -15,9 +15,10 @@ Page({
     title: '',
     hiddenAlertPr: true,
   },
-  goPostDetail() {
+  goPostDetail(e) {
+    var id = e.currentTarget.dataset.id  
     wx.navigateTo({
-      url: "/pages/friendContet/friendnotes/friendnotes"
+      url: "/pages/friendContet/friendnotes/friendnotes?post_id=" + id
     })
   },
 
