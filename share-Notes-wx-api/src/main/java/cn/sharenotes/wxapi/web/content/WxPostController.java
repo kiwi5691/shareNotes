@@ -48,7 +48,6 @@ public class WxPostController {
     @ApiOperation("文章详细")
     @GetMapping("/getDetail/{post_id}")
     public Object getPostDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
-//        TODO 1111111111111
         List<PostDTO> postDTOS = postContentService.findPostsByUserId(3, post_id);
         if (CollectionUtils.isEmpty(postDTOS)) {
             return ResponseUtil.fail(801,"您尚未创建文章");

@@ -42,8 +42,9 @@ public class PostCommentSeriveImp implements PostCommentSerive {
         DtoUtils.copyProperties( postsWithBLOBs,postCommentDto);
         if(postsWithBLOBs.getDisallowComment().equals(ContentBase.ALLOWACCESS.getValue())){
             postCommentDto.setNotallowComment(true);
+        }else {
+            postCommentDto.setNotallowComment(false);
         }
-        postCommentDto.setNotallowComment(false);
         List<Comments> commentsList = commentsMapper.selectByPostId(postId);
 
         if(CollectionUtils.isEmpty(commentsList)){

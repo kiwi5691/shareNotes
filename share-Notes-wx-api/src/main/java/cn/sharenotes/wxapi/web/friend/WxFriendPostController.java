@@ -1,7 +1,9 @@
 package cn.sharenotes.wxapi.web.friend;
 
+import cn.sharenotes.core.service.PostCommentSerive;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.CollectionUtils;
@@ -25,6 +27,8 @@ public class WxFriendPostController {
 
     @Resource
     private PostContentService postContentService;
+    @Resource
+    private PostCommentSerive postCommentSerive;
 
     @ApiOperation("Lists posts")
     @GetMapping("/getPost/{cate_id}")
@@ -43,39 +47,36 @@ public class WxFriendPostController {
 
 
 
-// todo
-//    @GetMapping("{postId:\\d+}")
-//    public PostVO getBy(@PathVariable("postId") Integer postId) {
-//            获取文章
-//        return 文章;
-//    }
+
+    @ApiOperation("文章详细")
+    @GetMapping("/getDetail/{post_id}")
+    public Object getPostDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
+//        TODO 1111111111111
+        List<PostDTO> postDTOS = postContentService.findPostsByUserId(3, post_id);
+        if (CollectionUtils.isEmpty(postDTOS)) {
+            return ResponseUtil.fail(801,"您尚未创建文章");
+        } else {
+
+            //        TODO 1111111111111
+            Map<String, Object> result = new HashMap<>();
+            PostCommentDto postCommentDto= postCommentSerive.findPostsByPostId(post_id);
+            result.put("originalContent", postCommentDto.getOriginalContent());
+            result.put("visits", postCommentDto.getVisits());
+            result.put("title", postCommentDto.getTitle());
+            result.put("switch1", postCommentDto.isNotallowComment());
+            result.put("updateTime", postCommentDto.getUpdateTime());
+            result.put("createTime", postCommentDto.getCreateTime());
+            result.put("baseComment", postCommentDto.getCommentDtoList());
+            return ResponseUtil.ok(result);
+        }
+    }
 
 
 
 
 
-    //      todo
-//    @PostMapping
-//    public PostVO createBy(@Valid @RequestBody  PostDto post,
-//                                 @RequestParam(value = "autoSave", required = false, defaultValue = "false") Boolean autoSave) {
-//        // TODO: 2019/9/28 创建文章，需要自动存储
-//    }
 
 
-
-
-
-// todo
-//    @PutMapping("{postId:\\d+}")
-//    public PostVO updateBy(@Valid @RequestBody PostDto postdto,
-//                                 @PathVariable("postId") Integer postId,
-//                                 @RequestParam(value = "autoSave", required = false, defaultValue = "false") Boolean autoSave) {
-//         获取文章id
-//        Post postToUpdate = postService.getById(postId);
-//        postdto.update(postToUpdate);
-//        自动更新
-//        return 更新进数据库;
-//    }
 
 
 
