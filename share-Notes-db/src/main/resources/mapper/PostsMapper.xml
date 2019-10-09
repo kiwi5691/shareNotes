@@ -130,7 +130,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.sharenotes.db.domain.PostsWithBLOBs">
+  <insert id="insert" parameterType="cn.sharenotes.db.domain.PostsWithBLOBs" useGeneratedKeys="true" keyProperty="id">
     insert into posts (id, type, create_time, 
       update_time, create_from, disallow_comment, 
       edit_time, title, top_priority, 

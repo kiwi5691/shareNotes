@@ -1,10 +1,8 @@
 package cn.sharenotes.core.service.Impl;
 
 import cn.sharenotes.core.enums.ContentBase;
-import cn.sharenotes.core.redis.KeyPrefix.OwnerContentKey;
 import cn.sharenotes.core.redis.RedisManager;
-import cn.sharenotes.core.service.PostCommentSerive;
-import cn.sharenotes.core.service.PostContentService;
+import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.db.domain.Comments;
 import cn.sharenotes.db.domain.PostsWithBLOBs;
 import cn.sharenotes.db.domain.User;
@@ -13,20 +11,20 @@ import cn.sharenotes.db.mapper.PostsMapper;
 import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.model.dto.CommentDto;
 import cn.sharenotes.db.model.dto.PostCommentDto;
-import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.utils.DtoUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+/**
+ * @author 76905
+ */
 @Service
 @Slf4j
-public class PostCommentSeriveImp implements PostCommentSerive {
+public class PostCommentServiceImp implements PostCommentService {
     @Resource
     private PostsMapper postsMapper;
     @Resource
