@@ -1,14 +1,21 @@
 package cn.sharenotes.core.service;
 
 import cn.sharenotes.db.model.dto.PostDTO;
+import cn.sharenotes.db.model.vo.PostContentVo;
 
 import java.util.List;
 
 /**
- * @author kiwi
+ * @author 76905
+ * @auther kiwi
  * @Date 2019/10/6 12:08
  */
 public interface PostContentService {
-    public List<PostDTO> findPostsByUserId(Integer userId, Integer cateId);
+    List<PostDTO> findPostsByCateId(Integer cateId);
 
+    Integer addPostContent(Integer categoryId,PostContentVo postContentVo);
+
+    List<String> findAllPostsNameByCategoryId(Integer categoryId);
+
+    Integer addPostCategory(Integer categoryId,PostContentVo postContentVo);
 }

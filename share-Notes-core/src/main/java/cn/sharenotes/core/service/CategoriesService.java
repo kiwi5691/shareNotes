@@ -15,7 +15,7 @@ public interface CategoriesService {
 
     CategoryDetailDTO findCategoriesDetailByCid(Integer userId, Integer categoryId);
 
-    int addCategory(Integer userId,CategoryVO categoryVO);
+    Integer addCategory(Integer userId,CategoryVO categoryVO);
 
     List<String> findAllCategoryNameByUserOpenIdWithMenuId(Integer userId, Integer menuId);
 
@@ -23,6 +23,6 @@ public interface CategoriesService {
 
     void updateCategoriesRedisInfo(Integer userId, Integer menuId);
 
-    int updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO);
+    Integer updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO);
 
 }

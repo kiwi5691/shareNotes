@@ -1,5 +1,8 @@
 package cn.sharenotes.wxapi.web.friend;
 
+import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
+import cn.sharenotes.core.redis.KeyPrefix.VisitLimitKey;
+import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.PostCommentSerive;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ResponseUtil;
@@ -24,7 +27,8 @@ import java.util.Map;
 @RequestMapping("/wx/friend")
 public class WxFriendPostController {
 
-
+    @Resource
+    private RedisManager redisManager;
     @Resource
     private PostContentService postContentService;
     @Resource
@@ -56,7 +60,10 @@ public class WxFriendPostController {
         if (CollectionUtils.isEmpty(postDTOS)) {
             return ResponseUtil.fail(801,"您尚未创建文章");
         } else {
+            Integer userLimit =0;
+            =redisManager.get(VisitLimitKey.board, "userId :"+userId, Integer .class);
 
+            VisitLimitKey
             //        TODO 1111111111111
             Map<String, Object> result = new HashMap<>();
             PostCommentDto postCommentDto= postCommentSerive.findPostsByPostId(post_id);

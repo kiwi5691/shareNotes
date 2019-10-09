@@ -36,27 +36,21 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     @Resource
     private RedisManager redisManager;
+
     @Value("${OWNER_MENUID}")
     private String OWNER_MENUID;
+
 
     @Override
     public List<CategoryDTO> findCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId) {
         List<CategoryDTO> categoryDTOS =null;
-        List<Categories> categories =null;
 
         categoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId);
         if(CollectionUtils.isEmpty(categoryDTOS)) {
-            User user = userMapper.selectByPrimaryKey(userId);
-            CategoriesExample categoriesExample = new CategoriesExample();
-            CategoriesExample.Criteria criteria = categoriesExample.createCriteria();
-            criteria.andSlugNameEqualTo(user.getWeixinOpenid()).andParentIdEqualTo(menuId);
-            categories = categoriesMapper.selectByExample(categoriesExample);
-            categoryDTOS = DtoUtils.convertList2List(categories, CategoryDTO.class);
+            categoryDTOS = getCategoryDTO(userId,menuId);
             if(CollectionUtils.isEmpty(categoryDTOS)){
-                return categoryDTOS;
+                return null;
             }
-            categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
-            redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
         }
         return categoryDTOS;
     }
@@ -102,13 +96,12 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public int addCategory(Integer userId,CategoryVO categoryVO) {
+    public Integer addCategory(Integer userId,CategoryVO categoryVO) {
         User user = userMapper.selectByPrimaryKey(userId);
         Categories categories = new Categories();
         categoryVO.setSlugName(user.getWeixinOpenid());
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setCreateTime(new Date());
-        categories.setUpdateTime(new Date());
         return categoriesMapper.insert(categories);
     }
 
@@ -116,6 +109,9 @@ public class CategoriesServiceImpl implements CategoriesService {
     public List<String> findAllCategoryNameByUserOpenIdWithMenuId(Integer userId, Integer menuId) {
         List<String> strings = new ArrayList<>();
         List<CategoryDTO> categoryDTOS = findCategoriesByUserOpenIdWithMenuId(userId, menuId);
+        if(CollectionUtils.isEmpty(categoryDTOS)){
+            return null;
+        }
         for(CategoryDTO categoryDTO : categoryDTOS){
             strings.add(categoryDTO.getName());
         }
@@ -131,22 +127,15 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     public void updateCategoriesRedisInfo(Integer userId, Integer menuId) {
         List<CategoryDTO> categoryDTOS =null;
-        List<Categories> categories =null;
 
-         redisManager.del(Collections.singleton(OWNER_MENUID + ":" + "menuIds :" + menuId + "userId:" + userId));
-          User user = userMapper.selectByPrimaryKey(userId);
-          CategoriesExample categoriesExample = new CategoriesExample();
-          CategoriesExample.Criteria criteria = categoriesExample.createCriteria();
-          criteria.andSlugNameEqualTo(user.getWeixinOpenid()).andParentIdEqualTo(menuId);
-          categories = categoriesMapper.selectByExample(categoriesExample);
-          categoryDTOS = DtoUtils.convertList2List(categories, CategoryDTO.class);
-
-          categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
-          redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
+        redisManager.del(Collections.singleton(OWNER_MENUID + ":" + "menuIds :" + menuId + "userId:" + userId));
+        categoryDTOS = getCategoryDTO(userId, menuId);
+        categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
+        redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
     }
 
     @Override
-    public int updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO) {
+    public Integer updateCategoryByCategoryId(Integer categoryId,CategoryVO categoryVO) {
         Categories categories = new Categories();
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setId(categoryId);
@@ -154,5 +143,16 @@ public class CategoriesServiceImpl implements CategoriesService {
         return categoriesMapper.updateByPrimaryKeySelective(categories);
     }
 
+    public List<CategoryDTO> getCategoryDTO(Integer userId, Integer menuId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        CategoriesExample categoriesExample = new CategoriesExample();
+        CategoriesExample.Criteria criteria = categoriesExample.createCriteria();
+        criteria.andSlugNameEqualTo(user.getWeixinOpenid()).andParentIdEqualTo(menuId);
+        List<Categories> categories = categoriesMapper.selectByExample(categoriesExample);
+        List<CategoryDTO> categoryDTOS = DtoUtils.convertList2List(categories, CategoryDTO.class);
+        categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
+        redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
+        return categoryDTOS;
+    }
 
 }
