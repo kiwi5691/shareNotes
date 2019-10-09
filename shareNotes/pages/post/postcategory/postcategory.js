@@ -116,7 +116,7 @@ Page({
   },
   goCreatePost() {
     wx.navigateTo({
-      url: "/pages/content/createpost/createpost"
+      url: "/pages/content/createpost/createpost?cate_id=" + this.data.cate_id 
     })
   },
   /**

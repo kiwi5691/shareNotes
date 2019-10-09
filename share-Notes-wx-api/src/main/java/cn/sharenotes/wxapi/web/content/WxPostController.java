@@ -91,7 +91,6 @@ public class WxPostController {
         return ResponseUtil.ok(result);
     }
 
-    @ApiOperation(value = "将 body 转成 PostContentVo ")
     public PostContentVo getBodyIntoPostContentVo(Integer userId, String body) {
         String title = JacksonUtil.parseString(body, "title");
         boolean type = JacksonUtil.parseBoolean(body, "type");

@@ -1,4 +1,10 @@
-// pages/content/adddetial/adddetial.js
+
+const { $Message } = require('../../../dist/base/index');
+
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+var app = getApp();
+
 Page({
 
   /**
@@ -8,6 +14,7 @@ Page({
     text:"最少10字",
     visible5: false,
     switch1: false,
+    categoryId:'',
     visible1: false,
     titleName:'',
     mdDisplay: false,
@@ -35,6 +42,11 @@ Page({
   handleClick:function(){
   },
   handleClick5({ detail }) {
+    this.data.categoryId;
+    console.log("title"+this.data.titleName);
+    console.log("switch1" + this.data.switch1);
+    console.log("originalContent" + this.data.context);
+    console.log("categoryId" + this.data.categoryId);
     if (detail.index === 0) {
       this.setData({
         visible5: false
@@ -46,18 +58,28 @@ Page({
       this.setData({
         actions5: action
       });
-
+      if (this.data.cateName == "") {
+        this.setData({
+          visible5: false,
+        });
+        $Message({
+          content: '目录名不能空！',
+          type: 'error'
+        });
+      } else {
       setTimeout(() => {
         action[1].loading = false;
         this.setData({
           visible5: false,
           actions5: action
         });
-        $Message({
-          content: '创建成功！',
-          type: 'success'
-        });
-      }, 2000);
+        var categoryId = this.data.categoryId;
+        var title = this.data.titleName;
+        var type = this.data.switch1;
+        var originalContent = this.data.context;
+        this.createPost(categoryId, title, type, originalContent);
+      },  1000);
+      }
     }
   },
 
@@ -65,7 +87,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      categoryId: options.cate_id,
+    });
+    console.log(this.data.categoryId);
   },
 
   /**
@@ -175,6 +200,31 @@ Page({
     this.setData({
       currentWordNumber: len 
     });
-  }
+  },
+  createPost: function (categoryId, title, type, originalContent){
+   
+    util.request(api.AddPost, {
+      categoryId: categoryId,
+      title: title,
+      type: type,
+      originalContent: originalContent
+    }, 'POST').then(function (res) {
+      if (res.errno === 0) {
+        $Message({
+          content: '创建成功！',
+          type: 'success'
+        });
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
+  },
+
 
 })
