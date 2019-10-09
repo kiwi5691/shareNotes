@@ -74,6 +74,16 @@ public class PostContentServiceImpl implements PostContentService {
     }
 
     @Override
+    public Integer deletePostContentAndCategory(Integer postId) {
+        postsMapper.deleteByPrimaryKey(postId);
+
+        PostCategoriesExample postCategoriesExample = new PostCategoriesExample();
+        PostCategoriesExample.Criteria criteria = postCategoriesExample.createCriteria();
+        criteria.andPostIdEqualTo(postId);
+        return postCategoriesMapper.deleteByExample(postCategoriesExample);
+    }
+
+    @Override
     public List<String> findAllPostsNameByCategoryId(Integer categoryId) {
         List<String> strings = new ArrayList<>();
         List<PostDTO> postDTOS = findPostsByCateId(categoryId);

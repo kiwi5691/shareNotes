@@ -18,4 +18,6 @@ public interface PostContentService {
     List<String> findAllPostsNameByCategoryId(Integer categoryId);
 
     Integer addPostCategory(Integer categoryId,PostContentVo postContentVo);
+
+    Integer deletePostContentAndCategory(Integer postId);
 }

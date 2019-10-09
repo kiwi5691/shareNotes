@@ -46,7 +46,7 @@ public class WxPostController {
     }
 
     @ApiOperation(value = "添加文章")
-    @PutMapping("/add")
+    @PostMapping("/add")
     public Object addPostContent(/*@LoginUser Integer userId,*/ @RequestBody String body) {
         Integer categoryId = JacksonUtil.parseInteger(body, "categoryId");
 
@@ -69,7 +69,11 @@ public class WxPostController {
     @ApiOperation(value = "删除文章")
     @DeleteMapping("delete/{postId}")
     public void deletePostContent(@PathVariable("postId") Integer postId) {
-//       todo 删除文章
+        Integer i = postContentService.deletePostContentAndCategory(postId);
+        if(i > 0){
+            ResponseUtil.ok();
+        }
+        ResponseUtil.fail();
     }
 
     @ApiOperation("文章详细")

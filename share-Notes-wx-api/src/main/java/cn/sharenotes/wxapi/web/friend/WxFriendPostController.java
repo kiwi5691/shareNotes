@@ -1,9 +1,6 @@
 package cn.sharenotes.wxapi.web.friend;
 
-import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
-import cn.sharenotes.core.redis.KeyPrefix.VisitLimitKey;
 import cn.sharenotes.core.redis.RedisManager;
-
 import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ResponseUtil;
