@@ -195,6 +195,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="selectByPostId" resultMap="BaseResultMap">
+    select
+      type,id,create_time, update_time, author, content, is_anonymous, post_id, status,
+    top_priority, user_id
+    from comments
+    where post_id = #{postId,jdbcType=INTEGER}
+  </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     update comments
     <set>

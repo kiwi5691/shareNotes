@@ -20,6 +20,8 @@ public interface CommentsMapper {
 
     Comments selectByPrimaryKey(Long id);
 
+    List<Comments> selectByPostId(int postid);
+
     int updateByExampleSelective(@Param("record") Comments record, @Param("example") CommentsExample example);
 
     int updateByExample(@Param("record") Comments record, @Param("example") CommentsExample example);

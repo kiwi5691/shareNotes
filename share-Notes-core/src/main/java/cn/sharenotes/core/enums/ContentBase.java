@@ -20,12 +20,16 @@ public enum ContentBase implements ValueEnum<Integer> {
 
     PUBLICID(1),
 
+    ALLOWACCESS(0),
 
+    NOACCESS(1),
     /**
      * Auditing status.
      */
     AUDITING(1),
 
+    Annoymous(0),
+    NotAnnoymous(1),
     /**
      * 回收站
      */

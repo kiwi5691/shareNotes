@@ -1,15 +1,16 @@
 package cn.sharenotes.db.domain;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Comments {
-    private Long id;
 
     private Integer type;
 
-    private Date createTime;
+    private Long id;
 
-    private Date updateTime;
+    private Timestamp createTime;
+    private Timestamp updateTime;
 
     private String author;
 
@@ -24,6 +25,13 @@ public class Comments {
     private Integer topPriority;
 
     private Integer userId;
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;
@@ -33,27 +41,19 @@ public class Comments {
         this.id = id;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public Timestamp getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -62,7 +62,7 @@ public class Comments {
     }
 
     public void setAuthor(String author) {
-        this.author = author == null ? null : author.trim();
+        this.author = author;
     }
 
     public String getContent() {
@@ -70,7 +70,7 @@ public class Comments {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     public Integer getIsAnonymous() {
@@ -111,5 +111,26 @@ public class Comments {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+
+
+
+
+    @Override
+    public String toString() {
+        return "Comments{" +
+                "id=" + id +
+                ", type=" + type +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", author='" + author + '\'' +
+                ", content='" + content + '\'' +
+                ", isAnonymous=" + isAnonymous +
+                ", postId=" + postId +
+                ", status=" + status +
+                ", topPriority=" + topPriority +
+                ", userId=" + userId +
+                '}';
     }
 }

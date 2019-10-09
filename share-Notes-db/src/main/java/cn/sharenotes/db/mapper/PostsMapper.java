@@ -17,6 +17,7 @@ public interface PostsMapper {
 
     int insertSelective(PostsWithBLOBs record);
 
+
     List<PostsWithBLOBs> selectByExampleWithBLOBs(PostsExample example);
 
     List<Posts> selectByExample(PostsExample example);
