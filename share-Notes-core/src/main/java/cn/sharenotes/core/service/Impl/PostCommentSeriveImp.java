@@ -1,6 +1,8 @@
 package cn.sharenotes.core.service.Impl;
 
 import cn.sharenotes.core.enums.ContentBase;
+import cn.sharenotes.core.redis.KeyPrefix.OwnerContentKey;
+import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.PostCommentSerive;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.db.domain.Comments;
@@ -29,6 +31,10 @@ public class PostCommentSeriveImp implements PostCommentSerive {
     private PostsMapper postsMapper;
     @Resource
     private CommentsMapper commentsMapper;
+
+
+    @Resource
+    private RedisManager redisManager;
     @Resource
     private UserMapper userMapper;
 
@@ -36,6 +42,7 @@ public class PostCommentSeriveImp implements PostCommentSerive {
     public PostCommentDto findPostsByPostId(Integer postId) {
         PostCommentDto postCommentDto = new PostCommentDto();
         PostsWithBLOBs postsWithBLOBs = postsMapper.selectByPrimaryKey(postId);
+
         if(postsWithBLOBs==null){
             return null;
         }
