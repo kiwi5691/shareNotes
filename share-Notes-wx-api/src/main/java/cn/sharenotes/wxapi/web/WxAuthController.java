@@ -159,6 +159,8 @@ public class WxAuthController {
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("token", token);
         result.put("userInfo", userDto);
+
+
         return ResponseUtil.ok(result);
     }
 

@@ -3,7 +3,8 @@ package cn.sharenotes.wxapi.web.friend;
 import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
 import cn.sharenotes.core.redis.KeyPrefix.VisitLimitKey;
 import cn.sharenotes.core.redis.RedisManager;
-import cn.sharenotes.core.service.PostCommentSerive;
+
+import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.PostCommentDto;
@@ -32,12 +33,12 @@ public class WxFriendPostController {
     @Resource
     private PostContentService postContentService;
     @Resource
-    private PostCommentSerive postCommentSerive;
+    private PostCommentService postCommentService;
 
     @ApiOperation("Lists posts")
     @GetMapping("/getPost/{cate_id}")
     public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
-        List<PostDTO> postDTOS = postContentService.findPostsByUserId(3, cate_id);
+        List<PostDTO> postDTOS = postContentService.findPostsByCateId( cate_id);
         Map<String, Object> result = new HashMap<>();
         if (CollectionUtils.isEmpty(postDTOS)) {
             return ResponseUtil.fail(711,"您朋友尚未创建文章");
@@ -56,17 +57,15 @@ public class WxFriendPostController {
     @GetMapping("/getDetail/{post_id}")
     public Object getPostDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
 //        TODO 1111111111111
-        List<PostDTO> postDTOS = postContentService.findPostsByUserId(3, post_id);
+        List<PostDTO> postDTOS = postContentService.findPostsByCateId(post_id);
         if (CollectionUtils.isEmpty(postDTOS)) {
-            return ResponseUtil.fail(801,"您尚未创建文章");
+            return ResponseUtil.fail(809,"未知");
         } else {
             Integer userLimit =0;
-            =redisManager.get(VisitLimitKey.board, "userId :"+userId, Integer .class);
 
-            VisitLimitKey
             //        TODO 1111111111111
             Map<String, Object> result = new HashMap<>();
-            PostCommentDto postCommentDto= postCommentSerive.findPostsByPostId(post_id);
+            PostCommentDto postCommentDto= postCommentService.findPostsByPostId(post_id);
             result.put("originalContent", postCommentDto.getOriginalContent());
             result.put("visits", postCommentDto.getVisits());
             result.put("title", postCommentDto.getTitle());
