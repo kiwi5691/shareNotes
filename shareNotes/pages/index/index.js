@@ -11,7 +11,8 @@ Page({
     visible2: false,
     hiddenAlertPr:true,
     hasLogin: false,
-    hiddenAlertPu: true
+    hiddenAlertPu: true,
+    showRigh2: false,
   },
   handleChange({ detail }) {
     this.setData({
@@ -40,25 +41,26 @@ Page({
       try {
         wx.setStorageSync('tab', 0);
       } catch (e) {
-
       }
       wx.navigateTo({
         url: '../content/adddetial/adddetial',
-
       });
     } else {
-
       this.setData({
         visible2: true
       });
     }
+  },
+  toggleRight2() {
+    this.setData({
+      showRight2: !this.data.showRight2
+    });
   },
   handleClose2() {
     this.setData({
       visible2: false
     });
   },
-
   getPublicMain: function () {
     let that = this;
     util.request(api.GetPublicCategory).then(function (res) {
@@ -114,7 +116,6 @@ Page({
 
     this.getPublicMain();
     this.getPrivateMain();
-
   },
 })
 

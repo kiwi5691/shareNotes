@@ -57,6 +57,9 @@ public class WxUserController {
         data.put("order", "个人信息");
         return ResponseUtil.ok(data);
     }
+
+
+
     @ApiOperation(value = "用户提交issue")
     @PostMapping("submitIssue")
     public Object submitIssue(@LoginUser Integer userId,@RequestBody String body) throws IOException {

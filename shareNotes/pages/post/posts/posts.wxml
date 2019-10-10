@@ -13,11 +13,13 @@
      </view> 
 </view>
 </i-panel>    
+<!-- todo -->
 <i-panel title="内容">
-<htmltowxml text="{{originalContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+<htmltowxml type="markdown" text="{{originalContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 
 </i-panel>   
 <i-divider content="评论" ></i-divider>
+
 
 <i-cell-group>
     <i-cell title="是否允许评论">

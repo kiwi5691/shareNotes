@@ -2,16 +2,20 @@ package cn.sharenotes.wxapi.web.content;
 
 import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.service.PostContentService;
+import cn.sharenotes.core.utils.ContentUtils;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
+import cn.sharenotes.db.model.dto.PostTypeDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +40,17 @@ public class WxPostController {
     @GetMapping("/getAll/{cate_id}")
     public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
         List<PostDTO> postDTOS = postContentService.findPostsByCateId(cate_id);
+        List<PostTypeDTO> postTypeDTOS = new ArrayList<>();
+        for (PostDTO postTypeDTO: postDTOS) {
+
+            PostTypeDTO postTypeDTO1 = new PostTypeDTO(postTypeDTO.getId(), ContentUtils.getType(postTypeDTO.getType()),postTypeDTO.getUpdateTime(),postTypeDTO.getTitle(),postTypeDTO.getFormatContent());
+            postTypeDTOS.add(postTypeDTO1);
+        }
         Map<String, Object> result = new HashMap<>();
         if (CollectionUtils.isEmpty(postDTOS)) {
             return ResponseUtil.fail(801, "您尚未创建文章");
         } else {
-            result.put("posts", postDTOS);
+            result.put("posts", postTypeDTOS);
             return ResponseUtil.ok(result);
         }
     }

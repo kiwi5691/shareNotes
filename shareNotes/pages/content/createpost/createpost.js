@@ -76,7 +76,7 @@ Page({
         var categoryId = this.data.categoryId;
         var title = this.data.titleName;
         var type = this.data.switch1;
-        var originalContent = this.data.context;
+        var originalContent = this.data.context.split('&hc').join('<br>')
         this.createPost(categoryId, title, type, originalContent);
       },  1000);
       }
