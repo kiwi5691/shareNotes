@@ -27,6 +27,20 @@ public class Comments {
 
     private Integer userId;
 
+    public Comments(Integer type, Long id, Timestamp createTime, Timestamp updateTime, String author, String content, Integer isAnonymous, Integer postId, Integer status, Integer topPriority, Integer userId) {
+        this.type = type;
+        this.id = id;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.author = author;
+        this.content = content;
+        this.isAnonymous = isAnonymous;
+        this.postId = postId;
+        this.status = status;
+        this.topPriority = topPriority;
+        this.userId = userId;
+    }
+
     public Comments(Integer type, Timestamp createTime, Timestamp updateTime, String author, String content, Integer isAnonymous, Integer postId, Integer status, Integer topPriority, Integer userId) {
         this.type = type;
 

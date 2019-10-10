@@ -53,14 +53,8 @@ public class WxFriendPostController {
     @ApiOperation("文章详细")
     @GetMapping("/getDetail/{post_id}")
     public Object getPostDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
-//        TODO 1111111111111
-        List<PostDTO> postDTOS = postContentService.findPostsByCateId(post_id);
-        if (CollectionUtils.isEmpty(postDTOS)) {
-            return ResponseUtil.fail(809,"未知");
-        } else {
-            Integer userLimit =0;
 
-            //        TODO 1111111111111
+
             Map<String, Object> result = new HashMap<>();
             PostCommentDto postCommentDto= postCommentService.findPostsByPostId(post_id);
             result.put("originalContent", postCommentDto.getOriginalContent());
@@ -71,7 +65,7 @@ public class WxFriendPostController {
             result.put("createTime", postCommentDto.getCreateTime());
             result.put("baseComment", postCommentDto.getCommentDtoList());
             return ResponseUtil.ok(result);
-        }
+
     }
 
 
