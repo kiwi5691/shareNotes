@@ -27,7 +27,14 @@ public class CommentServiceImpl implements CommentService {
 
         User user = userMapper.selectByPrimaryKey(userid);
 
-        Comments comments = new Comments(0,new Timestamp(date.getTime()),new Timestamp(date.getTime()),user.getNickname(),content, 0,post_id,1,0,userid);
+        int anony =0;
+        if(isanonymous){
+            anony = 0;
+        }else {
+            anony =1;
+        }
+
+        Comments comments = new Comments(0,new Timestamp(date.getTime()),new Timestamp(date.getTime()),user.getNickname(),content, anony,post_id,1,0,userid);
 
         return commentsMapper.insert(comments);
     }
