@@ -66,14 +66,31 @@ public class WxPostController {
         return ResponseUtil.fail();
     }
 
+    @ApiOperation(value = "更改文章")
+    @PutMapping("update")
+    public Object updatePostContent(/*@LoginUser Integer userId,*/ @RequestBody String body){
+        Integer postId = JacksonUtil.parseInteger(body, "postId");
+
+        Integer userId = 5;
+
+        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body);
+        if(postContentVo == null){
+            return ResponseUtil.fail(803,"修改文章失败，文章标题已存在");
+        }
+        if( postContentService.updatePostContent(postId,postContentVo) > 0){
+            return ResponseUtil.ok();
+        }
+        return ResponseUtil.fail();
+    }
+
     @ApiOperation(value = "删除文章")
     @DeleteMapping("delete/{postId}")
-    public void deletePostContent(@PathVariable("postId") Integer postId) {
+    public Object deletePostContent(@PathVariable("postId") Integer postId) {
         Integer i = postContentService.deletePostContentAndCategory(postId);
         if(i > 0){
-            ResponseUtil.ok();
+           return ResponseUtil.ok();
         }
-        ResponseUtil.fail();
+        return ResponseUtil.fail();
     }
 
     @ApiOperation("文章详细")
@@ -108,7 +125,12 @@ public class WxPostController {
         postContentVo.setCreateFrom(userId);
         postContentVo.setTitle(title);
         postContentVo.setOriginalContent(originalContent);
-        postContentVo.setFormatContent(originalContent.substring(0, 10));
+        if(originalContent.length()< 10){
+            postContentVo.setFormatContent(originalContent);
+        }else {
+            postContentVo.setFormatContent(originalContent.substring(0, 10));
+        }
+
         if (type) {
             postContentVo.setType(1);
         } else {
