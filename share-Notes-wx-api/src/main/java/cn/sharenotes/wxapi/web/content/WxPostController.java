@@ -94,8 +94,10 @@ public class WxPostController {
     }
 
     @ApiOperation(value = "删除文章")
-    @DeleteMapping("delete/{postId}")
-    public Object deletePostContent(@PathVariable("postId") Integer postId) {
+    @DeleteMapping("delete/")
+    public Object deletePostContent(/*@LoginUser Integer userId,*/@RequestBody String body) {
+        Integer userId = 5;
+        Integer postId = JacksonUtil.parseInteger(body, "postId");
         Integer i = postContentService.deletePostContentAndCategory(postId);
         if(i > 0){
            return ResponseUtil.ok();
