@@ -25,13 +25,15 @@ module.exports = {
   GetPublicCategory: WxApiRoot + 'category/getAll/' + 1, //获取公共目录,
   GetPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
   GetPostsDetail: WxApiRoot + 'posts/getDetail/', //获取posts详细,
+  GetPostsInfoDetail: WxApiRoot + 'posts/getInfo/', //获取posts详细,
 
 
   GetFriendPublicCategory: WxApiRoot + 'friend/getAll/menu/', //获取朋友共有目录,
   GetFriendPublicPosts: WxApiRoot + 'friend/getPost/', //获取朋友所有posts,
   GetFriendDetail: WxApiRoot + 'friend/getDetail/', //获取朋友posts详细,
 
-  
+  DelPosts: WxApiRoot + 'posts/delete', //删除文章,
+
   AddCategory: WxApiRoot + 'category/add', //添加目录,
   UpdateCategory: WxApiRoot + 'category/update', //修改目录,
   DelCategory: WxApiRoot + 'category/delete', //删除目录,
@@ -39,5 +41,6 @@ module.exports = {
 
   AddPost: WxApiRoot + 'posts/add', //添加文章,
   AddComment: WxApiRoot + 'comment/add', //添加文章,
+  DelComment: WxApiRoot + 'comment/delete', //删除评论,
 
 };

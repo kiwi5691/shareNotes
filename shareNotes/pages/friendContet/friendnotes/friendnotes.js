@@ -75,6 +75,11 @@ Page({
           var content = this.data.value5;
           var isanonymous = this.data.switch2;
           this.createComment(postId, content, isanonymous);
+          this.setData({
+            value5: ''
+          });
+          this.onShow();
+
         }, 1000);
       }
     }
@@ -90,8 +95,7 @@ Page({
           content: '创建成功！',
           type: 'success'
         });
-        var that = this
-        that.onload();
+        
       } else {
         $Message({
           content: res.errmsg,
@@ -150,7 +154,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getContentAll();
   },
 
   /**

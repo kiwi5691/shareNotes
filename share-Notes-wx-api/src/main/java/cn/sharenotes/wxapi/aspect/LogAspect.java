@@ -1,6 +1,5 @@
 package cn.sharenotes.wxapi.aspect;
 
-import cn.sharenotes.db.domain.Logs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -23,9 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 public class LogAspect {
 
 //    @Autowired
-//    private LogService logService;
+//    private Properties properties;
 //
-//    @Pointcut("@annotation(cn.sharenotes.wxapi.annotation.Log)")
+//    @Autowired
+//    private ILogService logService;
+//
+//    @Pointcut("@annotation(com.b2b.mall.admin.annotation.Log)")
 //    public void pointcut() {
 //        // do nothing
 //    }
@@ -36,17 +38,22 @@ public class LogAspect {
 //        long beginTime = System.currentTimeMillis();
 //        // 执行方法
 //        result = point.proceed();
+//        HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
+//        // 设置 IP地址
+//        String ip = IPUtil.getIpAddr(request);
 //        // 执行时长(毫秒)
 //        long time = System.currentTimeMillis() - beginTime;
+//        if (properties.isOpenAopLog()) {
 //            // 保存日志
-//            User user =  get user;
-//             Logs log = new Logs();
+//            User user = (User) SecurityUtils.getSubject().getPrincipal();
+//            LogWithBlobs log = new LogWithBlobs();
 //            if (user != null) {
-//                log.setUserId(user.getUserName());
+//                log.setUsername(user.getUserName());
 //            }
+//            log.setIp(ip);
 //            log.setTime(time);
 //            logService.saveLog(point, log);
-//
+//        }
 //        return result;
 //    }
 }

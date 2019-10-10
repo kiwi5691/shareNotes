@@ -51,6 +51,22 @@ Page({
       });
     }
   },
+  gotoOp: function () {
+
+    if (this.data.hasLogin) {
+      try {
+        wx.setStorageSync('tab', 0);
+      } catch (e) {
+      }
+      wx.navigateTo({
+        url: '../content/oplog/oplog',
+      });
+    } else {
+      this.setData({
+        visible2: true
+      });
+    }
+  },
   toggleRight2() {
     this.setData({
       showRight2: !this.data.showRight2

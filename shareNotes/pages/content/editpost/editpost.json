@@ -8,6 +8,7 @@
     "i-tab-bar": "../../dist/tab-bar/index",
     "i-tab-bar-item": "../../dist/tab-bar-item/index",
     "i-icon": "../../dist/icon/index",
+    "i-message": "../../dist/message/index",
     "i-divider": "../../dist/divider/index",
     "i-button": "../../dist/button/index",
     "i-modal": "../../dist/modal/index",

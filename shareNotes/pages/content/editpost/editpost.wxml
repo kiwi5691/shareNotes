@@ -32,9 +32,11 @@
 
 <i-modal title="{{ titleName }}" visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
 <view hidden="{{mdDisplay}}">
-<htmltowxml type="markdown" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+<htmltowxml type="{{type}}" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </view>
 <view hidden="{{htmlDisplay}}">
 <htmltowxml type="html" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </view>
 </i-modal>
+
+

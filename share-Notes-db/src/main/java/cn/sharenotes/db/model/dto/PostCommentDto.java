@@ -14,6 +14,7 @@ public class PostCommentDto {
     private String title;
     private Date createTime;
     private Date updateTime;
+    private Integer type;
     private String originalContent;
     private Long visits;
     private boolean notallowComment;

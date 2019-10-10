@@ -17,13 +17,11 @@ public class ContentUtils {
         }
     }
 
-    public static String getDescription(String iconSelected){
-        if (iconSelected.equals("activity")) {
-            return   "活动";
-        } else if (iconSelected.equals("barrage")) {
-            return   "手记";
+    public static Boolean getTypeInBoolean(Integer type){
+        if (type.equals(1)) {
+            return   true;
         } else {
-            return   "内容";
+            return   false;
         }
     }
 }

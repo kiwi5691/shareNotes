@@ -1,4 +1,9 @@
-// pages/content/adddetial/adddetial.js
+const { $Message } = require('../../../dist/base/index');
+
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+var app = getApp();
+
 Page({
 
   /**
@@ -10,9 +15,11 @@ Page({
     switch1: false,
     visible1: false,
     titleName: '',
+    type:'',
     mdDisplay: false,
     htmlDisplay: true,
     context: '',
+    post_id:'',
     min: 10,
     max: 500,
     actions5: [
@@ -57,7 +64,7 @@ Page({
           content: '创建成功！',
           type: 'success'
         });
-      }, 2000);
+      }, 1000);
     }
   },
 
@@ -65,7 +72,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      post_id: options.post_id
+    });
+    this.getContentAll();
   },
 
   /**
@@ -73,6 +83,25 @@ Page({
    */
   onReady: function () {
 
+  },
+  getContentAll: function () {
+    let that = this;
+    util.request(api.GetPostsInfoDetail + this.data.post_id).then(function (res) {
+
+      if (res.errno === 0) {
+        that.setData({
+          originalContent: res.data.originalContent,
+          title: res.data.title,
+          type: res.data.type,
+          switch1: res.data.switch1,
+        });
+      } else {    
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
   },
 
   /**

@@ -66,20 +66,54 @@ Page({
       this.setData({
         actions5: action
       });
-
       setTimeout(() => {
         action[1].loading = false;
         this.setData({
           visible5: false,
           actions5: action
         });
-        todo
+        var postId = this.data.post_id;
+        this.delPost(postId);
+        wx.navigateBack({
+          delta: 1
+        })
+      }, 1000);
+    }
+  },
+  delComment: function (commentId){
+    util.request(api.DelComment, {
+      commentId: commentId,
+    }, 'DELETE').then(function (res) {
+      if (res.errno === 0) {
         $Message({
-          content: '删除成功！',
+          content: '删除评论成功！',
           type: 'success'
         });
-      }, 2000);
-    }
+
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
+  },
+  delPost: function (postId) {
+    util.request(api.DelPosts, {
+      postId: postId,
+    }, 'DELETE').then(function (res) {
+      if (res.errno === 0) {
+        $Message({
+          content: '删除文章成功！',
+          type: 'success'
+        });
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
   },
   handleClickDelCo({ detail }) {
     if (detail.index === 0) {
@@ -100,11 +134,11 @@ Page({
           visibleCom: false,
           actions5: action
         });
-        $Message({
-          content: '删除成功！',
-          type: 'success'
-        });
-      }, 2000);
+        var commentId = this.data.del_id;
+        this.delComment(commentId);
+        this.onShow();
+
+      }, 1000);
     }
   },
   onChange(event) {
@@ -163,7 +197,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getContentAll();
   },
 
   /**

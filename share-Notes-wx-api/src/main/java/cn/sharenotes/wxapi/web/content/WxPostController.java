@@ -9,8 +9,8 @@ import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.model.dto.PostTypeDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
+import cn.sharenotes.wxapi.annotation.Log;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +36,7 @@ public class WxPostController {
     @Resource
     private PostCommentService postCommentService;
 
+    @Log("fasf")
     @ApiOperation("获取所有文章")
     @GetMapping("/getAll/{cate_id}")
     public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
@@ -94,9 +95,9 @@ public class WxPostController {
     }
 
     @ApiOperation(value = "删除文章")
-    @DeleteMapping("delete/{postId}")
-    public Object deletePostContent(@PathVariable("postId") Integer postId) {
-        Integer i = postContentService.deletePostContentAndCategory(postId);
+    @DeleteMapping("delete")
+    public Object deletePostContent(@RequestBody String body) {
+        Integer i = postContentService.deletePostContentAndCategory(JacksonUtil.parseInteger(body, "postId"));
         if(i > 0){
            return ResponseUtil.ok();
         }
@@ -112,9 +113,24 @@ public class WxPostController {
         result.put("visits", postCommentDto.getVisits());
         result.put("title", postCommentDto.getTitle());
         result.put("switch1", postCommentDto.isNotallowComment());
+        result.put("type", ContentUtils.getType(postCommentDto.getType()));
         result.put("updateTime", postCommentDto.getUpdateTime());
         result.put("createTime", postCommentDto.getCreateTime());
         result.put("baseComment", postCommentDto.getCommentDtoList());
+        return ResponseUtil.ok(result);
+    }
+
+
+
+    @ApiOperation("文章修改dto")
+    @GetMapping("/getInfo/{post_id}")
+    public Object getPostInfoDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
+        Map<String, Object> result = new HashMap<>();
+        PostCommentDto postCommentDto = postCommentService.findPostsByPostId(post_id);
+        result.put("originalContent", postCommentDto.getOriginalContent());
+        result.put("title", postCommentDto.getTitle());
+        result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
+        result.put("type", ContentUtils.getType(postCommentDto.getType()));
         return ResponseUtil.ok(result);
     }
 
