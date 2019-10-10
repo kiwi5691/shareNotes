@@ -3,6 +3,7 @@ package cn.sharenotes.core.service.Impl;
 import cn.sharenotes.core.redis.KeyPrefix.OwnerContentKey;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.db.domain.*;
+import cn.sharenotes.db.mapper.CommentsMapper;
 import cn.sharenotes.db.mapper.PostCategoriesMapper;
 import cn.sharenotes.db.mapper.PostsMapper;
 import cn.sharenotes.db.model.dto.PostDTO;
@@ -32,6 +33,9 @@ public class PostContentServiceImpl implements PostContentService {
 
     @Resource
     private RedisManager redisManager;
+
+    @Resource
+    private CommentsMapper commentsMapper;
 
     @Value("${OWNER_POSTS_BY_CATID}")
     private String OWNER_POSTS_BY_CATID;
@@ -93,7 +97,7 @@ public class PostContentServiceImpl implements PostContentService {
 
         Integer cateId = findCateIdByPostId(postId);
         redisManager.del(OWNER_POSTS_BY_CATID+ ":" + "cate :" + cateId);
-
+        commentsMapper.deleteByPostId(postId);
         PostCategoriesExample postCategoriesExample = new PostCategoriesExample();
         PostCategoriesExample.Criteria criteria = postCategoriesExample.createCriteria();
         criteria.andPostIdEqualTo(postId);

@@ -12,6 +12,8 @@ public interface CommentsMapper {
 
     int deleteByPrimaryKey(Long id);
 
+    int deleteByPostId(int postid);
+
     int insert(Comments record);
 
     int insertSelective(Comments record);
