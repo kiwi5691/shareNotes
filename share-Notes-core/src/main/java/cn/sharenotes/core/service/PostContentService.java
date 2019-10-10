@@ -19,5 +19,7 @@ public interface PostContentService {
 
     Integer addPostCategory(Integer categoryId,PostContentVo postContentVo);
 
+    Integer updatePostContent(Integer postId,PostContentVo postContentVo);
+
     Integer deletePostContentAndCategory(Integer postId);
 }

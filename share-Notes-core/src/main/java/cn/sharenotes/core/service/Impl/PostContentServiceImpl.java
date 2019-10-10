@@ -74,6 +74,16 @@ public class PostContentServiceImpl implements PostContentService {
     }
 
     @Override
+    public Integer updatePostContent(Integer postId, PostContentVo postContentVo) {
+        PostsWithBLOBs posts = new PostsWithBLOBs();
+        DtoUtils.copyProperties(postContentVo,posts);
+        posts.setId(postId);
+        posts.setUpdateTime(new Date());
+        posts.setEditTime(new Date());
+        return postsMapper.updateByPrimaryKeySelective(posts);
+    }
+
+    @Override
     public Integer deletePostContentAndCategory(Integer postId) {
         postsMapper.deleteByPrimaryKey(postId);
 
