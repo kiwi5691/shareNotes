@@ -37,9 +37,10 @@ public class CommentController {
         return ResponseUtil.fail(999, "未知错误");
         }
     @ApiOperation(value = "通过 评论Id 删除目录")
-    @DeleteMapping("/delete/{commentId}")
-    public Object deleteCategory(@LoginUser Integer userId,@PathVariable("commentId") Integer commentId) {
-
+    @DeleteMapping("/delete/")
+    public Object deleteCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
+        Integer userId = 5;
+        Integer commentId = JacksonUtil.parseInteger(body, "commentId");
         if (commentService.delectComment(commentId) > 0) {
             return ResponseUtil.ok();
         }
