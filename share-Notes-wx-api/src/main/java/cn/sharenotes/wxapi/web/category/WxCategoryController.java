@@ -67,8 +67,8 @@ public class WxCategoryController {
         Integer userId = 5;
         Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
         Integer menuId = JacksonUtil.parseInteger(body, "menu_id");
-        if (categoriesService.deleteCategoryByCategoryId(menuId,categoryId) > 0) {
-//            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(Objects.requireNonNull(JacksonUtil.parseString(body, "menu_id"))));
+        if (categoriesService.deleteCategoryByCategoryId(menuId, categoryId) > 0) {
+            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(Objects.requireNonNull(JacksonUtil.parseString(body, "menu_id"))));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -88,7 +88,7 @@ public class WxCategoryController {
         }
 
         if (categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0) {
-//            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
+            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -111,7 +111,6 @@ public class WxCategoryController {
         return ResponseUtil.ok(result);
     }
 
-    @ApiOperation(value = "将 body 转成 CategoryVO")
     private CategoryVO getBodyIntoCategoryVO(Integer userId, String body) {
         String name = JacksonUtil.parseString(body, "name");
         boolean isPcOrPr = JacksonUtil.parseBoolean(body, "isPcOrPr");
@@ -120,7 +119,7 @@ public class WxCategoryController {
         List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(userId, CategoryUtils.chekcIsPcOrPr(isPcOrPr));
 
         if (!CollectionUtils.isEmpty(nameList)) {
-            if(nameList.contains(name)){
+            if (nameList.contains(name)) {
                 return null;
             }
         }

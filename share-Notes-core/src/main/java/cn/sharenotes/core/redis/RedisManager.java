@@ -95,6 +95,23 @@ public class RedisManager {
         }
 
     }
+
+    /**
+     * 删除指定的key,也可以传入一个包含key的数组
+     *
+     * @param keys
+     * @return
+     */
+    public void del(String... keys) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            jedis.del(keys);
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
     /**
      * 批量删除key
      * @param keys

@@ -121,7 +121,6 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     @Override
     public Integer deleteCategoryByCategoryId(Integer menuId,Integer categoryId) {
-        redisManager.del(Collections.singleton(OWNER_MENUID+ ":" + "menuIds :" + menuId));
         return categoriesMapper.deleteByPrimaryKey(categoryId);
     }
 
@@ -129,7 +128,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     public void updateCategoriesRedisInfo(Integer userId, Integer menuId) {
         List<CategoryDTO> categoryDTOS =null;
 
-        redisManager.del(Collections.singleton(OWNER_MENUID + ":" + "menuIds :" + menuId + "userId:" + userId));
+        redisManager.del(OWNER_MENUID + ":" + "menuIds :" + menuId + "userId:" + userId);
         categoryDTOS = getCategoryDTO(userId, menuId);
         categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
         redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
@@ -141,7 +140,6 @@ public class CategoriesServiceImpl implements CategoriesService {
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setId(categoryId);
         categories.setUpdateTime(new Date());
-        redisManager.del(Collections.singleton(OWNER_MENUID+ ":" + "menuIds :" + categoryVO.getParentId()));
         return categoriesMapper.updateByPrimaryKeySelective(categories);
     }
 

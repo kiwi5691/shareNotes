@@ -22,4 +22,6 @@ public interface PostContentService {
     Integer updatePostContent(Integer postId,PostContentVo postContentVo);
 
     Integer deletePostContentAndCategory(Integer postId);
+
+    Integer findCateIdByPostId(Integer postId);
 }

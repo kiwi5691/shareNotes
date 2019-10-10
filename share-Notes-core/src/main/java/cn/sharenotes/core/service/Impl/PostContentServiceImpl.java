@@ -42,7 +42,7 @@ public class PostContentServiceImpl implements PostContentService {
     @Override
     public List<PostDTO> findPostsByCateId(Integer cateId) {
         List<PostDTO> postDTOS = null;
-        postDTOS = (List<PostDTO>) redisManager.getList(OWNER_POSTS_BY_CATID + ":" + "posts :" + cateId);
+        postDTOS = (List<PostDTO>) redisManager.getList(OWNER_POSTS_BY_CATID + ":" + "cate :" + cateId);
         if(CollectionUtils.isEmpty(postDTOS)){
             postDTOS = getAllPostIdsByCateId(cateId);
             if(CollectionUtils.isEmpty(postDTOS)){
@@ -60,7 +60,7 @@ public class PostContentServiceImpl implements PostContentService {
         posts.setVisits((long) 0);
         posts.setDisallowComment(0);
         postsMapper.insert(posts);
-        redisManager.set(OWNER_POSTS_BY_CATID + ":" + "posts :" + categoryId,posts);
+        redisManager.set(OWNER_POSTS_BY_CATID + ":" + "cate :" + categoryId,posts);
         return posts.getId();
     }
 
@@ -81,19 +81,32 @@ public class PostContentServiceImpl implements PostContentService {
         posts.setId(postId);
         posts.setUpdateTime(new Date());
         posts.setEditTime(new Date());
-        redisManager.del(Collections.singleton(OWNER_POSTS_BY_CATID));
+
+        Integer cateId = findCateIdByPostId(postId);
+        redisManager.del(OWNER_POSTS_BY_CATID+ ":" + "cate :" + cateId);
         return postsMapper.updateByPrimaryKeySelective(posts);
     }
 
     @Override
     public Integer deletePostContentAndCategory(Integer postId) {
         postsMapper.deleteByPrimaryKey(postId);
-        redisManager.del(Collections.singleton(OWNER_POSTS_BY_CATID));
+
+        Integer cateId = findCateIdByPostId(postId);
+        redisManager.del(OWNER_POSTS_BY_CATID+ ":" + "cate :" + cateId);
 
         PostCategoriesExample postCategoriesExample = new PostCategoriesExample();
         PostCategoriesExample.Criteria criteria = postCategoriesExample.createCriteria();
         criteria.andPostIdEqualTo(postId);
         return postCategoriesMapper.deleteByExample(postCategoriesExample);
+    }
+
+    @Override
+    public Integer findCateIdByPostId(Integer postId) {
+        PostCategoriesExample example = new PostCategoriesExample();
+        PostCategoriesExample.Criteria criteria = example.createCriteria();
+        criteria.andPostIdEqualTo(postId);
+        List<PostCategories> postCategories = postCategoriesMapper.selectByExample(example);
+        return postCategories.get(0).getCategoryId();
     }
 
     @Override
@@ -136,7 +149,7 @@ public class PostContentServiceImpl implements PostContentService {
         posts = postsMapper.selectByExampleWithBLOBs(postsExample);
         postDTOS = DtoUtils.convertList2List(posts, PostDTO.class);
         postDTOS = Optional.ofNullable(postDTOS).orElseGet(Collections::emptyList);
-        redisManager.setList(OWNER_POSTS_BY_CATID + ":" + "posts :" + cateId, postDTOS);
+        redisManager.setList(OWNER_POSTS_BY_CATID + ":" + "cate :" + cateId, postDTOS);
         return postDTOS;
     }
 }
