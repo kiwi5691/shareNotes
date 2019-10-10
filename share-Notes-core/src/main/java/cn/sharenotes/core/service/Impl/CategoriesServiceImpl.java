@@ -102,6 +102,7 @@ public class CategoriesServiceImpl implements CategoriesService {
         categoryVO.setSlugName(user.getWeixinOpenid());
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setCreateTime(new Date());
+        redisManager.set(OWNER_MENUID+":"+"menuIds :"+categoryVO.getParentId() +"userId:"+userId,categories);
         return categoriesMapper.insert(categories);
     }
 
@@ -119,8 +120,8 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public Integer deleteCategoryByCategoryId(Integer categoryId) {
-
+    public Integer deleteCategoryByCategoryId(Integer menuId,Integer categoryId) {
+        redisManager.del(Collections.singleton(OWNER_MENUID+ ":" + "menuIds :" + menuId));
         return categoriesMapper.deleteByPrimaryKey(categoryId);
     }
 
@@ -140,6 +141,7 @@ public class CategoriesServiceImpl implements CategoriesService {
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setId(categoryId);
         categories.setUpdateTime(new Date());
+        redisManager.del(Collections.singleton(OWNER_MENUID+ ":" + "menuIds :" + categoryVO.getParentId()));
         return categoriesMapper.updateByPrimaryKeySelective(categories);
     }
 

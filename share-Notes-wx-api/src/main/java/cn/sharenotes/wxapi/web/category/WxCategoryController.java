@@ -55,7 +55,7 @@ public class WxCategoryController {
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
         if (categoriesService.addCategory(userId, categoryVO) > 0) {
-            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
+//            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -65,9 +65,10 @@ public class WxCategoryController {
     @DeleteMapping("/delete")
     public Object deleteCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
         Integer userId = 5;
-        int categoryId = JacksonUtil.parseInteger(body, "cateId");
-        if (categoriesService.deleteCategoryByCategoryId(categoryId) > 0) {
-            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(Objects.requireNonNull(JacksonUtil.parseString(body, "menu_id"))));
+        Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
+        Integer menuId = JacksonUtil.parseInteger(body, "menu_id");
+        if (categoriesService.deleteCategoryByCategoryId(menuId,categoryId) > 0) {
+//            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(Objects.requireNonNull(JacksonUtil.parseString(body, "menu_id"))));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -87,7 +88,7 @@ public class WxCategoryController {
         }
 
         if (categoriesService.updateCategoryByCategoryId(categoryId, categoryVO) > 0) {
-            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
+//            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();

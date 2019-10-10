@@ -43,6 +43,21 @@ public class RedisManager {
         }
     }
 
+    public <T> Boolean set(String key,T value){
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            String str = beanToString(value);
+            if (str == null || str.length() <= 0) {
+                return false;
+            }
+            jedis.set(key, str);
+            return true;
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
     /**
      * 获取List集合
      * @param key

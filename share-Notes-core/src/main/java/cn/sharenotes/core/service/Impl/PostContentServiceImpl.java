@@ -60,6 +60,7 @@ public class PostContentServiceImpl implements PostContentService {
         posts.setVisits((long) 0);
         posts.setDisallowComment(0);
         postsMapper.insert(posts);
+        redisManager.set(OWNER_POSTS_BY_CATID + ":" + "posts :" + categoryId,posts);
         return posts.getId();
     }
 
@@ -80,12 +81,14 @@ public class PostContentServiceImpl implements PostContentService {
         posts.setId(postId);
         posts.setUpdateTime(new Date());
         posts.setEditTime(new Date());
+        redisManager.del(Collections.singleton(OWNER_POSTS_BY_CATID));
         return postsMapper.updateByPrimaryKeySelective(posts);
     }
 
     @Override
     public Integer deletePostContentAndCategory(Integer postId) {
         postsMapper.deleteByPrimaryKey(postId);
+        redisManager.del(Collections.singleton(OWNER_POSTS_BY_CATID));
 
         PostCategoriesExample postCategoriesExample = new PostCategoriesExample();
         PostCategoriesExample.Criteria criteria = postCategoriesExample.createCriteria();
