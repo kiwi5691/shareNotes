@@ -359,6 +359,11 @@
       original_content = #{originalContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="incrVisit" parameterType="java.lang.Integer">
+    update posts
+    set visits = visits+1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKey" parameterType="cn.sharenotes.db.domain.Posts">
     update posts
     set type = #{type,jdbcType=INTEGER},

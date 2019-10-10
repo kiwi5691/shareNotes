@@ -38,5 +38,6 @@ module.exports = {
   GetCategoryDetail: WxApiRoot + 'category/detail/', //获取目录详细,
 
   AddPost: WxApiRoot + 'posts/add', //添加文章,
+  AddComment: WxApiRoot + 'comment/add', //添加文章,
 
 };

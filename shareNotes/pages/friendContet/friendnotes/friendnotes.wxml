@@ -35,12 +35,12 @@
 
 <i-cell-group wx:for="{{baseComment}}" wx:key="id">
 <view wx:if="{{!item.anonymous}}">
-    <i-card thumb="../../../../../static/images/my.png" data-id="{{item.id}}" data-name="匿名"bindtap="handleOpenDel" title="匿名" extra="{{item.createTime}}">    
+    <i-card thumb="../../../../../static/images/my.png" data-id="{{item.id}}" data-name="匿名" title="匿名" extra="{{item.createTime}}">    
     <view slot="content">{{item.content}}</view>
     </i-card>
   </view>
 <view wx:else>
-    <i-card thumb="{{item.avatar}}" data-id="{{item.id}}" bindtap="handleOpenDel" data-name="{{item.author}}" title="{{item.author}}" extra="{{item.createTime}}">    
+    <i-card thumb="{{item.avatar}}" data-id="{{item.id}}" data-name="{{item.author}}" title="{{item.author}}" extra="{{item.createTime}}">    
     <view slot="content">{{item.content}}</view>
     </i-card>
   </view>
@@ -48,7 +48,7 @@
 <i-divider content="发布评论" ></i-divider>
 
 <i-panel title="您的评论">
-    <i-input type="textarea" value="{{ value5 }}" maxlength="100" placeholder="请输入您的评论" />
+    <i-input type="textarea" value="{{ value5 }}" maxlength="100"  bind:change="commentInput" placeholder="请输入您的评论" />
 </i-panel>
 <i-cell-group>
     <i-cell title="是否匿名">
@@ -56,5 +56,9 @@
     </i-cell>
 </i-cell-group>
 
-<i-button bind:click="handleClick" disabled="{{!switch1}}" type="primary" shape="circle" size="small">提交评论</i-button>
+<i-button bind:click="handleOpen5" disabled="{{!switch1}}" type="primary" shape="circle" size="small">提交评论</i-button>
+  <i-modal title="创建确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>确定创建吗</view>
+    </i-modal>
+<i-message id="message" />
 

@@ -26,9 +26,80 @@ Page({
     title: '',
     updateTime: '',
     createTime: '',
+    actions5: [
+      {
+        name: '取消'
+      },
+      {
+        name: '创建',
+        color: '#00FF7F',
+        loading: false
+      }
+    ]
 
   },
+  handleOpen5() {
+    this.setData({
+      visible5: true
+    });
+  },
+  handleClick5({ detail }) {
+    this.data.categoryId;
+    if (detail.index === 0) {
+      this.setData({
+        visible5: false
+      });
+    } else {
+      const action = [...this.data.actions5];
+      action[1].loading = true;
 
+      this.setData({
+        actions5: action
+      });
+      if (this.data.value5 == "") {
+        this.setData({
+          visible5: false,
+        });
+        $Message({
+          content: '评论不能为空！',
+          type: 'error'
+        });
+      } else {
+        setTimeout(() => {
+          action[1].loading = false;
+          this.setData({
+            visible5: false,
+            actions5: action
+          });
+          var postId = this.data.post_id;
+          var content = this.data.value5;
+          var isanonymous = this.data.switch2;
+          this.createComment(postId, content, isanonymous);
+        }, 1000);
+      }
+    }
+  },
+  createComment: function (postId, content, isanonymous){
+    util.request(api.AddComment, {
+      postId: postId,
+      content: content,
+      isanonymous: isanonymous,
+    }, 'POST').then(function (res) {
+      if (res.errno === 0) {
+        $Message({
+          content: '创建成功！',
+          type: 'success'
+        });
+        var that = this
+        that.onload();
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
+  },
   getContentAll: function () {
     let that = this;
     util.request(api.GetFriendDetail + this.data.post_id).then(function (res) {
@@ -88,7 +159,11 @@ Page({
   onHide: function () {
 
   },
-
+  commentInput: function (e) {
+    this.setData({
+      value5: e.detail.detail.value
+    })
+  },
   /**
    * 生命周期函数--监听页面卸载
    */

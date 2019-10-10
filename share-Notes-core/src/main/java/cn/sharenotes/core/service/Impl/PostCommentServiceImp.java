@@ -3,9 +3,7 @@ package cn.sharenotes.core.service.Impl;
 import cn.sharenotes.core.enums.ContentBase;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.PostCommentService;
-import cn.sharenotes.db.domain.Comments;
-import cn.sharenotes.db.domain.PostsWithBLOBs;
-import cn.sharenotes.db.domain.User;
+import cn.sharenotes.db.domain.*;
 import cn.sharenotes.db.mapper.CommentsMapper;
 import cn.sharenotes.db.mapper.PostsMapper;
 import cn.sharenotes.db.mapper.UserMapper;
@@ -18,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /**
  * @author 76905
@@ -67,5 +66,10 @@ public class PostCommentServiceImp implements PostCommentService {
 
         postCommentDto.setCommentDtoList(commentDtoList);
         return postCommentDto;
+    }
+
+    @Override
+    public int IncrVisit(Integer post_id) {
+       return postsMapper.incrVisit(post_id);
     }
 }

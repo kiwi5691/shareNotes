@@ -32,6 +32,8 @@ public interface PostsMapper {
 
     int updateByPrimaryKeySelective(PostsWithBLOBs record);
 
+    int incrVisit(Integer id);
+
     int updateByPrimaryKeyWithBLOBs(PostsWithBLOBs record);
 
     int updateByPrimaryKey(Posts record);

@@ -1,11 +1,13 @@
 package cn.sharenotes.wxapi.web.friend;
 
+import cn.sharenotes.core.redis.KeyPrefix.VisitLimitKey;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
+import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +36,7 @@ public class WxFriendPostController {
 
     @ApiOperation("Lists posts")
     @GetMapping("/getPost/{cate_id}")
-    public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
+    public Object getPosts(@LoginUser Integer userId,@PathVariable("cate_id") Integer cate_id) {
         List<PostDTO> postDTOS = postContentService.findPostsByCateId( cate_id);
         Map<String, Object> result = new HashMap<>();
         if (CollectionUtils.isEmpty(postDTOS)) {
@@ -46,14 +48,21 @@ public class WxFriendPostController {
     }
 
 
-
-
-
-
     @ApiOperation("文章详细")
     @GetMapping("/getDetail/{post_id}")
-    public Object getPostDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
+    public Object getPostDetail(@LoginUser Integer userId, @PathVariable("post_id") Integer post_id) {
 
+        List<PostDTO> postDTOS = postContentService.findPostsByCateId(post_id);
+        if (CollectionUtils.isEmpty(postDTOS)) {
+            return ResponseUtil.fail(809,"未知错误");
+        } else {
+            //添加访问限制
+            Integer userLimit=0;
+            userLimit=redisManager.get(VisitLimitKey.board, "userId :"+userId+"post_id :"+post_id, Integer .class);
+            if(userLimit==null||userLimit.equals(0)){
+                redisManager.set(VisitLimitKey.board, "userId :"+userId+"post_id :"+post_id,1);
+                postCommentService.IncrVisit(post_id);
+            }
 
             Map<String, Object> result = new HashMap<>();
             PostCommentDto postCommentDto= postCommentService.findPostsByPostId(post_id);
@@ -64,23 +73,14 @@ public class WxFriendPostController {
             result.put("updateTime", postCommentDto.getUpdateTime());
             result.put("createTime", postCommentDto.getCreateTime());
             result.put("baseComment", postCommentDto.getCommentDtoList());
+
+
+
             return ResponseUtil.ok(result);
-
+        }
     }
 
 
-
-
-
-
-
-
-
-
-    @DeleteMapping("{postId:\\d+}")
-    public void deletePermanently(@PathVariable("postId") Integer postId) {
-//       todo 删除文章
-    }
 
 
 }

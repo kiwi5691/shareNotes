@@ -13,4 +13,6 @@ public interface PostCommentService {
      * @return 内容和评论
      */
     public  PostCommentDto findPostsByPostId(Integer postId);
+
+    public int IncrVisit(Integer post_id);
 }
