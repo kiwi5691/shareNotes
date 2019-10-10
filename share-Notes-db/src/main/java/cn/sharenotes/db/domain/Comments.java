@@ -10,6 +10,7 @@ public class Comments {
     private Long id;
 
     private Timestamp createTime;
+
     private Timestamp updateTime;
 
     private String author;
@@ -25,6 +26,21 @@ public class Comments {
     private Integer topPriority;
 
     private Integer userId;
+
+    public Comments(Integer type, Timestamp createTime, Timestamp updateTime, String author, String content, Integer isAnonymous, Integer postId, Integer status, Integer topPriority, Integer userId) {
+        this.type = type;
+
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.author = author;
+        this.content = content;
+        this.isAnonymous = isAnonymous;
+        this.postId = postId;
+        this.status = status;
+        this.topPriority = topPriority;
+        this.userId = userId;
+    }
+
     public Integer getType() {
         return type;
     }
