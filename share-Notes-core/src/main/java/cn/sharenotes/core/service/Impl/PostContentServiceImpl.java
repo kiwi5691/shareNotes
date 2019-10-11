@@ -7,7 +7,6 @@ import cn.sharenotes.db.domain.PostCategories;
 import cn.sharenotes.db.domain.PostCategoriesExample;
 import cn.sharenotes.db.domain.PostsExample;
 import cn.sharenotes.db.domain.PostsWithBLOBs;
-import cn.sharenotes.db.domain.*;
 import cn.sharenotes.db.mapper.CommentsMapper;
 import cn.sharenotes.db.mapper.PostCategoriesMapper;
 import cn.sharenotes.db.mapper.PostsMapper;
@@ -100,6 +99,7 @@ public class PostContentServiceImpl implements PostContentService {
 
         Integer cateId = findCateIdByPostId(postId);
         redisManager.del(OWNER_POSTS_BY_CATID+ ":" + "cate :" + cateId);
+
         commentsMapper.deleteByPostId(postId);
         PostCategoriesExample postCategoriesExample = new PostCategoriesExample();
         PostCategoriesExample.Criteria criteria = postCategoriesExample.createCriteria();
