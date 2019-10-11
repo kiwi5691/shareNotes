@@ -9,7 +9,6 @@ import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.model.dto.PostTypeDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
-import cn.sharenotes.wxapi.annotation.Log;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +35,6 @@ public class WxPostController {
     @Resource
     private PostCommentService postCommentService;
 
-    @Log("fasf")
     @ApiOperation("获取所有文章")
     @GetMapping("/getAll/{cate_id}")
     public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
@@ -63,7 +61,7 @@ public class WxPostController {
 
         Integer userId = 5;
 
-        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body);
+        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body,"add");
 
         if (postContentVo == null) {
             return ResponseUtil.fail(802, "添加文章失败，文章标题已存在");
@@ -84,7 +82,7 @@ public class WxPostController {
 
         Integer userId = 5;
 
-        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body);
+        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body,"update");
         if(postContentVo == null){
             return ResponseUtil.fail(803,"修改文章失败，文章标题已存在");
         }
@@ -133,7 +131,7 @@ public class WxPostController {
         return ResponseUtil.ok(result);
     }
 
-    public PostContentVo getBodyIntoPostContentVo(Integer userId, String body) {
+    public PostContentVo getBodyIntoPostContentVo(Integer userId, String body,String methodName) {
         String title = JacksonUtil.parseString(body, "title");
         boolean type = JacksonUtil.parseBoolean(body, "type");
         String originalContent = JacksonUtil.parseString(body, "originalContent");
@@ -141,6 +139,9 @@ public class WxPostController {
 
         List<String> titles = postContentService.findAllPostsNameByCategoryId(categoryId);
         if (!CollectionUtils.isEmpty(titles)) {
+            if(methodName.equals("update")){
+                titles.remove(title);
+            }
             if (titles.contains(title)) {
                 return null;
             }

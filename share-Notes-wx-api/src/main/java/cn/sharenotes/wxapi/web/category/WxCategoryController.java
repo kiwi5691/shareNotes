@@ -50,12 +50,11 @@ public class WxCategoryController {
     public Object addCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
         Integer userId = 5;
         //到时候删除
-        CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body);
+        CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"add");
         if (categoryVO == null) {
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
         if (categoriesService.addCategory(userId, categoryVO) > 0) {
-//            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -82,7 +81,7 @@ public class WxCategoryController {
         Integer userId = 5;
         //到时候删除
 
-        CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body);
+        CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"update");
         if (categoryVO == null) {
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
         }
@@ -111,7 +110,7 @@ public class WxCategoryController {
         return ResponseUtil.ok(result);
     }
 
-    private CategoryVO getBodyIntoCategoryVO(Integer userId, String body) {
+    private CategoryVO getBodyIntoCategoryVO(Integer userId, String body,String methodName) {
         String name = JacksonUtil.parseString(body, "name");
         boolean isPcOrPr = JacksonUtil.parseBoolean(body, "isPcOrPr");
         String iconSelected = JacksonUtil.parseString(body, "iconSelected");
@@ -119,6 +118,9 @@ public class WxCategoryController {
         List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(userId, CategoryUtils.chekcIsPcOrPr(isPcOrPr));
 
         if (!CollectionUtils.isEmpty(nameList)) {
+            if(methodName.equals("update")){
+                nameList.remove(name);
+            }
             if (nameList.contains(name)) {
                 return null;
             }
