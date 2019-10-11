@@ -10,17 +10,25 @@
 </i-panel>
   <i-divider content="输入issue" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
-  <view  class="conts">
-<textarea disabled="{{ visible5 }}" class="areas" bindblur="contextInput" value="{{ context }}" placeholder='issue内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
+  <view  class="bar bottomfix shadow justify-center">
+<textarea wx:if="{{ !visible5 }}" class="areas" bindblur="contextInput" value="{{ context }}" placeholder='issue内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs" >
 <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
 <text class="hint">{{texts}}</text>
 </textarea>
 </view>
+<view class="rich-text" wx:if="{{ visible5 }}" >
+<rich-text    nodes="{{context}}"></rich-text>
+<text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
+<text class="hint">{{texts}}</text>
+</view>
+
   <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
   <i-button bind:click="handleOpen5" type="success" shape="circle" size="large">提交</i-button>
+  <cover-view>
   <i-modal title="提交确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
     <view>确定提交吗</view>
 </i-modal>
+</cover-view>
 
 <i-message id="message" />

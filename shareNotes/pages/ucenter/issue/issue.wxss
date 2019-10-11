@@ -3,6 +3,18 @@
   display:flex;                    
  justify-content: center;
 }
+.rich-text{
+  width: 700rpx;
+height: 550rpx;
+background: rgba(255, 255, 255, 1);
+font-size: 30rpx;
+text-indent: 28rpx;
+border: 1rpx solid gainsboro;
+margin-top: 30rpx;
+margin: 0 auto;
+overflow: hidden;
+position: relative;
+}
 .areas {
 width: 700rpx;
 height: 550rpx;

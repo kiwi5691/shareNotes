@@ -27,6 +27,7 @@ public class WxCategoryController {
     @Autowired
     CategoriesService categoriesService;
 
+    @Log("通过目录获取id")
     @ApiOperation(value = "通过 meanId 获取目录")
     @GetMapping("/getAll/{menuId}")
     public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId) {

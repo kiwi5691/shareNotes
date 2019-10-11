@@ -7,6 +7,7 @@ import cn.sharenotes.db.model.dto.GroupEndDto;
 import cn.sharenotes.core.service.CategoriesService;
 
 import cn.sharenotes.core.service.UserGroupsSerive;
+import cn.sharenotes.wxapi.annotation.LoginUser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class WxFriendGroupController {
     private UserGroupsSerive userGroupsMapper;
     @ApiOperation(value = "通过 UserId 获取目录")
     @GetMapping("/getAll")
-    public Object getAllCategories(/*@LoginUser Integer userId,*/ ) throws JsonProcessingException {
+    public Object getAllCategories(@LoginUser Integer userId ){
         Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(4);
         if(CollectionUtils.isEmpty(groupDtoMap)){
             return ResponseUtil.fail(701,"没有朋友");
