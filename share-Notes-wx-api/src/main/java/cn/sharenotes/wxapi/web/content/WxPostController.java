@@ -38,20 +38,22 @@ public class WxPostController {
     @ApiOperation("获取所有文章")
     @GetMapping("/getAll/{cate_id}")
     public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
-        List<PostDTO> postDTOS = postContentService.findPostsByCateId(cate_id);
         List<PostTypeDTO> postTypeDTOS = new ArrayList<>();
-        for (PostDTO postTypeDTO: postDTOS) {
-
-            PostTypeDTO postTypeDTO1 = new PostTypeDTO(postTypeDTO.getId(), ContentUtils.getType(postTypeDTO.getType()),postTypeDTO.getUpdateTime(),postTypeDTO.getTitle(),postTypeDTO.getFormatContent());
-            postTypeDTOS.add(postTypeDTO1);
-        }
         Map<String, Object> result = new HashMap<>();
+
+        List<PostDTO> postDTOS = postContentService.findPostsByCateId(cate_id);
+
         if (CollectionUtils.isEmpty(postDTOS)) {
             return ResponseUtil.fail(801, "您尚未创建文章");
-        } else {
-            result.put("posts", postTypeDTOS);
-            return ResponseUtil.ok(result);
         }
+        for (PostDTO postTypeDTO : postDTOS) {
+
+            PostTypeDTO postTypeDTO1 = new PostTypeDTO(postTypeDTO.getId(), ContentUtils.getType(postTypeDTO.getType()), postTypeDTO.getUpdateTime(), postTypeDTO.getTitle(), postTypeDTO.getFormatContent());
+            postTypeDTOS.add(postTypeDTO1);
+        }
+        result.put("posts", postTypeDTOS);
+        return ResponseUtil.ok(result);
+
     }
 
     @ApiOperation(value = "添加文章")
@@ -61,7 +63,7 @@ public class WxPostController {
 
         Integer userId = 5;
 
-        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body,"add");
+        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "add");
 
         if (postContentVo == null) {
             return ResponseUtil.fail(802, "添加文章失败，文章标题已存在");
@@ -77,16 +79,16 @@ public class WxPostController {
 
     @ApiOperation(value = "更改文章")
     @PutMapping("update")
-    public Object updatePostContent(/*@LoginUser Integer userId,*/ @RequestBody String body){
+    public Object updatePostContent(/*@LoginUser Integer userId,*/ @RequestBody String body) {
         Integer postId = JacksonUtil.parseInteger(body, "postId");
 
         Integer userId = 5;
 
-        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body,"update");
-        if(postContentVo == null){
-            return ResponseUtil.fail(803,"修改文章失败，文章标题已存在");
+        PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "update");
+        if (postContentVo == null) {
+            return ResponseUtil.fail(803, "修改文章失败，文章标题已存在");
         }
-        if( postContentService.updatePostContent(postId,postContentVo) > 0){
+        if (postContentService.updatePostContent(postId, postContentVo) > 0) {
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -96,8 +98,8 @@ public class WxPostController {
     @DeleteMapping("delete")
     public Object deletePostContent(@RequestBody String body) {
         Integer i = postContentService.deletePostContentAndCategory(JacksonUtil.parseInteger(body, "postId"));
-        if(i > 0){
-           return ResponseUtil.ok();
+        if (i > 0) {
+            return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
     }
@@ -119,7 +121,6 @@ public class WxPostController {
     }
 
 
-
     @ApiOperation("文章修改dto")
     @GetMapping("/getInfo/{post_id}")
     public Object getPostInfoDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
@@ -131,7 +132,7 @@ public class WxPostController {
         return ResponseUtil.ok(result);
     }
 
-    public PostContentVo getBodyIntoPostContentVo(Integer userId, String body,String methodName) {
+    public PostContentVo getBodyIntoPostContentVo(Integer userId, String body, String methodName) {
         String title = JacksonUtil.parseString(body, "title");
         boolean type = JacksonUtil.parseBoolean(body, "type");
         String originalContent = JacksonUtil.parseString(body, "originalContent");
@@ -139,7 +140,7 @@ public class WxPostController {
 
         List<String> titles = postContentService.findAllPostsNameByCategoryId(categoryId);
         if (!CollectionUtils.isEmpty(titles)) {
-            if(methodName.equals("update")){
+            if (methodName.equals("update")) {
                 titles.remove(title);
             }
             if (titles.contains(title)) {
@@ -151,9 +152,9 @@ public class WxPostController {
         postContentVo.setCreateFrom(userId);
         postContentVo.setTitle(title);
         postContentVo.setOriginalContent(originalContent);
-        if(originalContent.length()< 10){
+        if (originalContent.length() < 10) {
             postContentVo.setFormatContent(originalContent);
-        }else {
+        } else {
             postContentVo.setFormatContent(originalContent.substring(0, 10));
         }
 
