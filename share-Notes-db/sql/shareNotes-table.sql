@@ -191,27 +191,16 @@ CREATE TABLE IF NOT EXISTS `msg_request` (
 
 
 -- 消息日志
-DROP TABLE IF EXISTS `sys_msg_log`;
-CREATE TABLE `sys_msg_log` (
+DROP TABLE IF EXISTS `sys_msg`;
+CREATE TABLE `sys_msg` (
   `id` bigint(20) NOT NULL  COMMENT '编号',
-  `rec_id` varchar(45) NOT NULL COMMENT '接受者编号，如为0，则接受者为所有人',
-  `send_id` varchar(255) NOT NULL DEFAULT '0' COMMENT '发送者编号，0：默认为系统',
+  `rec_id` int(11) NOT NULL COMMENT '接受者编号，如为0，则接受者为所有人',
+  `send_id` int(11) NOT NULL DEFAULT '0' COMMENT '发送者编号，0：默认为系统',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱，无则为空',
-  `message_id` int(20)  DEFAULT NULL COMMENT '消息的编号[foreign key]',
-  `status` int(5) DEFAULT NULL COMMENT '消息的查看状态，0：未读，1：已查看，2：删除',
+  `title` varchar(255)  COMMENT '消息标题',
+  `type` int(5) DEFAULT NULL COMMENT '消息类型， type类型有[默认]0：Private(私信)、1：Public(公共消息)、2：Global(系统消息)，-1：未知消息',
+  `post_time` TIMESTAMP DEFAULT NULL COMMENT '消息发送时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT = '消息记录表';
 
 
-DROP TABLE IF EXISTS `sys_msg`;
-CREATE TABLE `sys_msg` (
-  `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '消息的编号',
-  `msg_type_id` varchar(45) NOT NULL COMMENT '文档Id',
-  `title` varchar(255)  COMMENT '消息标题',
-  `message_text` text DEFAULT NULL COMMENT '消息内容',
-  `type` int(5) DEFAULT NULL COMMENT '消息类型， type类型有[默认]0：Private(私信)、1：Public(公共消息)、2：Global(系统消息)，-1：未知消息',
-  `start_time` TIMESTAMP DEFAULT NULL COMMENT '消息生效日期',
-  `post_time` TIMESTAMP DEFAULT NULL COMMENT '消息发送时间',
-  `end_time` TIMESTAMP DEFAULT NULL COMMENT '消息失效日期',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT = '消息内容';

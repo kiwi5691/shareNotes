@@ -36,7 +36,7 @@ public class WxPostController {
     @Resource
     private PostCommentService postCommentService;
 
-    @Log("fasf")
+
     @ApiOperation("获取所有文章")
     @GetMapping("/getAll/{cate_id}")
     public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
