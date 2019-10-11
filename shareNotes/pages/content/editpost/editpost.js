@@ -16,6 +16,7 @@ Page({
     visible1: false,
     titleName: '',
     type:'',
+    cate_id:'',
     mdDisplay: false,
     htmlDisplay: true,
     context: '',
@@ -54,26 +55,64 @@ Page({
         actions5: action
       });
 
-      setTimeout(() => {
-        action[1].loading = false;
+      if (this.data.cateName == "") {
         this.setData({
           visible5: false,
-          actions5: action
         });
         $Message({
-          content: '创建成功！',
-          type: 'success'
+          content: '文章名不能空！',
+          type: 'error'
         });
+      } else {
+        setTimeout(() => {
+          action[1].loading = false;
+          this.setData({
+            visible5: false,
+            actions5: action
+          });
+          var postId = this.data.post_id;
+          var title = this.data.titleName;
+          var type = this.data.switch1;
+          var originalContent = this.data.context.split('&hc').join('<br>')
+          var categoryId = this.data.cate_id;
+          this.updatePosts(postId, title, type, originalContent, categoryId);
+        
       }, 1000);
     }
+  }
   },
-
+  updatePosts: function(postId, title, type, originalContent, categoryId){
+    let that = this;
+    util.request(api.UpdatePosts, {
+      postId: postId,
+      title: title,
+      type: type,
+      originalContent: originalContent,
+      categoryId: categoryId
+    }, 'PUT').then(function (res) {
+      if (res.errno === 0) {
+        $Message({
+          content: '修改成功！',
+          type: 'success'
+        });
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.setData({
-      post_id: options.post_id
+      post_id: options.post_id,
+      cate_id: options.cate_id
     });
     this.getContentAll();
   },
@@ -90,9 +129,8 @@ Page({
 
       if (res.errno === 0) {
         that.setData({
-          originalContent: res.data.originalContent,
-          title: res.data.title,
-          type: res.data.type,
+          context: res.data.originalContent,
+          titleName: res.data.title,
           switch1: res.data.switch1,
         });
       } else {    

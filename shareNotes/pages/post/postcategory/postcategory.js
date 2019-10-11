@@ -106,7 +106,7 @@ Page({
   goPostDetail(e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: "/pages/post/posts/posts?post_id=" + id
+      url: "/pages/post/posts/posts?post_id=" + id + "&cate_id=" + this.data.cate_id
     })
   },
   goEditCate() {

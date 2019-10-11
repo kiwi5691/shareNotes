@@ -130,7 +130,6 @@ public class WxPostController {
         result.put("originalContent", postCommentDto.getOriginalContent());
         result.put("title", postCommentDto.getTitle());
         result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
-        result.put("type", ContentUtils.getType(postCommentDto.getType()));
         return ResponseUtil.ok(result);
     }
 

@@ -14,6 +14,7 @@ Page({
     visibleCom: false,
     switch1: false,
     post_id:'',
+    cate_id:'',
     del_id:'',
     del_name:'',
     showRigh2: false,
@@ -21,6 +22,7 @@ Page({
     baseComment:[],
     originalContent:'',
     visits:0,
+    type:'',
     title:'',
     updateTime:'',
     createTime:'',
@@ -150,20 +152,20 @@ Page({
   },
   goEditPost() {
     wx.navigateTo({
-      url: "/pages/content/editpost/editpost?post_id" + this.data.post_id
+      url: "/pages/content/editpost/editpost?post_id=" + this.data.post_id + "&cate_id=" + this.data.cate_id
     })
   },
   getContentAll: function () {
     let that = this;
     util.request(api.GetPostsDetail + this.data.post_id).then(function (res) {
 
-      console.log(res.data.updateTime);
       if (res.errno === 0) {
         that.setData({
           originalContent: res.data.originalContent,
           visits: res.data.visits,
           title: res.data.title,
           switch1: res.data.switch1,
+          type: res.data.type,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
           baseComment: res.data.baseComment,
@@ -181,7 +183,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      post_id: options.post_id
+      post_id: options.post_id,
+      cate_id: options.cate_id
     });
     this.getContentAll();
   },
