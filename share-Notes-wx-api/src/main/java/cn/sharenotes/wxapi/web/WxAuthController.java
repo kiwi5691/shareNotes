@@ -15,6 +15,8 @@ import cn.sharenotes.db.model.dto.WxLoginInfo;
 import cn.sharenotes.core.service.UserService;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.UserTokenManager;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +48,17 @@ public class WxAuthController {
 
     @Autowired
     private WxMaService wxService;
+
+    @GetMapping("getId")
+    public Object getId(@LoginUser Integer userId) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+
+        Map<Object, Object> data = new HashMap<Object, Object>();
+        data.put("id", userId);
+        return ResponseUtil.ok(data);
+    }
 
 
 

@@ -17,7 +17,8 @@
     "pages/ucenter/msg/msg",
     "pages/ucenter/msgDetail/msgDetail",
     "pages/ucenter/leaning/leaning",
-    "pages/ucenter/issue/issue"
+    "pages/ucenter/issue/issue",
+    "pages/share/addFriend/addFriend"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -48,6 +49,13 @@
         "iconPath": "static/images/my.png",
         "selectedIconPath": "static/images/my@selected.png",
         "text": "个人"
+      }
+      ,
+      {
+        "pagePath": "pages/share/addFriend/addFriend",
+        "iconPath": "static/images/my.png",
+        "selectedIconPath": "static/images/my@selected.png",
+        "text": "test"
       }
     ]
   },

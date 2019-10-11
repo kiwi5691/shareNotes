@@ -9,8 +9,20 @@
 </view>
 
 
-
 <i-cell-group wx:for="{{publicCate}}" wx:key="id">
     <i-cell  is-link url="/pages/friendContet/friendCateDel/friendCateDel?title={{item.name}}&id={{item.id}}"><i-icon type="{{item.description}} " size="28"/>  {{item.name}}        
      </i-cell>
 </i-cell-group>
+
+<i-tag 
+    bindchange="onChange" 
+    class="i-tags"
+    name="删除好友" 
+    type="border" 
+    color="red">
+    删除好友
+</i-tag>
+<i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>确定{{fname}}嘛？</view>
+</i-modal>
+<i-message id="message" />

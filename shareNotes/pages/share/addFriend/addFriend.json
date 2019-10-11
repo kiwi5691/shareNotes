@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+        "i-load-more": "../../dist/load-more/index"
+  }
+}

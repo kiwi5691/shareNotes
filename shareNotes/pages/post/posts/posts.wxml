@@ -13,7 +13,7 @@
      </view> 
 </view>
 </i-panel>    
-<!-- todo -->
+
 <i-panel title="内容">
 <htmltowxml type="{{type}}" text="{{originalContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 

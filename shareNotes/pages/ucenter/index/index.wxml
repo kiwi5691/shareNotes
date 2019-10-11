@@ -5,28 +5,36 @@
     
   </button>
 
-  <i-panel title="消息" bindtap="goMsg">
-<view class="main">
 
-    <view style="padding: 15px;"><i-icon type="message"size="28" />   查看我的消息
-</view>
-</view>
+<i-panel title="消息" bindtap="goMsg">
+ <i-cell title="我的消息" >
+        <i-icon slot="icon" type="message" size="28"/>
+        <i-badge count="{{msgNumber}}" slot="footer"  />
+    </i-cell>
 </i-panel>
 
  <i-panel title="帮助" bindtap="goHelp">
-    <view style="padding: 15px;"><i-icon type="createtask"size="28" />   快速上手</view>
+  <i-cell title="快速上手" is-link>
+        <i-icon slot="icon" type="createtask" size="28"/>
+    </i-cell>
 </i-panel>
 
  <i-panel title="笔记" bindtap="goLeaning">
-    <view style="padding: 15px;"><i-icon type="flashlight"size="28" />   学习html和markdown</view>
+ <i-cell title="学习html和markdown" is-link>
+        <i-icon slot="icon" type="flashlight" size="28"/>
+    </i-cell>
 </i-panel>
 
   <i-panel title="关于" bindtap="goAbout">
-    <view style="padding: 15px;"><i-icon type="feedback"size="28" />   关于我</view>
+  <i-cell title="关于我" is-link>
+        <i-icon slot="icon" type="feedback" size="28"/>
+    </i-cell>
 </i-panel>
 
   <i-panel title="联系" bindtap="goIssue">
-    <view style="padding: 15px;"><i-icon type="feedback"size="28" />   欢迎来提交issue呀</view>
+  <i-cell title="欢迎来提交issue呀" is-link>
+        <i-icon slot="icon" type="customerservice" size="28"/>
+    </i-cell>
 </i-panel>
 
 

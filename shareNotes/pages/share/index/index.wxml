@@ -39,3 +39,4 @@
     <view slot="desc">按上方分享来添加新朋友</view>
 </i-alert>
 </view>
+<i-message id="message" />

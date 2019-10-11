@@ -1,3 +1,4 @@
+const { $Message } = require('../../../dist/base/index');
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
 var user = require('../../../utils/user.js');
@@ -9,7 +10,7 @@ Page({
   /** * 页面的初始数据 */
 
   data: {
-
+    userId:0,
     isActive: null,
     listMain: '',
     hasLogin: false,
@@ -137,6 +138,7 @@ Page({
       url: "/pages/friendContet/friendCate/friendCate?fid=" + fid+"&fname="+fname
     })
   },
+
   toLogin: function () {
     console.log("im fucked")
     wx.switchTab({
@@ -162,7 +164,7 @@ Page({
       let userInfo = wx.getStorageSync('userInfo');
       this.setData({
         userInfo: userInfo,
-        hasLogin: true
+      
       });
     }
 
@@ -170,20 +172,36 @@ Page({
   /**
   * 用户点击右上角分享
   */
-  onShareAppMessage: (res) => {
+  onShareAppMessage (res)  {
+    let that = this;
+    util.request(api.GetUserId).then(function (res) {
 
-    return {
-      title: '妹子图片',
-      imageUrl: "/static/images/my.png",
-      success: (res) => {
-        console.log("转发成功", res);
-      },
-      fail: (res) => {
-        console.log("转发失败", res);
+      if (res.errno === 0) {
+        that.setData({
+          userId: res.data.id,
+        });
+
+        let userInfo = wx.getStorageSync('userInfo')
+        return {
+          title: userInfo.nickName + '想添加您为好友',
+          imageUrl: userInfo.avatarUrl,
+          path: "pages/share/addFriend/addFriend?id=" + this.data.userId,
+          success: (res) => {
+            console.log("转发成功", res);
+          },
+          fail: (res) => {
+            console.log("转发失败", res);
+          }
+        }
+
+
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
       }
-    }
-
-   
+    });   
   }
   
 })

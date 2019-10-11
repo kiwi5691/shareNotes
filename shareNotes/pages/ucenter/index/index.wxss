@@ -169,3 +169,9 @@ margin-left: 410rpx;
   color: red;
   font-size: 30rpx;
 }
+
+.badge{
+  position: absolute;
+ 
+right: 0;
+}

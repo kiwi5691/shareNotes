@@ -12,13 +12,18 @@
             <view slot="close">mark</view>
         </i-switch>
   </i-cell>
-  <view class="conts">
-<textarea class="areas" bindblur="contextInput" value="{{ context }}" placeholder='笔记内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
+  <view class="bar bottomfix shadow justify-center">
+<textarea  wx:if="{{ !visible5 }}" class="areas" bindblur="contextInput" value="{{ context }}" placeholder='笔记内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
 <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
 <text class="hint">{{texts}}</text>
 </textarea>
 </view>
 
+<view class="rich-text" wx:if="{{ visible5 }}" >
+<rich-text    nodes="{{context}}"></rich-text>
+<text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
+<text class="hint">{{texts}}</text>
+</view>
 
   <i-divider content="输入完毕" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
   <i-button bind:click="handleOpen1"  shape="circle" size="small" type="info" >浏览</i-button>
