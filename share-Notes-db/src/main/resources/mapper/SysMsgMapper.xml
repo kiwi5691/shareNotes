@@ -103,7 +103,7 @@
   </delete>
   <insert id="insert" parameterType="cn.sharenotes.db.domain.SysMsg">
     insert into sys_msg (id, rec_id, send_id, 
-      email, title, type, 
+      email, title, type,
       post_time)
     values (#{id,jdbcType=BIGINT}, #{recId,jdbcType=INTEGER}, #{sendId,jdbcType=INTEGER}, 
       #{email,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
@@ -163,6 +163,11 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectByRecentId" resultMap="BaseResultMap">
+    select id, send_id,
+      email, title, type,
+      post_time from sys_msg where #{recId,jdbcType=INTEGER}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update sys_msg
@@ -240,4 +245,5 @@
       post_time = #{postTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
 </mapper>

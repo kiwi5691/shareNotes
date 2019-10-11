@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `msg_request` (
 -- 消息日志
 DROP TABLE IF EXISTS `sys_msg`;
 CREATE TABLE `sys_msg` (
-  `id` bigint(20) NOT NULL  COMMENT '编号',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `rec_id` int(11) NOT NULL COMMENT '接受者编号，如为0，则接受者为所有人',
   `send_id` int(11) NOT NULL DEFAULT '0' COMMENT '发送者编号，0：默认为系统',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱，无则为空',

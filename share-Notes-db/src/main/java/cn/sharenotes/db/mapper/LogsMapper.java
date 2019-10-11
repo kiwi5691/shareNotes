@@ -20,6 +20,8 @@ public interface LogsMapper {
 
     Logs selectByPrimaryKey(Long id);
 
+
+
     int updateByExampleSelective(@Param("record") Logs record, @Param("example") LogsExample example);
 
     int updateByExample(@Param("record") Logs record, @Param("example") LogsExample example);

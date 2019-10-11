@@ -53,6 +53,9 @@ import java.util.Map;
  *   <li>901,添加评论失败，文章没内容
  *   <li>999,未知错误
  * </ul>
+ *  <ul/>
+ *   <li>1101,你还没有消息
+ *  * </ul>
  * @author kiwi
  */
 public class ResponseUtil {
