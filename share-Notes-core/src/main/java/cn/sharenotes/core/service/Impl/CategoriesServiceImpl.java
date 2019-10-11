@@ -102,6 +102,7 @@ public class CategoriesServiceImpl implements CategoriesService {
         categoryVO.setSlugName(user.getWeixinOpenid());
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setCreateTime(new Date());
+        categories.setUpdateTime(new Date());
         redisManager.set(OWNER_MENUID+":"+"menuIds :"+categoryVO.getParentId() +"userId:"+userId,categories);
         return categoriesMapper.insert(categories);
     }

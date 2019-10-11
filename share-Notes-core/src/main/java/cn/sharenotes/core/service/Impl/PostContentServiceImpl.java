@@ -2,15 +2,18 @@ package cn.sharenotes.core.service.Impl;
 
 import cn.sharenotes.core.redis.KeyPrefix.OwnerContentKey;
 import cn.sharenotes.core.redis.RedisManager;
+import cn.sharenotes.core.service.PostContentService;
+import cn.sharenotes.db.domain.PostCategories;
+import cn.sharenotes.db.domain.PostCategoriesExample;
+import cn.sharenotes.db.domain.PostsExample;
+import cn.sharenotes.db.domain.PostsWithBLOBs;
 import cn.sharenotes.db.domain.*;
 import cn.sharenotes.db.mapper.CommentsMapper;
 import cn.sharenotes.db.mapper.PostCategoriesMapper;
 import cn.sharenotes.db.mapper.PostsMapper;
 import cn.sharenotes.db.model.dto.PostDTO;
-import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.db.model.vo.PostContentVo;
 import cn.sharenotes.db.utils.DtoUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -24,7 +27,6 @@ import java.util.stream.Collectors;
  * @auther kiwi
  * @Date 2019/10/6 12:08
  */
-@Slf4j
 @Service
 public class PostContentServiceImpl implements PostContentService {
 
@@ -61,6 +63,7 @@ public class PostContentServiceImpl implements PostContentService {
         PostsWithBLOBs posts = new PostsWithBLOBs();
         DtoUtils.copyProperties(postContentVo, posts);
         posts.setCreateTime(new Date());
+        posts.setUpdateTime(new Date());
         posts.setVisits((long) 0);
         posts.setDisallowComment(0);
         postsMapper.insert(posts);
