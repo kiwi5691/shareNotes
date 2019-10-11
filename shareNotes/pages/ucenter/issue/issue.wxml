@@ -10,8 +10,8 @@
 </i-panel>
   <i-divider content="输入issue" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
-  <view class="conts">
-<textarea class="areas" bindblur="contextInput" value="{{ context }}" placeholder='issue内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
+  <view  class="conts">
+<textarea disabled="{{ visible5 }}" class="areas" bindblur="contextInput" value="{{ context }}" placeholder='issue内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
 <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
 <text class="hint">{{texts}}</text>
 </textarea>

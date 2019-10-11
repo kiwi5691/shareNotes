@@ -85,6 +85,14 @@
  <htmltowxml type="markdown" text="#### 我是标题（注意要有空格）" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </i-panel>
 
+<i-panel title="代码块">
+     <i-cell title="```" ></i-cell>
+     <i-cell title="postCategories.stream().map(PostCategories\n::getPostId).collect(Collectors.toList());" ></i-cell>
+     <i-cell title="```" ></i-cell>
+<htmltowxml type="markdown" text="``` \n postCategories.stream().map(PostCategories::getPostId).collect(Collectors.toList()); \n ```" highlight="true" ></htmltowxml>
+</i-panel>
+
+
  <i-panel title="字体加厚" >
      <i-cell title="**字体加厚**" ></i-cell>
  <htmltowxml type="markdown" text="**字体加厚**" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
@@ -117,13 +125,6 @@
  <htmltowxml  text="1. ki <br>2. wi" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </i-panel>
 
-
-<i-panel title="表格">
-     <i-cell title="|头1|头2|" ></i-cell>
-     <i-cell title="|-|-|" ></i-cell>
-     <i-cell title="|行1|行1|" ></i-cell>
-<htmltowxml type="html" text="<table ><tr><th>头1</th><th>头2</th></tr><tr><td>行 1</td><td>行 1</td></tr></table>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
-</i-panel>
 
 <i-divider  color="#2d8cf0" lineColor="#2d8cf0">markdown end</i-divider>
 

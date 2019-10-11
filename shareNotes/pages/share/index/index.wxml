@@ -1,60 +1,41 @@
+
 <view>
-<view hidden="{{hasLogin}}">
-<i-alert   show-icon desc>
-    您尚登录
-    <view slot="desc" >点击个人标签栏登录</view>
-</i-alert>
+<!-- 左侧列表内容部分 -->
+<scroll-view class="contentList" enable-back-to-top scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="onPageScroll">
+    <view wx:for="{{listMain}}" wx:for-item="group" wx:key="{{group.id}}" id="{{ 'inTo'+group.id}}" data-id='{{group.id}}'>
+        <view class="address_top">{{group.region}}</view>
+        <view wx:for="{{group.items}}" wx:for-item="item"  wx:key="{{item.brandId}}">
+ <view class="main" bindtap="goFriendCate" data-fname="{{item.nickname}}" data-fid="{{item.id}}" >
+        <image  src="{{item.avatar}}"  style="margin-left: 15rpx; height: 120rpx;width:120rpx;"></image> 
+        <view class="address_bottom"  data-id='{{item.brandId}}'>{{item.nickname}}</view>
+        </view>
+    </view>
+    </view>
+</scroll-view>
+<!-- 顶部固定分类 -->
+<view class="list-fixed {{fixedTitle==null ? 'hide':''}}" style="transform:translate3d(0,{{fixedTop}}px,0);">
+    <view class="fixed-title"> {{fixedTitle}} </view>
+</view>
+<!-- 右侧字母导航 -->
+<view class="orientation_region">
+    <view class="orientation">#</view>
+    <block wx:for="{{listMain}}" wx:key="{{item.id}}">
+        <view class="orientation_city {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}">
+                {{item.region}}
+        </view>
+    </block>
+</view>
 </view>
 
+<view bindtap="toLogin" hidden="{{hasLogin}}">
+<i-alert  show-icon desc>
+    您尚登录
+    <view slot="desc"  >点击个人标签栏登录</view>
+</i-alert>
+</view>
 <view hidden="{{hiddenAlertPu}}">
 <i-alert   show-icon desc>
     您还没有朋友
     <view slot="desc">按上方分享来添加新朋友</view>
 </i-alert>
-</view>
-<!-- 左侧列表内容部分 -->
-
-<scroll-view class="contentList" enable-back-to-top scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="onPageScroll">
-
-    <view wx:for="{{listMain}}" wx:for-item="group" wx:key="{{group.id}}" id="{{ 'inTo'+group.id}}" data-id='{{group.id}}'>
-
-        <view class="address_top">{{group.region}}</view>
-
-        <view wx:for="{{group.items}}" wx:for-item="item"  wx:key="{{item.brandId}}">
- <view class="main" bindtap="goFriendCate" data-fname="{{item.nickname}}" data-fid="{{item.id}}" >
-        <image  src="{{item.avatar}}"  style="margin-left: 15rpx; height: 120rpx;width:120rpx;"></image> 
-        <view class="address_bottom"  data-id='{{item.brandId}}'>{{item.nickname}}</view>
-
-        </view>
-    </view>
-    </view>
-
-</scroll-view>
-
-<!-- 顶部固定分类 -->
-
-<view class="list-fixed {{fixedTitle==null ? 'hide':''}}" style="transform:translate3d(0,{{fixedTop}}px,0);">
-
-    <view class="fixed-title"> {{fixedTitle}} </view>
-
-</view>
-
-<!-- 右侧字母导航 -->
-
-<view class="orientation_region">
-
-    <view class="orientation">#</view>
-
-    <block wx:for="{{listMain}}" wx:key="{{item.id}}">
-
-        <view class="orientation_city {{isActive==item.id ? 'active':'' }}" bindtap="scrollToViewFn" data-id="{{item.id}}">
-
-                {{item.region}}
-
-        </view>
-
-    </block>
-
-</view>
-
 </view>

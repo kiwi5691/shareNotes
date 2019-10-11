@@ -4,6 +4,9 @@
 <i-panel title="登录">
     <view style="padding: 15px;"><i-icon type="remind" size="28"/>~~登录可能会比较久，因为服务器不好</view>
 </i-panel>
+<i-panel title="笔记">
+    <view style="padding: 15px;"><i-icon type="brush" size="28"/>~~我们推荐写使用markdown，html也可以使用纯文本。</view>
+</i-panel>
 <i-panel title="朋友">
     <view style="padding: 15px;"><i-icon type="group" size="28"/>~~添加朋友可以点击右上角的分享来添加</view>
 </i-panel>

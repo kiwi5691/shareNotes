@@ -137,6 +137,20 @@ Page({
       url: "/pages/friendContet/friendCate/friendCate?fid=" + fid+"&fname="+fname
     })
   },
+  toLogin: function () {
+    console.log("im fucked")
+    wx.switchTab({
+
+      url: "/pages/ucenter/index/index",
+
+      success: function (res) { },
+
+      fail: function (res) { },
+
+      complete: function (res) { },
+
+    })
+  },
   onPullDownRefresh() {
     wx.showNavigationBarLoading() //在标题栏中显示加载
     this.getListMain();  
@@ -153,4 +167,23 @@ Page({
     }
 
   },
+  /**
+  * 用户点击右上角分享
+  */
+  onShareAppMessage: (res) => {
+
+    return {
+      title: '妹子图片',
+      imageUrl: "/static/images/my.png",
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
+
+   
+  }
+  
 })

@@ -35,6 +35,7 @@ Page({
 
     })
   },
+  
   adddetial: function () {
 
     if (this.data.hasLogin) {
@@ -44,22 +45,6 @@ Page({
       }
       wx.navigateTo({
         url: '../content/adddetial/adddetial',
-      });
-    } else {
-      this.setData({
-        visible2: true
-      });
-    }
-  },
-  gotoOp: function () {
-
-    if (this.data.hasLogin) {
-      try {
-        wx.setStorageSync('tab', 0);
-      } catch (e) {
-      }
-      wx.navigateTo({
-        url: '../content/oplog/oplog',
       });
     } else {
       this.setData({
