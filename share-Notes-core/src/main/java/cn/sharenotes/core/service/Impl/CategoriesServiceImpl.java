@@ -5,8 +5,7 @@ import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.db.domain.Categories;
 import cn.sharenotes.db.domain.CategoriesExample;
 import cn.sharenotes.db.domain.User;
-import cn.sharenotes.db.mapper.CategoriesMapper;
-import cn.sharenotes.db.mapper.UserMapper;
+import cn.sharenotes.db.mapper.*;
 import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
@@ -30,10 +29,14 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     @Autowired
     private CategoriesMapper categoriesMapper;
-
+    @Resource
+    private PostCategoriesMapper postCategoriesMapper;
     @Autowired
     private UserMapper userMapper;
-
+    @Resource
+    private PostsMapper postsMapper;
+    @Resource
+    private CommentsMapper commentsMapper;
     @Resource
     private RedisManager redisManager;
 
@@ -122,6 +125,15 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     @Override
     public Integer deleteCategoryByCategoryId(Integer menuId,Integer categoryId) {
+        List<Integer> postlist = postCategoriesMapper.selectPostidByCateid(categoryId);
+        if(!CollectionUtils.isEmpty(postlist)){
+            for (Integer postid:
+                 postlist) {
+                postsMapper.deleteByPrimaryKey(postid);
+                commentsMapper.deleteByPostId(postid);
+            }
+        }
+        postCategoriesMapper.deleteByCategories(categoryId);
         return categoriesMapper.deleteByPrimaryKey(categoryId);
     }
 

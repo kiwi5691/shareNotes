@@ -12,11 +12,15 @@ public interface PostCategoriesMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    int deleteByCategories(Integer cateid);
+
     int insert(PostCategories record);
 
     int insertSelective(PostCategories record);
 
     List<PostCategories> selectByExample(PostCategoriesExample example);
+
+    List<Integer> selectPostidByCateid(Integer cateid);
 
     PostCategories selectByPrimaryKey(Integer id);
 
