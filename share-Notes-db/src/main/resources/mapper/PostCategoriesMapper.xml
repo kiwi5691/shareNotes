@@ -99,7 +99,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.sharenotes.db.domain.PostCategories">
+    <delete id="deleteByCategories">
+      delete from post_categories
+    where post_id= #{postId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.sharenotes.db.domain.PostCategories">
     insert into post_categories (id, create_time, update_time, 
       category_id, post_id)
     values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
@@ -147,6 +151,9 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectPostidByCateid" resultType="java.lang.Integer">
+    select post_id from post_categories where category_id =#{categoryId,jdbcType=INTEGER}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update post_categories
