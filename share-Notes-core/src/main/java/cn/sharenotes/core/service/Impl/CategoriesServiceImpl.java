@@ -127,8 +127,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     public Integer deleteCategoryByCategoryId(Integer menuId,Integer categoryId) {
         List<Integer> postlist = postCategoriesMapper.selectPostidByCateid(categoryId);
         if(!CollectionUtils.isEmpty(postlist)){
-            for (Integer postid:
-                 postlist) {
+            for (Integer postid: postlist) {
                 postsMapper.deleteByPrimaryKey(postid);
                 commentsMapper.deleteByPostId(postid);
             }
