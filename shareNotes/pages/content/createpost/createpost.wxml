@@ -1,8 +1,5 @@
 
-<view class="h1">
-<text style="font-size: 50rpx;">创建笔记</text>
-</view>
-<i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+
 <i-panel >
     <i-input type="text" value="{{ titleName }}" title="笔记名"  maxlength="8" bind:change	="titleNameInput" autofocus placeholder="请输入笔记名" />
 </i-panel>
@@ -12,6 +9,17 @@
             <view slot="close">mark</view>
         </i-switch>
   </i-cell>
+ <i-cell title="图片" >
+        <i-icon bindtap="uploadPic" slot="icon"  type="picture_fill" size="28"/>
+        <text slot="footer">评论 </text>
+        <i-switch value="{{switch2}}" bind:change="onChange2" slot="footer">
+            <i-icon type="right" slot="open"></i-icon>
+            <i-icon type="close" slot="close"></i-icon>
+        </i-switch>
+       
+    </i-cell>
+<i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+
   <view class="bar bottomfix shadow justify-center">
 <textarea  wx:if="{{ !visible5 }}" class="areas" bindblur="contextInput" value="{{ context }}" placeholder='笔记内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
 <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
@@ -44,3 +52,5 @@
 <htmltowxml type="html" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </view>
 </i-modal>
+<i-modal title="纵向排列的按钮" visible="{{ visible6 }}" actions="{{ actions4 }}" action-mode="{{ vertical }}" bind:click="handleClick4"></i-modal>
+

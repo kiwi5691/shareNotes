@@ -14,14 +14,30 @@ Page({
     text:"最少10字",
     visible5: false,
     switch1: false,
+    switch2: true,
+    visible6:false,
     categoryId:'',
     visible1: false,
     titleName:'',
     mdDisplay: false,
     htmlDisplay:true,
     context:'',
+    current: 'homepage',
     min:10,
     max: 500,
+    actions4: [
+      {
+        name: '按钮1'
+      },
+      {
+        name: '按钮2',
+        color: '#ff9900'
+      },
+      {
+        name: '按钮3',
+        icon: 'search'
+      }
+    ],
     actions5: [
       {
         name: '取消'
@@ -33,7 +49,11 @@ Page({
       }
     ]
   },
-
+  uploadPic(){
+    this.setData({
+      visible6: true
+    });
+  },
   handleOpen5() {
     this.setData({
       visible5: true
@@ -43,10 +63,6 @@ Page({
   },
   handleClick5({ detail }) {
     this.data.categoryId;
-    console.log("title"+this.data.titleName);
-    console.log("switch1" + this.data.switch1);
-    console.log("originalContent" + this.data.context);
-    console.log("categoryId" + this.data.categoryId);
     if (detail.index === 0) {
       this.setData({
         visible5: false
@@ -58,7 +74,7 @@ Page({
       this.setData({
         actions5: action
       });
-      if (this.data.cateName == "") {
+      if (this.data.titleName == "") {
         this.setData({
           visible5: false,
         });
@@ -76,13 +92,19 @@ Page({
         var categoryId = this.data.categoryId;
         var title = this.data.titleName;
         var type = this.data.switch1;
+        var allowComment = this.data.switch2;
+
         var originalContent = this.data.context.split('&hc').join('<br>')
-        this.createPost(categoryId, title, type, originalContent);
+        this.createPost(categoryId, title, type, originalContent, allowComment);
       },  1000);
       }
     }
   },
-
+  handleChange({ detail }) {
+    this.setData({
+      current: detail.key
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -141,6 +163,12 @@ Page({
   onShareAppMessage: function () {
 
   },
+  onChange2(event){
+    const detail = event.detail;
+    this.setData({
+      'switch2': detail.value
+    })
+  },
   onChange(event) {
     const detail = event.detail;
     this.setData({
@@ -157,7 +185,6 @@ Page({
         'htmlDisplay': true
       })
     }
-    console.log(this.data.context)
   },
   handleOpen1() {
     this.setData({
@@ -201,13 +228,14 @@ Page({
       currentWordNumber: len 
     });
   },
-  createPost: function (categoryId, title, type, originalContent){
+  createPost: function (categoryId, title, type, originalContent, allowComment){
    
     util.request(api.AddPost, {
       categoryId: categoryId,
       title: title,
       type: type,
-      originalContent: originalContent
+      originalContent: originalContent,
+      allowComment: allowComment
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
         $Message({
@@ -225,6 +253,10 @@ Page({
       }
     });
   },
-
+  handleClick4() {
+    this.setData({
+      visible5: false
+    });
+  }
 
 })

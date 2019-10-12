@@ -57,7 +57,8 @@ public class LogServiceImpl implements LogService {
             log.info(params.toString());
         }
 
-        return logsMapper.insert(logs);
+//        return logsMapper.insert(logs);
+        return 1;
 
 
     }

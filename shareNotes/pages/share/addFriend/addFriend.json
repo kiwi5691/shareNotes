@@ -1,5 +1,8 @@
 {
   "usingComponents": {
-        "i-load-more": "../../dist/load-more/index"
+        "i-load-more": "../../dist/load-more/index",
+          "i-swipeout": "../../dist/swipeout/index",
+         "i-action-sheet": "../../dist/action-sheet/index",
+            "i-button": "../../dist/button/index"
   }
 }

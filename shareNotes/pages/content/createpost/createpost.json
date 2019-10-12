@@ -13,6 +13,7 @@
     "i-modal": "../../dist/modal/index",
     "htmltowxml": "plugin://htmltowxml/view",
     "i-message": "../../dist/message/index"
+    
   },
   "navigationBarTitleText": "创建笔记"
 }

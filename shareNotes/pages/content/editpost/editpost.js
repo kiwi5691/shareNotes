@@ -12,6 +12,7 @@ Page({
   data: {
     text: "最少10字",
     visible5: false,
+    switch2: true,
     switch1: false,
     visible1: false,
     titleName: '',
@@ -42,6 +43,12 @@ Page({
   },
   handleClick: function () {
   },
+  onChange2(event) {
+    const detail = event.detail;
+    this.setData({
+      'switch2': detail.value
+    })
+  },
   handleClick5({ detail }) {
     if (detail.index === 0) {
       this.setData({
@@ -55,7 +62,7 @@ Page({
         actions5: action
       });
 
-      if (this.data.cateName == "") {
+      if (this.data.titleName == "") {
         this.setData({
           visible5: false,
         });
@@ -75,19 +82,21 @@ Page({
           var type = this.data.switch1;
           var originalContent = this.data.context.split('&hc').join('<br>')
           var categoryId = this.data.cate_id;
-          this.updatePosts(postId, title, type, originalContent, categoryId);
+          var allowComment = this.data.switch2;
+          this.updatePosts(postId, title, type, originalContent, categoryId, allowComment);
         
       }, 1000);
     }
   }
   },
-  updatePosts: function(postId, title, type, originalContent, categoryId){
+  updatePosts: function (postId, title, type, originalContent, categoryId, allowComment){
     let that = this;
     util.request(api.UpdatePosts, {
       postId: postId,
       title: title,
       type: type,
       originalContent: originalContent,
+      allowComment: allowComment,
       categoryId: categoryId
     }, 'PUT').then(function (res) {
       if (res.errno === 0) {
@@ -132,6 +141,7 @@ Page({
           context: res.data.originalContent,
           titleName: res.data.title,
           switch1: res.data.switch1,
+          switch2: res.data.allowComment,
         });
       } else {    
         $Message({

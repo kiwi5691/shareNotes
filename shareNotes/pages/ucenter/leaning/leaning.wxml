@@ -3,8 +3,8 @@
     <i-tab key="tab2" title="markdown"></i-tab>
 </i-tabs>
 <view wx:if="{{ current =='tab1'}}">
-<i-notice-bar>
-    html格式通过成对标签定义，结尾标签需加上/前缀。
+<i-notice-bar closable>
+    html格式通过成对标签定义，结尾标签加上/前缀。
 </i-notice-bar>
 
  <i-panel title="使用标题" >
@@ -72,13 +72,20 @@
 </view>
 
 <view wx:if="{{ current =='tab2'}}">
-<i-notice-bar>
-    推荐使用markdown格式，这是最方便，最geek的格式
+<i-notice-bar closable>
+    推荐使用markdown格式，最方便最geek的格式。
 </i-notice-bar>
  <i-panel title="使用标题" >
      <i-cell title="# 我是标题（注意要有空格）" ></i-cell>
  <htmltowxml type="markdown" text="# 我是标题（注意要有空格）" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </i-panel>
+
+
+ <i-panel title="段落引用" >
+     <i-cell title="> 段落引用" ></i-cell>
+ <htmltowxml type="markdown" text="> 段落引用" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
 
  <i-panel title="标题大小" >
      <i-cell title="#### 我是标题，通过增加#的数量，让标题变小）" ></i-cell>
