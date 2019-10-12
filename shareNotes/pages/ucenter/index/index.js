@@ -69,7 +69,7 @@ Page({
 
       if (res.errno === 0) {
         that.setData({
-          msgNumber: res.data.msgNumber,
+          msgNumber: res.data.sysMsgsnum,
         });
       }
     });

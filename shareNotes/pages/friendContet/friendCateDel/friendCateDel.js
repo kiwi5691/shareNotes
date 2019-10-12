@@ -75,19 +75,8 @@ Page({
     wx.stopPullDownRefresh() //停止下拉刷新
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
 
-  },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
    getPostsAll: function () {
     let that = this;
      util.request(api.GetFriendPublicPosts + this.data.cate_id).then(function (res) {

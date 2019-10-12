@@ -4,7 +4,9 @@
       "i-cell": "../../dist/cell/index",
       "i-icon": "../../dist/icon/index",
       "i-modal": "../../dist/modal/index",
-      "i-button": "../../dist/button/index"
+      "i-button": "../../dist/button/index",
+      "i-alert": "../../dist/alert/index"
+          
   },
   "navigationBarTitleText": "所有消息",
   "backgroundColor": "#f4f4f4",

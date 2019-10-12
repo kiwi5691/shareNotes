@@ -14,14 +14,10 @@
      </i-cell>
 </i-cell-group>
 
-<i-tag 
-    bindchange="onChange" 
-    class="i-tags"
-    name="删除好友" 
-    type="border" 
-    color="red">
-    删除好友
-</i-tag>
+
+<view bindtap="onChange" class='content'>
+    <view class='lab'  style="background-color:rgb(228, 74, 74)">删除好友</view>
+</view>
 <i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
     <view>确定{{fname}}嘛？</view>
 </i-modal>

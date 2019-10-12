@@ -1,13 +1,5 @@
-.i-tags{
 
-  position: fixed;
+.content{ width: 100%; height: auto; overflow: hidden; margin: 50rpx auto;}
 
-  width:42px;
+.lab{position: fixed;bottom: 30px;right: 20px; padding: 4rpx 10rpx; margin: 20rpx; border-radius: 4rpx;  color: #fff; font-size: 28rpx;}
 
-  height:42px;
-
-bottom: 30px;
-
-right: 20px;
-
-}

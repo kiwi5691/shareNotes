@@ -24,6 +24,7 @@ Page({
     post_id:'',
     min: 10,
     max: 500,
+    showRight1: false,
     actions5: [
       {
         name: '取消'
@@ -179,19 +180,10 @@ Page({
   onPullDownRefresh: function () {
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  toggleRight1() {
+    this.setData({
+      showRight1: !this.data.showRight1
+    });
   },
   onChange(event) {
     const detail = event.detail;
@@ -251,6 +243,96 @@ Page({
     this.setData({
       currentWordNumber: len
     });
-  }
+  },
+  addTitle() {
+    if (this.data.switch1) {
+      var text = "<h2> 标题</h2>";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    } else {
+      var text = "## 标题";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    }
+  },
+  addBored() {
+    if (this.data.switch1) {
+      var text = "<strong> 字体加厚</strong>";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    } else {
+      var text = "** 字体加厚**";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    }
+  },
+  addOblique() {
+    if (this.data.switch1) {
+      var text = "<p style='font-style: oblique;'>字体变斜</p>";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    } else {
+      var text = "*字体变斜*";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    }
+  },
+  addUnSortList() {
+    if (this.data.switch1) {
+      var text = "<ul>\n<li>无序</li>\n<li>列表</li>\n</ul>";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    } else {
+      var text = "- 无序 \n -列表";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    }
+  },
+  addSortList() {
+    if (this.data.switch1) {
+      var text = "<ol>\n<li>有序</li>\n<li>列表</li>\n</ol>";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    } else {
+      var text = "1. 有序 \n 2.列表";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    }
+  },
+  addTable() {
+    if (this.data.switch1) {
+      var text = "<table>\n<tr>\n<th>头1</th>\n<th>头2</th>\n</tr>\n<tr>\n<td>行 1</td>\n<td>行 1</td>\n</tr>\n</table>";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    } else {
+      var text = "|头1|头2|头3|\n|-|-|-|\n|行1|行2|行3|";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    }
+  },
 
 })

@@ -3,8 +3,9 @@ package cn.sharenotes.db.model.dto;
 import cn.sharenotes.db.domain.SysMsg;
 
 public class SysMsgDto  {
+
     private String avatar;
-    private  SysMsg sysMsg;
+    private SysMsg sysMsg;
     public SysMsgDto(){
 
     }

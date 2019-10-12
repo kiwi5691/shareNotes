@@ -1,4 +1,11 @@
 // pages/ucenter/msg/msg.js
+const { $Message } = require('../../../dist/base/index');
+
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+var user = require('../../../utils/user.js');
+var app = getApp();
+
 Page({
 
   /**
@@ -6,6 +13,8 @@ Page({
    */
   data: {
     visible5: false,
+    hiddenAlertPu:false,
+    msgList:[],
     actions5: [
       {
         name: '取消'
@@ -22,7 +31,18 @@ Page({
       visible5: true
     });
   },
+  getMsgList: function () {
+    let that = this;
+    util.request(api.GetMsgList).then(function (res) {
 
+      if (res.errno === 0) {
+        that.setData({
+          msgList: res.data.msgList,
+          hiddenAlertPu:true
+        });
+      }
+    });
+  },
   handleClick5({ detail }) {
     if (detail.index === 0) {
       this.setData({
@@ -42,24 +62,42 @@ Page({
           visible5: false,
           actions5: action
         });
+        this.delAllMsg();
+      }, 1000);
+    }
+  },
+  goMsgDetail(e) {
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "/pages/ucenter/msgDetail/msgDetail?msg_id=" + id
+    })
+  },
+  delAllMsg: function () {
+    let that = this;
+    util.request(api.DelMsgAll, {
+    }, 'DELETE').then(function (res) {
+      if (res.errno === 0) {
         $Message({
           content: '删除成功！',
           type: 'success'
         });
-      }, 2000);
-    }
-  },
-  goMsgDetail() {
-    wx.navigateTo({
-      url: "/pages/ucenter/msgDetail/msgDetail"
-    })
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getMsgList()
   },
 
   /**
@@ -94,20 +132,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.getMsgList()
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+ 
 })

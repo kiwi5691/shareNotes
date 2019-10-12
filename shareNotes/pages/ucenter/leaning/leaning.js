@@ -67,6 +67,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: 'ShareNotes',
+      desc: '大家来学习html和markdown呀',
+    }
   }
 })

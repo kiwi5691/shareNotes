@@ -1,14 +1,17 @@
-<i-cell-group>
-    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
-    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
-    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
-    <i-cell bindtap="goMsgDetail"><i-icon type="collection" size="28"/>您收到评论啦</i-cell>
-
+<view hidden="{{hiddenAlertPu}}">
+<i-alert   show-icon desc>
+    您目前没有消息
+</i-alert>
+</view>
+<i-cell-group wx:for="{{msgList}}" wx:key="id">
+    <i-cell bindtap="goMsgDetail" data-id="{{item.msgId}}"><i-icon type="{{item.type}}" size="28"/>{{item.content}}</i-cell>
 </i-cell-group>
-
 <i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
     <view>删除后无法恢复哦</view>
 </i-modal>
-
+<view hidden="{{!hiddenAlertPu}}">
 <i-button style="width: 100%;position: fixed;bottom:0px;display: flex;justify-content: center;" bind:click="handleOpen5">删除所有消息</i-button>
+</view>
 
+
+<i-message id="message" />

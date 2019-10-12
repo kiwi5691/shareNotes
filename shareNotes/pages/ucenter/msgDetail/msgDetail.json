@@ -6,6 +6,5 @@
         "i-button": "../../dist/button/index"
   },
   "navigationBarTitleText": "消息详细",
-  "backgroundColor": "#f4f4f4",
-  "enablePullDownRefresh": true
+  "backgroundColor": "#f4f4f4"
 }

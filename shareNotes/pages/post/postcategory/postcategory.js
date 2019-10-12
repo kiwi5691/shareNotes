@@ -204,10 +204,5 @@ Page({
       confirm: e.detail.detail.value
     })
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
-  }
 })

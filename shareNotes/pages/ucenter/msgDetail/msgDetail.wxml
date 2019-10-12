@@ -1,8 +1,25 @@
-<i-panel title="关于">
-<i-card  full="true"title="categories1" extra="kiwi"  thumb="https://wx.qlogo.cn/mmopen/vi_32/jztWyPiaickdpCJCMFFsBVGeBBwVmQGm3Og3icPsff2qhiagianseQg8D1zksCmycPKYhAxCHA7OODjaTnDufj4BCGw/132">
-    <view slot="content">笔记111:写得酷哦</view>
-</i-card></i-panel>
 
+<!-- 评论消息 -->
+<view wx:if="{{type==1}}"> 
+<i-panel title="关于">
+<i-card  full="true"title="{{cateName}}" bindtap="goToPost" data-cateid="{{cateid}}" data-id="{{post_id}}" extra="{{userName}}"  thumb="{{avatar}}">
+    <view slot="content">{{title}}</view>
+</i-card></i-panel>
+</view>
+<!-- 好友消息 -->
+<view wx:if="{{type==2}}">
+<i-panel title="关于"> 
+<i-card  full="true"title="{{cateName}}" extra="{{userName}}"  thumb="{{avatar}}">
+    <view slot="content">{{content}}</view>
+</i-card></i-panel>
+</view>
+<!-- 系统消息 -->
+<view wx:if="{{type==3}}">
+<i-panel title="关于"> 
+<i-card  full="true"title="{{cateName}}" extra="{{userName}}"  thumb="http://kiwi1.cn/upload/2019/10/8945ae63d940cc42406c3f67019c5cb6-5e06cb0be8494edb8a9ba891e4eea558.png">
+    <view slot="content">{{content}}</view>
+</i-card></i-panel>
+</view>
 <i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
     <view>删除后无法恢复哦</view>
 </i-modal>
@@ -10,3 +27,5 @@
 <i-button style="width: 100%;position: fixed;bottom:0px;display: flex;justify-content: center;" bind:click="handleOpen5">删除此消息</i-button>
 
 <!-- 判断是否匿名 -->
+
+<i-message id="message" />

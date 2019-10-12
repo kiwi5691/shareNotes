@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-"i-cell": "../../dist/cell/index",
+    "i-cell": "../../dist/cell/index",
     "i-panel": "../../dist/panel/index",
     "i-icon": "../../dist/icon/index",
      "i-badge": "../../dist/badge/index"

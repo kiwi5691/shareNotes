@@ -10,7 +10,6 @@ Page({
   /** * 页面的初始数据 */
 
   data: {
-    userId:0,
     isActive: null,
     listMain: '',
     hasLogin: false,
@@ -18,8 +17,10 @@ Page({
     toView: 'inTo0',
     hiddenAlertPu: true,
     oHeight: [],
+    user_Id: 0,
     scroolHeight: 0,
-    fixedTop: 0
+    fixedTop: 0,
+    checkUserId:false
   },
   getListMain:function(){
     let that = this;
@@ -124,11 +125,11 @@ Page({
 
   onLoad: function (options) {
 
-    this.getListMain();  
 
     var that = this;
-
+    that.getListMain();  
     that.getBrands();
+    that.getUserId();
 
   },
   goFriendCate:function(e) {
@@ -140,15 +141,10 @@ Page({
   },
 
   toLogin: function () {
-    console.log("im fucked")
     wx.switchTab({
-
       url: "/pages/ucenter/index/index",
-
       success: function (res) { },
-
       fail: function (res) { },
-
       complete: function (res) { },
 
     })
@@ -164,7 +160,7 @@ Page({
       let userInfo = wx.getStorageSync('userInfo');
       this.setData({
         userInfo: userInfo,
-      
+        hasLogin:true
       });
     }
 
@@ -172,29 +168,16 @@ Page({
   /**
   * 用户点击右上角分享
   */
-  onShareAppMessage (res)  {
+  getUserId:function(){
     let that = this;
     util.request(api.GetUserId).then(function (res) {
 
       if (res.errno === 0) {
         that.setData({
-          userId: res.data.id,
+          user_Id: res.data.id,
+          checkUserId:true
         });
-
-        let userInfo = wx.getStorageSync('userInfo')
-        return {
-          title: userInfo.nickName + '想添加您为好友',
-          imageUrl: userInfo.avatarUrl,
-          path: "pages/share/addFriend/addFriend?id=" + this.data.userId,
-          success: (res) => {
-            console.log("转发成功", res);
-          },
-          fail: (res) => {
-            console.log("转发失败", res);
-          }
-        }
-
-
+        console.log(res.data.id)
       } else {
         $Message({
           content: res.errmsg,
@@ -202,6 +185,29 @@ Page({
         });
       }
     });   
+  },
+  onShareAppMessage (res)  {
+    var fid = this.data.userId
+    var check = this.data.checkUserId
+    let userInfo = wx.getStorageSync('userInfo')
+    var shareObj = {
+        title: 'ShareNotes',
+        imageUrl: '',
+        path: "../../../pages/index/index",
+     
+        success: (res) => {
+          console.log("转发成功", res);
+        },
+        fail: (res) => {
+          console.log("转发失败", res);
+        }
+      }
+    if (check) { 
+      shareObj.title = userInfo.nickName + '想添加您为好友';
+      shareObj.imageUrl = userInfo.avatarUrl;
+      shareObj.path = "pages/share/addFriend/addFriend?id=" + fid;
+    }
+    return shareObj;
+ 
   }
-  
 })

@@ -36,7 +36,7 @@
 <view hidden="{{hiddenAlertPu}}">
 <i-alert   show-icon desc>
     您还没有朋友
-    <view slot="desc">按上方分享来添加新朋友</view>
+    <view slot="desc">按上方转发卡片来添加新朋友</view>
 </i-alert>
 </view>
 <i-message id="message" />

@@ -8,7 +8,10 @@ var WxApiRoot = 'http://localhost:8080/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口
-  GetMsgNumber: WxApiRoot + 'auth/getNumber', //获取消息数
+  GetMsgNumber: WxApiRoot + 'sysmsg/getNum', //获取消息数
+  GetMsgList: WxApiRoot + 'sysmsg/getAllMsg', //获取消息列
+  GetMsgDetail: WxApiRoot + 'sysmsg/getDetail', //获取消息详细
+
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录
   GetUserId: WxApiRoot + 'auth/getId', //获取id
   
@@ -31,8 +34,11 @@ module.exports = {
 
   DelPosts: WxApiRoot + 'posts/delete', //删除文章,
   DelFriend: WxApiRoot + 'friend/delete', //删除朋友,
-  AddFriend: WxApiRoot + 'friend/add', //删除朋友,
+  DelMsg: WxApiRoot + 'sysmsg/delete', //删除消息,
+  DelMsgAll: WxApiRoot + 'sysmsg/deleteAll', //删除所有消息,
 
+  AddFriend: WxApiRoot + 'friend/add', //添加朋友,
+  
   AddCategory: WxApiRoot + 'category/add', //添加目录,
   UpdateCategory: WxApiRoot + 'category/update', //修改目录,
   DelCategory: WxApiRoot + 'category/delete', //删除目录,

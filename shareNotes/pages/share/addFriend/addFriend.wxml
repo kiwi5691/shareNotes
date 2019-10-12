@@ -4,8 +4,7 @@
 
 
 
-<i-button bind:click="handleClick">默认按钮</i-button>
-    <i-button bind:click="uploadPic" type="primary"><i-icon custom="" size="28" color="#80848f" />
-图片</i-button>
+<i-button bind:click="handleClick" bind:click='uploadFileTap'>默认按钮</i-button>
+
 
 

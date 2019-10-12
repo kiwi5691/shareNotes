@@ -12,7 +12,8 @@
     "i-divider": "../../dist/divider/index",
     "i-button": "../../dist/button/index",
     "i-modal": "../../dist/modal/index",
-    "htmltowxml": "plugin://htmltowxml/view"
+    "htmltowxml": "plugin://htmltowxml/view",
+     "i-drawer": "../../dist/drawer/index"
   },
   "navigationBarTitleText": "修改笔记"
 }
