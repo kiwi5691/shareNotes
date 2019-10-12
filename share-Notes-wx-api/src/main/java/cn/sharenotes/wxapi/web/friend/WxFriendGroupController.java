@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,8 +26,12 @@ public class WxFriendGroupController {
 
     @Autowired
     CategoriesService categoriesService;
+
     @Autowired
     private UserGroupsSerive userGroupsMapper;
+
+    @Autowired
+    private UserGroupsSerive userGroupsSerive;
 
     @ApiOperation(value = "通过 UserId 获取朋友")
     @GetMapping("/getAll")
@@ -51,5 +56,18 @@ public class WxFriendGroupController {
         });
 
         return ResponseUtil.ok(listMain);
+    }
+
+    @ApiOperation(value = "通过分享添加好友")
+    @GetMapping("/add/{friendId}")
+    public Object addFriend(@LoginUser Integer userId, @PathVariable("friendId") Integer friendId){
+        if(userId == null){
+            return ResponseUtil.fail(709,"用户没有登陆");
+        }
+        boolean b = userGroupsSerive.addFriend(userId, friendId);
+        if(b){
+            return ResponseUtil.ok();
+        }
+        return ResponseUtil.fail();
     }
 }

@@ -1,6 +1,7 @@
 package cn.sharenotes.core.jms.impl;
 
 import cn.sharenotes.core.jms.ActiveMQService;
+import cn.sharenotes.core.utils.EmailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
@@ -24,6 +25,8 @@ public class ActiveMQServiceImpl implements ActiveMQService {
     JmsTemplate template;
 
 
+    @Autowired
+    private EmailUtil emailUtil;
 
     /**
      *@Auther kiwi
@@ -34,16 +37,12 @@ public class ActiveMQServiceImpl implements ActiveMQService {
      */
     @Override
     public void sendEmail(String to, String subject, String content) throws IOException {
-        template.send("issueSend", new MessageCreator() {
-                @Override
-                public Message createMessage(Session session) throws JMSException {
-                    MapMessage mapMessage = session.createMapMessage();
-                    mapMessage.setString("content", content);
-                    mapMessage.setString("address", to);
-                    mapMessage.setString("subject", subject);
-                    return mapMessage;
-                }
-            });
+
+        try {
+            emailUtil.sendEmail(to,subject,content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -58,6 +57,11 @@ public class ActiveMQServiceImpl implements ActiveMQService {
             }
         });
         log.info("发送给消费者");
+
+    }
+
+    @Override
+    public void get(Integer userid) throws IOException {
 
     }
 }

@@ -4,6 +4,7 @@ import cn.sharenotes.core.service.SysMsgService;
 ;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.domain.SysMsg;
+import cn.sharenotes.db.model.dto.SysMsgDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,22 @@ public class SysMsgController {
     @ApiOperation(value = "通过 recentid 获取评论")
     @GetMapping("/getAll/{recentid}")
     public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("recentid") Integer recentid){
-        List<SysMsg> sysMsgs = sysMsgService.getSysMsg(recentid);
+        List<SysMsgDto> sysMsgs = sysMsgService.getSysMsg(recentid);
         if(CollectionUtils.isEmpty(sysMsgs)){
              return ResponseUtil.fail(1101,"您还没有消息");
         }
 
         return ResponseUtil.ok(sysMsgs);
+    }
+    @ApiOperation(value = "通过 msgid 删除评论")
+    @GetMapping("/delete/{msgid}")
+    public Object delectCategories(/*@LoginUser Integer userId,*/ @PathVariable("msgid") Integer msgid){
+
+        if(sysMsgService.delectMsgById(msgid)>0){
+            return ResponseUtil.ok();
+        }
+
+        return ResponseUtil.fail();
     }
     @ApiOperation(value = "通过 recentid 获取评论数量")
     @GetMapping("/getNum/{recentid}")

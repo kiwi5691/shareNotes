@@ -45,17 +45,21 @@ public class PostCommentServiceImp implements PostCommentService {
         List<Comments> commentsList =null;
 
         PostCommentDto postCommentDto = new PostCommentDto();
+
         PostsWithBLOBs postsWithBLOBs = postsMapper.selectByPrimaryKey(postId);
 
         if(postsWithBLOBs==null){
             return null;
         }
+
         DtoUtils.copyProperties( postsWithBLOBs,postCommentDto);
+
         if(postsWithBLOBs.getDisallowComment().equals(ContentBase.ALLOWACCESS.getValue())){
             postCommentDto.setDisallowComment(0);
         }else {
             postCommentDto.setDisallowComment(1);
         }
+
         commentsList = (List<Comments>) redisManager.getList(OWNER_COMMENT_BY_POSTID + ":postId:" + postId);
 
         if(CollectionUtils.isEmpty(commentsList)){
@@ -66,6 +70,7 @@ public class PostCommentServiceImp implements PostCommentService {
         if(CollectionUtils.isEmpty(commentsList)){
             return postCommentDto;
         }
+
         List<CommentDto> commentDtoList = new ArrayList<>();
 
         for (Comments comments: commentsList ) {
