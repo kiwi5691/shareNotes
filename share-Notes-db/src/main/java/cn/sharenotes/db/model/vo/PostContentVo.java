@@ -24,4 +24,6 @@ public class PostContentVo implements Serializable {
 
     private String originalContent;
 
+    private Integer disallowComment;
+
 }

@@ -147,6 +147,7 @@ public class WxPostController {
     public PostContentVo getBodyIntoPostContentVo(Integer userId, String body, String methodName) {
         String title = JacksonUtil.parseString(body, "title");
         boolean type = JacksonUtil.parseBoolean(body, "type");
+        boolean allowComment = JacksonUtil.parseBoolean(body, "allowComment");
         String originalContent = JacksonUtil.parseString(body, "originalContent");
         Integer categoryId = JacksonUtil.parseInteger(body, "categoryId");
 
@@ -174,6 +175,12 @@ public class WxPostController {
             postContentVo.setType(1);
         } else {
             postContentVo.setType(2);
+        }
+
+        if (allowComment) {
+            postContentVo.setDisallowComment(0);
+        } else {
+            postContentVo.setType(1);
         }
         return postContentVo;
     }

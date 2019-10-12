@@ -64,7 +64,6 @@ public class PostContentServiceImpl implements PostContentService {
         posts.setCreateTime(new Date());
         posts.setUpdateTime(new Date());
         posts.setVisits((long) 0);
-        posts.setDisallowComment(0);
         postsMapper.insert(posts);
         return posts.getId();
     }
