@@ -74,8 +74,6 @@ public class WxFriendPostController {
             result.put("createTime", postCommentDto.getCreateTime());
             result.put("baseComment", postCommentDto.getCommentDtoList());
 
-
-
             return ResponseUtil.ok(result);
         }
     }

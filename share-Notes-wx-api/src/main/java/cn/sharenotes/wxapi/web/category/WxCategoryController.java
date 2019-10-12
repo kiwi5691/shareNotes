@@ -1,13 +1,13 @@
 package cn.sharenotes.wxapi.web.category;
 
 import cn.sharenotes.core.service.CategoriesService;
+import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.CategoryUtils;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
-import cn.sharenotes.wxapi.annotation.Log;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,9 @@ public class WxCategoryController {
     @Autowired
     CategoriesService categoriesService;
 
-    @Log("通过目录获取id")
+    @Autowired
+    PostContentService postContentService;
+
     @ApiOperation(value = "通过 meanId 获取目录")
     @GetMapping("/getAll/{menuId}")
     public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId) {
@@ -47,23 +49,23 @@ public class WxCategoryController {
         return ResponseUtil.ok(result);
     }
 
-    @Log("添加目录")
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
     public Object addCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
         Integer userId = 5;
         //到时候删除
+
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"add");
         if (categoryVO == null) {
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
         if (categoriesService.addCategory(userId, categoryVO) > 0) {
+            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.chekcIsPcOrPr(JacksonUtil.parseBoolean(body, "isPcOrPr")));
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
     }
 
-    @Log("删除目录")
     @ApiOperation(value = "通过 categoryId 删除目录")
     @DeleteMapping("/delete")
     public Object deleteCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
@@ -71,7 +73,10 @@ public class WxCategoryController {
         Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
         Integer menuId = JacksonUtil.parseInteger(body, "menu_id");
         if (categoriesService.deleteCategoryByCategoryId(menuId, categoryId) > 0) {
-            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(Objects.requireNonNull(JacksonUtil.parseString(body, "menu_id"))));
+            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(menuId.toString()));
+            //删除文章redis
+            postContentService.updatePostsRedisInfo(categoryId);
+            //删除评论redis
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();

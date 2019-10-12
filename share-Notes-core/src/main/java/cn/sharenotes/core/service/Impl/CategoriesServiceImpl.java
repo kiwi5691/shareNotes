@@ -48,7 +48,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     public List<CategoryDTO> findCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId) {
         List<CategoryDTO> categoryDTOS =null;
 
-        categoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId);
+        categoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":menuIds :"+menuId +"userId:"+userId);
         if(CollectionUtils.isEmpty(categoryDTOS)) {
             categoryDTOS = getCategoryDTO(userId,menuId);
             if(CollectionUtils.isEmpty(categoryDTOS)){
@@ -64,8 +64,8 @@ public class CategoriesServiceImpl implements CategoriesService {
         List<CategoryDTO> prCategoryDTOS =null;
         CategoryDTO outCategoryDTO =null;
         final Boolean[] IsInPu = {true};
-        puCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+1 +"userId:"+userId);
-        prCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":"+"menuIds :"+2 +"userId:"+userId);
+        puCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":menuIds :"+1 +"userId:"+userId);
+        prCategoryDTOS = (List<CategoryDTO>) redisManager.getList(OWNER_MENUID+":menuIds :"+2 +"userId:"+userId);
 
 
         if(!CollectionUtils.isEmpty(puCategoryDTOS)) {
@@ -106,7 +106,6 @@ public class CategoriesServiceImpl implements CategoriesService {
         DtoUtils.copyProperties(categoryVO,categories);
         categories.setCreateTime(new Date());
         categories.setUpdateTime(new Date());
-        redisManager.set(OWNER_MENUID+":"+"menuIds :"+categoryVO.getParentId() +"userId:"+userId,categories);
         return categoriesMapper.insert(categories);
     }
 
@@ -133,6 +132,7 @@ public class CategoriesServiceImpl implements CategoriesService {
             }
         }
         postCategoriesMapper.deleteByCategories(categoryId);
+
         return categoriesMapper.deleteByPrimaryKey(categoryId);
     }
 
@@ -140,10 +140,10 @@ public class CategoriesServiceImpl implements CategoriesService {
     public void updateCategoriesRedisInfo(Integer userId, Integer menuId) {
         List<CategoryDTO> categoryDTOS =null;
 
-        redisManager.del(OWNER_MENUID + ":" + "menuIds :" + menuId + "userId:" + userId);
+        redisManager.del(OWNER_MENUID + ":menuIds :" + menuId + "userId:" + userId);
         categoryDTOS = getCategoryDTO(userId, menuId);
         categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
-        redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
+        redisManager.setList(OWNER_MENUID+":menuIds :"+menuId +"userId:"+userId, categoryDTOS);
     }
 
     @Override
@@ -163,7 +163,7 @@ public class CategoriesServiceImpl implements CategoriesService {
         List<Categories> categories = categoriesMapper.selectByExample(categoriesExample);
         List<CategoryDTO> categoryDTOS = DtoUtils.convertList2List(categories, CategoryDTO.class);
         categoryDTOS= Optional.ofNullable(categoryDTOS).orElseGet(Collections::emptyList);
-        redisManager.setList(OWNER_MENUID+":"+"menuIds :"+menuId +"userId:"+userId, categoryDTOS);
+        redisManager.setList(OWNER_MENUID+":menuIds :"+menuId +"userId:"+userId, categoryDTOS);
         return categoryDTOS;
     }
 

@@ -72,6 +72,7 @@ public class WxPostController {
         Integer integer = postContentService.addPostCategory(categoryId, postContentVo);
 
         if (integer > 0) {
+            postContentService.updatePostsRedisInfo(categoryId);
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -81,7 +82,7 @@ public class WxPostController {
     @PutMapping("update")
     public Object updatePostContent(/*@LoginUser Integer userId,*/ @RequestBody String body) {
         Integer postId = JacksonUtil.parseInteger(body, "postId");
-
+        Integer cateId = postContentService.findCateIdByPostId(postId);
         Integer userId = 5;
 
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "update");
@@ -89,6 +90,7 @@ public class WxPostController {
             return ResponseUtil.fail(803, "修改文章失败，文章标题已存在");
         }
         if (postContentService.updatePostContent(postId, postContentVo) > 0) {
+            postContentService.updatePostsRedisInfo(cateId);
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -97,8 +99,12 @@ public class WxPostController {
     @ApiOperation(value = "删除文章")
     @DeleteMapping("delete")
     public Object deletePostContent(@RequestBody String body) {
-        Integer i = postContentService.deletePostContentAndCategory(JacksonUtil.parseInteger(body, "postId"));
+        Integer postId = JacksonUtil.parseInteger(body, "postId");
+        Integer cateId = postContentService.findCateIdByPostId(postId);
+        Integer i = postContentService.deletePostContentAndCategory(postId);
         if (i > 0) {
+            postContentService.updatePostsRedisInfo(cateId);
+            //删除文章评论的缓存
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -120,7 +126,6 @@ public class WxPostController {
         return ResponseUtil.ok(result);
     }
 
-
     @ApiOperation("文章修改dto")
     @GetMapping("/getInfo/{post_id}")
     public Object getPostInfoDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
@@ -132,6 +137,13 @@ public class WxPostController {
         return ResponseUtil.ok(result);
     }
 
+    /**
+     *
+     * @param userId
+     * @param body
+     * @param methodName
+     * @return
+     */
     public PostContentVo getBodyIntoPostContentVo(Integer userId, String body, String methodName) {
         String title = JacksonUtil.parseString(body, "title");
         boolean type = JacksonUtil.parseBoolean(body, "type");

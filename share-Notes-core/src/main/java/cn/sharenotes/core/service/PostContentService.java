@@ -24,4 +24,6 @@ public interface PostContentService {
     Integer deletePostContentAndCategory(Integer postId);
 
     Integer findCateIdByPostId(Integer postId);
+
+    void updatePostsRedisInfo(Integer categoryId);
 }
