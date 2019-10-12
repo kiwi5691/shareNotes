@@ -12,8 +12,12 @@
     "i-button": "../../dist/button/index",
     "i-modal": "../../dist/modal/index",
     "htmltowxml": "plugin://htmltowxml/view",
-    "i-message": "../../dist/message/index"
-    
+    "i-message": "../../dist/message/index",
+     "i-drawer": "../../dist/drawer/index",
+     "i-grid": "../../dist/grid/index",
+    "i-grid-item": "../../dist/grid-item/index",
+    "i-grid-icon": "../../dist/grid-icon/index",
+    "i-grid-label": "../../dist/grid-label/index"
   },
   "navigationBarTitleText": "创建笔记"
 }

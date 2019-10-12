@@ -22,6 +22,11 @@
  <htmltowxml type="html" text="<p>我是段落</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </i-panel>
 
+ <i-panel title="字体加厚" >
+     <i-cell title="<strong>字体加厚</strong>" ></i-cell>
+ <htmltowxml type="html" text="<strong>字体加厚</strong>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
 
 <i-panel title="使用无序列表" >
      <i-cell title="<ul><li>kiki</li><li>wiwi</li></ul>" ></i-cell> 
@@ -32,6 +37,11 @@
 <i-panel title="使用有序列表" >
      <i-cell title="<ol><li>kiki</li><li>wiwi</li></ol>" ></i-cell> 
  <htmltowxml type="html" text="<ol><li>kiki</li><li>wiwi</li></ol>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+ <i-panel title="段落引用" >
+     <i-cell title="<q>段落引用</q>" ></i-cell>
+ <htmltowxml type="html" text="<q>段落引用</q>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </i-panel>
 
 
@@ -62,6 +72,11 @@
  <i-panel title="style" >
      <i-cell title="<p style='color:red'>我是红色段落</p>" ></i-cell> 
       <htmltowxml type="html" text="<p style='color:red'>我是红色段落</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+</i-panel>
+
+<i-panel title="字体变斜" >
+     <i-cell title="<p style='font-style: oblique;'>字体变斜</p>" ></i-cell>
+ <htmltowxml type="html" text="<p style='font-style: oblique;'>字体变斜</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </i-panel>
 
  <i-panel title="学习" >

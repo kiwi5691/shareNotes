@@ -25,6 +25,7 @@ Page({
     current: 'homepage',
     min:10,
     max: 500,
+    showRight1: false,
     actions4: [
       {
         name: '按钮1'
@@ -156,7 +157,11 @@ Page({
   onReachBottom: function () {
 
   },
-
+  toggleRight1() {
+    this.setData({
+      showRight1: !this.data.showRight1
+    });
+  },
   /**
    * 用户点击右上角分享
    */
@@ -255,8 +260,24 @@ Page({
   },
   handleClick4() {
     this.setData({
-      visible5: false
+      visible6: false
     });
-  }
+  },
 
+  // 工具添加事件
+  addTitle(){
+    if (this.data.switch1){
+    var text = "<h2> 标题</h2>";
+    var realtext = this.data.context + text
+    this.setData({
+      context: realtext
+    });
+    }else{
+      var text = "## 标题";
+      var realtext = this.data.context + text
+      this.setData({
+        context: realtext
+      });
+    }
+  },
 })
