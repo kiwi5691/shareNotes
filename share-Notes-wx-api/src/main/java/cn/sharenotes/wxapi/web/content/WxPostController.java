@@ -118,7 +118,8 @@ public class WxPostController {
         result.put("originalContent", postCommentDto.getOriginalContent());
         result.put("visits", postCommentDto.getVisits());
         result.put("title", postCommentDto.getTitle());
-        result.put("switch1", postCommentDto.isNotallowComment());
+        result.put("allowComment", ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
+        result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
         result.put("type", ContentUtils.getType(postCommentDto.getType()));
         result.put("updateTime", postCommentDto.getUpdateTime());
         result.put("createTime", postCommentDto.getCreateTime());
@@ -134,6 +135,7 @@ public class WxPostController {
         result.put("originalContent", postCommentDto.getOriginalContent());
         result.put("title", postCommentDto.getTitle());
         result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
+        result.put("allowComment", ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
         return ResponseUtil.ok(result);
     }
 

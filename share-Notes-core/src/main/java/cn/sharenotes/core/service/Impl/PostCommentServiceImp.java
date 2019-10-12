@@ -52,9 +52,9 @@ public class PostCommentServiceImp implements PostCommentService {
         }
         DtoUtils.copyProperties( postsWithBLOBs,postCommentDto);
         if(postsWithBLOBs.getDisallowComment().equals(ContentBase.ALLOWACCESS.getValue())){
-            postCommentDto.setNotallowComment(true);
+            postCommentDto.setDisallowComment(0);
         }else {
-            postCommentDto.setNotallowComment(false);
+            postCommentDto.setDisallowComment(1);
         }
         commentsList = (List<Comments>) redisManager.getList(OWNER_COMMENT_BY_POSTID + ":postId:" + postId);
 

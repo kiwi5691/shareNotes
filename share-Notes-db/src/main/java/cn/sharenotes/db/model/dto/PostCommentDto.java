@@ -17,8 +17,6 @@ public class PostCommentDto {
     private Integer type;
     private String originalContent;
     private Long visits;
-    private boolean notallowComment;
+    private Integer disallowComment;
     List<CommentDto> commentDtoList;
-
-
 }

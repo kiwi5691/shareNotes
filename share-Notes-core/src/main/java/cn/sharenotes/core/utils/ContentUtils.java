@@ -6,6 +6,14 @@ package cn.sharenotes.core.utils;
  */
 public class ContentUtils {
 
+    public static Boolean returnTypeInBoolean(Integer type){
+        if (type.equals(0)) {
+            return   true;
+        } else {
+            return   false;
+        }
+    }
+
     public static String getType(Integer type){
         if (type.equals(1)) {
             return   "html";

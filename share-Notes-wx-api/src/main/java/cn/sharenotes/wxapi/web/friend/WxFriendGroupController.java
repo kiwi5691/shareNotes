@@ -1,18 +1,18 @@
 package cn.sharenotes.wxapi.web.friend;
 
+import cn.sharenotes.core.service.CategoriesService;
+import cn.sharenotes.core.service.UserGroupsSerive;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 import cn.sharenotes.db.model.dto.GroupEndDto;
-import cn.sharenotes.core.service.CategoriesService;
-
-import cn.sharenotes.core.service.UserGroupsSerive;
 import cn.sharenotes.wxapi.annotation.LoginUser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
@@ -27,15 +27,14 @@ public class WxFriendGroupController {
     CategoriesService categoriesService;
     @Autowired
     private UserGroupsSerive userGroupsMapper;
-    @ApiOperation(value = "通过 UserId 获取目录")
+
+    @ApiOperation(value = "通过 UserId 获取朋友")
     @GetMapping("/getAll")
-    public Object getAllCategories(@LoginUser Integer userId ){
+    public Object getAllFriends(@LoginUser Integer userId ){
         Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(4);
         if(CollectionUtils.isEmpty(groupDtoMap)){
             return ResponseUtil.fail(701,"没有朋友");
         }
-
-
 
         List<GroupEndDto> listMain = new  ArrayList<> ();
         for (GroupDtoKey groupDtoKey:

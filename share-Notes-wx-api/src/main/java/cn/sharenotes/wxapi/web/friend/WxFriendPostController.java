@@ -4,13 +4,17 @@ import cn.sharenotes.core.redis.KeyPrefix.VisitLimitKey;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.service.PostContentService;
+import cn.sharenotes.core.utils.ContentUtils;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -37,6 +41,7 @@ public class WxFriendPostController {
     @ApiOperation("Lists posts")
     @GetMapping("/getPost/{cate_id}")
     public Object getPosts(@LoginUser Integer userId,@PathVariable("cate_id") Integer cate_id) {
+
         List<PostDTO> postDTOS = postContentService.findPostsByCateId( cate_id);
         Map<String, Object> result = new HashMap<>();
         if (CollectionUtils.isEmpty(postDTOS)) {
@@ -69,10 +74,11 @@ public class WxFriendPostController {
             result.put("originalContent", postCommentDto.getOriginalContent());
             result.put("visits", postCommentDto.getVisits());
             result.put("title", postCommentDto.getTitle());
-            result.put("switch1", postCommentDto.isNotallowComment());
+            result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
             result.put("updateTime", postCommentDto.getUpdateTime());
             result.put("createTime", postCommentDto.getCreateTime());
             result.put("baseComment", postCommentDto.getCommentDtoList());
+            result.put("allowComment", ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
 
             return ResponseUtil.ok(result);
         }
