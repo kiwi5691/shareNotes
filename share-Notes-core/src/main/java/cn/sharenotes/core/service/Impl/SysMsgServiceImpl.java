@@ -11,9 +11,17 @@ import java.util.List;
 public class SysMsgServiceImpl implements SysMsgService {
     @Resource
     SysMsgMapper sysMsgMapper;
+     List<SysMsg> sysMsgs = null;
     @Override
     public List<SysMsg> getSysMsg(int recentId) {
 
         return sysMsgMapper.selectByRecentId(recentId);
     }
+
+    @Override
+    public Integer getSysMsgNum(int recentId) {
+        sysMsgs = sysMsgMapper.selectByRecentId(recentId);
+        return sysMsgs.size();
+    }
+
 }

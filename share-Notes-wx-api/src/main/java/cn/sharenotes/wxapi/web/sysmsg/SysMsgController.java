@@ -34,4 +34,11 @@ public class SysMsgController {
 
         return ResponseUtil.ok(sysMsgs);
     }
+    @ApiOperation(value = "通过 recentid 获取评论数量")
+    @GetMapping("/getNum/{recentid}")
+    public Object getAllNum(/*@LoginUser Integer userId,*/ @PathVariable("recentid") Integer recentid){
+        Integer sysMsgsnum = sysMsgService.getSysMsgNum(recentid);
+
+        return ResponseUtil.ok(sysMsgsnum);
+    }
 }

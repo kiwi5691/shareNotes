@@ -15,4 +15,10 @@ public interface SysMsgService {
      * @return 评论
      */
     public List<SysMsg> getSysMsg(int recentId);
+    /**
+     * 通过目录id获取评论数量
+     *
+     * @return 评论数量
+     */
+    public Integer getSysMsgNum(int recentId);
 }
