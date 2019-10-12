@@ -14,4 +14,6 @@ public interface UserGroupsSerive {
      */
     Map<GroupDtoKey, List<GroupDto>> selectFrindByUseId(Integer id);
 
+    boolean addFriend(Integer userId,Integer friendId);
+
 }

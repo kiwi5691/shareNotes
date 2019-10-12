@@ -10,6 +10,7 @@ import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.model.dto.PostTypeDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ import java.util.Map;
  * @author kiwi
  * @date 3/19/19
  */
+@Slf4j
 @RestController
 @RequestMapping("/wx/posts")
 public class WxPostController {
@@ -115,11 +117,11 @@ public class WxPostController {
     public Object getPostDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
         Map<String, Object> result = new HashMap<>();
         PostCommentDto postCommentDto = postCommentService.findPostsByPostId(post_id);
+
         result.put("originalContent", postCommentDto.getOriginalContent());
         result.put("visits", postCommentDto.getVisits());
         result.put("title", postCommentDto.getTitle());
-        result.put("allowComment", ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
-        result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
+        result.put("switch1",ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
         result.put("type", ContentUtils.getType(postCommentDto.getType()));
         result.put("updateTime", postCommentDto.getUpdateTime());
         result.put("createTime", postCommentDto.getCreateTime());
@@ -135,7 +137,7 @@ public class WxPostController {
         result.put("originalContent", postCommentDto.getOriginalContent());
         result.put("title", postCommentDto.getTitle());
         result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
-        result.put("allowComment", ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
+        result.put("allowComment",ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
         return ResponseUtil.ok(result);
     }
 
@@ -182,7 +184,7 @@ public class WxPostController {
         if (allowComment) {
             postContentVo.setDisallowComment(0);
         } else {
-            postContentVo.setType(1);
+            postContentVo.setDisallowComment(1);
         }
         return postContentVo;
     }

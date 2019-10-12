@@ -8,9 +8,9 @@ public class ContentUtils {
 
     public static Boolean returnTypeInBoolean(Integer type){
         if (type.equals(0)) {
-            return   true;
+            return  true;
         } else {
-            return   false;
+            return  false;
         }
     }
 
