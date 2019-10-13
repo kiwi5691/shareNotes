@@ -7,7 +7,7 @@ Page({
   data: {
     userInfo: {
       nickName: '点击登录',
-      avatarUrl: 'http://kiwi1.cn/upload/2019/10/8945ae63d940cc42406c3f67019c5cb6-5e06cb0be8494edb8a9ba891e4eea558.png'
+      avatarUrl: '/static/images/person.png'
     },
     msgNumber:0,
     hasLogin: false
@@ -71,10 +71,18 @@ Page({
         that.setData({
           msgNumber: res.data.sysMsgsnum,
         });
+        wx.showTabBarRedDot({
+          index: 2,
+
+          success: res => { console.log(res) },
+
+          fail: res => { console.error }
+        })
       }
     });
   },
   wxLogin: function (e) {
+    wx.vibrateShort();
     if (e.detail.userInfo == undefined) {
       app.globalData.hasLogin = false;
       util.showErrorToast('微信登录失败');

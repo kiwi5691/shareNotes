@@ -4,14 +4,14 @@ import cn.sharenotes.core.jms.ActiveMQService;
 import cn.sharenotes.core.utils.EmailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
+//import org.springframework.jms.core.JmsTemplate;
+//import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
-import javax.jms.JMSException;
-import javax.jms.MapMessage;
-import javax.jms.Message;
-import javax.jms.Session;
+//import javax.jms.JMSException;
+//import javax.jms.MapMessage;
+//import javax.jms.Message;
+//import javax.jms.Session;
 import java.io.IOException;
 
 /**
@@ -21,12 +21,12 @@ import java.io.IOException;
 @Slf4j
 @Service
 public class ActiveMQServiceImpl implements ActiveMQService {
-    @Autowired
-    JmsTemplate template;
+//    @Autowired
+//    JmsTemplate template;
 
 
-    @Autowired
-    private EmailUtil emailUtil;
+//    @Autowired
+//    private EmailUtil emailUtil;
 
     /**
      *@Auther kiwi
@@ -38,30 +38,26 @@ public class ActiveMQServiceImpl implements ActiveMQService {
     @Override
     public void sendEmail(String to, String subject, String content) throws IOException {
 
-        try {
-            emailUtil.sendEmail(to,subject,content);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            emailUtil.sendEmail(to,subject,content);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 
     @Override
     public void textQueue( String content) throws IOException {
-        template.send("textQueue", new MessageCreator() {
-            @Override
-            public Message createMessage(Session session) throws JMSException {
-                MapMessage mapMessage = session.createMapMessage();
-                mapMessage.setString("content", content);
-                return mapMessage;
-            }
-        });
-        log.info("发送给消费者");
+//        template.send("textQueue", new MessageCreator() {
+//            @Override
+//            public Message createMessage(Session session) throws JMSException {
+//                MapMessage mapMessage = session.createMapMessage();
+//                mapMessage.setString("content", content);
+//                return mapMessage;
+//            }
+//        });
+//        log.info("发送给消费者");
 
     }
 
-    @Override
-    public void get(Integer userid) throws IOException {
-
-    }
 }

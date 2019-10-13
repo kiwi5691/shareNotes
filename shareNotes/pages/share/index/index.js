@@ -141,6 +141,7 @@ Page({
   },
 
   toLogin: function () {
+    wx.vibrateShort();
     wx.switchTab({
       url: "/pages/ucenter/index/index",
       success: function (res) { },

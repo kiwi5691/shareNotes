@@ -43,7 +43,11 @@ public class SysMsgServiceImpl implements SysMsgService {
     @Override
     public Integer getSysMsgNum(int recentId) {
         sysMsgs = sysMsgMapper.selectByRecentId(recentId);
-        return sysMsgs.size();
+        if(sysMsgs!=null){
+            return sysMsgs.size();
+        }else {
+        return 0;
+        }
     }
 
     @Override

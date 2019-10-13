@@ -1,6 +1,7 @@
 package cn.sharenotes.core.config;
 
 import cn.sharenotes.core.utils.ResponseUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.validator.internal.engine.path.PathImpl;
@@ -18,43 +19,43 @@ import javax.validation.ValidationException;
 import java.util.Set;
 
 @ControllerAdvice
-@Order
+@Slf4j
 public class GlobalExceptionHandler {
 
-    private Log logger = LogFactory.getLog(GlobalExceptionHandler.class);
+    
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
     public Object badArgumentHandler(IllegalArgumentException e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         return ResponseUtil.badArgumentValue();
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseBody
     public Object badArgumentHandler(MethodArgumentTypeMismatchException e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         return ResponseUtil.badArgumentValue();
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseBody
     public Object badArgumentHandler(MissingServletRequestParameterException e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         return ResponseUtil.badArgumentValue();
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseBody
     public Object badArgumentHandler(HttpMessageNotReadableException e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         return ResponseUtil.badArgumentValue();
     }
 
     @ExceptionHandler(ValidationException.class)
     @ResponseBody
     public Object badArgumentHandler(ValidationException e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         if (e instanceof ConstraintViolationException) {
             ConstraintViolationException exs = (ConstraintViolationException) e;
             Set<ConstraintViolation<?>> violations = exs.getConstraintViolations();
@@ -69,7 +70,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public Object seriousHandler(Exception e) {
-        logger.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
         return ResponseUtil.serious();
     }
 }

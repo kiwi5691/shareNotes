@@ -47,6 +47,7 @@ Page({
     });
   },
   toggleRight2() {
+    wx.vibrateShort();
     this.setData({
       showRight2: !this.data.showRight2
     });

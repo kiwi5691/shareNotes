@@ -15,8 +15,9 @@ module.exports = {
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录
   GetUserId: WxApiRoot + 'auth/getId', //获取id
   
-  StorageUpload: WxApiRoot + 'storage/upload', //图片上传,
-
+  StorageUpload: WxApiRoot + 'storage/upload', //存储上传,
+  FetchStorage: WxApiRoot + 'storage/fetch/', //存储获取,
+  
   UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息
   SubmitIssue: WxApiRoot + 'user/submitIssue', //提交issue
   ShowFriendList: WxApiRoot + 'friend/getAll', //获取朋友列表,

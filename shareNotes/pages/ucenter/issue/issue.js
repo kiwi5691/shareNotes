@@ -51,6 +51,7 @@ Page({
     })
   },
   handleOpen5() {
+    wx.vibrateShort();
     this.setData({
       visible5: true
     });

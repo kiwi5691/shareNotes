@@ -20,6 +20,7 @@ Page({
     });
   },
   toLogin:function(){
+    wx.vibrateShort();
     this.setData({
       visible2: false
     });
@@ -37,7 +38,6 @@ Page({
   },
   
   adddetial: function () {
-
     if (this.data.hasLogin) {
       try {
         wx.setStorageSync('tab', 0);
@@ -53,6 +53,7 @@ Page({
     }
   },
   toggleRight2() {
+    wx.vibrateShort();
     this.setData({
       showRight2: !this.data.showRight2
     });

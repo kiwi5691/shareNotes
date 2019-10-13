@@ -45,6 +45,7 @@
 <!--        <table tableName="msg_request" domainObjectName="MsgRequest"></table>-->
 <!--        <table tableName="posts" domainObjectName="Posts"></table>-->
 <!--        <table tableName="post_categories" domainObjectName="PostCategories"></table>-->
+        <table tableName="attachments" domainObjectName="Attachments"></table>
 <!--        <table tableName="sys_msg" domainObjectName="SysMsg"></table>-->
 <!--        <table tableName="sys_msg_log" domainObjectName="SysMsgLog"></table>-->
 <!--        <table tableName="tb_search_history" domainObjectName="TbSearchHistory"></table>-->

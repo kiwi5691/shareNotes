@@ -129,11 +129,11 @@ public class ResponseUtil {
     }
 
     public static Object badArgument() {
-        return fail(401, "参数不对");
+        return fail(401, "内容错误");
     }
 
     public static Object badArgumentValue() {
-        return fail(402, "参数值不对");
+        return fail(402, "内容错误");
     }
 
     public static Object unlogin() {
@@ -141,7 +141,7 @@ public class ResponseUtil {
     }
 
     public static Object serious() {
-        return fail(502, "系统内部错误");
+        return fail(502, "服务器出小差了");
     }
 
     public static Object unsupport() {

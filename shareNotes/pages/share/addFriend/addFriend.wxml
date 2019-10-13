@@ -2,9 +2,15 @@
 <i-load-more tip="{{text1}}" loading="{{ false }}" />
 <i-load-more tip="{{text2}}" loading="{{ false }}" />
 
+<!-- 图片打开 -->
+    <i-button bind:click="handleOpen3">图片</i-button>
+
+<i-modal title="图片" visible="{{ visible3 }}" actions="{{ actions3 }}" bind:click="handleClick3">
+    <image bindtap="uploadFileTap" style="width:160rpx; height:160rpx;" src="{{imgsrc}}" mode="aspectFill" />
+</i-modal>
 
 
-<i-button bind:click="handleClick" bind:click='uploadFileTap'>默认按钮</i-button>
 
 
-
+<i-message id="message" />
+<i-toast id="toast" />

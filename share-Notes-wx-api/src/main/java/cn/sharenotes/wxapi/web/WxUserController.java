@@ -2,6 +2,7 @@ package cn.sharenotes.wxapi.web;
 
 import cn.sharenotes.core.enums.ContentBase;
 import cn.sharenotes.core.jms.ActiveMQService;
+import cn.sharenotes.core.jms.EmailService;
 import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.utils.EmailTemplate;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +36,7 @@ public class WxUserController {
     @Resource
     private RedisManager redisManager;
     @Resource
-    private ActiveMQService activeMQService;
-
+    private EmailService emailService;
     /**
      * 用户个人页面数据
      *
@@ -86,7 +87,7 @@ public class WxUserController {
         }
 
 
-        activeMQService.sendEmail(SendTo,"issue By:"+titleName, EmailTemplate.issueTemplate(titleName,context));
+        emailService.sendEmail(SendTo,"issue By:"+titleName, EmailTemplate.issueTemplate(titleName,context));
 
         return ResponseUtil.ok();
     }

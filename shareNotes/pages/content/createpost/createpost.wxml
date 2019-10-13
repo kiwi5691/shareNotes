@@ -45,14 +45,13 @@
 
 <i-modal title="{{ titleName }}" visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
 <view hidden="{{mdDisplay}}">
-<!-- <htmltowxml type="markdown" text="## JAVA反射机制是在运行状态中，\n对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h1>都能够调用它的任意方</h1>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。" bindWxmlTagATap="wxmlTagATap" >\t\t\tJAVA反射机制是在运行状态中，对于任意一个实体类，都能够知道这个类的所有属性和方法；对于任意一个对象，<h>都能够调用它的任意方</h>法和属性；这种动态获取信息以及动态调用对象方法的功能称为java语言的反射机制。</htmltowxml> -->
 <htmltowxml type="markdown" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </view>
 <view hidden="{{htmlDisplay}}">
 <htmltowxml type="html" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </view>
 </i-modal>
-<i-modal title="纵向排列的按钮" visible="{{ visible6 }}" actions="{{ actions4 }}" action-mode="{{ vertical }}" bind:click="handleClick4"></i-modal>
+<i-modal title="使用图片" visible="{{ visible6 }}" actions="{{ actions4 }}" action-mode="{{ vertical }}" bind:click="handleClick4"></i-modal>
 
 <i-drawer mode="right" visible="{{showRight1}}" bind:close="toggleRight1">
     <view class="demo-container">

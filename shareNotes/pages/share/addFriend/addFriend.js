@@ -1,4 +1,6 @@
 // pages/addFriend/addFriend.js
+const { $Message } = require('../../../dist/base/index');
+
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
 var app = getApp();
@@ -9,10 +11,88 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hasPicture:false,
     text1: '',
     text2: '',
+    visible6: false,
+    imgFormat:'fuckfuckfuck',
+    files: [],
+    imgsrc:'/static/images/addpic.png',
+    visible3: false,
+    actions3: [
+      {
+        name: '复制mark',
+        color: '#2d8cf0',
+      },
+      {
+        name: '复制html',
+        color: '#19be6b'
+      },
+      {
+        name: '取消'
+      }
+    ],
+  },
+  handleOpen3() {
+    this.setData({
+      visible3: true
+    });
   },
 
+  handleClick3({ detail }) {
+    const index = detail.index;
+
+    if (index === 0) {
+      if (this.data.hasPicture){
+        wx.setClipboardData({
+          data: this.data.imgFormat,
+          success: function (res) {
+            wx.getClipboardData({            
+            })
+          }
+        })
+      }else{
+        $Message({
+          content: '尚未上传图片',
+          type: 'success'
+        });
+      }
+    } else if (index === 1) {
+      if (this.data.hasPicture) {
+        wx.setClipboardData({
+          data: this.data.imgFormat,
+          success: function (res) {
+            wx.getClipboardData({
+              success: function (res) {
+                console.log(res.data) // data
+              }
+            })
+          }
+        })
+      } else {
+        $Message({
+          content: '尚未上传图片',
+          type: 'success'
+        });
+      }
+    } else if (index === 2){
+    
+    this.setData({
+      visible3: false
+    });
+    }
+  },
+  handleOpen1() {
+    this.setData({
+      visible6: true
+    });
+  },
+
+  handleClose1() {
+    this.setData({
+      visible6: false
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -45,28 +125,65 @@ Page({
     this.addFriend(id);
   },
   //上传
-  uploadFileTap: function () {
-    var _this = this;
+  uploadFileTap: function (e) {
+    var that = this;
     wx.chooseImage({
-      count: 1, // 默认9  
-      sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有  
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+      count: 1, 
+      sizeType: ['compressed'], 
+      sourceType: ['album', 'camera'], 
       success: function (res) {
-        console.log(res);
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths;
-        _this.setData({
-          paths: tempFilePaths
-        })
-        console.log(_this)
-      },
-      fail: function (res) {
-        // fail
-      },
-      complete: function (res) {
-        // complete
+        that.setData({
+          files: that.data.files.concat(res.tempFilePaths)
+        });
+        that.upload(res);
       }
     })
+  },
+  upload: function (res) {
+    var that = this;
+    const uploadTask = wx.uploadFile({
+      url: api.StorageUpload,
+      filePath: res.tempFilePaths[0],
+      name: 'file',
+      success: function (res) {
+        var _res = JSON.parse(res.data);
+        if (_res.errno === 0) {
+          that.setData({
+            hasPicture: true,
+            imgsrc: _res.data.url
+          })
+        } else {
+          $Message({
+            content: _res.errmsg ,
+            type: 'error'
+          });
+        }
+        
+      },
+      fail: function (e) {
+        wx.showModal({
+          title: '错误',
+          content: '上传失败',
+          showCancel: false
+        })
+      },
+    })
+    uploadTask.onProgressUpdate((res) => {
+      console.log('上传进度', res.progress)
+      console.log('已经上传的数据长度', res.totalBytesSent)
+      console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+    })
+
+  },
+  uploadPic() {
+    this.setData({
+      visible6: true
+    });
+  },
+  handleClick4() {
+    this.setData({
+      visible6: false
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

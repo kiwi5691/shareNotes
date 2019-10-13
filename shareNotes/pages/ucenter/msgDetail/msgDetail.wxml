@@ -16,7 +16,7 @@
 <!-- 系统消息 -->
 <view wx:if="{{type==3}}">
 <i-panel title="关于"> 
-<i-card  full="true"title="{{cateName}}" extra="{{userName}}"  thumb="http://kiwi1.cn/upload/2019/10/8945ae63d940cc42406c3f67019c5cb6-5e06cb0be8494edb8a9ba891e4eea558.png">
+<i-card  full="true"title="{{cateName}}" extra="{{userName}}"  thumb="/static/images/person.png">
     <view slot="content">{{content}}</view>
 </i-card></i-panel>
 </view>

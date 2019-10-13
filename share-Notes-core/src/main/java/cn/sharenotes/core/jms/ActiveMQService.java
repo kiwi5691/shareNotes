@@ -10,5 +10,4 @@ public interface ActiveMQService {
     public void sendEmail(String to, String subject, String content) throws IOException;
 
     void textQueue(String content) throws IOException;
-    void get(Integer userid) throws IOException;
 }
