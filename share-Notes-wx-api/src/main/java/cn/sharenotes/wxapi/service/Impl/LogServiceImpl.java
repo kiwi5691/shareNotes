@@ -1,11 +1,13 @@
 package cn.sharenotes.wxapi.service.Impl;
 
+import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.db.domain.Logs;
 import cn.sharenotes.db.mapper.LogsMapper;
+import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.wxapi.service.LogService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONObject;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -27,43 +28,51 @@ public class LogServiceImpl implements LogService {
 
     @Autowired
     private ObjectMapper objectMapper;
+
     @Autowired
     LogsMapper logsMapper;
 
-
+    @Autowired
+    RedisManager redisManager;
 
     @Override
-    public Integer addLog(ProceedingJoinPoint point, Logs logs) throws JsonProcessingException {
+    public Logs getLogInfo(ProceedingJoinPoint point, Logs logs){
+
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
+
         cn.sharenotes.wxapi.annotation.Log logAnnotation = method.getAnnotation(cn.sharenotes.wxapi.annotation.Log.class);
-        if (logAnnotation != null) {
-            // 注解上的描述
-            logs.setContent(logAnnotation.value());
-        }
-// 请求的类名
-        String className = point.getTarget().getClass().getName();
-        // 请求的方法名
-        String methodName = signature.getName();
-        log.info(className + "." + methodName + "()");
+        String value = logAnnotation.value();
+
         // 请求的方法参数值
         Object[] args = point.getArgs();
+
         // 请求的方法参数名称
         LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
         String[] paramNames = u.getParameterNames(method);
+
         if (args != null && paramNames != null) {
-            StringBuilder params = new StringBuilder();
-            params = handleParams(params, args, Arrays.asList(paramNames));
-            log.info(params.toString());
+            Map<Object, Object> paramsMap = new HashMap<>();
+            paramsMap = handleParams(args, Arrays.asList(paramNames));
+            value = handleAop(paramsMap, value, logs);
         }
 
-//        return logsMapper.insert(logs);
-        return 1;
+        if (logAnnotation != null) {
+            // 注解上的描述
+            logs.setContent(value);
+        }
 
-
+        return logs;
     }
 
-    private StringBuilder handleParams(StringBuilder params, Object[] args, List paramNames) throws JsonProcessingException {
+    @Override
+    public Integer addLog(Logs logs) {
+        return logsMapper.insert(logs);
+    }
+
+    private Map<Object, Object> handleParams(Object[] args, List paramNames){
+        Map<Object, Object> params = new HashMap<>();
+
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof Map) {
                 Set set = ((Map) args[i]).keySet();
@@ -73,25 +82,61 @@ public class LogServiceImpl implements LogService {
                     list.add(((Map) args[i]).get(key));
                     paramList.add(key);
                 }
-                return handleParams(params, list.toArray(), paramList);
+                return handleParams(list.toArray(), paramList);
             } else {
-                if (args[i] instanceof Serializable) {
-                    Class<?> aClass = args[i].getClass();
-                    try {
-                        aClass.getDeclaredMethod("toString", new Class[]{null});
-                        // 如果不抛出 NoSuchMethodException 异常则存在 toString 方法 ，安全的 writeValueAsString ，否则 走 Object的 toString方法
-                        params.append(" ").append(paramNames.get(i)).append(": ").append(objectMapper.writeValueAsString(args[i]));
-                    } catch (NoSuchMethodException e) {
-                        params.append(" ").append(paramNames.get(i)).append(": ").append(objectMapper.writeValueAsString(args[i].toString()));
-                    }
-                } else if (args[i] instanceof MultipartFile) {
+                if (args[i] instanceof MultipartFile) {
                     MultipartFile file = (MultipartFile) args[i];
-                    params.append(" ").append(paramNames.get(i)).append(": ").append(file.getName());
+                    params.put(paramNames.get(i), file.getName());
                 } else {
-                    params.append(" ").append(paramNames.get(i)).append(": ").append(args[i]);
+                    params.put(paramNames.get(i), args[i]);
                 }
             }
         }
         return params;
+    }
+
+    public String handleAop(Map<Object, Object> map, String description, Logs logs) {
+        //到时候替换logs.getUserId
+        Object userId = map.get("userId");
+
+        String logValue = null;
+        String menuName = null;
+        if (description.contains("目录")) {
+            JSONObject body = JSONObject.fromObject(map.get("body"));
+            if (description.contains("删除")) {
+                String menuType = (String) body.get("menu_id");
+                Integer menuId = null;
+                if (menuType.equals("tab1")) {
+                    menuName = "公共目录";
+                    menuId = 1;
+                } else {
+                    menuName = "私人目录";
+                    menuId = 2;
+                }
+                List<CategoryDTO> categoryDTOS = (List<CategoryDTO>) redisManager.getList("OWNER_MENUID" + ":menuIds :" + menuId + "userId:" + logs.getUserId());
+                for (CategoryDTO categoryDTO : categoryDTOS) {
+                    if (categoryDTO.getId() == map.get("cateId")) {
+                        logValue = "删除" + menuName + "的<<" + categoryDTO.getName()+">>";
+                    }
+                }
+            } else {
+                Boolean menuType = (Boolean) body.get("isPcOrPr");
+                if (menuType) {
+                    menuName = "公共目录";
+                } else {
+                    menuName = "私人目录";
+                }
+                if (description.contains("添加")) {
+                    logValue = "添加<<" + body.get("name") + ">>到" + menuName;
+                } else {
+                    logValue = "修改" + menuName + "的<<" + map.get("name")+">>";
+                }
+            }
+        } else if (description.contains("文章")) {
+
+        } else {
+
+        }
+        return logValue;
     }
 }

@@ -2,8 +2,6 @@ package cn.sharenotes.wxapi.aspect;
 
 import cn.sharenotes.core.utils.HttpContextUtil;
 import cn.sharenotes.db.domain.Logs;
-import cn.sharenotes.wxapi.annotation.LoginUser;
-
 import cn.sharenotes.wxapi.service.LogService;
 import cn.sharenotes.wxapi.service.UserTokenManager;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * AOP 记录用户操作日志
@@ -38,24 +37,30 @@ public class LogAspect {
 
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
+        Object result = null;
+        try {
+            HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
+            String token = request.getHeader(LOGIN_TOKEN_KEY);
+            if (token == null || token.isEmpty()) {
+                return null;
+            }
 
-        Object result;
-        long beginTime = System.currentTimeMillis();
-        // 执行方法
-        result = point.proceed();
-        HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
+            Integer userId = UserTokenManager.getUserId(token);
 
-        String token = request.getHeader(LOGIN_TOKEN_KEY);
-        if (token == null || token.isEmpty()) {
-            return null;
+            Logs logs = new Logs();
+            logs.setUserId(String.valueOf(userId));
+            logs.setCreateTime(new Date());
+            logs.setUpdateTime(new Date());
+            logs = logService.getLogInfo(point, logs);
+
+            //执行时得判断切点是否执行成功
+            result = point.proceed();
+
+            logService.addLog(logs);
+
+            return result;
+        } catch (Throwable t) {
+            throw new RuntimeException(t);
         }
-
-        Integer userId=UserTokenManager.getUserId(token);
-
-        Logs logs = new Logs();
-        logs.setUserId(String.valueOf(userId));
-        long time = System.currentTimeMillis() - beginTime;
-        logService.addLog(point,logs);
-        return result;
     }
 }

@@ -9,6 +9,7 @@ import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.model.dto.PostTypeDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
+import cn.sharenotes.wxapi.annotation.Log;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;

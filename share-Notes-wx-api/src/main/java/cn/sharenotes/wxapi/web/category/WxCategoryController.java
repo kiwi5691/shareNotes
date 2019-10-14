@@ -8,13 +8,17 @@ import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
+import cn.sharenotes.wxapi.annotation.Log;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author 76905
@@ -49,6 +53,7 @@ public class WxCategoryController {
         return ResponseUtil.ok(result);
     }
 
+    @Log("添加目录")
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
     public Object addCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
@@ -66,6 +71,7 @@ public class WxCategoryController {
         return ResponseUtil.fail();
     }
 
+    @Log("删除目录")
     @ApiOperation(value = "通过 categoryId 删除目录")
     @DeleteMapping("/delete")
     public Object deleteCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {

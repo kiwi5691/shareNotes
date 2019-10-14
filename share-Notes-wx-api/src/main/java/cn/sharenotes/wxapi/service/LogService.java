@@ -20,5 +20,7 @@ public interface LogService {
      * @throws JsonProcessingException 异常
      */
     @Async
-    Integer addLog(ProceedingJoinPoint point, Logs logs) throws JsonProcessingException;
+    Logs getLogInfo(ProceedingJoinPoint point, Logs logs);
+
+    Integer addLog(Logs logs);
 }
