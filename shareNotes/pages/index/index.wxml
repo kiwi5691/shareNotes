@@ -45,6 +45,7 @@
 <i-drawer mode="right" visible="{{showRight2}}" mask-closable="{{false}}">
     <view class="demo-container">
      <i-button bind:click="adddetial" shape="circle"  type="success" >创建目录</i-button>
+     <i-button bind:click="adddetial" shape="circle"  type="warning" >操作日志</i-button>
      <i-button bind:click="toggleRight2" shape="circle" type="primary">关闭抽屉</i-button>
     </view>
 </i-drawer>

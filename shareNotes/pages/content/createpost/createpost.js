@@ -15,7 +15,23 @@ Page({
     visible5: false,
     switch1: false,
     switch2: true,
-    visible6:false,
+    hasPicture: false,
+    files: [],
+    imgsrc: '/static/images/addpic.png',
+    actions3: [
+      {
+        name: '复制mark',
+        color: '#2d8cf0',
+      },
+      {
+        name: '复制html',
+        color: '#19be6b'
+      },
+      {
+        name: '取消'
+      }
+    ],
+    visible3:false,
     categoryId:'',
     visible1: false,
     titleName:'',
@@ -26,19 +42,6 @@ Page({
     min:10,
     max: 500,
     showRight1: false,
-    actions4: [
-      {
-        name: '按钮1'
-      },
-      {
-        name: '按钮2',
-        color: '#ff9900'
-      },
-      {
-        name: '按钮3',
-        icon: 'search'
-      }
-    ],
     actions5: [
       {
         name: '取消'
@@ -50,18 +53,11 @@ Page({
       }
     ]
   },
-  uploadPic(){
-    this.setData({
-      visible6: true
-    });
-  },
   handleOpen5() {
     wx.vibrateShort();
     this.setData({
       visible5: true
     });
-  },
-  handleClick:function(){
   },
   handleClick5({ detail }) {
     this.data.categoryId;
@@ -245,12 +241,129 @@ Page({
       }
     });
   },
-  handleClick4() {
+  //上传
+  uploadFileTap: function (e) {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        that.setData({
+          files: that.data.files.concat(res.tempFilePaths)
+        });
+        that.upload(res);
+      }
+    })
+  },
+  upload: function (res) {
+    var that = this;
+    const uploadTask = wx.uploadFile({
+      url: api.StorageUpload,
+      filePath: res.tempFilePaths[0],
+      name: 'file',
+      success: function (res) {
+        var _res = JSON.parse(res.data);
+        if (_res.errno === 0) {
+          that.setData({
+            hasPicture: true,
+            imgsrc: _res.data.url
+          })
+        } else {
+          $Message({
+            content: _res.errmsg,
+            type: 'error'
+          });
+        }
+
+      },
+      fail: function (e) {
+        wx.showModal({
+          title: '错误',
+          content: '上传失败',
+          showCancel: false
+        })
+      },
+    })
+    uploadTask.onProgressUpdate((res) => {
+      console.log('上传进度', res.progress)
+      console.log('已经上传的数据长度', res.totalBytesSent)
+      console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+    })
+
+  },
+  handleOpen3() {
     this.setData({
-      visible6: false
+      visible3: true
     });
   },
+  handleClick4() {
+    this.setData({
+      visible3: false
+    });
+  },
+  handleClick3({ detail }) {
+    const index = detail.index;
 
+    if (index === 0) {
+      if (this.data.hasPicture) {
+        wx.setClipboardData({
+            data: "![图片](" + this.data.imgsrc + ")",
+            success: function (res) {
+            wx.getClipboardData({
+            })
+          }
+        })
+      } else {
+        $Message({
+          content: '尚未上传图片',
+          type: 'success'
+        });
+      }
+    } else if (index === 1) {
+      if (this.data.hasPicture) {
+        wx.setClipboardData({
+          data: "<img src='" + this.data.imgsrc + "' height='10'/>",
+          success: function (res) {
+            wx.getClipboardData({
+              success: function (res) {
+              }
+            })
+          }
+        })
+      } else {
+        $Message({
+          content: '尚未上传图片',
+          type: 'success'
+        });
+      }
+    } else if (index === 2) {
+
+      this.setData({
+        visible3: false
+      });
+    }
+  },
+  updateTextArea(context) {
+    var value = context;
+    // 获取输入框内容的长度
+    var len = parseInt(value.length);
+
+    //最少字数限制
+    if (len <= this.data.min)
+      this.setData({
+        texts: "最低十个字"
+      })
+    else if (len > this.data.min)
+      this.setData({
+        texts: " "
+      })
+
+    if (len > this.data.max) return;
+    this.setData({
+      currentWordNumber: len
+    });
+  },
   // 工具添加事件
   addTitle(){
     if (this.data.switch1){
@@ -259,12 +372,14 @@ Page({
     this.setData({
       context: realtext
     });
+      this.updateTextArea(this.data.context)
     }else{
       var text = "## 标题";
       var realtext = this.data.context + text
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     }
   },
   addBored() {
@@ -274,12 +389,14 @@ Page({
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     } else {
       var text = "** 字体加厚**";
       var realtext = this.data.context + text
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     }
   },
   addOblique() {
@@ -289,12 +406,14 @@ Page({
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     } else {
       var text = "*字体变斜*";
       var realtext = this.data.context + text
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     }
   },
   addUnSortList() {
@@ -304,12 +423,14 @@ Page({
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     } else {
       var text = "- 无序 \n -列表";
       var realtext = this.data.context + text
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     }
   },
   addSortList() {
@@ -319,12 +440,14 @@ Page({
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     } else {
       var text = "1. 有序 \n 2.列表";
       var realtext = this.data.context + text
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     }
   },
   addTable() {
@@ -334,12 +457,14 @@ Page({
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     } else {
       var text = "|头1|头2|头3|\n|-|-|-|\n|行1|行2|行3|";
       var realtext = this.data.context + text
       this.setData({
         context: realtext
       });
+      this.updateTextArea(this.data.context)
     }
   },
 })

@@ -38,8 +38,9 @@
     <view>确定修改吗</view>
 </i-modal>
 
-<i-message id="message" />
-
+<i-modal title="添加图片" visible="{{ visible3 }}" actions="{{ actions3 }}" bind:click="handleClick3">
+    <image bindtap="uploadFileTap" style="width:160rpx; height:160rpx;" src="{{imgsrc}}" mode="aspectFill" />
+</i-modal>
 
 <i-modal title="{{ titleName }}" visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
 <view hidden="{{mdDisplay}}">
@@ -65,8 +66,9 @@
 有序列表</i-button>
 <i-button bind:click="addTable" type="background"><i-icon type="activity_fill" size="30" color="#80848f" />
 表格</i-button>
-    <i-button bind:click="uploadPic" type="background"><i-icon type="picture_fill" size="30" color="#80848f" />
+    <i-button bind:click="handleOpen3" type="background"><i-icon type="picture_fill" size="30" color="#80848f" />
 图片</i-button>
     </view>
 </i-drawer>
 
+<i-message id="message" />

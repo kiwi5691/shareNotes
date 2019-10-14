@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -37,6 +38,9 @@ public class WxUserController {
     private RedisManager redisManager;
     @Resource
     private EmailService emailService;
+
+    @Autowired
+    private RestTemplate restTemplate;
     /**
      * 用户个人页面数据
      *
@@ -91,5 +95,6 @@ public class WxUserController {
 
         return ResponseUtil.ok();
     }
+
 
 }

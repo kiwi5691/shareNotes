@@ -141,7 +141,7 @@ public class ResponseUtil {
     }
 
     public static Object serious() {
-        return fail(502, "服务器出小差了");
+        return fail(502, "服务器不支持此请求");
     }
 
     public static Object unsupport() {
