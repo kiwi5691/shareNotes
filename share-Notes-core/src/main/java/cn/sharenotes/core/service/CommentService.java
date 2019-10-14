@@ -1,4 +1,7 @@
 package cn.sharenotes.core.service;
+
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * @author hu
  * @Date 2019/10/9 16:08

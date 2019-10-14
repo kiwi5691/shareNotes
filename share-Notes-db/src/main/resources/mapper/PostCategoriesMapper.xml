@@ -155,7 +155,10 @@
   <select id="selectPostidByCateid" resultType="java.lang.Integer">
     select post_id from post_categories where category_id =#{categoryId,jdbcType=INTEGER}
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectCategeIdByPostId" resultType="java.lang.Integer">
+      select category_id from post_categories where  post_id=#{postId,jdbcType=INTEGER}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update post_categories
     <set>
       <if test="record.id != null">

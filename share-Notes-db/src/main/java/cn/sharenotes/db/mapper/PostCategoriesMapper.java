@@ -18,6 +18,8 @@ public interface PostCategoriesMapper {
 
     int insertSelective(PostCategories record);
 
+    int selectCategeIdByPostId(int postId);
+
     List<PostCategories> selectByExample(PostCategoriesExample example);
 
     List<Integer> selectPostidByCateid(Integer cateid);

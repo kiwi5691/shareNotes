@@ -39,21 +39,23 @@ public class CommentServiceImpl implements CommentService {
         Date date = new Date();
 
         User user = userMapper.selectByPrimaryKey(userid);
-
+        Posts posts = postsMapper.selectByPrimaryKey(post_id);
         int anony =0;
         if(isanonymous){
             anony = 0;
         }else {
             anony =1;
+            user.setAvatar("http://kiwi1.cn/upload/2019/10/my-0c1c93fd19a7415eb26b4fd5ed0c25cc.png");
         }
-        Posts posts = postsMapper.selectByPrimaryKey(post_id);
+
         Comments comments = new Comments(0,new Timestamp(date.getTime()),new Timestamp(date.getTime()),user.getNickname(),content, anony,post_id,1,0,userid);
 
         redisManager.set(OWNER_COMMENT_BY_POSTID+":postId:"+ post_id, comments);
-
-        SysMsg sysMsg = new SysMsg(userid,comments.getUserId(),posts.getTitle(),1,comments.getCreateTime());
+        int log = commentsMapper.insert(comments);
+        int commentId = commentsMapper.findLastId();
+        SysMsg sysMsg = new SysMsg(posts.getCreateFrom(),commentId,user.getAvatar(),posts.getId()+"",1,comments.getCreateTime());
         sysMsgMapper.insert(sysMsg);
-        return commentsMapper.insert(comments);
+        return log;
     }
 
     @Override

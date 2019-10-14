@@ -12,6 +12,8 @@ public interface SysMsgMapper {
 
     int deleteByPrimaryKey(Long id);
 
+    int deleteByRecentId(Long recentId);
+
     int insert(SysMsg record);
 
     int insertSelective(SysMsg record);

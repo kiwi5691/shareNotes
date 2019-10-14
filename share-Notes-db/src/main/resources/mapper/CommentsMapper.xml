@@ -207,8 +207,11 @@
     from comments
     where post_id = #{postId,jdbcType=INTEGER}
   </select>
+    <select id="findLastId" resultType="java.lang.Integer">
+      select max(id) from comments
+    </select>
 
-  <update id="updateByExampleSelective" parameterType="map">
+    <update id="updateByExampleSelective" parameterType="map">
     update comments
     <set>
       <if test="record.id != null">

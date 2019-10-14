@@ -39,8 +39,7 @@ public class WxUserController {
     @Resource
     private EmailService emailService;
 
-    @Autowired
-    private RestTemplate restTemplate;
+
     /**
      * 用户个人页面数据
      *

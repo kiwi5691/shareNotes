@@ -10,7 +10,7 @@ module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口
   GetMsgNumber: WxApiRoot + 'sysmsg/getNum', //获取消息数
   GetMsgList: WxApiRoot + 'sysmsg/getAllMsg', //获取消息列
-  GetMsgDetail: WxApiRoot + 'sysmsg/getDetail', //获取消息详细
+  GetMsgDetail: WxApiRoot + 'sysmsg/getDetail/', //获取消息详细
 
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录
   GetUserId: WxApiRoot + 'auth/getId', //获取id

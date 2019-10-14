@@ -1,6 +1,6 @@
 package cn.sharenotes.core.service;
 
-import cn.sharenotes.db.domain.SysMsg;
+import cn.sharenotes.db.model.dto.MsgListDto;
 import cn.sharenotes.db.model.dto.SysMsgDto;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface SysMsgService {
      *
      * @return 评论
      */
-    public List<SysMsgDto> getSysMsg(int recentId);
+    public List<MsgListDto> getSysMsg(int recentId);
     /**
      * 通过目录id获取评论数量
      *
@@ -27,5 +27,17 @@ public interface SysMsgService {
      *
      * @return
      */
+    public SysMsgDto getMsgPostById(int msgId);
+    /**
+     * 通过消息id删除消息
+     *
+     * @return
+     */
     public Integer delectMsgById(int msgId);
+    /**
+     * 通过消息id删除消息
+     *
+     * @return
+     */
+    public Integer delectMsgByRecentId(int recentId);
 }

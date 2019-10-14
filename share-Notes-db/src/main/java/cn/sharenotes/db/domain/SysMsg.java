@@ -20,7 +20,17 @@ public class SysMsg {
 public SysMsg(){
 
 }
-    public SysMsg(int recId, Integer sendId,  String title, Integer type, Date postTime) {
+
+    public SysMsg(Integer recId, Integer sendId, String email, String title, Integer type, Date postTime) {
+        this.recId = recId;
+        this.sendId = sendId;
+        this.email = email;
+        this.title = title;
+        this.type = type;
+        this.postTime = postTime;
+    }
+
+    public SysMsg(int recId, Integer sendId, String title, Integer type, Date postTime) {
         this.recId = recId;
         this.sendId = sendId;
 

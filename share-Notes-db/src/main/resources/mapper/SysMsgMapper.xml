@@ -101,7 +101,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.sharenotes.db.domain.SysMsg">
+    <delete id="deleteByRecentId">
+      delete from sys_msg
+      where rec_id = #{recId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.sharenotes.db.domain.SysMsg">
     insert into sys_msg (id, rec_id, send_id, 
       email, title, type,
       post_time)

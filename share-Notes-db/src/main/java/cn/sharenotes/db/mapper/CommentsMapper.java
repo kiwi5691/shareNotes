@@ -22,6 +22,7 @@ public interface CommentsMapper {
 
     Comments selectByPrimaryKey(Long id);
 
+    int findLastId();
 
     List<Comments> selectByPostId(int postid);
 
