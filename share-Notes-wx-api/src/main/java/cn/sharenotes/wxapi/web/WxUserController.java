@@ -1,5 +1,6 @@
 package cn.sharenotes.wxapi.web;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.sharenotes.core.enums.ContentBase;
 import cn.sharenotes.core.jms.ActiveMQService;
 import cn.sharenotes.core.jms.EmailService;
@@ -13,12 +14,14 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +42,30 @@ public class WxUserController {
     @Resource
     private EmailService emailService;
 
+    @Autowired
+    private WxMaSecCheckService wxMaSecCheckService;
 
+    @GetMapping("test/{msg}")
+    public String test(@PathVariable("msg")String msg){
+        if(wxMaSecCheckService.checkMessage(msg)){
+            return  "ok";
+        }else {
+            return  "fuck";
+
+        }
+
+    }
+
+    @GetMapping("img/{msg}")
+    public String img(@PathVariable("msg") File msg) throws WxErrorException {
+        if(wxMaSecCheckService.checkImage(msg)){
+            return  "ok";
+        }else {
+            return  "fuck";
+
+        }
+
+    }
     /**
      * 用户个人页面数据
      *
@@ -57,7 +83,7 @@ public class WxUserController {
         }
 
         Map<Object, Object> data = new HashMap<Object, Object>();
-       //显示个人信息
+        //显示个人信息
         data.put("order", "个人信息");
         return ResponseUtil.ok(data);
     }

@@ -1,5 +1,6 @@
 package cn.sharenotes.wxapi.web.category;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.CategoryUtils;
@@ -27,6 +28,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/wx/category")
 public class WxCategoryController {
+
+    @Autowired
+    private WxMaSecCheckService wxMaSecCheckService;
 
     @Autowired
     CategoriesService categoriesService;
@@ -59,7 +63,11 @@ public class WxCategoryController {
     public Object addCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
         Integer userId = 5;
         //到时候删除
-
+        // TODO: 2019/10/14  
+        log.info("req:"+wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name").toString()));
+        if(!wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name"))){
+            ResponseUtil.fail(500,"违法违规标题");
+        }
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"add");
         if (categoryVO == null) {
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");

@@ -1,6 +1,8 @@
 package cn.sharenotes.core.config;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.api.impl.WxMaSecCheckServiceImpl;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
@@ -40,7 +42,11 @@ public class WxConfig {
         service.setWxMaConfig(maConfig);
         return service;
     }
-
+    @Bean
+    public WxMaSecCheckService  wxMaSecCheckService(){
+        WxMaSecCheckService wxMaSecCheckService = new WxMaSecCheckServiceImpl(wxMaService(wxMaConfig()));
+        return wxMaSecCheckService;
+    }
     @Bean
     public WxPayConfig wxPayConfig() {
         WxPayConfig payConfig = new WxPayConfig();

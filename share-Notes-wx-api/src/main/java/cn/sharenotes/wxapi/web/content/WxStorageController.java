@@ -1,10 +1,12 @@
 package cn.sharenotes.wxapi.web.content;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.sharenotes.core.service.Impl.BaseStorageService;
 import cn.sharenotes.core.storage.StorageService;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.domain.Attachments;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -23,7 +26,8 @@ import java.io.IOException;
 @RequestMapping("/wx/storage")
 public class WxStorageController {
 
-
+    @Autowired
+    private WxMaSecCheckService wxMaSecCheckService;
     @Autowired
     private StorageService storageService;
     @Autowired
@@ -31,14 +35,21 @@ public class WxStorageController {
 
 
     @PostMapping("/upload")
-    public Object upload(@RequestParam("file") MultipartFile file)  {
-        String originalFilename = file.getOriginalFilename();
-        Attachments attachments = new Attachments();
-        try {
-             attachments = storageService.store(file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
-        }catch (Exception e){
-            return ResponseUtil.fail(200,"图片不支持");
+    public Object upload(@RequestParam("file") MultipartFile file) throws WxErrorException {
+        Attachments attachments =null;
+        if(wxMaSecCheckService.checkImage((File) file)){
+            String originalFilename = file.getOriginalFilename();
+             attachments = new Attachments();
+            try {
+                attachments = storageService.store(file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
+            }catch (Exception e){
+                return ResponseUtil.fail(200,"图片不支持");
+            }
+        }else {
+            return ResponseUtil.fail(200,"违法违规内容");
+
         }
+
 
         return ResponseUtil.ok(attachments);
     }
