@@ -14,6 +14,7 @@
      </i-cell>
 </i-cell-group>
 
+<i-message id="message" />
 
 <view bindtap="onChange" class='content'>
     <view class='lab'  style="background-color:rgb(228, 74, 74)">删除好友</view>

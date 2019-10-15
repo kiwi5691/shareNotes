@@ -7,6 +7,7 @@
     "i-cell": "../../dist/cell/index",
     "i-alert": "../../dist/alert/index",
     "i-icon": "../../dist/icon/index",
+     "i-message": "../../dist/message/index",
     "i-modal": "../../dist/modal/index"
   },
   "navigationBarTitleText": "朋友的目录",

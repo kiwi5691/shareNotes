@@ -2,6 +2,7 @@ package cn.sharenotes.wxapi.web.friend;
 
 import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.core.service.UserGroupsSerive;
+import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
@@ -10,10 +11,7 @@ import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -71,9 +69,9 @@ public class WxFriendGroupController {
         return ResponseUtil.fail();
     }
     @ApiOperation(value = "通过好友id删除好友")
-    @GetMapping("/delete/{friendId}")
-    public Object deleteFriend(@LoginUser Integer userId, @PathVariable("friendId") Integer friendId){
-     
+    @DeleteMapping("/delete")
+    public Object deleteFriend(@LoginUser Integer userId,@RequestBody String body){
+        Integer friendId = JacksonUtil.parseInteger(body, "fid");
         if(userGroupsSerive.deleteFriend(userId,friendId)>0){
             return ResponseUtil.ok();
         }

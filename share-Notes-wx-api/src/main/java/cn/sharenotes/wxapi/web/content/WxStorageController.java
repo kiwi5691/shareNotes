@@ -37,7 +37,7 @@ public class WxStorageController {
     @PostMapping("/upload")
     public Object upload(@RequestParam("file") MultipartFile file) throws WxErrorException {
         Attachments attachments =null;
-        if(wxMaSecCheckService.checkImage((File) file)){
+//        if(wxMaSecCheckService.checkImage(file)){
             String originalFilename = file.getOriginalFilename();
              attachments = new Attachments();
             try {
@@ -45,10 +45,10 @@ public class WxStorageController {
             }catch (Exception e){
                 return ResponseUtil.fail(200,"图片不支持");
             }
-        }else {
-            return ResponseUtil.fail(200,"违法违规内容");
-
-        }
+//        }else {
+//            return ResponseUtil.fail(200,"违法违规内容");
+//
+//        }
 
 
         return ResponseUtil.ok(attachments);

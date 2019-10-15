@@ -164,7 +164,10 @@ Page({
         hasLogin:true
       });
     }
-
+   var that = this;
+    that.getListMain();  
+    that.getBrands();
+    that.getUserId();
   },
   /**
   * 用户点击右上角分享
