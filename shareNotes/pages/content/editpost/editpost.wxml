@@ -19,14 +19,14 @@
     </i-cell>
 <i-divider content="请输入" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
   <view class="bar bottomfix shadow justify-center">
-<textarea wx:if="{{ !visible5 }}" class="areas" bindblur="contextInput" value="{{ context }}" placeholder='笔记内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
+<textarea wx:if="{{ !visibleReview }}" class="areas" bindblur="contextInput" value="{{ context }}" placeholder='笔记内容' minlength="{{min}}" maxlength="{{max}}" bindinput="inputs">
 <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
 <text class="hint">{{texts}}</text>
 </textarea>
 </view>
 
-<view class="rich-text" wx:if="{{ visible5 }}" >
-<rich-text    nodes="{{context}}"></rich-text>
+<view class="rich-text" wx:if="{{ visibleReview }}" >
+<rich-text    nodes="{{contextTemp}}"></rich-text>
 <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
 <text class="hint">{{texts}}</text>
 </view>

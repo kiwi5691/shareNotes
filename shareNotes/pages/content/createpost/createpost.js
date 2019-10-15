@@ -15,7 +15,9 @@ Page({
     visible5: false,
     switch1: false,
     switch2: true,
+    visibleReview: false,
     hasPicture: false,
+    contextTemp:'',
     files: [],
     imgsrc: '/static/images/addpic.png',
     actions3: [
@@ -56,14 +58,16 @@ Page({
   handleOpen5() {
     wx.vibrateShort();
     this.setData({
-      visible5: true
+      visible5: true,
+      visibleReview: true
     });
   },
   handleClick5({ detail }) {
     this.data.categoryId;
     if (detail.index === 0) {
       this.setData({
-        visible5: false
+        visible5: false,
+        visibleReview: false
       });
     } else {
       if (this.data.titleName == "") {
@@ -137,7 +141,8 @@ Page({
  
   toggleRight1() {
     this.setData({
-      showRight1: !this.data.showRight1
+      showRight1: !this.data.showRight1,
+      visibleReview: !this.data.visibleReview
     });
   },
  
@@ -166,13 +171,15 @@ Page({
   },
   handleOpen1() {
     this.setData({
-      visible1: true
+      visible1: true,
+      visibleReview: true
     });
   },
 
   handleClose1() {
     this.setData({
-      visible1: false
+      visible1: false,
+      visibleReview: false
     });
   },
   titleNameInput: function (e) {
@@ -182,7 +189,8 @@ Page({
   },
   contextInput: function (e) {
     this.setData({
-      context: e.detail.value
+      context: e.detail.value,
+      contextTemp: e.detail.value.split('\n').join('<br>')
     })
   },
   inputs: function (e) {
@@ -336,6 +344,9 @@ Page({
   },
   updateTextArea(context) {
     var value = context;
+    this.setData({
+      contextTemp: value.split('\n').join('<br>')
+    })
     // 获取输入框内容的长度
     var len = parseInt(value.length);
 

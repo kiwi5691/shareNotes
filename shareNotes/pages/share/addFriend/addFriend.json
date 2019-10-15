@@ -1,6 +1,8 @@
 {
   "usingComponents": {
-     "i-load-more": "../../dist/load-more/index",
-     "i-icon": "../../dist/icon/index"
+        "i-load-more": "../../dist/load-more/index",
+            "i-button": "../../dist/button/index",
+                "i-icon": "../../dist/icon/index",
+                  "i-message": "../../dist/message/index"
   }
 }

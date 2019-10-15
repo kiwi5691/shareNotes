@@ -15,7 +15,9 @@ Page({
     switch2: true,
     switch1: false,
     visible1: false,
+    visibleReview:false,
     titleName: '',
+    contextTemp: '',
     type:'',
     hasPicture: false,
     files: [],
@@ -57,7 +59,8 @@ Page({
   handleOpen5() {
     wx.vibrateShort();
     this.setData({
-      visible5: true
+      visible5: true,
+      visibleReview:true
     });
   },
   handleClick: function () {
@@ -71,7 +74,8 @@ Page({
   handleClick5({ detail }) {
     if (detail.index === 0) {
       this.setData({
-        visible5: false
+        visible5: false,
+        visibleReview: false
       });
     } else {
       if (this.data.titleName == "") {
@@ -287,7 +291,8 @@ Page({
   },
   toggleRight1() {
     this.setData({
-      showRight1: !this.data.showRight1
+      showRight1: !this.data.showRight1,
+      visibleReview: !this.data.visibleReview
     });
   },
   onChange(event) {
@@ -309,13 +314,15 @@ Page({
   },
   handleOpen1() {
     this.setData({
-      visible1: true
+      visible1: true,
+      visibleReview: true
     });
   },
 
   handleClose1() {
     this.setData({
-      visible1: false
+      visible1: false,
+      visibleReview: false
     });
   },
   titleNameInput: function (e) {
@@ -325,7 +332,8 @@ Page({
   },
   contextInput: function (e) {
     this.setData({
-      context: e.detail.value
+      context: e.detail.value,
+      contextTemp: e.detail.value.split('\n').join('<br>')
     })
   },
   inputs: function (e) {
@@ -351,6 +359,9 @@ Page({
   },
   updateTextArea(context) {
     var value = context;
+    this.setData({
+      contextTemp: value.split('\n').join('<br>')
+    })
     // 获取输入框内容的长度
     var len = parseInt(value.length);
 
