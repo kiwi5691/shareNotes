@@ -27,6 +27,7 @@ module.exports = {
   GetPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
   GetPostsDetail: WxApiRoot + 'posts/getDetail/', //获取posts详细,
   GetPostsInfoDetail: WxApiRoot + 'posts/getInfo/', //获取posts详细,
+  GetOplogs: WxApiRoot + 'user/oplogs', //获取posts详细,
 
 
   GetFriendPublicCategory: WxApiRoot + 'friend/getAll/menu/', //获取朋友共有目录,

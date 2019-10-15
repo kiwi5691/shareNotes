@@ -73,10 +73,6 @@ Page({
         });
         wx.showTabBarRedDot({
           index: 2,
-
-          success: res => { console.log(res) },
-
-          fail: res => { console.error }
         })
       }
     });

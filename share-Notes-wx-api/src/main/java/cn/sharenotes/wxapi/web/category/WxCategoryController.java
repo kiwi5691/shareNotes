@@ -10,6 +10,7 @@ import cn.sharenotes.db.model.dto.CategoryDTO;
 import cn.sharenotes.db.model.dto.CategoryDetailDTO;
 import cn.sharenotes.db.model.vo.CategoryVO;
 import cn.sharenotes.wxapi.annotation.Log;
+import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,7 @@ public class WxCategoryController {
 
     @ApiOperation(value = "通过 meanId 获取目录")
     @GetMapping("/getAll/{menuId}")
-    public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("menuId") Integer menuId) {
-        Integer userId = 5;
-        //到时候删除
+    public Object getAllCategories(@LoginUser Integer userId, @PathVariable("menuId") Integer menuId) {
         List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(userId, menuId);
         if (CollectionUtils.isEmpty(categoryDTOS)) {
             return ResponseUtil.fail(601, "没有目录");
@@ -60,10 +59,8 @@ public class WxCategoryController {
     @Log("添加目录")
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
-    public Object addCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
-        Integer userId = 5;
-        //到时候删除
-        // TODO: 2019/10/14  
+    public Object addCategory(@LoginUser Integer userId,@RequestBody String body) {
+        // TODO: 2019/10/14
         log.info("req:"+wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name").toString()));
         if(!wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name"))){
             ResponseUtil.fail(500,"违法违规标题");
@@ -82,8 +79,7 @@ public class WxCategoryController {
     @Log("删除目录")
     @ApiOperation(value = "通过 categoryId 删除目录")
     @DeleteMapping("/delete")
-    public Object deleteCategory(/*@LoginUser Integer userId,*/@RequestBody String body) {
-        Integer userId = 5;
+    public Object deleteCategory(@LoginUser Integer userId,@RequestBody String body) {
         Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
         Integer menuId = JacksonUtil.parseInteger(body, "menu_id");
         if (categoriesService.deleteCategoryByCategoryId(menuId, categoryId) > 0) {
@@ -98,12 +94,8 @@ public class WxCategoryController {
 
     @ApiOperation(value = "通过 categoryId 修改目录")
     @PutMapping("update")
-    public Object updateCategoryByCategoryId(/*@LoginUser Integer userId,*/ @RequestBody String body) {
+    public Object updateCategoryByCategoryId(@LoginUser Integer userId, @RequestBody String body) {
         Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
-
-        Integer userId = 5;
-        //到时候删除
-
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"update");
         if (categoryVO == null) {
             return ResponseUtil.fail(603, "修改目录失败,目录名已存在");
@@ -118,9 +110,7 @@ public class WxCategoryController {
 
     @ApiOperation(value = "通过 categoryId 获取详细目录")
     @GetMapping("detail/{categoryId}")
-    public Object getCategoryDetail(/*@LoginUser Integer userId,*/ @PathVariable("categoryId") Integer categoryId) {
-        Integer userId = 5;
-        //到时候删除
+    public Object getCategoryDetail(@LoginUser Integer userId, @PathVariable("categoryId") Integer categoryId) {
         Optional<CategoryDetailDTO> categoryDTO = null;
 
         categoryDTO = Optional.ofNullable(categoriesService.findCategoriesDetailByCid(userId, categoryId));
