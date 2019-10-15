@@ -1,5 +1,6 @@
 package cn.sharenotes.wxapi.web.content;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ContentUtils;
@@ -12,6 +13,7 @@ import cn.sharenotes.db.model.vo.PostContentVo;
 import cn.sharenotes.wxapi.annotation.Log;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +36,8 @@ public class WxPostController {
 
     @Resource
     private PostContentService postContentService;
-
+    @Autowired
+    private WxMaSecCheckService wxMaSecCheckService;
     @Resource
     private PostCommentService postCommentService;
 
@@ -68,6 +71,10 @@ public class WxPostController {
 
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "add");
 
+        String originalContent = JacksonUtil.parseString(body, "originalContent");
+        if(!wxMaSecCheckService.checkMessage(originalContent)){
+            return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
+        }
         if (postContentVo == null) {
             return ResponseUtil.fail(802, "添加文章失败，文章标题已存在");
         }
@@ -91,6 +98,10 @@ public class WxPostController {
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "update");
         if (postContentVo == null) {
             return ResponseUtil.fail(803, "修改文章失败，文章标题已存在");
+        }
+        String originalContent = JacksonUtil.parseString(body, "originalContent");
+        if(!wxMaSecCheckService.checkMessage(originalContent)){
+            return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
         }
         if (postContentService.updatePostContent(postId, postContentVo) > 0) {
             postContentService.updatePostsRedisInfo(cateId);

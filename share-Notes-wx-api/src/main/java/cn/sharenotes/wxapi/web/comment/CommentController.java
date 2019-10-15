@@ -1,10 +1,12 @@
 package cn.sharenotes.wxapi.web.comment;
 
+import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.sharenotes.core.service.CommentService;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +20,8 @@ import javax.annotation.Resource;
 public class CommentController {
     @Resource
     private CommentService commentService;
+    @Autowired
+    private WxMaSecCheckService wxMaSecCheckService;
 
     @ApiOperation(value = "获得int userid, int postId,String content, Boolean isanonymous")
     @PostMapping("/add")
@@ -30,6 +34,9 @@ public class CommentController {
 
         if(content.isEmpty()){
             return ResponseUtil.fail(901, "添加评论失败，文章没内容");
+        }
+        if(!wxMaSecCheckService.checkMessage(content)){
+            return ResponseUtil.fail(202, "添加评论失败，出现违禁词");
         }
         if(commentService.addComment(userId,postId,content,isanonymous)>0){
             return ResponseUtil.ok();
