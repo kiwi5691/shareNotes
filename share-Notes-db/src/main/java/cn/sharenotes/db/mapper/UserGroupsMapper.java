@@ -12,6 +12,8 @@ public interface UserGroupsMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    int deleteFriend(Integer userId,Integer friendId);
+
     int insert(UserGroups record);
 
     int insertSelective(UserGroups record);

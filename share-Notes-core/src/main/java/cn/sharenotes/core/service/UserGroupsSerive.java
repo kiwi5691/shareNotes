@@ -16,4 +16,11 @@ public interface UserGroupsSerive {
 
     boolean addFriend(Integer userId,Integer friendId);
 
+    /**
+     * 通过用户id删除朋友
+     *
+     * @return 朋友id集合<XxxxDO>
+     */
+    Integer deleteFriend(Integer userId,Integer friendId);
+
 }

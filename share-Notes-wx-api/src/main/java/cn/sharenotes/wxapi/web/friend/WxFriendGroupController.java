@@ -70,4 +70,14 @@ public class WxFriendGroupController {
         }
         return ResponseUtil.fail();
     }
+    @ApiOperation(value = "通过好友id删除好友")
+    @GetMapping("/delete/{friendId}")
+    public Object deleteFriend(@LoginUser Integer userId, @PathVariable("friendId") Integer friendId){
+     
+        if(userGroupsSerive.deleteFriend(userId,friendId)>0){
+            return ResponseUtil.ok();
+        }
+
+        return ResponseUtil.fail();
+    }
 }

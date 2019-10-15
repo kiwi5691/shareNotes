@@ -64,4 +64,10 @@ public class UserGroupsSeriveImp implements UserGroupsSerive {
         return false;
     }
 
+    @Override
+    public Integer deleteFriend(Integer friendId , Integer userId) {
+        userGroupsMapper.deleteFriend(friendId,userId);
+        return userGroupsMapper.deleteFriend(userId,friendId);
+    }
+
 }
