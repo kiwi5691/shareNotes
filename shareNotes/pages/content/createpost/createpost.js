@@ -214,8 +214,29 @@ Page({
       currentWordNumber: len 
     });
   },
+
+  getPostsAll: function () {
+    var cid = this.data.categoryId;
+    let that = this;
+    wx.removeStorageSync('postAll' + cid)
+
+    util.request(api.GetPostsAll + cid).then(function (res) {
+        if (res.errno === 0) {
+          wx.setStorageSync('postAll' + cid, res.data.posts)
+        } else {
+          $Message({
+            content: "服务器出小差了",
+            type: 'error'
+          });
+        }
+      
+    }
+    );
+
+  },
   createPost: function (categoryId, title, type, originalContent, allowComment){
    
+    let that =this;
     util.request(api.AddPost, {
       categoryId: categoryId,
       title: title,
@@ -228,6 +249,9 @@ Page({
           content: '创建成功！',
           type: 'success'
         });
+        //postcategories目录
+        that.getPostsAll();
+        //全
         wx.navigateBack({
           delta: 1
         })

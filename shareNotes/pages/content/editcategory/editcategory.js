@@ -103,6 +103,14 @@ Page({
           content: '修改成功！',
           type: 'success'
         });
+        if (isPcOrPr) {
+          // 公共目录
+          that.getPublicMain();
+        } else {
+          that.getPrivateMain();
+        }
+
+        wx.setStorageSync('titleName', name)
         wx.navigateBack({
           delta: 1
         })
@@ -124,6 +132,39 @@ Page({
     });
     console.log(this.data.cate_id);
     this.getCateDetail();
+  },
+
+  getPublicMain: function () {
+    let that = this;
+    wx.removeStorageSync('publicCate')
+
+    util.request(api.GetPublicCategory).then(function (res) {
+
+      if (res.errno === 0) {
+        wx.setStorageSync('publicCate', res.data.publicCate)
+        console.log(res.data.publicCate)
+        console.log("public")
+      } else {
+        $Message({
+          content: '服务器出小差啦',
+          type: 'error'
+        });
+      }
+    });
+  },
+  getPrivateMain: function () {
+    let that = this;
+    wx.removeStorageSync('privateCate')
+    util.request(api.GetPrivateCategory).then(function (res) {
+      if (res.errno === 0) {
+        wx.setStorageSync('privateCate', res.data.privateCate)
+      } else {
+        $Message({
+          content: '服务器出小差啦',
+          type: 'error'
+        });
+      }
+    });
   },
   getCateDetail:function(){
     let that = this;

@@ -99,6 +99,12 @@ Page({
           content: '创建成功！',
           type: 'success'
         });
+        if(isPcOrPr){
+          // 公共目录
+          that.getPublicMain();
+        }else{
+          that.getPrivateMain();
+        }
         wx.navigateBack({
           delta: 1
         })
@@ -110,7 +116,36 @@ Page({
       }
     });
   },
+  getPublicMain: function () {
+    let that = this;
+    wx.removeStorageSync('publicCate')
+   
+      util.request(api.GetPublicCategory).then(function (res) {
 
+        if (res.errno === 0) {
+          wx.setStorageSync('publicCate', res.data.publicCate)
+        } else {
+          $Message({
+            content: '服务器出小差啦',
+            type: 'error'
+          });
+        }
+      });
+    },
+  getPrivateMain: function () {
+    let that = this;
+    wx.removeStorageSync('privateCate')
+      util.request(api.GetPrivateCategory).then(function (res) {
+        if (res.errno === 0) {
+          wx.setStorageSync('privateCate', res.data.privateCate)
+        } else {
+          $Message({
+            content: '服务器出小差啦',
+            type: 'error'
+          });
+        }
+      });  
+  },
   /**
    * 生命周期函数--监听页面加载
    */

@@ -46,7 +46,7 @@ public class WxCategoryController {
         //到时候删除
         List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(userId, menuId);
         if (CollectionUtils.isEmpty(categoryDTOS)) {
-            return ResponseUtil.fail(601, "没有目录");
+            return ResponseUtil.fail(601, "您尚未创建目录");
         }
         Map<String, Object> result = new HashMap<>();
         if (menuId == 1) {

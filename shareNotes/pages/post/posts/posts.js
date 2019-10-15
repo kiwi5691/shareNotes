@@ -73,6 +73,24 @@ Page({
         })
     }
   },
+
+  getPostsAll: function () {
+    var cid = this.data.cate_id;
+    let that = this;
+    wx.removeStorageSync('postAll' + cid)
+
+    util.request(api.GetPostsAll + cid).then(function (res) {
+      if (res.errno === 0) {
+        wx.setStorageSync('postAll' + cid, res.data.posts)
+      } else {
+        $Message({
+          content: "服务器出小差了",
+          type: 'error'
+        });
+      }
+    }
+    );
+  },
   delComment: function (commentId){
     util.request(api.DelComment, {
       commentId: commentId,
@@ -92,6 +110,7 @@ Page({
     });
   },
   delPost: function (postId) {
+    let that=this;
     util.request(api.DelPosts, {
       postId: postId,
     }, 'DELETE').then(function (res) {
@@ -100,6 +119,9 @@ Page({
           content: '删除文章成功！',
           type: 'success'
         });
+        //postcategories目录
+        that.getPostsAll();
+        //全
       } else {
         $Message({
           content: res.errmsg,

@@ -14,7 +14,7 @@
 <view wx:if="{{ current =='tab1'}}">
 <view hidden="{{hiddenAlertPu}}">
 <i-alert   show-icon desc>
-    您尚未创建目录
+    {{msg}}
     <view slot="desc">点击右下角符号创建</view>
 </i-alert>
 </view>

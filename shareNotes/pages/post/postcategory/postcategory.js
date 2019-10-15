@@ -12,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showRigh2: false,
+    showRight2: false,
     visible5: false,
     cate_id: 0,
     confirm:'',
@@ -78,6 +78,11 @@ Page({
       menu_id: menu_id,
     }, 'DELETE').then(function (res) {
       if (res.errno === 0) {
+        if (that.data.menu_id.indexOf("1") >= 0) {
+          that.getPublicMain();
+        } else {
+          that.getPrivateMain();
+        };
         $Message({
           content: '删除成功！',
           type: 'success'
@@ -88,6 +93,39 @@ Page({
       } else {
         $Message({
           content: res.errmsg,
+          type: 'error'
+        });
+      }
+    });
+  },
+
+  getPublicMain: function () {
+    let that = this;
+    wx.removeStorageSync('publicCate')
+
+    util.request(api.GetPublicCategory).then(function (res) {
+
+      if (res.errno === 0) {
+        wx.setStorageSync('publicCate', res.data.publicCate)
+        console.log(res.data.publicCate)
+        console.log("public")
+      } else {
+        $Message({
+          content: '服务器出小差啦',
+          type: 'error'
+        });
+      }
+    });
+  },
+  getPrivateMain: function () {
+    let that = this;
+    wx.removeStorageSync('privateCate')
+    util.request(api.GetPrivateCategory).then(function (res) {
+      if (res.errno === 0) {
+        wx.setStorageSync('privateCate', res.data.privateCate)
+      } else {
+        $Message({
+          content: '服务器出小差啦',
           type: 'error'
         });
       }
@@ -129,21 +167,29 @@ Page({
   },
 
   getPostsAll: function () {
+    var cid = this.data.cate_id;
     let that = this;
+    var tempPosts = wx.getStorageSync('postAll' + cid)
+    that.setData({
+      posts: tempPosts,
+    });
+    if (that.data.posts.length == 0) {
     util.request(api.GetPostsAll + this.data.cate_id).then(function (res) {
-
+     
       if (res.errno === 0) {
         that.setData({
           posts: res.data.posts,
         });
-
+        wx.setStorageSync('postAll' + cid, res.data.posts)
       } else if (res.errno === 801) {
         that.setData({
           failMes: res.errmsg,
           hiddenAlertPu: !that.data.hiddenAlertPu
         })
       }
-    });
+    }
+    );
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -156,7 +202,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+    showRight2: false
+    })
+    var titleT = wx.getStorageSync('titleName')
+    if(titleT.length!=0){
+        wx.setNavigationBarTitle({
+          title: titleT
+        })
+    }
+    
+    this.getPostsAll();
   },
 
   /**

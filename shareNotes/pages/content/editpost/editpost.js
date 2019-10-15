@@ -87,7 +87,6 @@ Page({
           type: 'error'
         });
       } else {
-          action[1].loading = false;
           this.setData({
             visible5: false,
           });
@@ -117,6 +116,9 @@ Page({
           content: '修改成功！',
           type: 'success'
         });
+        //postcategories目录
+        that.getPostsAll();
+        //全
         wx.navigateBack({
           delta: 1
         })
@@ -186,7 +188,6 @@ Page({
         });
       }
     } else if (index === 2) {
-
       this.setData({
         visible3: false
       });
@@ -202,7 +203,9 @@ Page({
           titleName: res.data.title,
           switch1: res.data.switch1,
           switch2: res.data.allowComment,
+          contextTemp: res.data.originalContent.split('\n').join('<br>')
         });
+        that.updateTextArea(res.data.originalContent)
       } else {    
         $Message({
           content: res.errmsg,
@@ -356,6 +359,23 @@ Page({
     this.setData({
       currentWordNumber: len
     });
+  },
+  getPostsAll: function () {
+    var cid = this.data.cate_id;
+    let that = this;
+    wx.removeStorageSync('postAll' + cid)
+
+    util.request(api.GetPostsAll + cid).then(function (res) {
+      if (res.errno === 0) {
+        wx.setStorageSync('postAll' + cid, res.data.posts)
+      } else {
+        $Message({
+          content: "服务器出小差了",
+          type: 'error'
+        });
+      }
+    }
+    );
   },
   updateTextArea(context) {
     var value = context;

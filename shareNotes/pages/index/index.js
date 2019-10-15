@@ -13,6 +13,7 @@ Page({
     hasLogin: false,
     hiddenAlertPu: true,
     showRigh2: false,
+    msg:'',
   },
   handleChange({ detail }) {
     this.setData({
@@ -39,10 +40,6 @@ Page({
   
   adddetial: function () {
     if (this.data.hasLogin) {
-      try {
-        wx.setStorageSync('tab', 0);
-      } catch (e) {
-      }
       wx.navigateTo({
         url: '../content/adddetial/adddetial',
       });
@@ -72,34 +69,49 @@ Page({
   },
   getPublicMain: function () {
     let that = this;
+    var tempPublic = wx.getStorageSync('publicCate')
+    that.setData({
+      publicCate: tempPublic,
+    });
+    if (this.data.publicCate.length==0){
     util.request(api.GetPublicCategory).then(function (res) {
 
       if (res.errno === 0) {
         that.setData({
           publicCate: res.data.publicCate,
         });
-      
-      } else if(res.errno === 601){
+        wx.setStorageSync('publicCate', res.data.publicCate)
+      } else{
         that.setData({
+          msg:res.errmsg,
           hiddenAlertPu: !that.data.hiddenAlertPu
         })
       }
     });
+    }
   },
   getPrivateMain: function () {
     let that = this;
+    var tempPrivate= wx.getStorageSync('privateCate')
+    that.setData({
+      privateCate: tempPrivate,
+    });
+    if (this.data.privateCate.length == 0) {
     util.request(api.GetPrivateCategory).then(function (res) {
 
       if (res.errno === 0) {
         that.setData({
           privateCate: res.data.privateCate,
         });
-      } else if(res.errno === 601){
+        wx.setStorageSync('privateCate', res.data.privateCate)
+      } else{
         that.setData({
+          msg: res.errmsg,
           hiddenAlertPr: !that.data.hiddenAlertPr
         })
       }
     });
+    }
   },
   onLoad: function (options) {
 
@@ -122,6 +134,9 @@ Page({
         hasLogin: true
       });
     }
+    this.setData({
+      showRight2: false
+    });
 
     this.getPublicMain();
     this.getPrivateMain();
