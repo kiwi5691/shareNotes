@@ -60,6 +60,7 @@ public class WxPostController {
 
     }
 
+    @Log("添加文章")
     @ApiOperation(value = "添加文章")
     @PostMapping("/add")
     public Object addPostContent(@LoginUser Integer userId, @RequestBody String body) {
@@ -80,11 +81,13 @@ public class WxPostController {
         return ResponseUtil.fail();
     }
 
+    @Log("修改文章")
     @ApiOperation(value = "更改文章")
     @PutMapping("update")
     public Object updatePostContent(@LoginUser Integer userId, @RequestBody String body) {
         Integer postId = JacksonUtil.parseInteger(body, "postId");
-        Integer cateId = postContentService.findCateIdByPostId(postId);
+        Integer cateId = JacksonUtil.parseInteger(body, "categoryId");
+
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "update");
         if (postContentVo == null) {
             return ResponseUtil.fail(803, "修改文章失败，文章标题已存在");
@@ -96,6 +99,7 @@ public class WxPostController {
         return ResponseUtil.fail();
     }
 
+    @Log("删除文章")
     @ApiOperation(value = "删除文章")
     @DeleteMapping("delete")
     public Object deletePostContent(@RequestBody String body) {

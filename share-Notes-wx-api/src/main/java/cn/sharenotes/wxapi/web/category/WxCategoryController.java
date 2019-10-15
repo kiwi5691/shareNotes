@@ -92,6 +92,7 @@ public class WxCategoryController {
         return ResponseUtil.fail();
     }
 
+    @Log("修改目录")
     @ApiOperation(value = "通过 categoryId 修改目录")
     @PutMapping("update")
     public Object updateCategoryByCategoryId(@LoginUser Integer userId, @RequestBody String body) {

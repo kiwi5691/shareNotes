@@ -37,30 +37,28 @@ public class LogAspect {
 
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        Object result = null;
-        try {
-            HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
-            String token = request.getHeader(LOGIN_TOKEN_KEY);
-            if (token == null || token.isEmpty()) {
-                return null;
-            }
 
-            Integer userId = UserTokenManager.getUserId(token);
+        Object result;
 
-            Logs logs = new Logs();
-            logs.setUserId(String.valueOf(userId));
-            logs.setCreateTime(new Date());
-            logs.setUpdateTime(new Date());
-            logs = logService.getLogInfo(point, logs);
-
-            //执行时得判断切点是否执行成功
-            result = point.proceed();
-
-            logService.addLog(logs);
-
-            return result;
-        } catch (Throwable t) {
-            throw new RuntimeException(t);
+        HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
+        String token = request.getHeader(LOGIN_TOKEN_KEY);
+        if (token == null || token.isEmpty()) {
+            return null;
         }
+
+        Integer userId = UserTokenManager.getUserId(token);
+
+        Logs logs = new Logs();
+        logs.setUserId(String.valueOf(userId));
+        logs.setCreateTime(new Date());
+        logs.setUpdateTime(new Date());
+        logs = logService.getLogInfo(point, logs);
+
+        //执行时得判断切点是否执行成功
+        result = point.proceed();
+
+        logService.addLog(logs);
+
+        return result;
     }
 }

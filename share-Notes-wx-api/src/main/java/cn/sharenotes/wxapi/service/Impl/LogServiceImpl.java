@@ -1,11 +1,14 @@
 package cn.sharenotes.wxapi.service.Impl;
 
 import cn.sharenotes.core.redis.RedisManager;
+import cn.sharenotes.core.service.PostContentService;
+import cn.sharenotes.db.domain.Categories;
 import cn.sharenotes.db.domain.Logs;
+import cn.sharenotes.db.mapper.CategoriesMapper;
 import cn.sharenotes.db.mapper.LogsMapper;
 import cn.sharenotes.db.model.dto.CategoryDTO;
+import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.wxapi.service.LogService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,18 +28,20 @@ import java.util.*;
 @Slf4j
 public class LogServiceImpl implements LogService {
 
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Autowired
     LogsMapper logsMapper;
 
     @Autowired
     RedisManager redisManager;
 
+    @Autowired
+    PostContentService postContentService;
+
+    @Autowired
+    CategoriesMapper categoriesMapper;
+
     @Override
-    public Logs getLogInfo(ProceedingJoinPoint point, Logs logs){
+    public Logs getLogInfo(ProceedingJoinPoint point, Logs logs) {
 
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
@@ -70,7 +75,7 @@ public class LogServiceImpl implements LogService {
         return logsMapper.insert(logs);
     }
 
-    private Map<Object, Object> handleParams(Object[] args, List paramNames){
+    private Map<Object, Object> handleParams(Object[] args, List paramNames) {
         Map<Object, Object> params = new HashMap<>();
 
         for (int i = 0; i < args.length; i++) {
@@ -100,12 +105,12 @@ public class LogServiceImpl implements LogService {
         Object userId = map.get("userId");
 
         String logValue = null;
-        String menuName = null;
         if (description.contains("目录")) {
             JSONObject body = JSONObject.fromObject(map.get("body"));
+            Integer menuId = null;
+            String menuName = null;
             if (description.contains("删除")) {
                 String menuType = (String) body.get("menu_id");
-                Integer menuId = null;
                 if (menuType.equals("tab1")) {
                     menuName = "公共目录";
                     menuId = 1;
@@ -115,8 +120,8 @@ public class LogServiceImpl implements LogService {
                 }
                 List<CategoryDTO> categoryDTOS = (List<CategoryDTO>) redisManager.getList("OWNER_MENUID" + ":menuIds :" + menuId + "userId:" + logs.getUserId());
                 for (CategoryDTO categoryDTO : categoryDTOS) {
-                    if (categoryDTO.getId() == map.get("cateId")) {
-                        logValue = "删除" + menuName + "的<<" + categoryDTO.getName()+">>";
+                    if (body.get("cateId").equals(categoryDTO.getId().toString())) {
+                        logValue = "删除" + menuName + "下的<" + categoryDTO.getName() + ">目录";
                     }
                 }
             } else {
@@ -127,15 +132,31 @@ public class LogServiceImpl implements LogService {
                     menuName = "私人目录";
                 }
                 if (description.contains("添加")) {
-                    logValue = "添加<<" + body.get("name") + ">>到" + menuName;
+                    logValue = "添加目录<" + body.get("name") + ">到<" + menuName+">";
                 } else {
-                    logValue = "修改" + menuName + "的<<" + map.get("name")+">>";
+                    logValue = "修改<" + menuName + ">下的<" + body.get("name") + ">目录";
                 }
             }
         } else if (description.contains("文章")) {
-
-        } else {
-
+            JSONObject body = JSONObject.fromObject(map.get("body"));
+            if (description.contains("删除")) {
+                Integer cateId = postContentService.findCateIdByPostId(Integer.parseInt(body.get("postId").toString()));
+                Categories categories = categoriesMapper.selectByPrimaryKey(cateId);
+                List<PostDTO> postDTOS = (List<PostDTO>) redisManager.getList("OWNER_POSTS_BY_CATID" + ":cate :" + cateId);
+                for(PostDTO postDTO : postDTOS){
+                    if (body.get("postId").equals(postDTO.getId().toString())) {
+                        logValue = "删除<" + categories.getName() + ">目录下的<" + postDTO.getTitle() + ">文章";
+                    }
+                }
+            } else {
+                Integer cateId = Integer.parseInt(body.get("categoryId").toString());
+                Categories categories = categoriesMapper.selectByPrimaryKey(cateId);
+                if (description.contains("添加")) {
+                    logValue = "添加<" + body.get("title") + ">文章到<" + categories.getName()+">目录";
+                } else {
+                    logValue = "修改<" + categories.getName() + ">目录下的<" + body.get("title") + ">文章";
+                }
+            }
         }
         return logValue;
     }
