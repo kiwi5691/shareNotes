@@ -12,6 +12,10 @@ Page({
   data: {
     scrollTop: 0,
     oplogs:[],
+    oplogs2: [],
+    oplogs3: [],
+    oplogs4: [],
+    oplogs5: [],
     hasOps:true,
   },
 
@@ -29,6 +33,10 @@ Page({
       if (res.errno === 0) {
         that.setData({
           oplogs: res.data.oplogs,
+          oplogs2: res.data.oplogs2,
+          oplogs3: res.data.oplogs3,
+          oplogs4: res.data.oplogs4,
+          oplogs5: res.data.oplogs5,
         });
       } else {
         that.setData({

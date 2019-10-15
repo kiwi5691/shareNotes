@@ -60,16 +60,7 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
 
-      this.setData({
-        actions5: action
-      }); 
-
-      console.log(this.data.cateName);
-      console.log(this.data.switch1);
-      console.log(this.data.current);
       if (this.data.cateName == ""){
         this.setData({
           visible5: false,
@@ -79,17 +70,13 @@ Page({
           type: 'error'
         });
       }else{
-      setTimeout(() => {
-        action[1].loading = false;
         this.setData({
           visible5: false,
-          actions5: action
         });
         var name = this.data.cateName;
         var isPcOrPr = this.data.switch1;
         var iconSelected = this.data.current;
         this.addCategory(name, isPcOrPr, iconSelected);
-        }, 1000);
       }
     }
   },

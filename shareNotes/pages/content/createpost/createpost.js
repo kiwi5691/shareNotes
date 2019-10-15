@@ -66,12 +66,6 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
-
-      this.setData({
-        actions5: action
-      });
       if (this.data.titleName == "") {
         this.setData({
           visible5: false,
@@ -81,11 +75,8 @@ Page({
           type: 'error'
         });
       } else {
-      setTimeout(() => {
-        action[1].loading = false;
         this.setData({
           visible5: false,
-          actions5: action
         });
         var categoryId = this.data.categoryId;
         var title = this.data.titleName;
@@ -94,7 +85,6 @@ Page({
 
         var originalContent = this.data.context.split('&hc').join('<br>')
         this.createPost(categoryId, title, type, originalContent, allowComment);
-      },  1000);
       }
     }
   },

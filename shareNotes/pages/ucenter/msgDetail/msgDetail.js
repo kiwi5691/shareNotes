@@ -63,22 +63,13 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
 
-      this.setData({
-        actions5: action
-      });
-
-      setTimeout(() => {
         action[1].loading = false;
         this.setData({
           visible5: false,
-          actions5: action
         });
         var msg_id = this.data.msg_id;
         this.delMsg(msg_id);
-      }, 1000);
     }
   },
 

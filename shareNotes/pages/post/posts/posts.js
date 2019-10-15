@@ -63,24 +63,14 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
-
-      this.setData({
-        actions5: action
-      });
-      setTimeout(() => {
-        action[1].loading = false;
         this.setData({
           visible5: false,
-          actions5: action
         });
         var postId = this.data.post_id;
         this.delPost(postId);
         wx.navigateBack({
           delta: 1
         })
-      }, 1000);
     }
   },
   delComment: function (commentId){
@@ -124,24 +114,14 @@ Page({
         visibleCom: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
 
-      this.setData({
-        actions5: action
-      });
-
-      setTimeout(() => {
-        action[1].loading = false;
         this.setData({
           visibleCom: false,
-          actions5: action
         });
         var commentId = this.data.del_id;
         this.delComment(commentId);
         this.onShow();
 
-      }, 1000);
     }
   },
   onChange(event) {

@@ -17,14 +17,6 @@
 
 <i-divider content="目录创建时间:{{createTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
 
-
-
-<i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
-    <view>会删除整个目录的笔记</view>
-    <i-input value="{{ confirm }}" maxlength="15" bind:change	="confirmDel" title="目录名" autofocus placeholder="输入目录名" />
-</i-modal>
-<i-message id="message" />
-
 <i-drawer mode="right" visible="{{showRight2}}" mask-closable="{{false}}">
     <view class="demo-container">
         请选择您的操作
@@ -35,6 +27,14 @@
 
     </view>
 </i-drawer>
+
+<i-modal title="删除确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>会删除整个目录的笔记</view>
+    <i-input disabled="{{!visible5}}"value="{{ confirm }}" maxlength="15" bind:change	="confirmDel" title="目录名" autofocus placeholder="输入目录名" />
+</i-modal>
+<i-message id="message" />
+
+
 
 <view bindtap="toggleRight2">
     <image class="add_icon" src="/static/images/edit.png"></image>

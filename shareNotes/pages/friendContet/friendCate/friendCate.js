@@ -97,21 +97,12 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
 
-      this.setData({
-        actions5: action
-      });
-      setTimeout(() => {
-        action[1].loading = false;
         this.setData({
           visible5: false,
-          actions5: action
         });
         var fid = this.data.id;
         this.delFriend(fid);
-      }, 1000);
     }
   }
 })

@@ -31,5 +31,61 @@
 
             </view>
         </i-sticky-item>
+        <view hidden="{{oplogs2.length==0}}">
+          <i-sticky-item i-class="i-sticky-demo-title">
+            <view slot="title">
+                逻辑层
+            </view>
+            <view slot="content">
+            <i-cell-group wx:for="{{oplogs2}}" wx:key="id">
+                 <i-cell title="{{item.content}}">
+                   <text slot="footer">{{item.time}}</text>
+              </i-cell>
+            </i-cell-group>
+            </view>
+        </i-sticky-item>
+        </view>
+         <view hidden="{{oplogs3.length==0}}">
+          <i-sticky-item i-class="i-sticky-demo-title">
+            <view slot="title">
+                逻辑层
+            </view>
+            <view slot="content">
+            <i-cell-group wx:for="{{oplogs3}}" wx:key="id">
+                 <i-cell title="{{item.content}}">
+                   <text slot="footer">{{item.time}}</text>
+              </i-cell>
+            </i-cell-group>
+            </view>
+        </i-sticky-item>
+        </view>
+         <view hidden="{{oplogs4.length==0}}">
+          <i-sticky-item i-class="i-sticky-demo-title">
+            <view slot="title">
+                逻辑层
+            </view>
+            <view slot="content">
+            <i-cell-group wx:for="{{oplogs4}}" wx:key="id">
+                 <i-cell title="{{item.content}}">
+                   <text slot="footer">{{item.time}}</text>
+              </i-cell>
+            </i-cell-group>
+            </view>
+        </i-sticky-item>
+        </view>
+         <view hidden="{{oplogs5.length==0}}">
+          <i-sticky-item i-class="i-sticky-demo-title">
+            <view slot="title">
+                逻辑层
+            </view>
+            <view slot="content">
+            <i-cell-group wx:for="{{oplogs5}}" wx:key="id">
+                 <i-cell title="{{item.content}}">
+                   <text slot="footer">{{item.time}}</text>
+              </i-cell>
+            </i-cell-group>
+            </view>
+        </i-sticky-item>
+        </view>
     </i-sticky>
 </view>

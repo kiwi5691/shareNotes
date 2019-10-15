@@ -49,21 +49,11 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
-
-      this.setData({
-        actions5: action
-      });
-
-      setTimeout(() => {
         action[1].loading = false;
         this.setData({
           visible5: false,
-          actions5: action
         });
         this.delAllMsg();
-      }, 1000);
     }
   },
   goMsgDetail(e) {

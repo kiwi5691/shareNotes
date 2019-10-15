@@ -50,12 +50,6 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
-
-      this.setData({
-        actions5: action
-      });
       if (this.data.value5 == "") {
         this.setData({
           visible5: false,
@@ -65,11 +59,8 @@ Page({
           type: 'error'
         });
       } else {
-        setTimeout(() => {
-          action[1].loading = false;
           this.setData({
             visible5: false,
-            actions5: action
           });
           var postId = this.data.post_id;
           var content = this.data.value5;
@@ -79,8 +70,6 @@ Page({
             value5: ''
           });
           this.onShow();
-
-        }, 1000);
       }
     }
   },

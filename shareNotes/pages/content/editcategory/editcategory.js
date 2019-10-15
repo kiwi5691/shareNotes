@@ -62,13 +62,6 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
-
-      this.setData({
-        actions5: action
-      });
-
    
       if (this.data.cateName == "") {
         this.setData({
@@ -79,18 +72,14 @@ Page({
           type: 'error'
         });
       } else {
-        setTimeout(() => {
-          action[1].loading = false;
           this.setData({
             visible5: false,
-            actions5: action
           });
           var name = this.data.cateName;
           var isPcOrPr = this.data.switch1;
           var iconSelected = this.data.current;
           var cateId= this.data.cate_id;
           this.updateCategory(cateId,name, isPcOrPr, iconSelected);
-        }, 1000);
       }
     }
   },

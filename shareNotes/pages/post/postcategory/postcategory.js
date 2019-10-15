@@ -52,14 +52,7 @@ Page({
         visible5: false
       });
     } else {
-      const action = [...this.data.actions5];
-      action[1].loading = true;
-
-      this.setData({
-        actions5: action
-      });
       
-
       if (this.data.confirm != this.data.title) {
         this.setData({
           visible5: false,
@@ -69,16 +62,12 @@ Page({
           type: 'error'
         });
       } else {
-      setTimeout(() => {
-        action[1].loading = false;
         this.setData({
           visible5: false,
-          actions5: action
         });
         var cateId = this.data.cate_id;
         var menu_id = this.data.menu_id;
         this.delCategory(cateId, menu_id);
-      }, 1000);
      }
     }
   },
