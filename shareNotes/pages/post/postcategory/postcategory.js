@@ -174,6 +174,10 @@ Page({
       posts: tempPosts,
     });
     if (that.data.posts.length == 0) {
+      that.setData({
+        failMes: "您尚未创建文章",
+        hiddenAlertPu: false
+      })
     util.request(api.GetPostsAll + this.data.cate_id).then(function (res) {
      
       if (res.errno === 0) {
@@ -184,7 +188,7 @@ Page({
       } else if (res.errno === 801) {
         that.setData({
           failMes: res.errmsg,
-          hiddenAlertPu: !that.data.hiddenAlertPu
+          hiddenAlertPu: false
         })
       }
     }

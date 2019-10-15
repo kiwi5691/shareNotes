@@ -160,6 +160,11 @@ Page({
   },
   getContentAll: function () {
     let that = this;
+    // var tempPostsDetail = wx.getStorageSync('postDetail' + this.data.post_id)
+    // that.setData({
+    //   posts: tempPostsDetail,
+    // });
+    // todo
     util.request(api.GetPostsDetail + this.data.post_id).then(function (res) {
 
       if (res.errno === 0) {
