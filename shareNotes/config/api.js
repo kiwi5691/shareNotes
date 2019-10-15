@@ -1,5 +1,5 @@
 // 本机开发时使用
-var WxApiRoot = 'http://localhost:8080/wx/';
+var WxApiRoot = 'http://localhost:8088/wx/';
 
 // 云平台部署时使用
 // var WxApiRoot = 'http://3.14.127.134:8080/wx/';
@@ -27,6 +27,7 @@ module.exports = {
   GetPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
   GetPostsDetail: WxApiRoot + 'posts/getDetail/', //获取posts详细,
   GetPostsInfoDetail: WxApiRoot + 'posts/getInfo/', //获取posts详细,
+  GetOplogs: WxApiRoot + 'user/oplogs', //获取posts详细,
 
 
   GetFriendPublicCategory: WxApiRoot + 'friend/getAll/menu/', //获取朋友共有目录,

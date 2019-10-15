@@ -7,7 +7,7 @@ CREATE TABLE `user` (
   `password` varchar(63) NOT NULL DEFAULT '' COMMENT '用户密码',
   `gender` tinyint(3) NOT NULL DEFAULT '0' COMMENT '性别：0 未知， 1男， 1 女',
   `birthday` date DEFAULT NULL COMMENT '生日',
-  `last_login_time` datetime DEFAULT NULL COMMENT '最近一次登录时间',
+  `last_login_time` datetime DEFAULT NULL COMMENTlogs '最近一次登录时间',
   `last_login_ip` varchar(63) NOT NULL DEFAULT '' COMMENT '最近一次登录IP地址',
   `nickname` varchar(63) NOT NULL DEFAULT '' COMMENT '用户昵称或网络名称',
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '用户手机号码',
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(1023) NOT NULL,
   `user_id` varchar(1023) DEFAULT '' COMMENT '用户id',
-  `type` int(11) NOT NULL,
+  `type` int(11) NULL DEFAULT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4;
 

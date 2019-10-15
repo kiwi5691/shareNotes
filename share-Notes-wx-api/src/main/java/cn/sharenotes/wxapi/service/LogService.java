@@ -19,8 +19,9 @@ public interface LogService {
      * @param logs   日志
      * @throws JsonProcessingException 异常
      */
-    @Async
+
     Logs getLogInfo(ProceedingJoinPoint point, Logs logs);
 
+    @Async
     Integer addLog(Logs logs);
 }

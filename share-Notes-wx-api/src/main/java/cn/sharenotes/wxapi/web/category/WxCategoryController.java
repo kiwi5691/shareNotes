@@ -57,15 +57,6 @@ public class WxCategoryController {
         return ResponseUtil.ok(result);
     }
 
-    @GetMapping("/test/{msg}")
-    public String test(@PathVariable("msg") String msg){
-        if(wxMaSecCheckService.checkMessage(msg)){
-            return "fuck";
-        }else {
-            return "ok";
-        }
-
-    }
     @Log("添加目录")
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
@@ -73,7 +64,10 @@ public class WxCategoryController {
         Integer userId = 5;
         //到时候删除
         // TODO: 2019/10/14  
-
+        log.info("req:"+wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name").toString()));
+        if(!wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name"))){
+            ResponseUtil.fail(500,"违法违规标题");
+        }
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"add");
         if (categoryVO == null) {
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");

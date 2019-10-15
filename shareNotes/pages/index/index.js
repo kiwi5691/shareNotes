@@ -52,6 +52,13 @@ Page({
       });
     }
   },
+  goOplog: function () {
+   
+      wx.navigateTo({
+        url: '../content/oplog/oplog',
+      });
+    
+  },
   toggleRight2() {
     wx.vibrateShort();
     this.setData({

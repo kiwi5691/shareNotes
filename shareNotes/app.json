@@ -18,7 +18,8 @@
     "pages/ucenter/msgDetail/msgDetail",
     "pages/ucenter/leaning/leaning",
     "pages/ucenter/issue/issue",
-    "pages/share/addFriend/addFriend"
+    "pages/share/addFriend/addFriend",
+    "pages/content/oplog/oplog"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -49,8 +50,7 @@
         "iconPath": "static/images/my.png",
         "selectedIconPath": "static/images/my@selected.png",
         "text": "个人"
-      }
-      ,
+      },
       {
         "pagePath": "pages/share/addFriend/addFriend",
         "iconPath": "static/images/my.png",

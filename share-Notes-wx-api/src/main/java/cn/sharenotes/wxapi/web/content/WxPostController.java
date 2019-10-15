@@ -11,6 +11,7 @@ import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.model.dto.PostTypeDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
 import cn.sharenotes.wxapi.annotation.Log;
+import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class WxPostController {
 
     @ApiOperation("获取所有文章")
     @GetMapping("/getAll/{cate_id}")
-    public Object getPosts(/*@LoginUser Integer userId,*/ @PathVariable("cate_id") Integer cate_id) {
+    public Object getPosts(@LoginUser Integer userId, @PathVariable("cate_id") Integer cate_id) {
         List<PostTypeDTO> postTypeDTOS = new ArrayList<>();
         Map<String, Object> result = new HashMap<>();
 
@@ -62,12 +63,11 @@ public class WxPostController {
 
     }
 
+    @Log("添加文章")
     @ApiOperation(value = "添加文章")
     @PostMapping("/add")
-    public Object addPostContent(/*@LoginUser Integer userId,*/ @RequestBody String body) {
+    public Object addPostContent(@LoginUser Integer userId, @RequestBody String body) {
         Integer categoryId = JacksonUtil.parseInteger(body, "categoryId");
-
-        Integer userId = 5;
 
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "add");
 
@@ -88,12 +88,12 @@ public class WxPostController {
         return ResponseUtil.fail();
     }
 
+    @Log("修改文章")
     @ApiOperation(value = "更改文章")
     @PutMapping("update")
-    public Object updatePostContent(/*@LoginUser Integer userId,*/ @RequestBody String body) {
+    public Object updatePostContent(@LoginUser Integer userId, @RequestBody String body) {
         Integer postId = JacksonUtil.parseInteger(body, "postId");
-        Integer cateId = postContentService.findCateIdByPostId(postId);
-        Integer userId = 5;
+        Integer cateId = JacksonUtil.parseInteger(body, "categoryId");
 
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "update");
         if (postContentVo == null) {
@@ -110,6 +110,7 @@ public class WxPostController {
         return ResponseUtil.fail();
     }
 
+    @Log("删除文章")
     @ApiOperation(value = "删除文章")
     @DeleteMapping("delete")
     public Object deletePostContent(@RequestBody String body) {
@@ -126,7 +127,7 @@ public class WxPostController {
 
     @ApiOperation("文章详细")
     @GetMapping("/getDetail/{post_id}")
-    public Object getPostDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
+    public Object getPostDetail(@LoginUser Integer userId, @PathVariable("post_id") Integer post_id) {
         Map<String, Object> result = new HashMap<>();
         PostCommentDto postCommentDto = postCommentService.findPostsByPostId(post_id);
 
@@ -143,7 +144,7 @@ public class WxPostController {
 
     @ApiOperation("文章修改dto")
     @GetMapping("/getInfo/{post_id}")
-    public Object getPostInfoDetail(/*@LoginUser Integer userId,*/ @PathVariable("post_id") Integer post_id) {
+    public Object getPostInfoDetail(@LoginUser Integer userId, @PathVariable("post_id") Integer post_id) {
         Map<String, Object> result = new HashMap<>();
         PostCommentDto postCommentDto = postCommentService.findPostsByPostId(post_id);
         result.put("originalContent", postCommentDto.getOriginalContent());

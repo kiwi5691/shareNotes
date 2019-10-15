@@ -29,8 +29,7 @@ public class SysMsgController {
     private SysMsgService sysMsgService;
     @ApiOperation(value = "通过获取详细信息")
     @GetMapping("/getDetail/{msg_id}")
-    public Object getAllCategories(/*@LoginUser Integer userId,*/ @PathVariable("msg_id") Integer msg_id){
-        Integer recentid =5;
+    public Object getAllCategories(@LoginUser Integer userId, @PathVariable("msg_id") Integer msg_id){
         SysMsgDto sysMsgDto  = new SysMsgDto();
         sysMsgDto = sysMsgService.getMsgPostById(msg_id);
         if(sysMsgDto == null){
@@ -51,12 +50,11 @@ public class SysMsgController {
     }
     @ApiOperation(value = "通过获取消息list")
     @GetMapping("/getAllMsg")
-    public Object getAllMsg(/*@LoginUser Integer userId,*/ ){
+    public Object getAllMsg(@LoginUser Integer userId){
         MsgUtils.getType(1);
-        Integer recentid =5;
         // TODO: 2019/10/12  type 1 评论 ，2 好友，3系统
         // TODO: 2019/10/12  返回type( MsgUtils.getType(1)的String)，content，msgId  合成的msgList  dto
-        List<MsgListDto> sysMsgs = sysMsgService.getSysMsg(recentid);
+        List<MsgListDto> sysMsgs = sysMsgService.getSysMsg(userId);
 
 
         if(CollectionUtils.isEmpty(sysMsgs)){
@@ -74,7 +72,7 @@ public class SysMsgController {
     }
     @ApiOperation(value = "通过 msgid 删除评论")
     @GetMapping("/delete")
-    public Object delectMsg(/*@LoginUser Integer userId,*/ @RequestBody String body){
+    public Object delectMsg(@LoginUser Integer userId,@RequestBody String body){
         Integer msg_id = JacksonUtil.parseInteger(body, "msg_id");
         if(sysMsgService.delectMsgById(msg_id)>0){
             return ResponseUtil.ok();
@@ -95,9 +93,8 @@ public class SysMsgController {
 
     @ApiOperation(value = "获取消息数量")
     @GetMapping("/getNum")
-    public Object getAllNum(/*@LoginUser Integer userId,*/ ){
-        Integer recentid =5;
-        Integer sysMsgsnum = sysMsgService.getSysMsgNum(recentid);
+    public Object getAllNum(@LoginUser Integer userId ){
+        Integer sysMsgsnum = sysMsgService.getSysMsgNum(userId);
         Map<String, Object> result = new HashMap<>();
 
         result.put("sysMsgsnum", sysMsgsnum);
