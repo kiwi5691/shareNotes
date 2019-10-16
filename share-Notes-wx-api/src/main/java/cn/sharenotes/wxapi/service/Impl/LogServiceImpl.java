@@ -59,7 +59,7 @@ public class LogServiceImpl implements LogService {
         if (args != null && paramNames != null) {
             Map<Object, Object> paramsMap = new HashMap<>();
             paramsMap = handleParams(args, Arrays.asList(paramNames));
-            value = handleAop(paramsMap, value, logs);
+            value = handleAop(paramsMap, value);
         }
 
         if (logAnnotation != null) {
@@ -100,9 +100,7 @@ public class LogServiceImpl implements LogService {
         return params;
     }
 
-    public String handleAop(Map<Object, Object> map, String description, Logs logs) {
-        //到时候替换logs.getUserId
-//        Object userId = map.get("userId");
+    public String handleAop(Map<Object, Object> map, String description) {
 
         String logValue = null;
         if (description.contains("目录")) {
