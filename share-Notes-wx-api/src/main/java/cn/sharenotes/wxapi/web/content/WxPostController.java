@@ -141,18 +141,7 @@ public class WxPostController {
         result.put("baseComment", postCommentDto.getCommentDtoList());
         return ResponseUtil.ok(result);
     }
-
-    @ApiOperation("文章修改dto")
-    @GetMapping("/getInfo/{post_id}")
-    public Object getPostInfoDetail(@LoginUser Integer userId, @PathVariable("post_id") Integer post_id) {
-        Map<String, Object> result = new HashMap<>();
-        PostCommentDto postCommentDto = postCommentService.findPostsByPostId(post_id);
-        result.put("originalContent", postCommentDto.getOriginalContent());
-        result.put("title", postCommentDto.getTitle());
-        result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
-        result.put("allowComment",ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
-        return ResponseUtil.ok(result);
-    }
+    
 
     /**
      *

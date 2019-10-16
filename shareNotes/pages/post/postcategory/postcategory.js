@@ -152,6 +152,9 @@ Page({
    */
   onLoad: function (options) {
 
+
+
+    wx.setStorageSync('titleName', options.title )
     this.setData({
       createTime: options.creTime,
       updateTime: options.upTime,
@@ -159,9 +162,13 @@ Page({
       title: options.title,
       menu_id: options.menu_id
     });
-    wx.setNavigationBarTitle({
-      title: options.title
-    })
+    var titleT = wx.getStorageSync('titleName')
+    if (titleT.length != 0) {
+      wx.setNavigationBarTitle({
+        title: titleT
+      })
+    }
+
 
     this.getPostsAll();
   },
@@ -173,10 +180,10 @@ Page({
     that.setData({
       posts: tempPosts,
     });
-    if (that.data.posts.length == 0) {
+    if (tempPosts.length == 0) {
       that.setData({
         failMes: "您尚未创建文章",
-        hiddenAlertPu: false
+        hiddenAlertPu: true
       })
     util.request(api.GetPostsAll + this.data.cate_id).then(function (res) {
      
@@ -188,7 +195,7 @@ Page({
       } else if (res.errno === 801) {
         that.setData({
           failMes: res.errmsg,
-          hiddenAlertPu: false
+          hiddenAlertPu: true
         })
       }
     }
@@ -216,7 +223,8 @@ Page({
         })
     }
     
-    this.getPostsAll();
+    let that =this;
+    that.getPostsAll();
   },
 
   /**

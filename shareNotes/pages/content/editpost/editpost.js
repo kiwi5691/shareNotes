@@ -119,6 +119,7 @@ Page({
         //postcategories目录
         that.getPostsAll();
         //全
+        that.updateStoragePost();
         wx.navigateBack({
           delta: 1
         })
@@ -195,23 +196,23 @@ Page({
   },
   getContentAll: function () {
     let that = this;
-    util.request(api.GetPostsInfoDetail + this.data.post_id).then(function (res) {
 
-      if (res.errno === 0) {
-        that.setData({
-          context: res.data.originalContent,
-          titleName: res.data.title,
-          switch1: res.data.switch1,
-          switch2: res.data.allowComment,
-          contextTemp: res.data.originalContent.split('\n').join('<br>')
-        });
-        that.updateTextArea(res.data.originalContent)
-      } else {    
-        $Message({
-          content: res.errmsg,
-          type: 'error'
-        });
-      }
+    var tempPostsDetail = wx.getStorageSync('postDetail' + that.data.post_id)
+    if (tempPostsDetail['type']=='markdown'){
+      that.setData({ 
+        switch1: false,
+      });
+    }else{
+      that.setData({
+        switch1: true,
+      });
+    }
+    that.setData({
+      context: tempPostsDetail['originalContent'],
+      titleName: tempPostsDetail['title'],
+      //评论
+      switch2: tempPostsDetail['switch1'],
+      contextTemp: tempPostsDetail['originalContent'].split('\n').join('<br>')
     });
   },
   //上传
@@ -360,6 +361,30 @@ Page({
       currentWordNumber: len
     });
   },
+  updateStoragePost:function(){
+
+    let that = this;
+    wx.removeStorageSync('postDetail' + that.data.post_id)
+    util.request(api.GetPostsDetail + this.data.post_id).then(function (res) {
+      if (res.errno === 0) {
+        var temptPostsDetail = {
+          originalContent: res.data.originalContent,
+          visits: res.data.visits,
+          title: res.data.title,
+          switch1: res.data.switch1,
+          type: res.data.type,
+          updateTime: res.data.updateTime,
+          createTime: res.data.createTime,
+          baseComment: res.data.baseComment
+        };
+        wx.setStorageSync('postDetail' + that.data.post_id, temptPostsDetail)
+      }else{
+        $Message({
+          content: "服务器出小差了",
+          type: 'error'
+        });
+      } });
+ },
   getPostsAll: function () {
     var cid = this.data.cate_id;
     let that = this;

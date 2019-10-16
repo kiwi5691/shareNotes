@@ -122,6 +122,7 @@ Page({
         //postcategories目录
         that.getPostsAll();
         //全
+        that.updateStoragePost();
       } else {
         $Message({
           content: res.errmsg,
@@ -129,6 +130,11 @@ Page({
         });
       }
     });
+  },
+  updateStoragePost: function () {
+
+    let that = this;
+    wx.removeStorageSync('postDetail' + that.data.post_id)
   },
   handleClickDelCo({ detail }) {
     if (detail.index === 0) {
@@ -160,11 +166,18 @@ Page({
   },
   getContentAll: function () {
     let that = this;
-    // var tempPostsDetail = wx.getStorageSync('postDetail' + this.data.post_id)
-    // that.setData({
-    //   posts: tempPostsDetail,
-    // });
-    // todo
+    var tempPostsDetail = wx.getStorageSync('postDetail' + that.data.post_id)
+    that.setData({
+      originalContent: tempPostsDetail['originalContent'],
+      visits: tempPostsDetail['visits'],
+      title: tempPostsDetail['title'],
+      switch1: tempPostsDetail['switch1'],
+      type: tempPostsDetail['type'],
+      updateTime: tempPostsDetail['updateTime'],
+      createTime: tempPostsDetail['createTime'],
+      baseComment: tempPostsDetail['baseComment']
+    });
+    if (tempPostsDetail.length == 0) {
     util.request(api.GetPostsDetail + this.data.post_id).then(function (res) {
 
       if (res.errno === 0) {
@@ -178,6 +191,18 @@ Page({
           createTime: res.data.createTime,
           baseComment: res.data.baseComment,
         });
+        var temptPostsDetail = {
+          originalContent : res.data.originalContent,
+          visits: res.data.visits,
+          title: res.data.title,
+          switch1: res.data.switch1,
+          type: res.data.type,
+          updateTime: res.data.updateTime,
+          createTime: res.data.createTime,
+          baseComment: res.data.baseComment
+        };
+
+        wx.setStorageSync('postDetail' + that.data.post_id, temptPostsDetail)
       } else {
         that.setData({
           failMes: res.errmsg,
@@ -185,7 +210,8 @@ Page({
         })
       }
     });
-  },
+    
+  }},
   /**
    * 生命周期函数--监听页面加载
    */
