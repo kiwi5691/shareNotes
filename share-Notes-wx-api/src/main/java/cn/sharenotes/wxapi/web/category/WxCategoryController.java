@@ -90,9 +90,9 @@ public class WxCategoryController {
     public Object deleteCategory(@LoginUser Integer userId,@RequestBody String body) {
 //        Integer userId = 5;
         Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
-        Integer menuId = JacksonUtil.parseInteger(body, "menu_id");
-        if (categoriesService.deleteCategoryByCategoryId(menuId, categoryId) > 0) {
-            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(menuId.toString()));
+        String menuId = JacksonUtil.parseString(body, "menu_id");
+        if (categoriesService.deleteCategoryByCategoryId(CategoryUtils.checkMenu_id(menuId), categoryId) > 0) {
+            categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(menuId));
             //删除文章redis
             postContentService.updatePostsRedisInfo(categoryId);
             //删除评论redis

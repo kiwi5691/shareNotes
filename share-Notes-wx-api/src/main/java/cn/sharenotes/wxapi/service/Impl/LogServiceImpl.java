@@ -102,7 +102,7 @@ public class LogServiceImpl implements LogService {
 
     public String handleAop(Map<Object, Object> map, String description, Logs logs) {
         //到时候替换logs.getUserId
-        Object userId = map.get("userId");
+//        Object userId = map.get("userId");
 
         String logValue = null;
         if (description.contains("目录")) {
@@ -118,7 +118,7 @@ public class LogServiceImpl implements LogService {
                     menuName = "私人目录";
                     menuId = 2;
                 }
-                List<CategoryDTO> categoryDTOS = (List<CategoryDTO>) redisManager.getList("OWNER_MENUID" + ":menuIds :" + menuId + "userId:" + logs.getUserId());
+                List<CategoryDTO> categoryDTOS = (List<CategoryDTO>) redisManager.getList("OWNER_MENUID" + ":menuIds :" + menuId + "userId:" + map.get("userId"));
                 for (CategoryDTO categoryDTO : categoryDTOS) {
                     if (body.get("cateId").equals(categoryDTO.getId().toString())) {
                         logValue = "删除" + menuName + "下的<" + categoryDTO.getName() + ">目录";
