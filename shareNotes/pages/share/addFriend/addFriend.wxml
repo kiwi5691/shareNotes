@@ -1,5 +1,0 @@
-<i-load-more />
-<i-load-more tip="{{text1}}" loading="{{ false }}" />
-<i-load-more tip="{{text2}}" loading="{{ false }}" />
-
-<i-button bind:click="handleClick" type="primary">Primary</i-button>

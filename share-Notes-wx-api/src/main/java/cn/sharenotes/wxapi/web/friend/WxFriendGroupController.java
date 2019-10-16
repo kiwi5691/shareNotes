@@ -66,7 +66,7 @@ public class WxFriendGroupController {
         if(b){
             return ResponseUtil.ok();
         }
-        return ResponseUtil.fail();
+        return ResponseUtil.fail(101,"用户已经是你的好友");
     }
     @ApiOperation(value = "通过好友id删除好友")
     @DeleteMapping("/delete")

@@ -122,15 +122,35 @@ Page({
       }).exec();
     };
   },
+  addFriend: function (id) {
+    var friendId = id;
+    let that = this;
+    util.request(api.AddFriend + friendId).then(function (res) {
 
+      if (res.errno === 0) {
+        $Message({
+          content: "添加好友成功",
+          type: 'success'
+        });
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'warning'
+        });
+      }
+    });
+  },
   onLoad: function (options) {
-
-
+    wx.showShareMenu({
+      withShareTicket:true
+    })
+    if(options.id){
+      this.addFriend();
+    }
     var that = this;
     that.getListMain();  
     that.getBrands();
     that.getUserId();
-
   },
   goFriendCate:function(e) {
     var fid = e.currentTarget.dataset.fid
@@ -139,7 +159,6 @@ Page({
       url: "/pages/friendContet/friendCate/friendCate?fid=" + fid+"&fname="+fname
     })
   },
-
   toLogin: function () {
     wx.vibrateShort();
     wx.switchTab({
@@ -189,6 +208,8 @@ Page({
     var oid = this.data.user_Id
     var check = this.data.checkUserId
     let userInfo = wx.getStorageSync('userInfo')
+    console.log(oid);
+
     var shareObj = {
         title: 'ShareNotes',
         imageUrl: '',
@@ -201,10 +222,10 @@ Page({
           console.log("转发失败", res);
         }
       }
-    if (check) { 
+    if (check) {
       shareObj.title = userInfo.nickName + '想添加您为好友';
       shareObj.imageUrl = userInfo.avatarUrl;
-      shareObj.path = "/pages/share/addFriend/addFriend?id=" + oid;
+      shareObj.path = "/pages/share/index/index?id=" + oid;
     }
     return shareObj;
  
