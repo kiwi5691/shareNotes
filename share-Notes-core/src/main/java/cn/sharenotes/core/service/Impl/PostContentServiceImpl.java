@@ -1,6 +1,5 @@
 package cn.sharenotes.core.service.Impl;
 
-import cn.sharenotes.core.redis.KeyPrefix.OwnerContentKey;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.db.domain.PostCategories;
@@ -134,9 +133,9 @@ public class PostContentServiceImpl implements PostContentService {
         List<PostsWithBLOBs> posts = null;
         List<PostDTO> postDTOS = null;
 
-        postIds = redisManager.get(OwnerContentKey.board, "catePostIds :" + cateId, List.class);
-
-        if (CollectionUtils.isEmpty(postIds)) {
+//        postIds = redisManager.get(OwnerContentKey.board, "catePostIds :" + cateId, List.class);
+//
+//        if (CollectionUtils.isEmpty(postIds)) {
             PostCategoriesExample postCategoriesExample = new PostCategoriesExample();
             postCategoriesExample.setOrderByClause("create_time DESC");
             postCategoriesExample.createCriteria().andCategoryIdEqualTo(cateId);
@@ -146,9 +145,9 @@ public class PostContentServiceImpl implements PostContentService {
             }
             postIds = postCategories.stream().map(PostCategories::getPostId).collect(Collectors.toList());
             postIds = Optional.ofNullable(postIds).orElseGet(Collections::emptyList);
-
-            redisManager.set(OwnerContentKey.board, "catePostIds" + cateId, postIds);
-        }
+//
+//            redisManager.set(OwnerContentKey.board, "catePostIds" + cateId, postIds);
+//        }
 
         PostsExample postsExample = new PostsExample();
         postsExample.setOrderByClause("update_time DESC");
