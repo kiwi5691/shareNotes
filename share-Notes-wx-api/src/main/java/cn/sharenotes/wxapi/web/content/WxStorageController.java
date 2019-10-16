@@ -7,15 +7,16 @@ import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.domain.Attachments;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @author kiwi
@@ -40,18 +41,60 @@ public class WxStorageController {
 //        if(wxMaSecCheckService.checkImage(file)){
             String originalFilename = file.getOriginalFilename();
              attachments = new Attachments();
+        try {
+            attachments = storageService.store(file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File f = null;
+        if(file.equals("")||file.getSize()<=0){
+            file = null;
+        }else{
+            InputStream ins = null;
             try {
-                attachments = storageService.store(file.getInputStream(), file.getSize(), file.getContentType(), originalFilename);
-            }catch (Exception e){
-                return ResponseUtil.fail(200,"图片不支持");
+                ins = file.getInputStream();
+                f=new File(file.getOriginalFilename());
+                inputStreamToFile(ins, f);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-//        }else {
-//            return ResponseUtil.fail(200,"违法违规内容");
-//
-//        }
+
+        }
 
 
-        return ResponseUtil.ok(attachments);
+
+        try {
+            if (wxMaSecCheckService.checkImage(f)) {
+                log.info("here");
+                File del = new File(f.toURI());
+                del.delete();
+                return ResponseUtil.ok(attachments);
+
+            }
+        }catch (Exception e) {
+            File del = new File(f.toURI());
+            del.delete();
+            return ResponseUtil.fail(201, "违法违规内容");
+        }
+
+        return ResponseUtil.fail(501,"????");
+
+    }
+    public static void inputStreamToFile(InputStream ins,File file) {
+        try {
+            OutputStream os = new FileOutputStream(file);
+            int bytesRead = 0;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            ins.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 

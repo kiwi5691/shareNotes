@@ -2,15 +2,23 @@ package cn.sharenotes.wxapi.web.comment;
 
 import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.sharenotes.core.service.CommentService;
+import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.db.domain.Comments;
+import cn.sharenotes.db.model.dto.CommentDto;
+import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author hu
@@ -23,6 +31,8 @@ public class CommentController {
     private CommentService commentService;
     @Autowired
     private WxMaSecCheckService wxMaSecCheckService;
+    @Resource
+    private PostCommentService postCommentService;
 
     @ApiOperation(value = "获得int userid, int postId,String content, Boolean isanonymous")
     @PostMapping("/add")
@@ -50,7 +60,21 @@ public class CommentController {
         if (commentService.delectComment(commentId) > 0) {
             return ResponseUtil.ok();
         }
-         return ResponseUtil.fail(999, "未知错误");
+        return ResponseUtil.fail(999, "未知错误");
+    }
+    @ApiOperation(value = "通过 postId 获得评论")
+    @GetMapping("/get/{post_id}")
+    public Object getPost(@LoginUser Integer userId, @PathVariable("post_id") Integer post_id){
+
+        Map<String, Object> result = new HashMap<>();
+        List<CommentDto> commentsList = postCommentService.findCommentByPostId(post_id);
+
+        if(CollectionUtils.isEmpty(commentsList)){
+            return ResponseUtil.fail(604,"用户文章下没有评论");
+        }
+        result.put("baseComment", commentsList);
+        return ResponseUtil.ok(result);
+
     }
 
 }

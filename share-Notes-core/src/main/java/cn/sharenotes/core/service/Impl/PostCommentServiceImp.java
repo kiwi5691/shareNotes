@@ -87,6 +87,24 @@ public class PostCommentServiceImp implements PostCommentService {
     }
 
     @Override
+    public List<CommentDto> findCommentByPostId(Integer postId) {
+        List<Comments> commentsList =null;
+
+        commentsList = commentsMapper.selectByPostId(postId);
+
+        List<CommentDto> commentDtoList = new ArrayList<>();
+
+        for (Comments comments: commentsList ) {
+
+            User user = userMapper.selectByPrimaryKey(comments.getUserId());
+
+            CommentDto commentDto = new CommentDto(comments,user);
+            commentDtoList.add(commentDto);
+        }
+        return commentDtoList;
+    }
+
+    @Override
     public int IncrVisit(Integer post_id) {
        return postsMapper.incrVisit(post_id);
     }
