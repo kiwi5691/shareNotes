@@ -1,5 +1,9 @@
 /**index.wxss**/
-
+page {
+  height: 100%;
+  width: 100%;
+  background: #f4f4f4;
+}
 .add_icon{
 
   position: fixed;

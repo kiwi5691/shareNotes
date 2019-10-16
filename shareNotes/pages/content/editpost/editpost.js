@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    text: "最少10字",
+    text: " ",
     visible5: false,
     switch2: true,
     switch1: false,
@@ -112,14 +112,15 @@ Page({
       categoryId: categoryId
     }, 'PUT').then(function (res) {
       if (res.errno === 0) {
+       
+        //postcategories目录
+        that.upPostsAll();
+        //全
+        that.updateStoragePost();
         $Message({
           content: '修改成功！',
           type: 'success'
         });
-        //postcategories目录
-        that.getPostsAll();
-        //全
-        that.updateStoragePost();
         wx.navigateBack({
           delta: 1
         })
@@ -349,7 +350,7 @@ Page({
     //最少字数限制
     if (len <= this.data.min)
       this.setData({
-        texts: "最低十个字"
+        texts: " "
       })
     else if (len > this.data.min)
       this.setData({
@@ -384,22 +385,10 @@ Page({
         });
       } });
  },
-  getPostsAll: function () {
-    var cid = this.data.cate_id;
+  upPostsAll: function () {
     let that = this;
+    var cid = that.data.cate_id;
     wx.removeStorageSync('postAll' + cid)
-
-    util.request(api.GetPostsAll + cid).then(function (res) {
-      if (res.errno === 0) {
-        wx.setStorageSync('postAll' + cid, res.data.posts)
-      } else {
-        $Message({
-          content: "服务器出小差了",
-          type: 'error'
-        });
-      }
-    }
-    );
   },
   updateTextArea(context) {
     var value = context;
@@ -412,7 +401,7 @@ Page({
     //最少字数限制
     if (len <= this.data.min)
       this.setData({
-        texts: "最低十个字"
+        texts: " "
       })
     else if (len > this.data.min)
       this.setData({

@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    text:"最少10字",
+    text:" ",
     visible5: false,
     switch1: false,
     switch2: true,
@@ -202,7 +202,7 @@ Page({
     //最少字数限制
     if (len <= this.data.min)
       this.setData({
-        texts: "最低十个字"
+        texts: " "
       })
     else if (len > this.data.min)
       this.setData({
@@ -215,24 +215,10 @@ Page({
     });
   },
 
-  getPostsAll: function () {
-    var cid = this.data.categoryId;
+  upPostsAll: function () {
     let that = this;
+    var cid = that.data.categoryId;
     wx.removeStorageSync('postAll' + cid)
-
-    util.request(api.GetPostsAll + cid).then(function (res) {
-        if (res.errno === 0) {
-          wx.setStorageSync('postAll' + cid, res.data.posts)
-        } else {
-          $Message({
-            content: '创建成功！',
-            type: 'success'
-          });
-        }
-      
-    }
-    );
-
   },
   createPost: function (categoryId, title, type, originalContent, allowComment){
    
@@ -245,10 +231,14 @@ Page({
       allowComment: allowComment
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
-        //postcategories目录
-        that.getPostsAll();
         //全
         that.updateStoragePost();
+        //postcategories目录
+        that.upPostsAll();
+        $Message({
+          content: "创建成功",
+          type: 'success'
+        });
         wx.navigateBack({
           delta: 1
         })
@@ -327,11 +317,6 @@ Page({
           createTime: res.data.createTime,
         };
         wx.setStorageSync('postDetail' + that.data.post_id, temptPostsDetail)
-      } else {
-        $Message({
-          content: "服务器出小差了",
-          type: 'error'
-        });
       }
     });
   },
@@ -398,7 +383,7 @@ Page({
     //最少字数限制
     if (len <= this.data.min)
       this.setData({
-        texts: "最低十个字"
+        texts: " "
       })
     else if (len > this.data.min)
       this.setData({

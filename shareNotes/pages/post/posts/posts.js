@@ -68,29 +68,14 @@ Page({
         });
         var postId = this.data.post_id;
         this.delPost(postId);
-        wx.navigateBack({
-          delta: 1
-        })
     }
   },
 
-  getPostsAll: function () {
+  upPostsAll: function () {
     var cid = this.data.cate_id;
     let that = this;
     wx.removeStorageSync('postAll' + cid)
-
-    util.request(api.GetPostsAll + cid).then(function (res) {
-      if (res.errno === 0) {
-        console.log("sucess")
-        wx.setStorageSync('postAll' + cid, res.data.posts)
-      } else {
-        $Message({
-          content: '创建成功！',
-          type: 'success'
-        });
-      }
-    }
-    );
+    
   },
   delComment: function (commentId){
     util.request(api.DelComment, {
@@ -116,14 +101,17 @@ Page({
       postId: postId,
     }, 'DELETE').then(function (res) {
       if (res.errno === 0) {
+        //全
+        that.updateStoragePost();
+        //postcategories目录
+        that.upPostsAll();
         $Message({
           content: '删除文章成功！',
           type: 'success'
         });
-        //postcategories目录
-        that.getPostsAll();
-        //全
-        that.updateStoragePost();
+        wx.navigateBack({
+          delta: 1
+        })
       } else {
         $Message({
           content: res.errmsg,
@@ -133,7 +121,6 @@ Page({
     });
   },
   updateStoragePost: function () {
-
     let that = this;
     wx.removeStorageSync('postDetail' + that.data.post_id)
   },
@@ -168,16 +155,6 @@ Page({
   getContentAll: function () {
     let that = this;
     var tempPostsDetail = wx.getStorageSync('postDetail' + that.data.post_id)
-    that.setData({
-      originalContent: tempPostsDetail['originalContent'],
-      visits: tempPostsDetail['visits'],
-      title: tempPostsDetail['title'],
-      switch1: tempPostsDetail['switch1'],
-      type: tempPostsDetail['type'],
-      updateTime: tempPostsDetail['updateTime'],
-      createTime: tempPostsDetail['createTime'],
-      baseComment: tempPostsDetail['baseComment']
-    });
     if (tempPostsDetail.length == 0) {
     util.request(api.GetPostsDetail + this.data.post_id).then(function (res) {
 
@@ -212,9 +189,21 @@ Page({
           hiddenAlertPu: !that.data.hiddenAlertPu
         })
       }
+    }); 
+    }else{
+        that.setData({
+          
+      originalContent: tempPostsDetail['originalContent'],
+      visits: tempPostsDetail['visits'],
+      title: tempPostsDetail['title'],
+      switch1: tempPostsDetail['switch1'],
+      type: tempPostsDetail['type'],
+      updateTime: tempPostsDetail['updateTime'],
+      createTime: tempPostsDetail['createTime'],
+      baseComment: tempPostsDetail['baseComment']
     });
-    
-  }},
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */

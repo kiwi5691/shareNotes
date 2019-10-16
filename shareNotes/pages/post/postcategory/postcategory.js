@@ -172,17 +172,13 @@ Page({
   },
 
   getPostsAll: function () {
-    var cid = this.data.cate_id;
     let that = this;
+    var cid = that.data.cate_id;
     var tempPosts = wx.getStorageSync('postAll' + cid)
     that.setData({
       posts: tempPosts,
     });
-    if (tempPosts.length == 0) {
-      that.setData({
-        failMes: "您尚未创建文章",
-        hiddenAlertPu: false
-      })
+    if (this.data.posts.length == 0) {
     util.request(api.GetPostsAll + this.data.cate_id).then(function (res) {
      
       if (res.errno === 0) {

@@ -63,8 +63,6 @@ Page({
         visible5: false
       });
     } else {
-
-        action[1].loading = false;
         this.setData({
           visible5: false,
         });

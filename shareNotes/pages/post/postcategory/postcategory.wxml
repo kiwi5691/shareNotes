@@ -1,4 +1,4 @@
-<i-divider content="目录修改时间:{{updateTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+<i-divider content="目录修改时间:{{updateTime}}"  lineColor="#2d8cf0"></i-divider>
 
 <view hidden="{{hiddenAlertPu}}">
 <i-alert   show-icon desc>
@@ -10,12 +10,12 @@
 
 <i-cell-group wx:for="{{posts}}" wx:key="id">
      <i-card bindtap="goPostDetail" title="{{item.title}}" data-id='{{item.id}}' extra="{{item.updateTime}}">    
-   <view slot="content"><htmltowxml type="{{item.type}}" text="{{item.formatContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+   <view slot="content"><htmltowxml style="-webkit-overflow-scrolling: touch" type="{{item.type}}" text="{{item.formatContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
        </view>
        </i-card>
 </i-cell-group>
 
-<i-divider content="目录创建时间:{{createTime}}" color="#2d8cf0" lineColor="#2d8cf0"></i-divider>
+<i-divider content="目录创建时间:{{createTime}}"  lineColor="#2d8cf0"></i-divider>
 
 <i-drawer mode="right" visible="{{showRight2}}" mask-closable="{{false}}">
     <view class="demo-container">

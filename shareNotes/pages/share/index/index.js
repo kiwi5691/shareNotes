@@ -172,17 +172,17 @@ Page({
   getUserId: function () {
     let that = this;
     var userIdT = wx.getStorageSync('userId');
-    if (userIdT.length == 0) {
-      $Message({
-        content: "您尚登录",
-        type: 'error'
-      });
-    } else {
+    if (userIdT) {
       that.setData({
         user_Id: userIdT,
         checkUserId: true
       });
-      console.log(userIdT)
+    } else {
+      $Message({
+        content: "您尚登录",
+        type: 'error'
+      });
+     
     }
   },
   onShareAppMessage (res)  {
