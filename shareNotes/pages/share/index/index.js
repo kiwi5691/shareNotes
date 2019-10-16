@@ -169,29 +169,24 @@ Page({
     that.getBrands();
     that.getUserId();
   },
-  /**
-  * 用户点击右上角分享
-  */
-  getUserId:function(){
+  getUserId: function () {
     let that = this;
-    util.request(api.GetUserId).then(function (res) {
-
-      if (res.errno === 0) {
-        that.setData({
-          user_Id: res.data.id,
-          checkUserId:true
-        });
-        console.log(res.data.id)
-      } else {
-        $Message({
-          content: res.errmsg,
-          type: 'error'
-        });
-      }
-    });   
+    var userIdT = wx.getStorageSync('userId');
+    if (userIdT.length == 0) {
+      $Message({
+        content: "您尚登录",
+        type: 'error'
+      });
+    } else {
+      that.setData({
+        user_Id: userIdT,
+        checkUserId: true
+      });
+      console.log(userIdT)
+    }
   },
   onShareAppMessage (res)  {
-    var fid = this.data.userId
+    var oid = this.data.user_Id
     var check = this.data.checkUserId
     let userInfo = wx.getStorageSync('userInfo')
     var shareObj = {
@@ -209,7 +204,7 @@ Page({
     if (check) { 
       shareObj.title = userInfo.nickName + '想添加您为好友';
       shareObj.imageUrl = userInfo.avatarUrl;
-      shareObj.path = "pages/share/addFriend/addFriend?id=" + fid;
+      shareObj.path = "pages/share/addFriend/addFriend?id=" + oid;
     }
     return shareObj;
  

@@ -18,7 +18,7 @@ Page({
     confirm:'',
     title: '',
     menu_id:'',
-    hiddenAlertPu: true,
+    hiddenAlertPu: false,
     posts:[],
     updateTime: '',
     createTime: '',
@@ -107,8 +107,6 @@ Page({
 
       if (res.errno === 0) {
         wx.setStorageSync('publicCate', res.data.publicCate)
-        console.log(res.data.publicCate)
-        console.log("public")
       } else {
         $Message({
           content: '服务器出小差啦',
@@ -183,23 +181,28 @@ Page({
     if (tempPosts.length == 0) {
       that.setData({
         failMes: "您尚未创建文章",
-        hiddenAlertPu: true
+        hiddenAlertPu: false
       })
     util.request(api.GetPostsAll + this.data.cate_id).then(function (res) {
      
       if (res.errno === 0) {
         that.setData({
           posts: res.data.posts,
+          hiddenAlertPu: true
         });
         wx.setStorageSync('postAll' + cid, res.data.posts)
       } else if (res.errno === 801) {
         that.setData({
           failMes: res.errmsg,
-          hiddenAlertPu: true
+          hiddenAlertPu: false
         })
       }
     }
     );
+    }else{
+      that.setData({
+        hiddenAlertPu: true
+      });
     }
   },
   /**

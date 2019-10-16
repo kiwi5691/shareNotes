@@ -36,8 +36,6 @@ public class SysMsgController {
              return ResponseUtil.fail(1101,"您还没有消息");
         }
         Map<String, Object> result = new HashMap<>();
-
-
         result.put("avatar", sysMsgDto.getSysMsg().getEmail());
         result.put("userName", sysMsgDto.getComments().getAuthor());
         result.put("title", sysMsgDto.getPosts().getTitle());
@@ -55,19 +53,11 @@ public class SysMsgController {
         // TODO: 2019/10/12  type 1 评论 ，2 好友，3系统
         // TODO: 2019/10/12  返回type( MsgUtils.getType(1)的String)，content，msgId  合成的msgList  dto
         List<MsgListDto> sysMsgs = sysMsgService.getSysMsg(userId);
-
-
         if(CollectionUtils.isEmpty(sysMsgs)){
             return ResponseUtil.fail(1101,"您还没有消息");
         }
         Map<String, Object> result = new HashMap<>();
-
             result.put("msgList", sysMsgs);
-
-
-
-
-
         return ResponseUtil.ok(result);
     }
     @ApiOperation(value = "通过 msgid 删除评论")

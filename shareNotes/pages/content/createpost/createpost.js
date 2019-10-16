@@ -225,8 +225,8 @@ Page({
           wx.setStorageSync('postAll' + cid, res.data.posts)
         } else {
           $Message({
-            content: "服务器出小差了",
-            type: 'error'
+            content: '创建成功！',
+            type: 'success'
           });
         }
       
@@ -245,13 +245,10 @@ Page({
       allowComment: allowComment
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
-        $Message({
-          content: '创建成功！',
-          type: 'success'
-        });
         //postcategories目录
         that.getPostsAll();
         //全
+        that.updateStoragePost();
         wx.navigateBack({
           delta: 1
         })
@@ -313,6 +310,30 @@ Page({
       console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
     })
 
+  },
+  updateStoragePost: function () {
+
+    let that = this;
+    wx.removeStorageSync('postDetail' + that.data.post_id)
+    util.request(api.GetPostsDetail + this.data.post_id).then(function (res) {
+      if (res.errno === 0) {
+        var temptPostsDetail = {
+          originalContent: res.data.originalContent,
+          visits: res.data.visits,
+          title: res.data.title,
+          switch1: res.data.switch1,
+          type: res.data.type,
+          updateTime: res.data.updateTime,
+          createTime: res.data.createTime,
+        };
+        wx.setStorageSync('postDetail' + that.data.post_id, temptPostsDetail)
+      } else {
+        $Message({
+          content: "服务器出小差了",
+          type: 'error'
+        });
+      }
+    });
   },
   handleOpen3() {
     this.setData({

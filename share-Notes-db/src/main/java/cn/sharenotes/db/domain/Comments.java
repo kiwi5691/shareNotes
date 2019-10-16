@@ -1,9 +1,10 @@
 package cn.sharenotes.db.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Comments {
+public class Comments implements Serializable {
 
     private Integer type;
 

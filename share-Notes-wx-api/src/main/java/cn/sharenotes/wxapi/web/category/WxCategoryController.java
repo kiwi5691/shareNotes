@@ -42,8 +42,6 @@ public class WxCategoryController {
     @ApiOperation(value = "通过 meanId 获取目录")
     @GetMapping("/getAll/{menuId}")
     public Object getAllCategories(@LoginUser Integer userId,@PathVariable("menuId") Integer menuId) {
-//        Integer userId = 5;
-        //到时候删除
         List<CategoryDTO> categoryDTOS = categoriesService.findCategoriesByUserOpenIdWithMenuId(userId, menuId);
         if (CollectionUtils.isEmpty(categoryDTOS)) {
             return ResponseUtil.fail(601, "您尚未创建目录");

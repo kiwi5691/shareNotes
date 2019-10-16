@@ -13,7 +13,6 @@ module.exports = {
   GetMsgDetail: WxApiRoot + 'sysmsg/getDetail/', //获取消息详细
 
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录
-  GetUserId: WxApiRoot + 'auth/getId', //获取id
   
   StorageUpload: WxApiRoot + 'storage/upload', //存储上传,
   FetchStorage: WxApiRoot + 'storage/fetch/', //存储获取,
@@ -26,7 +25,6 @@ module.exports = {
   GetPublicCategory: WxApiRoot + 'category/getAll/' + 1, //获取公共目录,
   GetPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
   GetPostsDetail: WxApiRoot + 'posts/getDetail/', //获取posts详细,
-  GetPostsInfoDetail: WxApiRoot + 'posts/getInfo/', //获取posts详细,
   GetOplogs: WxApiRoot + 'user/oplogs', //获取posts详细,
 
 

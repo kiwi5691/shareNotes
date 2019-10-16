@@ -81,11 +81,12 @@ Page({
 
     util.request(api.GetPostsAll + cid).then(function (res) {
       if (res.errno === 0) {
+        console.log("sucess")
         wx.setStorageSync('postAll' + cid, res.data.posts)
       } else {
         $Message({
-          content: "服务器出小差了",
-          type: 'error'
+          content: '创建成功！',
+          type: 'success'
         });
       }
     }
@@ -189,6 +190,7 @@ Page({
           type: res.data.type,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
+          //todo
           baseComment: res.data.baseComment,
         });
         var temptPostsDetail = {
@@ -199,6 +201,7 @@ Page({
           type: res.data.type,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
+          //todo
           baseComment: res.data.baseComment
         };
 

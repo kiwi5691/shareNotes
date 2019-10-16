@@ -113,7 +113,7 @@ public class WxPostController {
     @Log("删除文章")
     @ApiOperation(value = "删除文章")
     @DeleteMapping("delete")
-    public Object deletePostContent(@RequestBody String body) {
+    public Object deletePostContent(@LoginUser Integer userId,@RequestBody String body) {
         Integer postId = JacksonUtil.parseInteger(body, "postId");
         Integer cateId = postContentService.findCateIdByPostId(postId);
         Integer i = postContentService.deletePostContentAndCategory(postId);
@@ -141,7 +141,7 @@ public class WxPostController {
         result.put("baseComment", postCommentDto.getCommentDtoList());
         return ResponseUtil.ok(result);
     }
-    
+
 
     /**
      *

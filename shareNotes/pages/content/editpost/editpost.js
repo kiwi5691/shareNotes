@@ -375,7 +375,6 @@ Page({
           type: res.data.type,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
-          baseComment: res.data.baseComment
         };
         wx.setStorageSync('postDetail' + that.data.post_id, temptPostsDetail)
       }else{
