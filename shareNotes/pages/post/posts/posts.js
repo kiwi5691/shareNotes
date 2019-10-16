@@ -152,6 +152,17 @@ Page({
       url: "/pages/content/editpost/editpost?post_id=" + this.data.post_id + "&cate_id=" + this.data.cate_id
     })
   },
+  getComments: function () {
+    let that = this;
+    util.request(api.getComments + this.data.post_id).then(function (res) {
+
+      if (res.errno === 0) {
+        that.setData({
+          baseComment: res.data.baseComment,
+        });
+      } 
+    });
+  },
   getContentAll: function () {
     let that = this;
     var tempPostsDetail = wx.getStorageSync('postDetail' + that.data.post_id)
@@ -167,8 +178,7 @@ Page({
           type: res.data.type,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
-          //todo
-          baseComment: res.data.baseComment,
+          
         });
         var temptPostsDetail = {
           originalContent : res.data.originalContent,
@@ -178,8 +188,6 @@ Page({
           type: res.data.type,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
-          //todo
-          baseComment: res.data.baseComment
         };
 
         wx.setStorageSync('postDetail' + that.data.post_id, temptPostsDetail)
@@ -192,7 +200,7 @@ Page({
     }); 
     }else{
         that.setData({
-          
+        
       originalContent: tempPostsDetail['originalContent'],
       visits: tempPostsDetail['visits'],
       title: tempPostsDetail['title'],
@@ -200,9 +208,9 @@ Page({
       type: tempPostsDetail['type'],
       updateTime: tempPostsDetail['updateTime'],
       createTime: tempPostsDetail['createTime'],
-      baseComment: tempPostsDetail['baseComment']
     });
     }
+    that.getComments();
   },
   /**
    * 生命周期函数--监听页面加载
@@ -213,6 +221,7 @@ Page({
       cate_id: options.cate_id
     });
     this.getContentAll();
+
   },
 
   /**

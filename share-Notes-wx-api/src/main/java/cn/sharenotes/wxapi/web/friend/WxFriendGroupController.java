@@ -34,7 +34,7 @@ public class WxFriendGroupController {
     @ApiOperation(value = "通过 UserId 获取朋友")
     @GetMapping("/getAll")
     public Object getAllFriends(@LoginUser Integer userId ){
-        Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(4);
+        Map<GroupDtoKey, List<GroupDto>> groupDtoMap= userGroupsMapper.selectFrindByUseId(userId);
         if(CollectionUtils.isEmpty(groupDtoMap)){
             return ResponseUtil.fail(701,"没有朋友");
         }

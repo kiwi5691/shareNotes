@@ -7,6 +7,12 @@
 <i-panel title="笔记">
     <view style="padding: 15px;"><i-icon type="brush" size="28"/>~~我们推荐写使用markdown，html也可以使用纯文本。</view>
 </i-panel>
+<i-panel title="消息">
+    <view style="padding: 15px;"><i-icon type="eit" size="28"/>~~个人页面会显示消息个数，消息要删除后消息个数才会减少。</view>
+</i-panel>
+<i-panel title="issue">
+    <view style="padding: 15px;"><i-icon type="interactive" size="28"/>~~issue发送可能会比较慢，因为我们关闭了消息队列。建议到github提交</view>
+</i-panel>
 <i-panel title="朋友">
     <view style="padding: 15px;"><i-icon type="group" size="28"/>~~添加朋友可以点击右上角的分享来添加</view>
 </i-panel>

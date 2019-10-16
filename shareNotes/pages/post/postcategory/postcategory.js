@@ -221,7 +221,7 @@ Page({
           title: titleT
         })
     }
-    
+    wx.removeStorageSync(key)('titleName')
     let that =this;
     that.getPostsAll();
   },

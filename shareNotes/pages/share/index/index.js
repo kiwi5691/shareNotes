@@ -204,7 +204,7 @@ Page({
     if (check) { 
       shareObj.title = userInfo.nickName + '想添加您为好友';
       shareObj.imageUrl = userInfo.avatarUrl;
-      shareObj.path = "pages/share/addFriend/addFriend?id=" + oid;
+      shareObj.path = "/pages/share/addFriend/addFriend?id=" + oid;
     }
     return shareObj;
  

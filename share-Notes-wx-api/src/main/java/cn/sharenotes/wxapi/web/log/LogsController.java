@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class LogsController {
         if(CollectionUtils.isEmpty(logsDTOS)){
             return ResponseUtil.fail(501,"没有操作日志");
         }
+        Calendar c = Calendar.getInstance();
         result.put("logs",logsDTOS);
         return ResponseUtil.ok(result);
     }

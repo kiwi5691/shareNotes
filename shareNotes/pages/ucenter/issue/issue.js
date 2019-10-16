@@ -72,7 +72,6 @@ Page({
           type: 'error'
         });
       } else {
-          action[1].loading = false;
           this.setData({
             visible5: false,
           });
