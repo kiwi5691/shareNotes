@@ -79,7 +79,7 @@ Page({
   // 页面滑动时触发
 
   onPageScroll: function (e) {
-
+    if (this.data.listMain.length!=0){
     this.setData({ scroolHeight: e.detail.scrollTop });
 
     for (let i in this.data.oHeight) {
@@ -97,6 +97,7 @@ Page({
         return false;
 
       }
+    }
     }
   },
 
@@ -141,11 +142,8 @@ Page({
     });
   },
   onLoad: function (options) {
-    wx.showShareMenu({
-      withShareTicket:true
-    })
     if(options.id){
-      this.addFriend();
+      this.addFriend(id);
     }
     var that = this;
     that.getListMain();  

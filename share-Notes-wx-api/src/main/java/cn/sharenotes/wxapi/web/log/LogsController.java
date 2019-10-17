@@ -44,6 +44,7 @@ public class LogsController {
                 tdbYesterday.add(logsDTO);
             }
         }
+
         result.put("today",today);
         result.put("yesterday",yesterday);
         result.put("tdbYesterday",tdbYesterday);
