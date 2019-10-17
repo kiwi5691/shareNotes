@@ -100,7 +100,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.sharenotes.db.domain.Logs">
+    <delete id="deleteAll">
+      delete from logs
+    </delete>
+    <insert id="insert" parameterType="cn.sharenotes.db.domain.Logs">
     insert into logs (id, create_time, update_time, 
       content, user_id, type
       )

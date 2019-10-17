@@ -2,8 +2,9 @@ package cn.sharenotes.db.mapper;
 
 import cn.sharenotes.db.domain.Logs;
 import cn.sharenotes.db.domain.LogsExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface LogsMapper {
     long countByExample(LogsExample example);
@@ -19,6 +20,8 @@ public interface LogsMapper {
     List<Logs> selectByExample(LogsExample example);
 
     Logs selectByPrimaryKey(Long id);
+
+    int deleteAll();
 
 
 

@@ -29,4 +29,9 @@ public class LogsServiceImpl implements LogsService {
         return DtoUtils.convertList2List(logs,LogsDTO.class);
     }
 
+    @Override
+    public Integer deleteAllLogs(){
+        return logsMapper.deleteAll();
+    }
+
 }

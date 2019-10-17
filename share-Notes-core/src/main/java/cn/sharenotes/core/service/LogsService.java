@@ -11,4 +11,5 @@ public interface LogsService {
 
     List<LogsDTO> getAllLogsByUserId(Integer userId);
 
+    Integer deleteAllLogs();
 }

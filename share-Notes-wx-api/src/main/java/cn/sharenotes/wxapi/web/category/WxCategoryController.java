@@ -60,8 +60,6 @@ public class WxCategoryController {
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
     public Object addCategory(@LoginUser Integer userId,@RequestBody String body) {
-//        Integer userId = 5;
-        //到时候删除
         // TODO: 2019/10/14  
         log.info("req:"+wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name").toString()));
         if(!wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name"))){
@@ -91,9 +89,7 @@ public class WxCategoryController {
         String menuId = JacksonUtil.parseString(body, "menu_id");
         if (categoriesService.deleteCategoryByCategoryId(CategoryUtils.checkMenu_id(menuId), categoryId) > 0) {
             categoriesService.updateCategoriesRedisInfo(userId, CategoryUtils.checkMenu_id(menuId));
-            //删除文章redis
             postContentService.updatePostsRedisInfo(categoryId);
-            //删除评论redis
             return ResponseUtil.ok();
         }
         return ResponseUtil.fail();
@@ -103,9 +99,6 @@ public class WxCategoryController {
     @PutMapping("update")
     public Object updateCategoryByCategoryId(@LoginUser Integer userId, @RequestBody String body) {
         Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
-
-//        Integer userId = 5;
-        //到时候删除
 
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"update");
         if (categoryVO == null) {
@@ -127,8 +120,7 @@ public class WxCategoryController {
     @ApiOperation(value = "通过 categoryId 获取详细目录")
     @GetMapping("detail/{categoryId}")
     public Object getCategoryDetail(@LoginUser Integer userId, @PathVariable("categoryId") Integer categoryId) {
-//        Integer userId = 5;
-        //到时候删除
+
         Optional<CategoryDetailDTO> categoryDTO = null;
 
         categoryDTO = Optional.ofNullable(categoriesService.findCategoriesDetailByCid(userId, categoryId));
