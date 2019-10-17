@@ -4,6 +4,7 @@ import cn.sharenotes.db.domain.Logs;
 import cn.sharenotes.db.domain.LogsExample;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface LogsMapper {
@@ -21,9 +22,7 @@ public interface LogsMapper {
 
     Logs selectByPrimaryKey(Long id);
 
-    int deleteAll();
-
-
+    int deleteAll(Date date);
 
     int updateByExampleSelective(@Param("record") Logs record, @Param("example") LogsExample example);
 

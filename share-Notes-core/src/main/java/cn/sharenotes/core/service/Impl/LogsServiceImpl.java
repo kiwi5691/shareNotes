@@ -5,6 +5,7 @@ import cn.sharenotes.db.domain.Logs;
 import cn.sharenotes.db.domain.LogsExample;
 import cn.sharenotes.db.mapper.LogsMapper;
 import cn.sharenotes.db.model.dto.LogsDTO;
+import cn.sharenotes.db.utils.DateUtil;
 import cn.sharenotes.db.utils.DtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class LogsServiceImpl implements LogsService {
 
     @Override
     public Integer deleteAllLogs(){
-        return logsMapper.deleteAll();
+        return logsMapper.deleteAll(DateUtil.dateBeforeThreeDays());
     }
 
 }

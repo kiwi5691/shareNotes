@@ -5,18 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
- * @author 76905
+ * @author kiwi
+ * @date 2019/10/17 16:37
  */
 @Data
-public class LogsDTO {
-
-    @JsonFormat(pattern = "HH:mm:ss")
-    private Date updateTime;
+@AllArgsConstructor
+public class OpLogsDTO {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
-    private String content;
+    private List<LogsDTO> logsDTOS;
 }

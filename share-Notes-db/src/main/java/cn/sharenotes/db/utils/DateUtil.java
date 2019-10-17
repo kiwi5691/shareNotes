@@ -32,12 +32,12 @@ public class DateUtil {
         return dateStr;
     }
 
-    public static Date dateBeforeMoth() {
+    public static Date dateBeforeThreeDays() {
 
         SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
-        c.add(Calendar.DATE,-14);
+        c.add(Calendar.DATE,-3);
         Date date = c.getTime();
         String dateStr = format.format(date);
         Date result = null;

@@ -3,6 +3,7 @@ package cn.sharenotes.wxapi.web.log;
 import cn.sharenotes.core.service.LogsService;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.model.dto.LogsDTO;
+import cn.sharenotes.db.model.dto.OpLogsDTO;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -45,9 +46,13 @@ public class LogsController {
             }
         }
 
-        result.put("today",today);
-        result.put("yesterday",yesterday);
-        result.put("tdbYesterday",tdbYesterday);
+        OpLogsDTO todays = new OpLogsDTO(new Date(),today);
+        OpLogsDTO yesterdays = new OpLogsDTO(new Date(date.getTime()- 24*3600*1000L),yesterday);
+        OpLogsDTO tdbYesterdays = new OpLogsDTO(new Date(date.getTime()- 2*24*3600*1000L),tdbYesterday);
+
+        result.put("today",todays);
+        result.put("yesterday",yesterdays);
+        result.put("tdbYesterday",tdbYesterdays);
         return ResponseUtil.ok(result);
     }
 

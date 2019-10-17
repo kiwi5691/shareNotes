@@ -61,24 +61,24 @@ public class SysMsgController {
         return ResponseUtil.ok(result);
     }
     @ApiOperation(value = "通过 msgid 删除评论")
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public Object delectMsg(@LoginUser Integer userId,@RequestBody String body){
         Integer msg_id = JacksonUtil.parseInteger(body, "msg_id");
         if(sysMsgService.delectMsgById(msg_id)>0){
             return ResponseUtil.ok();
         }
 
-        return ResponseUtil.fail();
+        return ResponseUtil.fail(2223,"删除失败");
     }
 
     @ApiOperation(value = "删除所有评论")
-    @GetMapping("/deleteAll")
+    @DeleteMapping("/deleteAll")
     public Object delectMsgAll(@LoginUser Integer userId){
         if(sysMsgService.delectMsgByRecentId(userId)>0){
             return ResponseUtil.ok();
         }
 
-        return ResponseUtil.fail();
+        return ResponseUtil.fail(2223,"删除失败");
     }
 
     @ApiOperation(value = "获取消息数量")

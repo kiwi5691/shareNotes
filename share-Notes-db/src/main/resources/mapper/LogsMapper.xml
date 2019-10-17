@@ -101,7 +101,7 @@
     </if>
   </delete>
     <delete id="deleteAll">
-      delete from logs
+      delete from logs  where create_time &lt;#{createTime,jdbcType=TIMESTAMP}
     </delete>
     <insert id="insert" parameterType="cn.sharenotes.db.domain.Logs">
     insert into logs (id, create_time, update_time, 

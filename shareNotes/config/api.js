@@ -25,7 +25,7 @@ module.exports = {
   GetPublicCategory: WxApiRoot + 'category/getAll/' + 1, //获取公共目录,
   GetPostsAll: WxApiRoot + 'posts/getAll/', //获取所有posts,
   GetPostsDetail: WxApiRoot + 'posts/getDetail/', //获取posts详细,
-  GetOplogs: WxApiRoot + 'user/oplogs', //获取posts详细,
+  GetOplogs: WxApiRoot + 'logs/getAll', //获取posts详细,
   GetComments: WxApiRoot + 'comment/get/', //获取posts详细,
 
 

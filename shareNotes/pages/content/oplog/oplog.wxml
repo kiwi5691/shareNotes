@@ -6,19 +6,27 @@
             </view>
             <view slot="content">
             <i-alert closable show-icon desc>
-                  以下是您5天内的操作记录
-                 <view slot="desc">超过5天的操作记录会自动删除</view>
+                  以下是您3天内的操作记录
+                 <view slot="desc">超过3天的操作记录会自动删除</view>
            </i-alert>  
             </view>
         </i-sticky-item>
         <i-sticky-item i-class="i-sticky-demo-title">
             <view slot="title">
-                逻辑层
+                 {{today}}
             </view>
             <view slot="content">
+            
+            <view  hidden="{{!oplogs.logsDTOS.length==0}}">
+            <i-alert type="success">
+             没有操作记录
+             </i-alert>
+            </view>
+            </view>
+
             <i-cell-group wx:for="{{oplogs}}" wx:key="id">
                  <i-cell title="{{item.content}}">
-                   <text slot="footer">{{item.time}}</text>
+                   <text slot="footer">{{item.updateTime}}</text>
               </i-cell>
             </i-cell-group>
             <view  hidden="{{hasOps}}">
@@ -29,63 +37,43 @@
              </i-alert>
             </view>
 
-            </view>
+            
         </i-sticky-item>
-        <view hidden="{{oplogs2.length==0}}">
           <i-sticky-item i-class="i-sticky-demo-title">
             <view slot="title">
-                逻辑层
+                {{yesterday}}
             </view>
             <view slot="content">
             <i-cell-group wx:for="{{oplogs2}}" wx:key="id">
                  <i-cell title="{{item.content}}">
-                   <text slot="footer">{{item.time}}</text>
+                   <text slot="footer">{{item.updateTime}}</text>
               </i-cell>
             </i-cell-group>
+          <view  hidden="{{!oplogs2.length==0}}">
+            <i-alert type="success">
+             没有操作记录
+             </i-alert>
             </view>
+            </view>
+            
         </i-sticky-item>
-        </view>
-         <view hidden="{{oplogs3.length==0}}">
           <i-sticky-item i-class="i-sticky-demo-title">
             <view slot="title">
-                逻辑层
+                {{tdbYesterday}}
             </view>
             <view slot="content">
             <i-cell-group wx:for="{{oplogs3}}" wx:key="id">
                  <i-cell title="{{item.content}}">
-                   <text slot="footer">{{item.time}}</text>
+                   <text slot="footer">{{item.updateTime}}</text>
               </i-cell>
             </i-cell-group>
+            <view  hidden="{{!oplogs3.length==0}}">
+            <i-alert type="success">
+             没有操作记录
+             </i-alert>
             </view>
+            </view>
+           
         </i-sticky-item>
-        </view>
-         <view hidden="{{oplogs4.length==0}}">
-          <i-sticky-item i-class="i-sticky-demo-title">
-            <view slot="title">
-                逻辑层
-            </view>
-            <view slot="content">
-            <i-cell-group wx:for="{{oplogs4}}" wx:key="id">
-                 <i-cell title="{{item.content}}">
-                   <text slot="footer">{{item.time}}</text>
-              </i-cell>
-            </i-cell-group>
-            </view>
-        </i-sticky-item>
-        </view>
-         <view hidden="{{oplogs5.length==0}}">
-          <i-sticky-item i-class="i-sticky-demo-title">
-            <view slot="title">
-                逻辑层
-            </view>
-            <view slot="content">
-            <i-cell-group wx:for="{{oplogs5}}" wx:key="id">
-                 <i-cell title="{{item.content}}">
-                   <text slot="footer">{{item.time}}</text>
-              </i-cell>
-            </i-cell-group>
-            </view>
-        </i-sticky-item>
-        </view>
     </i-sticky>
 </view>
