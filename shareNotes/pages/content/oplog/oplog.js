@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    spinShow: true,
     scrollTop: 0,
     oplogs:[],
     oplogs2: [],
@@ -32,13 +33,16 @@ Page({
 
       if (res.errno === 0) {
         that.setData({
-          today: res.data.today.createTime,
-          yesterday: res.data.yesterday.createTime,
-          tdbYesterday: res.data.tdbYesterday.createTime,
-          oplogs: res.data.today.logsDTOS,
-          oplogs2: res.data.yesterday.logsDTOS,
-          oplogs3: res.data.tdbYesterday.logsDTOS
+          today: res.data.today,
+          yesterday: res.data.yesterday,
+          tdbYesterday: res.data.tdbYesterday,
+          oplogs: res.data.oplogs,
+          oplogs2: res.data.oplogs2,
+          oplogs3: res.data.oplogs3
         });
+        that.setData({
+          spinShow:false
+        })
       } else {
         that.setData({
           hasOps: false,

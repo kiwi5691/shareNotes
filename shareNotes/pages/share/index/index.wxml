@@ -1,4 +1,4 @@
-
+<view>
 <view>
 <!-- 左侧列表内容部分 -->
 <scroll-view class="contentList" enable-back-to-top scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="onPageScroll">
@@ -39,4 +39,7 @@
     <view slot="desc">按上方转发卡片来添加新朋友</view>
 </i-alert>
 </view>
+    <i-spin size="large" fix wx:if="{{ spinShow }}"></i-spin>
+
 <i-message id="message" />
+</view>

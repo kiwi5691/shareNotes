@@ -13,7 +13,8 @@
     "i-icon": "../../dist/icon/index",
     "i-message": "../../dist/message/index",
     "i-alert": "../../dist/alert/index",
-     "i-input": "../../dist/input/index"
+     "i-input": "../../dist/input/index",
+     "i-spin": "../../dist/spin/index"
   },
   "navigationBarTitleText": "笔记详细",
   "backgroundColor": "#f4f4f4",

@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    spinShow: true,
     cate_id: '',
     failMes: '',
     posts:[],
@@ -92,6 +93,9 @@ Page({
           hiddenAlertPr: !that.data.hiddenAlertPr
         })
       }
+       that.setData({
+         spinShow: false
+       });
     });
   },
 })

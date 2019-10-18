@@ -4,6 +4,7 @@
     "i-sticky-item": "../../dist/sticky-item/index",
     "i-cell-group": "../../dist/cell-group/index",
     "i-cell": "../../dist/cell/index",
-      "i-alert": "../../dist/alert/index"
+    "i-alert": "../../dist/alert/index",
+    "i-spin": "../../dist/spin/index"
   }
 }

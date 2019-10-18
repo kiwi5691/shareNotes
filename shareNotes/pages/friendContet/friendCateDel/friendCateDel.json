@@ -8,7 +8,8 @@
      "i-alert": "../../dist/alert/index",
     "i-button": "../../dist/button/index",
     "i-drawer": "../../dist/drawer/index",
-    "i-divider": "../../dist/divider/index"
+    "i-divider": "../../dist/divider/index",
+     "i-spin": "../../dist/spin/index"
   },
   "navigationBarTitleText": "目录详细",
   "backgroundColor": "#f4f4f4",

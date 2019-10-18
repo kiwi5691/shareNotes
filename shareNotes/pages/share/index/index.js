@@ -10,6 +10,7 @@ Page({
   /** * 页面的初始数据 */
 
   data: {
+    spinShow: true,
     isActive: null,
     listMain: '',
     hasLogin: false,
@@ -30,6 +31,7 @@ Page({
       if (res.errno === 0) {
         that.setData({
           listMain: res.data,
+          spinShow: false
         });
       } else if (res.errno === 701) {
         that.setData({
@@ -40,19 +42,7 @@ Page({
     });
   },
 
-  
-  //   util.request(api.ShowFriendList, {
-  //     showType: that.data.showType,
-  //   }).then(function (res) {
-  //     if (res.errno === 0) {
-  //       console.log(res.data);
-  //       that.setData({
-  //         listMain: that.data.groupDtoMap.concat(res.data.list),
-  //       });
-  //     }
-  //   });
-  // },
-  
+
 
   //点击右侧字母导航定位触发
 
@@ -116,8 +106,7 @@ Page({
 
         that.setData({
 
-          oHeight: that.data.oHeight.concat(newArry)
-
+          oHeight: that.data.oHeight.concat(newArry),
         })
 
       }).exec();

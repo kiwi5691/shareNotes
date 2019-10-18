@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    spinShow: true,
     visibleCom: false,
     switch1: false,
     switch2: false,
@@ -126,6 +127,9 @@ Page({
           hiddenAlertPu: !that.data.hiddenAlertPu
         })
       }
+      that.setData({
+        spinShow: false
+      });
     });
   },
   /**

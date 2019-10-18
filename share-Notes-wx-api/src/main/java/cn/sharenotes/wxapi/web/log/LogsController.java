@@ -2,9 +2,11 @@ package cn.sharenotes.wxapi.web.log;
 
 import cn.sharenotes.core.service.LogsService;
 import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.db.model.dto.DateFomat;
 import cn.sharenotes.db.model.dto.LogsDTO;
-import cn.sharenotes.db.model.dto.OpLogsDTO;
 import cn.sharenotes.wxapi.annotation.LoginUser;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import java.util.*;
 /**
  * @author 76905
  */
+@Slf4j
 @RestController
 @RequestMapping("/wx/logs")
 public class LogsController {
@@ -46,13 +49,24 @@ public class LogsController {
             }
         }
 
-        OpLogsDTO todays = new OpLogsDTO(new Date(),today);
-        OpLogsDTO yesterdays = new OpLogsDTO(new Date(date.getTime()- 24*3600*1000L),yesterday);
-        OpLogsDTO tdbYesterdays = new OpLogsDTO(new Date(date.getTime()- 2*24*3600*1000L),tdbYesterday);
+        DateFomat date1 = new DateFomat();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 
-        result.put("today",todays);
-        result.put("yesterday",yesterdays);
-        result.put("tdbYesterday",tdbYesterdays);
+        result.put("oplogs",today);
+        result.put("oplogs2",yesterday);
+        result.put("oplogs3",tdbYesterday);
+        date1.today();
+        String todayss = sdf1.format(date1.getDate());
+
+        result.put("today", todayss);
+        date1.yesterday();
+        String yesterdayss = sdf1.format(date1.getDate());
+
+        result.put("yesterday",yesterdayss);
+        date1.tdbYesterday();
+        String tdbYesterdayss = sdf1.format(date1.getDate());
+
+        result.put("tdbYesterday",tdbYesterdayss);
         return ResponseUtil.ok(result);
     }
 

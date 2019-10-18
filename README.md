@@ -44,6 +44,22 @@ binarywang | 封装wxApi工具 |
 Towxml | 解析html到wxml工具 | 
 iView | UI组件库 | 
 
+## 项目环境
+- 安装 JDK（1.8+）
+- 安装 Maven (3.3.0+)
+- 安装 Redis服务 (3.0+)
+- 安装 MySQL (5.7+)
+- 安装 ActivetMQ （5.15.9） 其版本和JDK对应
+- 安装 微信开发者工具
+
+## 配置
+### 数据库
+share-Note-db模块下的 sql --- shareNotes-table.sql
+并且在 application-db.properties 中配置数据库 
+### 存储配置
+share-Note-db模块下的 application-core.properties 配置自己的路径 如果为本地调试 可以使用
+address: http://localhost:8088/wx/storage/fetch/ 
+服务器同理，这里已经配置好了sso，可以照对应添加
 
 ### 项目技术人员
 - kiwi

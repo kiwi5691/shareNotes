@@ -1,5 +1,5 @@
 <import src="/towxml/entry.wxml"/>
-
+<view>
 <view hidden="{{!hiddenAlertPu}}">
 <i-alert   show-icon desc>
     {{failMes}}
@@ -63,3 +63,6 @@
     </i-modal>
 <i-message id="message" />
 
+    <i-spin size="large" fix wx:if="{{ spinShow }}"></i-spin>
+
+</view>

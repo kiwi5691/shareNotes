@@ -7,6 +7,7 @@ var app = getApp();
 
 Page({
   data: {
+    spinShow: true,
     id:'',
     failMes: '',
     fname:'',
@@ -37,6 +38,7 @@ Page({
       if (res.errno === 0) {
         that.setData({
           publicCate: res.data.publicCate,
+          spinShow:false
         });
       } else if (res.errno === 721) {
         that.setData({
@@ -44,6 +46,11 @@ Page({
           hiddenAlertPr: !that.data.hiddenAlertPr
         })
       }
+
+      that.setData({
+        spinShow: false
+      });
+  
     });
   },
   onLoad: function (options) {

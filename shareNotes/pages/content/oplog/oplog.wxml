@@ -1,3 +1,4 @@
+<view>
 <view class="i-sticky-demo">
     <i-sticky scrollTop="{{scrollTop}}">
      <i-sticky-item i-class="i-sticky-demo-title">
@@ -13,33 +14,23 @@
         </i-sticky-item>
         <i-sticky-item i-class="i-sticky-demo-title">
             <view slot="title">
-                 {{today}}
+                {{today}}
             </view>
             <view slot="content">
-            
-            <view  hidden="{{!oplogs.logsDTOS.length==0}}">
-            <i-alert type="success">
-             没有操作记录
-             </i-alert>
-            </view>
-            </view>
-
             <i-cell-group wx:for="{{oplogs}}" wx:key="id">
                  <i-cell title="{{item.content}}">
                    <text slot="footer">{{item.updateTime}}</text>
               </i-cell>
             </i-cell-group>
-            <view  hidden="{{hasOps}}">
-
+          <view  hidden="{{!oplogs.length==0}}">
             <i-alert type="success">
-             您目前还没有操作记录
-              <view slot="desc">开始创建笔记呀</view>
+             没有操作记录
              </i-alert>
             </view>
-
+            </view>
             
         </i-sticky-item>
-          <i-sticky-item i-class="i-sticky-demo-title">
+        <i-sticky-item i-class="i-sticky-demo-title">
             <view slot="title">
                 {{yesterday}}
             </view>
@@ -76,4 +67,7 @@
            
         </i-sticky-item>
     </i-sticky>
+</view>
+    <i-spin size="large" fix wx:if="{{ spinShow }}"></i-spin>
+
 </view>

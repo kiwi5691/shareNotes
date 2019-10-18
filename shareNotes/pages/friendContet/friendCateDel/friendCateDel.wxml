@@ -1,4 +1,4 @@
-
+<view>
 <i-divider content="加载完成"></i-divider>
 
 <view hidden="{{hiddenAlertPr}}">
@@ -14,5 +14,6 @@
        </i-card>
 </i-cell-group>
 
-
+    <i-spin size="large" fix wx:if="{{ spinShow }}"></i-spin>
+</view>
 

@@ -1,3 +1,4 @@
+<view>
 <i-tabs current="{{ current }}" bindchange="handleChange">
     <i-tab key="tab1" title="公共目录"></i-tab>
 </i-tabs>
@@ -23,3 +24,5 @@
     <view>确定{{fname}}嘛？</view>
 </i-modal>
 <i-message id="message" />
+ <i-spin size="large" fix wx:if="{{ spinShow }}"></i-spin>
+</view>
