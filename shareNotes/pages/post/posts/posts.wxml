@@ -1,3 +1,5 @@
+<import src="/towxml/entry.wxml"/>
+
 <i-divider content="笔记修改时间:{{updateTime}}" color="#2d8cf0" ></i-divider>
 
 <view hidden="{{!hiddenAlertPu}}">
@@ -15,9 +17,8 @@
 </i-panel>    
 
 <i-panel title="内容">
-<htmltowxml type="{{type}}" text="{{originalContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
-
-</i-panel>   
+ <template is="entry" data="{{...article}}"/>
+</i-panel>
 <i-divider content="评论" ></i-divider>
 
 
@@ -30,7 +31,7 @@
     </i-cell>
 
 </i-cell-group>
-<view hidden="{{baseComment !== null}}">
+<view hidden="{{!baseComment == null}}">
 <i-alert   show-icon desc>
     目前没有评论
     <view slot="desc">点击右上角分享笔记给朋友呀</view>

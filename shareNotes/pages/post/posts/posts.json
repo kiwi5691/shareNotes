@@ -11,7 +11,6 @@
       "i-badge": "../../dist/badge/index",
       "i-switch": "../../dist/switch/index",
        "i-icon": "../../dist/icon/index",
-      "htmltowxml": "plugin://htmltowxml/view",
       "i-message": "../../dist/message/index",
        "i-alert": "../../dist/alert/index"
   },

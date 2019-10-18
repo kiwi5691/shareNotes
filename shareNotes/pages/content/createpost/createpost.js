@@ -113,7 +113,32 @@ Page({
   onReady: function () {
 
   },
-
+  updateMarkdown: function (context){
+    const _ts = this;
+    let data = app.towxml.toJson(
+      context,         
+      'markdown'
+    );
+    data = app.towxml.initData(data, {
+      app: _ts
+    });
+    _ts.setData({
+      article1: data
+    });
+  },
+  updatehtml: function (context) {
+    const _ts = this;
+    let data = app.towxml.toJson(
+      context,
+      'html'
+    );
+    data = app.towxml.initData(data, {
+      app: _ts
+    });
+    _ts.setData({
+      article2: data
+    });
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -174,6 +199,8 @@ Page({
       visible1: true,
       visibleReview: true
     });
+    this.updatehtml(this.data.context);
+    this.updateMarkdown(this.data.context);
   },
 
   handleClose1() {

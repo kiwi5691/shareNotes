@@ -1,3 +1,5 @@
+<import src="/towxml/entry.wxml"/>
+
 <view hidden="{{!hiddenAlertPu}}">
 <i-alert   show-icon desc>
     {{failMes}}
@@ -12,8 +14,7 @@
 </view>
 </i-panel>    
 <i-panel title="内容">
-<htmltowxml text="{{originalContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
-
+ <template is="entry" data="{{...article}}"/>
 </i-panel>   
 <i-divider content="评论" ></i-divider>
 

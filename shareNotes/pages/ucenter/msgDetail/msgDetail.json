@@ -3,7 +3,8 @@
         "i-card": "../../dist/card/index",
         "i-panel": "../../dist/panel/index",
         "i-modal": "../../dist/modal/index",
-        "i-button": "../../dist/button/index"
+        "i-button": "../../dist/button/index",
+         "i-message": "../../dist/message/index"
   },
   "navigationBarTitleText": "消息详细",
   "backgroundColor": "#f4f4f4"

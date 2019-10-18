@@ -1,7 +1,7 @@
 var util = require('./utils/util.js');
 var api = require('./config/api.js');
 var user = require('./utils/user.js');
-
+const Towxml = require('./towxml/main');
 App({
   onLaunch: function () {
     const updateManager = wx.getUpdateManager();
@@ -18,6 +18,7 @@ App({
       })
     })
   },
+  towxml: new Towxml(),
   onShow: function (options) {
     user.checkLogin().then(res => {
       this.globalData.hasLogin = true;

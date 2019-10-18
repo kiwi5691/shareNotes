@@ -33,13 +33,15 @@ AOP | 面向切面编程 |
 JWT | JWT登录支持 | 
 Lombok | 简化对象封装工具 | 
 Jackson | 封装json工具 | 
+binarywang | 封装wxApi工具 | 
+
 
 #### 前端技术
 
 技术 | 说明 | 
 ----|----|
 微信小程序 | 微信小程序 |
-html2wxml | 解析html到wxml工具 | 
+Towxml | 解析html到wxml工具 | 
 iView | UI组件库 | 
 
 

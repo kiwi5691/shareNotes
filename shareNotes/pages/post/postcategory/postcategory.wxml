@@ -10,8 +10,9 @@
 
 <i-cell-group wx:for="{{posts}}" wx:key="id">
      <i-card bindtap="goPostDetail" title="{{item.title}}" data-id='{{item.id}}' extra="{{item.updateTime}}">    
-   <view slot="content"><htmltowxml style="-webkit-overflow-scrolling: touch" type="{{item.type}}" text="{{item.formatContent}}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
-       </view>
+   <view slot="content">
+   <text >{{item.formatContent}}</text>
+    </view>
        </i-card>
 </i-cell-group>
 

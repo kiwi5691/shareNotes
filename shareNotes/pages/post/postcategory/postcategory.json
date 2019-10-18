@@ -9,7 +9,6 @@
       "i-drawer": "../../dist/drawer/index",
       "i-divider": "../../dist/divider/index",
       "i-input": "../../dist/input/index",
-      "htmltowxml": "plugin://htmltowxml/view",
       "i-message": "../../dist/message/index",
        "i-alert": "../../dist/alert/index"
   },

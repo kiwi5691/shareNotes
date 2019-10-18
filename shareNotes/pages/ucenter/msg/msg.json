@@ -5,7 +5,8 @@
       "i-icon": "../../dist/icon/index",
       "i-modal": "../../dist/modal/index",
       "i-button": "../../dist/button/index",
-      "i-alert": "../../dist/alert/index"
+      "i-alert": "../../dist/alert/index",
+      "i-message": "../../dist/message/index"
           
   },
   "navigationBarTitleText": "所有消息",

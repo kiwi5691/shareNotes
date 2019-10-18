@@ -1,3 +1,4 @@
+<import src="/towxml/entry.wxml"/>
 <i-tabs current="{{ current }}" bindchange="handleChange">
     <i-tab key="tab1" title="html"></i-tab>
     <i-tab key="tab2" title="markdown"></i-tab>
@@ -9,39 +10,39 @@
 
  <i-panel title="使用标题" >
      <i-cell title="<h1>我是标题</h1>" ></i-cell>
- <htmltowxml type="html" text="<h1>我是标题</h1>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+    <template is="entry" data="{{...htitle}}"/>
 </i-panel>
 
  <i-panel title="标题大小，通过修改h后面的数字，1到6" >
      <i-cell title="<h6>我是标题</h6>" ></i-cell>
- <htmltowxml type="html" text="<h6>我是标题</h6>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+      <template is="entry" data="{{...ahtitle}}"/>
 </i-panel>
 
  <i-panel title="使用段落" >
      <i-cell title="<p>我是段落</p>" ></i-cell>
- <htmltowxml type="html" text="<p>我是段落</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+      <template is="entry" data="{{...hp}}"/>
 </i-panel>
 
  <i-panel title="字体加厚" >
      <i-cell title="<strong>字体加厚</strong>" ></i-cell>
- <htmltowxml type="html" text="<strong>字体加厚</strong>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+      <template is="entry" data="{{...hwid}}"/>
 </i-panel>
 
 
 <i-panel title="使用无序列表" >
      <i-cell title="<ul><li>kiki</li><li>wiwi</li></ul>" ></i-cell> 
- <htmltowxml type="html" text="<ul><li>kiki</li><li>wiwi</li></ul>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+      <template is="entry" data="{{...hsort}}"/>
 </i-panel>
 
 
 <i-panel title="使用有序列表" >
      <i-cell title="<ol><li>kiki</li><li>wiwi</li></ol>" ></i-cell> 
- <htmltowxml type="html" text="<ol><li>kiki</li><li>wiwi</li></ol>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+           <template is="entry" data="{{...husort}}"/>
 </i-panel>
 
  <i-panel title="段落引用" >
      <i-cell title="<q>段落引用</q>" ></i-cell>
- <htmltowxml type="html" text="<q>段落引用</q>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+   <template is="entry" data="{{...hcw}}"/>
 </i-panel>
 
 
@@ -50,14 +51,14 @@
       <i-cell title="<tr><th>头1</th><th>头2</th></tr>" ></i-cell> 
      <i-cell title="<tr><td>行 1</td> <td>行 1</td> </tr>" ></i-cell> 
      <i-cell title="</table>" ></i-cell> 
+   <template is="entry" data="{{...htable}}"/>
 
- <htmltowxml type="html" text="<table ><tr><th>头1</th><th>头2</th></tr><tr><td>行 1</td><td>行 1</td></tr></table>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
 </i-panel>
 
 
  <i-panel title="使用图片" >
      <i-cell title="<img src='图片地址' height='10'>我是图片</img>" ></i-cell> 
-  <image src="/static/images/img.png" mode='aspectFill' >    </image>  
+      <template is="entry" data="{{...img}}"/>
 </i-panel>
 
  <i-panel title="关于超链接" >
@@ -66,17 +67,17 @@
 
  <i-panel title="emoji" >
      <i-cell title="作者作为emoji控，肯定是可以使用emoji的！" ></i-cell> 
-      <htmltowxml type="html" text="🍇🍈🍉🍊🍋🍌" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+      <template is="entry" data="{{...emoji}}"/>
 </i-panel>
 
  <i-panel title="style" >
      <i-cell title="<p style='color:red'>我是红色段落</p>" ></i-cell> 
-      <htmltowxml type="html" text="<p style='color:red'>我是红色段落</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+       <template is="entry" data="{{...hred}}"/>
 </i-panel>
 
 <i-panel title="字体变斜" >
      <i-cell title="<p style='font-style: oblique;'>字体变斜</p>" ></i-cell>
- <htmltowxml type="html" text="<p style='font-style: oblique;'>字体变斜</p>" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+      <template is="entry" data="{{...oblique}}"/>
 </i-panel>
 
  <i-panel title="学习" >
@@ -92,59 +93,56 @@
 </i-notice-bar>
  <i-panel title="使用标题" >
      <i-cell title="# 我是标题（注意要有空格）" ></i-cell>
- <htmltowxml type="markdown" text="# 我是标题（注意要有空格）" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+<template is="entry" data="{{...title}}"/>
 </i-panel>
 
 
  <i-panel title="段落引用" >
      <i-cell title="> 段落引用" ></i-cell>
- <htmltowxml type="markdown" text="> 段落引用" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+  <template is="entry" data="{{...rev}}"/>
 </i-panel>
 
 
  <i-panel title="标题大小" >
      <i-cell title="#### 我是标题，通过增加#的数量，让标题变小）" ></i-cell>
- <htmltowxml type="markdown" text="#### 我是标题（注意要有空格）" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+  <template is="entry" data="{{...bigtitle}}"/>
 </i-panel>
 
 <i-panel title="代码块">
      <i-cell title="```" ></i-cell>
      <i-cell title="postCategories.stream().map(PostCategories\n::getPostId).collect(Collectors.toList());" ></i-cell>
      <i-cell title="```" ></i-cell>
-<htmltowxml type="markdown" text="``` \n postCategories.stream().map(PostCategories::getPostId).collect(Collectors.toList()); \n ```" highlight="true" ></htmltowxml>
+       <template is="entry" data="{{...code}}"/>
 </i-panel>
 
 
  <i-panel title="字体加厚" >
      <i-cell title="**字体加厚**" ></i-cell>
- <htmltowxml type="markdown" text="**字体加厚**" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+     <template is="entry" data="{{...huge}}"/>
 </i-panel>
 
 <i-panel title="字体变斜" >
      <i-cell title="*字体变斜*" ></i-cell>
- <htmltowxml type="markdown" text="*字体变斜*" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+    <template is="entry" data="{{...wer}}"/>
 </i-panel>
 <i-panel title="字体下划线" >
      <i-cell title="++字体下划线++" ></i-cell>
- <htmltowxml type="markdown" text="++字体下划线++" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+    <template is="entry" data="{{...cool}}"/>
 </i-panel>
 <i-panel title="~~字体删除~~" >
      <i-cell title="~~字体删除~~" ></i-cell>
- <htmltowxml type="markdown" text="~~字体删除~~" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
-</i-panel>
-<i-panel title="段落引用" >
-     <i-cell title="> 段落引用" ></i-cell>
- <htmltowxml type="markdown" text="> 段落引用" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+   <template is="entry" data="{{...dele}}"/>
 </i-panel>
 <i-panel title="无序列表" >
      <i-cell title="- ki" ></i-cell>
      <i-cell title="- wi" ></i-cell>
- <htmltowxml  text="- ki <br>- wi" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+  <template is="entry" data="{{...sort}}"/>
 </i-panel>
 <i-panel title="有序列表" >
      <i-cell title="1. ki" ></i-cell>
      <i-cell title="2. ki" ></i-cell>
- <htmltowxml  text="1. ki <br>2. wi" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+    <template is="entry" data="{{...unsort}}"/>
+
 </i-panel>
 
 

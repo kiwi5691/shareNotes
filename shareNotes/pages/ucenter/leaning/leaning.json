@@ -8,8 +8,7 @@
     "i-cell": "../../dist/cell/index",
     "i-icon": "../../dist/icon/index",
     "i-notice-bar": "../../dist/notice-bar/index",
-    "i-divider": "../../dist/divider/index",
-    "htmltowxml": "plugin://htmltowxml/view"
+    "i-divider": "../../dist/divider/index"
   },
   "backgroundColor": "#f4f4f4",
   "navigationBarTitleText": "笔记格式",

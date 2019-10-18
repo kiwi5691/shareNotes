@@ -1,5 +1,4 @@
-
-
+<import src="/towxml/entry.wxml"/>
 <i-panel >
     <i-input type="text" value="{{ titleName }}" title="笔记名"  maxlength="8" bind:change	="titleNameInput" autofocus placeholder="请输入笔记名" />
 </i-panel>
@@ -46,10 +45,10 @@
 
 <i-modal title="{{ titleName }}" visible="{{ visible1 }}" bind:ok="handleClose1" bind:cancel="handleClose1">
 <view hidden="{{mdDisplay}}">
-<htmltowxml type="markdown" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+<template is="entry" data="{{...article1}}"/>
 </view>
 <view hidden="{{htmlDisplay}}">
-<htmltowxml type="html" text="{{ context }}" bindWxmlTagATap="wxmlTagATap" ></htmltowxml>
+<template is="entry" data="{{...article2}}"/>
 </view>
 </i-modal>
 

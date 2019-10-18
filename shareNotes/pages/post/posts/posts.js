@@ -154,16 +154,21 @@ Page({
   },
   getComments: function () {
     let that = this;
-    util.request(api.getComments + this.data.post_id).then(function (res) {
+    util.request(api.GetComments + this.data.post_id).then(function (res) {
 
       if (res.errno === 0) {
         that.setData({
           baseComment: res.data.baseComment,
         });
-      } 
+      }else{
+        that.setData({
+          baseComment: ''
+        });
+      }
     });
   },
   getContentAll: function () {
+    const _ts = this;
     let that = this;
     var tempPostsDetail = wx.getStorageSync('postDetail' + that.data.post_id)
     if (tempPostsDetail.length == 0) {
@@ -210,6 +215,17 @@ Page({
       createTime: tempPostsDetail['createTime'],
     });
     }
+
+    let data = app.towxml.toJson(
+      that.data.originalContent,               
+      that.data.type            
+    );
+    data = app.towxml.initData(data, {
+      app: _ts 
+    });
+    _ts.setData({
+      article: data
+    });
     that.getComments();
   },
   /**

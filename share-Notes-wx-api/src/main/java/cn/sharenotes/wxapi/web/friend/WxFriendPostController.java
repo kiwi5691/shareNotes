@@ -72,6 +72,7 @@ public class WxFriendPostController {
             Map<String, Object> result = new HashMap<>();
             PostCommentDto postCommentDto= postCommentService.findPostsByPostId(post_id);
             result.put("originalContent", postCommentDto.getOriginalContent());
+            result.put("type", ContentUtils.getType( postCommentDto.getType()));
             result.put("visits", postCommentDto.getVisits());
             result.put("title", postCommentDto.getTitle());
             result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));

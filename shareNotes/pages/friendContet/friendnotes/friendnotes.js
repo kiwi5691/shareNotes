@@ -17,6 +17,7 @@ Page({
     post_id: '',
     del_id: '',
     value5:'',
+    type:'',
     del_name: '',
     showRigh2: false,
     visible5: false,
@@ -94,6 +95,7 @@ Page({
     });
   },
   getContentAll: function () {
+    const _ts = this;
     let that = this;
     util.request(api.GetFriendDetail + this.data.post_id).then(function (res) {
 
@@ -105,7 +107,18 @@ Page({
           switch1: res.data.switch1,
           updateTime: res.data.updateTime,
           createTime: res.data.createTime,
+          type: res.data.type,
           baseComment: res.data.baseComment,
+        });
+        let data = app.towxml.toJson(
+          that.data.originalContent,
+          that.data.type
+        );
+        data = app.towxml.initData(data, {
+          app: _ts
+        });
+        _ts.setData({
+          article: data
         });
       } else {
         that.setData({

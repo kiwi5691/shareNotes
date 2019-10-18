@@ -71,6 +71,32 @@ Page({
       'switch2': detail.value
     })
   },
+  updateMarkdown: function (context) {
+    const _ts = this;
+    let data = app.towxml.toJson(
+      context,
+      'markdown'
+    );
+    data = app.towxml.initData(data, {
+      app: _ts
+    });
+    _ts.setData({
+      article1: data
+    });
+  },
+  updatehtml: function (context) {
+    const _ts = this;
+    let data = app.towxml.toJson(
+      context,
+      'html'
+    );
+    data = app.towxml.initData(data, {
+      app: _ts
+    });
+    _ts.setData({
+      article2: data
+    });
+  },
   handleClick5({ detail }) {
     if (detail.index === 0) {
       this.setData({
@@ -215,6 +241,7 @@ Page({
       switch2: tempPostsDetail['switch1'],
       contextTemp: tempPostsDetail['originalContent'].split('\n').join('<br>')
     });
+    that.updateTextArea(that.data.context)
   },
   //上传
   uploadFileTap: function (e) {
@@ -322,6 +349,8 @@ Page({
       visible1: true,
       visibleReview: true
     });
+    this.updatehtml(this.data.context);
+    this.updateMarkdown(this.data.context);
   },
 
   handleClose1() {
