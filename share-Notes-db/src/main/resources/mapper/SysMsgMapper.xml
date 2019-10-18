@@ -171,7 +171,7 @@
   <select id="selectByRecentId" resultMap="BaseResultMap">
     select id, send_id,
       email, title, type,
-      post_time from sys_msg where #{recId,jdbcType=INTEGER}
+      post_time from sys_msg where rec_id = #{recId,jdbcType=INTEGER}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update sys_msg
