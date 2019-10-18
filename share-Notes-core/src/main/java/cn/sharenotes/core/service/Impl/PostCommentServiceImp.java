@@ -60,11 +60,9 @@ public class PostCommentServiceImp implements PostCommentService {
             postCommentDto.setDisallowComment(1);
         }
 
-        commentsList = (List<Comments>) redisManager.getList(OWNER_COMMENT_BY_POSTID + ":postId:" + postId);
 
         if(CollectionUtils.isEmpty(commentsList)){
             commentsList = commentsMapper.selectByPostId(postId);
-            redisManager.setList(OWNER_COMMENT_BY_POSTID+":postId:"+postId,commentsList);
         }
 
         if(CollectionUtils.isEmpty(commentsList)){

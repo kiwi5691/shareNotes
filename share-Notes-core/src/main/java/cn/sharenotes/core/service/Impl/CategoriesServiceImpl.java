@@ -59,6 +59,19 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
+    public List<CategoryDTO> friendFindCategoriesByUserOpenIdWithMenuId(Integer userId, Integer menuId) {
+        List<CategoryDTO> categoryDTOS =null;
+
+        if(CollectionUtils.isEmpty(categoryDTOS)) {
+            categoryDTOS = getCategoryDTO(userId,menuId);
+            if(CollectionUtils.isEmpty(categoryDTOS)){
+                return null;
+            }
+        }
+        return categoryDTOS;
+    }
+
+    @Override
     public CategoryDetailDTO findCategoriesDetailByCid(Integer userId, Integer categoryId) {
         List<CategoryDTO> puCategoryDTOS =null;
         List<CategoryDTO> prCategoryDTOS =null;

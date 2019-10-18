@@ -13,6 +13,8 @@ public interface CategoriesService {
 
     List<CategoryDTO> findCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId);
 
+    List<CategoryDTO> friendFindCategoriesByUserOpenIdWithMenuId(Integer userId,Integer menuId);
+
     CategoryDetailDTO findCategoriesDetailByCid(Integer userId, Integer categoryId);
 
     Integer addCategory(Integer userId,CategoryVO categoryVO);

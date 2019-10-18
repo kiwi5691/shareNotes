@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface PostContentService {
     List<PostDTO> findPostsByCateId(Integer cateId);
+    List<PostDTO> friendFindPostsByCateId(Integer cateId);
 
     Integer addPostContent(Integer categoryId,PostContentVo postContentVo);
 

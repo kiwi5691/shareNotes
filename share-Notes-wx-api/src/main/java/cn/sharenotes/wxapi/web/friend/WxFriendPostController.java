@@ -42,7 +42,8 @@ public class WxFriendPostController {
     @GetMapping("/getPost/{cate_id}")
     public Object getPosts(@LoginUser Integer userId,@PathVariable("cate_id") Integer cate_id) {
 
-        List<PostDTO> postDTOS = postContentService.findPostsByCateId( cate_id);
+        List<PostDTO> postDTOS = postContentService.friendFindPostsByCateId( cate_id);
+        System.out.println("hhhhhhhhhhhhhhhhhh"+postDTOS);
         Map<String, Object> result = new HashMap<>();
         if (CollectionUtils.isEmpty(postDTOS)) {
             return ResponseUtil.fail(711,"您朋友尚未创建文章");
@@ -57,9 +58,10 @@ public class WxFriendPostController {
     @GetMapping("/getDetail/{post_id}")
     public Object getPostDetail(@LoginUser Integer userId, @PathVariable("post_id") Integer post_id) {
 
-        List<PostDTO> postDTOS = postContentService.findPostsByCateId(post_id);
-        if (CollectionUtils.isEmpty(postDTOS)) {
-            return ResponseUtil.fail(809,"未知错误");
+       PostCommentDto postDTOS = postCommentService.findPostsByPostId(post_id);
+
+        if (postDTOS == null) {
+            return ResponseUtil.fail(809,"没有文章");
         } else {
             //添加访问限制
             Integer userLimit=0;

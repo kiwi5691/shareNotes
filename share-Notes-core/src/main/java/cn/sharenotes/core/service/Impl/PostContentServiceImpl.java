@@ -58,6 +58,18 @@ public class PostContentServiceImpl implements PostContentService {
     }
 
     @Override
+    public List<PostDTO> friendFindPostsByCateId(Integer cateId) {
+        List<PostDTO> postDTOS = null;
+        if(CollectionUtils.isEmpty(postDTOS)){
+            postDTOS = getAllPostIdsByCateId(cateId);
+            if(CollectionUtils.isEmpty(postDTOS)){
+                return null;
+            }
+        }
+        return postDTOS;
+    }
+
+    @Override
     public Integer addPostContent(Integer categoryId, PostContentVo postContentVo) {
         PostsWithBLOBs posts = new PostsWithBLOBs();
         DtoUtils.copyProperties(postContentVo, posts);
