@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -170,6 +171,9 @@ public class WxPostController {
         PostContentVo postContentVo = new PostContentVo();
         postContentVo.setCreateFrom(userId);
         postContentVo.setTitle(title);
+        if(StringUtils.isEmpty(originalContent)){
+            originalContent = " ";
+        }
         postContentVo.setOriginalContent(originalContent);
         if (originalContent.length() < 10) {
             postContentVo.setFormatContent(originalContent);

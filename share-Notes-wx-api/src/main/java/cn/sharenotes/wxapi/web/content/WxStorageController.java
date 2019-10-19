@@ -75,6 +75,7 @@ public class WxStorageController {
         }catch (Exception e) {
             File del = new File(f.toURI());
             del.delete();
+
             return ResponseUtil.fail(201, "违法违规内容");
         }
 

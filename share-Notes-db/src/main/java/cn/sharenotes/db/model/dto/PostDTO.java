@@ -13,7 +13,7 @@ import java.util.Date;
  * @Date 2019/10/6 12:02
  */
 @Data
-@ToString
+
 @EqualsAndHashCode
 public class PostDTO implements Serializable {
     private Integer id;

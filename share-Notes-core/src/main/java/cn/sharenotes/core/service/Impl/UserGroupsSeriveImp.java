@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -54,6 +55,15 @@ public class UserGroupsSeriveImp implements UserGroupsSerive {
     public boolean addFriend(Integer userId, Integer friendId) {
         UserGroups userGroups = new UserGroups();
         UserGroups groups = new UserGroups();
+        List<Integer> useIdList= userGroupsMapper.selectFrindByUseId(userId);
+        if(!CollectionUtils.isEmpty(useIdList)){
+            for (Integer fId : useIdList) {
+              if(fId.equals(friendId)){
+                  return false;
+              }
+
+            }
+        }
         userGroups.setUserId(userId);
         userGroups.setFriendId(friendId);
         groups.setUserId(friendId);
