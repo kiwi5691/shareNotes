@@ -66,7 +66,6 @@ public class WxStorageController {
 
         try {
             if (wxMaSecCheckService.checkImage(f)) {
-                log.info("here");
                 File del = new File(f.toURI());
                 del.delete();
                 return ResponseUtil.ok(attachments);

@@ -56,7 +56,6 @@ public class ActiveMQServiceImpl implements ActiveMQService {
 //                return mapMessage;
 //            }
 //        });
-//        log.info("发送给消费者");
 
     }
 

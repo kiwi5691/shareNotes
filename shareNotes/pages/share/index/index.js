@@ -131,13 +131,26 @@ Page({
     });
   },
   onLoad: function (options) {
+    if (app.globalData.hasLogin) {
+      let userInfo = wx.getStorageSync('userInfo');
+      this.setData({
+        userInfo: userInfo,
+        hasLogin: true
+      });
+    }
+    if (!this.data.hasLogin) {
+      this.setData({
+        spinShow: false
+      })
+    }
     if(options.id){
-      this.addFriend(id);
+      this.addFriend(options.id);
     }
     var that = this;
     that.getListMain();  
     that.getBrands();
     that.getUserId();
+    
   },
   goFriendCate:function(e) {
     var fid = e.currentTarget.dataset.fid
@@ -170,10 +183,16 @@ Page({
         hasLogin:true
       });
     }
+    if(!this.data.hasLogin){
+      this.setData({
+        spinShow:false
+      })
+    }else{
    var that = this;
     that.getListMain();  
     that.getBrands();
     that.getUserId();
+    }
   },
   getUserId: function () {
     let that = this;
@@ -183,13 +202,9 @@ Page({
         user_Id: userIdT,
         checkUserId: true
       });
-    } else {
-      $Message({
-        content: "您尚登录",
-        type: 'error'
-      });
+    } 
      
-    }
+    
   },
   onShareAppMessage (res)  {
     var oid = this.data.user_Id

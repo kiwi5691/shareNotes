@@ -1,10 +1,5 @@
-// 本机开发时使用
-var WxApiRoot = 'http://localhost:8088/wx/';
 
-// 云平台部署时使用
-// var WxApiRoot = 'http://3.14.127.134:8080/wx/';
-// 云平台上线时使用
-// var WxApiRoot = 'https://wechat.kiwi1.cn/wx/';
+var WxApiRoot = 'https://wechat.kiwi1.cn/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口
@@ -38,7 +33,7 @@ module.exports = {
   DelMsg: WxApiRoot + 'sysmsg/delete', //删除消息,
   DelMsgAll: WxApiRoot + 'sysmsg/deleteAll', //删除所有消息,
 
-  AddFriend: WxApiRoot + 'friend/add', //添加朋友,
+  AddFriend: WxApiRoot + 'friend/add/', //添加朋友,
   
   AddCategory: WxApiRoot + 'category/add', //添加目录,
   UpdateCategory: WxApiRoot + 'category/update', //修改目录,

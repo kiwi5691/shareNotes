@@ -43,7 +43,6 @@ public class WxFriendPostController {
     public Object getPosts(@LoginUser Integer userId,@PathVariable("cate_id") Integer cate_id) {
 
         List<PostDTO> postDTOS = postContentService.friendFindPostsByCateId( cate_id);
-        System.out.println("hhhhhhhhhhhhhhhhhh"+postDTOS);
         Map<String, Object> result = new HashMap<>();
         if (CollectionUtils.isEmpty(postDTOS)) {
             return ResponseUtil.fail(711,"您朋友尚未创建文章");
