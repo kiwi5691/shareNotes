@@ -1,5 +1,7 @@
 package cn.sharenotes.core.utils;
 
+import cn.sharenotes.core.enums.ContentBase;
+
 /**
  * @auther kiwi
  * @Date 2019/10/7 19:12
@@ -23,7 +25,7 @@ public class ContentUtils {
     }
 
     public static Boolean getTypeInBoolean(Integer type){
-        if (type.equals(1)) {
+        if (type.equals(ContentBase.ALLOWACCESS)) {
             return   true;
         } else {
             return   false;
