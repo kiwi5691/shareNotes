@@ -26,7 +26,6 @@ public class CheckServiceImpl implements CheckService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("content", content);
         String result = HttpUtils.sendPost(url, JSONObject.toJSONString(map));
-        System.out.println("敏感词校验结果：" + result);
         Map<String, Object> resultMap = JSONObject.parseObject(result, Map.class);
         if (resultMap.containsKey("errcode") && resultMap.get("errcode").toString().equals("0")) {
             return 0;

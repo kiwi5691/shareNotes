@@ -36,6 +36,5 @@ public class ConsumerService {
 //    public void textQueue(Message message) throws Exception {
 //        MapMessage mapMessage = (MapMessage) message;
 //        String content = mapMessage.getString("content");
-//        log.info(content);
 //    }
 }

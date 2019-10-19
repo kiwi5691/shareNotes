@@ -60,8 +60,6 @@ public class WxCategoryController {
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
     public Object addCategory(@LoginUser Integer userId,@RequestBody String body) {
-        // TODO: 2019/10/14  
-        log.info("req:"+wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name").toString()));
         if(!wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name"))){
             ResponseUtil.fail(500,"违法违规标题");
         }

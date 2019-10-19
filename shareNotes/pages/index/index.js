@@ -14,6 +14,7 @@ Page({
     hiddenAlertPu: true,
     showRigh2: false,
     msg:'',
+    hasLogin: false,
   },
   handleChange({ detail }) {
     this.setData({
@@ -114,10 +115,11 @@ Page({
     }
   },
   onLoad: function (options) {
-
-    this.getPublicMain();
-    this.getPrivateMain();
-
+    if (this.data.hasLogin) {
+      this.getPublicMain();
+      this.getPrivateMain();
+    }
+    
   },
   onPullDownRefresh() {
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -137,9 +139,10 @@ Page({
     this.setData({
       showRight2: false
     });
-
+    if(this.data.hasLogin){
     this.getPublicMain();
     this.getPrivateMain();
+    }
   },
 })
 

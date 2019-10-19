@@ -195,6 +195,16 @@ Page({
           createTime: res.data.createTime,
         };
 
+        let data = app.towxml.toJson(
+          that.data.originalContent,
+          that.data.type
+        );
+        data = app.towxml.initData(data, {
+          app: _ts
+        });
+        _ts.setData({
+          article: data
+        });
         wx.setStorageSync('postDetail' + that.data.post_id, temptPostsDetail)
       } else {
         that.setData({
@@ -213,19 +223,20 @@ Page({
       type: tempPostsDetail['type'],
       updateTime: tempPostsDetail['updateTime'],
       createTime: tempPostsDetail['createTime'],
+
     });
+      let data = app.towxml.toJson(
+        that.data.originalContent,
+        that.data.type
+      );
+      data = app.towxml.initData(data, {
+        app: _ts
+      });
+      _ts.setData({
+        article: data
+      });
     }
 
-    let data = app.towxml.toJson(
-      that.data.originalContent,               
-      that.data.type            
-    );
-    data = app.towxml.initData(data, {
-      app: _ts 
-    });
-    _ts.setData({
-      article: data
-    });
     that.getComments();
   },
   /**
