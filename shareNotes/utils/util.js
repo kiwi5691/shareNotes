@@ -41,6 +41,7 @@ function request(url, data = {}, method = "GET") {
             try {
               wx.removeStorageSync('userInfo');
               wx.removeStorageSync('token');
+              wx.removeStorageSync('userId');
             } catch (e) {
               // Do something when catch error
             }

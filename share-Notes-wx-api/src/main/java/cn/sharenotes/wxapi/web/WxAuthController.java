@@ -166,13 +166,14 @@ public class WxAuthController {
             }
         }
 
+        User user1 = userService.queryByOid(openId);
         // token
-        String token = UserTokenManager.generateToken(user.getId());
+        String token = UserTokenManager.generateToken(user1.getId());
 
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("token", token);
         result.put("userInfo", userDto);
-        result.put("userId", user.getId());
+        result.put("userId", user1.getId());
 
 
         return ResponseUtil.ok(result);

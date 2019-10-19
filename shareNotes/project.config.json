@@ -47,19 +47,6 @@
 		"game": {
 			"currentL": -1,
 			"list": []
-		},
-		"miniprogram": {
-			"current": 0,
-			"list": [
-				{
-					"id": 0,
-					"name": "pages/index/index",
-					"pathName": "pages/share/index/index",
-					"query": "id=5",
-					"scene": 1036,
-					"referrerInfo": {}
-				}
-			]
 		}
 	}
 }

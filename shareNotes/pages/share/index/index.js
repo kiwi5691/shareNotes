@@ -10,7 +10,6 @@ Page({
   /** * 页面的初始数据 */
 
   data: {
-    spinShow: true,
     isActive: null,
     listMain: '',
     hasLogin: false,
@@ -138,11 +137,7 @@ Page({
         hasLogin: true
       });
     }
-    if (!this.data.hasLogin) {
-      this.setData({
-        spinShow: false
-      })
-    }
+    
     if(options.id){
       this.addFriend(options.id);
     }
@@ -183,16 +178,12 @@ Page({
         hasLogin:true
       });
     }
-    if(!this.data.hasLogin){
-      this.setData({
-        spinShow:false
-      })
-    }else{
+   
    var that = this;
     that.getListMain();  
     that.getBrands();
     that.getUserId();
-    }
+    
   },
   getUserId: function () {
     let that = this;

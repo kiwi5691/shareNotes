@@ -10,7 +10,8 @@ Page({
       avatarUrl: '/static/images/person.png'
     },
     msgNumber:0,
-    hasLogin: false
+    hasLogin: false,
+    token:'测试'
   },
   goMsg() {
     wx.navigateTo({
@@ -54,7 +55,19 @@ Page({
       });
      this.getMsgNumber();
     }
-
+    var tok =wx.getStorageSync('token');
+    this.setData({
+      token:tok
+    })
+  },
+  copy:function(){
+    wx.setClipboardData({
+      data: this.data.token,
+      success: function (res) {
+        wx.getClipboardData({
+        })
+      }
+    })
   },
   onHide: function () {
     // 页面隐藏
