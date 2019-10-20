@@ -39,7 +39,6 @@
     <view slot="desc">按上方转发卡片来添加新朋友</view>
 </i-alert>
 </view>
-    <i-spin size="large" fix wx:if="{{ spinShow }}"></i-spin>
 
 <i-message id="message" />
 </view>

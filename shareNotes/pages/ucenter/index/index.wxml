@@ -6,7 +6,8 @@
   </button>
 
 
-<i-panel title="消息" bindtap="goMsg">
+<!-- <i-panel title="消息" bindtap="goMsg"> -->
+<i-panel title="消息" bindtap="copy">
  <i-cell title="我的消息" >
         <i-icon slot="icon" type="message" size="28"/>
         <i-badge count="{{msgNumber}}" slot="footer"  />

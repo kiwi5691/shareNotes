@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
@@ -60,6 +61,8 @@ public class JwtHelper {
 		    DecodedJWT jwt = verifier.verify(token);
 		    Map<String, Claim> claims = jwt.getClaims();
 		    Claim claim = claims.get("userId");
+//		    log.info("claim"+claims.toString());
+//		    log.info("userId"+claims.get("userId").toString());
 		    return claim.asInt();
 		} catch (JWTVerificationException exception){
 //			exception.printStackTrace();

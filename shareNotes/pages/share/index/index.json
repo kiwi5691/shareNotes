@@ -1,8 +1,7 @@
 {
   "usingComponents": {
     "i-alert": "../../dist/alert/index",
-    "i-message": "../../dist/message/index",
-    "i-spin": "../../dist/spin/index"
+    "i-message": "../../dist/message/index"
   },
   "navigationBarTitleText": "我的朋友们",
   "backgroundColor": "#f4f4f4"
