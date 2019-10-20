@@ -4,6 +4,7 @@ import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public  class NameIdUtils {
@@ -137,20 +138,30 @@ public  class NameIdUtils {
                 };
         for (String a : alphatableb) {
             int flag = 1;
-            for (int i = 0; i < list.size(); i++) {//为了排序都返回大写字母
 
-                if (a.equals(String2AlphaFirst(list.get(i).getNickname(), "b"))) {
-                    arraylist.add(list.get(i));
-                    flag = 0;
-                }
+            for (int i = 0; i < list.size(); i++) {//为了排序都返回大写字母
+                String name = list.get(i).getNickname();
+
+                try {
+                    String unicode = new String(list.get(i).getNickname().getBytes(),"UTF-8");
+                    String gbk = new String(unicode.getBytes("GBK"));
+                    if (a.equals(String2AlphaFirst(gbk, "b"))) {
+                        arraylist.add(list.get(i));
+                        flag = 0;
+                    }
+                } catch (Exception e) {
+                e.printStackTrace();
             }
+                
+            }
+
             char m = a.charAt(0);
             int num = 'A'-1;
             GroupDtoKey groupDtoKey  = new GroupDtoKey(m-num,m);
             if(flag == 0) {
                 map.put(groupDtoKey, arraylist);
             }
-            Collections.sort(arraylist);
+          //  Collections.sort(arraylist);
             arraylist = new ArrayList();
         }
         return map;
