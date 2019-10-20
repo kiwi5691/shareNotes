@@ -130,19 +130,15 @@ Page({
   },
   onShow: function () {
     if (app.globalData.hasLogin) {
-      let userInfo = wx.getStorageSync('userInfo');
-      this.setData({
-        userInfo: userInfo,
-        hasLogin: true
-      });
+      this.getPublicMain();
+      this.getPrivateMain();
     }
     this.setData({
       showRight2: false
     });
-    if(this.data.hasLogin){
-    this.getPublicMain();
-    this.getPrivateMain();
-    }
+    this.setData({
+      hasLogin: app.globalData.hasLogin
+    });
   },
 })
 

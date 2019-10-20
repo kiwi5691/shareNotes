@@ -1,12 +1,15 @@
 
-var WxApiRoot = 'https://wechat.kiwi1.cn/wx/';
+// var WxApiRoot = 'https://wechat.kiwi1.cn/wx/';
+var WxApiRoot = 'http://localhost:8088/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口
   GetMsgNumber: WxApiRoot + 'sysmsg/getNum', //获取消息数
   GetMsgList: WxApiRoot + 'sysmsg/getAllMsg', //获取消息列
   GetMsgDetail: WxApiRoot + 'sysmsg/getDetail/', //获取消息详细
-
+  AuthLogout: WxApiRoot + 'auth/logout', //账号登出
+  AuthUpdate: WxApiRoot + 'auth/profile', //账号名字修改
+  SyncByWeixin: WxApiRoot + 'auth/sync', //同步微信信息
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录
   
   StorageUpload: WxApiRoot + 'storage/upload', //存储上传,

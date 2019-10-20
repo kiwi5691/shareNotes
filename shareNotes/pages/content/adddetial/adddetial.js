@@ -12,7 +12,7 @@ Page({
    */
   data: {
     visible5: false,    
-    switch1: false,
+    switch1: true,
     cateName:'',
     actions5: [
       {

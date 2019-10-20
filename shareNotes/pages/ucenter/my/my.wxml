@@ -1,0 +1,20 @@
+     <view class="profile-info"  >
+    
+      <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+   
+  </view>
+
+<i-panel title="个人信息">
+           <i-input value="{{ userInfo.nickName }}" bind:change	="nameInput" title="名称" maxlength="20" placeholder="用户名称" />
+</i-panel>
+
+<i-divider wx:if="{{hasLogin}}" >修改</i-divider>
+
+<i-button wx:if="{{hasLogin}}" bind:click="handleOpen5" type="success" shape="circle" size="small">修改名称</i-button>
+
+<i-button wx:if="{{hasLogin}}"  open-type="getUserInfo" bind:getuserinfo="updateOnWechat"  type="primary" shape="circle" size="small">同步微信信息</i-button>
+
+<i-modal title="修改确认" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="handleClick5">
+    <view>修改名称为:{{tname}}</view>
+</i-modal>
+<i-message id="message" />

@@ -24,7 +24,7 @@
 
 <i-cell-group>
     <i-cell title="是否允许评论">
-        <i-switch value="{{switch1}}" bind:change="onChange" slot="footer">
+        <i-switch value="{{switch1}}" slot="footer">
             <i-icon type="right" slot="open"></i-icon>
             <i-icon type="close" slot="close"></i-icon>
         </i-switch>

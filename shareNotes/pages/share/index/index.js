@@ -30,7 +30,6 @@ Page({
       if (res.errno === 0) {
         that.setData({
           listMain: res.data,
-          spinShow: false
         });
       } else if (res.errno === 701) {
         that.setData({
@@ -41,7 +40,19 @@ Page({
     });
   },
 
-
+  
+  //   util.request(api.ShowFriendList, {
+  //     showType: that.data.showType,
+  //   }).then(function (res) {
+  //     if (res.errno === 0) {
+  //       console.log(res.data);
+  //       that.setData({
+  //         listMain: that.data.groupDtoMap.concat(res.data.list),
+  //       });
+  //     }
+  //   });
+  // },
+  
 
   //点击右侧字母导航定位触发
 
@@ -68,7 +79,7 @@ Page({
   // 页面滑动时触发
 
   onPageScroll: function (e) {
-    if (this.data.listMain.length!=0){
+
     this.setData({ scroolHeight: e.detail.scrollTop });
 
     for (let i in this.data.oHeight) {
@@ -87,7 +98,6 @@ Page({
 
       }
     }
-    }
   },
 
   // 处理数据格式，及获取分组高度
@@ -105,47 +115,22 @@ Page({
 
         that.setData({
 
-          oHeight: that.data.oHeight.concat(newArry),
+          oHeight: that.data.oHeight.concat(newArry)
+
         })
 
       }).exec();
     };
   },
-  addFriend: function (id) {
-    var friendId = id;
-    let that = this;
-    util.request(api.AddFriend + friendId).then(function (res) {
 
-      if (res.errno === 0) {
-        $Message({
-          content: "添加好友成功",
-          type: 'success'
-        });
-      } else {
-        $Message({
-          content: res.errmsg,
-          type: 'warning'
-        });
-      }
-    });
-  },
   onLoad: function (options) {
-    if (app.globalData.hasLogin) {
-      let userInfo = wx.getStorageSync('userInfo');
-      this.setData({
-        userInfo: userInfo,
-        hasLogin: true
-      });
-    }
-    
-    if(options.id){
-      this.addFriend(options.id);
-    }
+
+
     var that = this;
     that.getListMain();  
     that.getBrands();
     that.getUserId();
-    
+
   },
   goFriendCate:function(e) {
     var fid = e.currentTarget.dataset.fid
@@ -154,6 +139,7 @@ Page({
       url: "/pages/friendContet/friendCate/friendCate?fid=" + fid+"&fname="+fname
     })
   },
+
   toLogin: function () {
     wx.vibrateShort();
     wx.switchTab({
@@ -178,12 +164,10 @@ Page({
         hasLogin:true
       });
     }
-   
    var that = this;
     that.getListMain();  
     that.getBrands();
     that.getUserId();
-    
   },
   getUserId: function () {
     let that = this;
@@ -193,21 +177,23 @@ Page({
         user_Id: userIdT,
         checkUserId: true
       });
-    } 
+    } else {
+      $Message({
+        content: "您尚登录",
+        type: 'error'
+      });
      
-    
+    }
   },
   onShareAppMessage (res)  {
     var oid = this.data.user_Id
     var check = this.data.checkUserId
     let userInfo = wx.getStorageSync('userInfo')
-    console.log(oid);
-
     var shareObj = {
         title: 'ShareNotes',
         imageUrl: '',
-        path: "../../../pages/index/index",
-     
+      shareTickets: [titile = "addfriend", fid = oid],
+        withShareTicket: true,
         success: (res) => {
           console.log("转发成功", res);
         },
@@ -215,10 +201,9 @@ Page({
           console.log("转发失败", res);
         }
       }
-    if (check) {
+    if (check) { 
       shareObj.title = userInfo.nickName + '想添加您为好友';
       shareObj.imageUrl = userInfo.avatarUrl;
-      shareObj.path = "/pages/share/index/index?id=" + oid;
     }
     return shareObj;
  

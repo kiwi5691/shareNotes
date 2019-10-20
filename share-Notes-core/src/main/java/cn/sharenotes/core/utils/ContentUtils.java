@@ -23,7 +23,7 @@ public class ContentUtils {
     }
 
     public static Boolean getTypeInBoolean(Integer type){
-        if (type.equals(1)) {
+        if (type.equals(0)) {
             return   true;
         } else {
             return   false;

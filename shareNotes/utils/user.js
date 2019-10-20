@@ -71,6 +71,35 @@ function loginByWeixin(userInfo) {
   });
 }
 
+
+/**
+ * 同步微信信息
+ */
+function updateInfoWechat(userInfo) {
+
+  return new Promise(function (resolve, reject) {
+    return login().then((res) => {
+      //登录远程服务器
+      util.request(api.SyncByWeixin, {
+        code: res.code,
+        userInfo: userInfo
+      }, 'POST').then(res => {
+        if (res.errno === 0) {
+          //存储用户信息
+          wx.removeStorageSync('userInfo')
+          wx.setStorageSync('userInfo', res.data.userInfo);
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      }).catch((err) => {
+        reject(err);
+      });
+    }).catch((err) => {
+      reject(err);
+    })
+  });
+}
 /**
  * 判断用户是否登录
  */
@@ -91,4 +120,5 @@ function checkLogin() {
 module.exports = {
   loginByWeixin,
   checkLogin,
+  updateInfoWechat,
 };

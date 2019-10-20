@@ -4,6 +4,9 @@
 <i-panel title="登录">
     <view style="padding: 15px;"><i-icon type="remind" size="28"/>~~登录可能会比较久，因为服务器不好</view>
 </i-panel>
+<i-panel title="朋友">
+    <view style="padding: 15px;"><i-icon type="group" size="28"/>~~添加朋友可以点击右上角的分享来添加</view>
+</i-panel>
 <i-panel title="笔记">
     <view style="padding: 15px;"><i-icon type="brush" size="28"/>~~我们推荐写使用markdown，html也可以使用纯文本。</view>
 </i-panel>
@@ -13,8 +16,8 @@
 <i-panel title="issue">
     <view style="padding: 15px;"><i-icon type="interactive" size="28"/>~~issue发送可能会比较慢，因为我们关闭了消息队列。建议到github提交</view>
 </i-panel>
-<i-panel title="朋友">
-    <view style="padding: 15px;"><i-icon type="group" size="28"/>~~添加朋友可以点击右上角的分享来添加</view>
+<i-panel title="信息">
+    <view style="padding: 15px;"><i-icon type="group" size="28"/>~~不建议修改修改个人信息，因为其动作太多可能好导致数据同步失效，所以我们让他一礼拜只能修改一次，同步个人信息可能同步不上去，因为微信官方的后台可能未修改完毕需要稍等</view>
 </i-panel>
 <i-panel title="评论">
     <view style="padding: 15px;"><i-icon type="share" size="28"/>~~别人的给你的评论是不能评论的，他人的同理。因为这个小程序就是只是分享笔记，不打算作为其他平台一样可以聊天的</view>

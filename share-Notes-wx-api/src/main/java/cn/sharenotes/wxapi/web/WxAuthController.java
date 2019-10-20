@@ -4,6 +4,10 @@ package cn.sharenotes.wxapi.web;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import cn.sharenotes.core.enums.ContentBase;
+import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
+import cn.sharenotes.core.redis.KeyPrefix.UpdateInfoSubmitKey;
+import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.utils.IpUtil;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.RegexUtil;
@@ -25,6 +29,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,6 +50,9 @@ public class WxAuthController {
 
     @Autowired
     private UserService userService;
+
+    @Resource
+    private RedisManager redisManager;
 
     @Autowired
     private WxMaService wxService;
@@ -301,32 +309,30 @@ public class WxAuthController {
      * 账号信息更新
      *
      * @param body    请求内容
-     *                {
-     *                password: xxx,
-     *                mobile: xxx
-     *                code: xxx
-     *                }
-     * @param request 请求对象
      * @return 登录结果
      * 成功则 { errno: 0, errmsg: '成功' }
      * 失败则 { errno: XXX, errmsg: XXX }
      */
     @PostMapping("profile")
-    public Object profile(@LoginUser Integer userId, @RequestBody String body, HttpServletRequest request) {
+    public Object profile(@LoginUser Integer userId, @RequestBody String body) {
+        Integer updteInfo;
         if(userId == null){
             return ResponseUtil.unlogin();
         }
-        String avatar = JacksonUtil.parseString(body, "avatar");
-        Byte gender = JacksonUtil.parseByte(body, "gender");
         String nickname = JacksonUtil.parseString(body, "nickname");
 
+        updteInfo=redisManager.get(UpdateInfoSubmitKey.board, "userId :"+userId, Integer .class);
+        if (updteInfo == null){
+            updteInfo=1;
+            redisManager.set(UpdateInfoSubmitKey.board, "userId :"+userId, updteInfo);
+        }
+        else if(updteInfo <= ContentBase.LIMITTIMESINFO.getValue()){
+            redisManager.incr(UpdateInfoSubmitKey.board, "userId :"+userId);
+        }else if(updteInfo > ContentBase.LIMITTIMESINFO.getValue()){
+            return ResponseUtil.fail(102,"这礼拜修改上限");
+        }
+
         User user = userService.findById(userId);
-        if(!StringUtils.isEmpty(avatar)){
-            user.setAvatar(avatar);
-        }
-        if(gender != null){
-            user.setGender(gender);
-        }
         if(!StringUtils.isEmpty(nickname)){
             user.setNickname(nickname);
         }
@@ -338,29 +344,60 @@ public class WxAuthController {
         return ResponseUtil.ok();
     }
 
-    /**
-     * 微信手机号码绑定
-     *
-     * @param userId
-     * @param body
-     * @return
-     */
-    @PostMapping("bindPhone")
-    public Object bindPhone(@LoginUser Integer userId, @RequestBody String body) {
-    	if (userId == null) {
-            return ResponseUtil.unlogin();
+//同步微信信息
+    @PostMapping("sync")
+    public Object sync(@RequestBody WxLoginInfo wxLoginInfo, HttpServletRequest request) {
+        String code = wxLoginInfo.getCode();
+        UserDto userDto = wxLoginInfo.getUserInfo();
+        if (code == null || userDto == null) {
+            return ResponseUtil.badArgument();
         }
-    	User user = userService.findById(userId);
-        String encryptedData = JacksonUtil.parseString(body, "encryptedData");
-        String iv = JacksonUtil.parseString(body, "iv");
-        WxMaPhoneNumberInfo phoneNumberInfo = this.wxService.getUserService().getPhoneNoInfo(user.getSessionKey(), encryptedData, iv);
-        String phone = phoneNumberInfo.getPhoneNumber();
-        user.setMobile(phone);
+
+        String sessionKey = null;
+        String openId = null;
+        try {
+            WxMaJscode2SessionResult result = this.wxService.getUserService().getSessionInfo(code);
+            sessionKey = result.getSessionKey();
+            openId = result.getOpenid();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (sessionKey == null || openId == null) {
+            return ResponseUtil.fail();
+        }
+        Integer updteInfo;
+
+        updteInfo=redisManager.get(UpdateInfoSubmitKey.board, "userOpId :"+openId, Integer .class);
+        if (updteInfo == null){
+            updteInfo=1;
+            redisManager.set(UpdateInfoSubmitKey.board, "userOpId :"+openId, updteInfo);
+        }
+        else if(updteInfo <= ContentBase.LIMITTIMESINFO.getValue()){
+            redisManager.incr(UpdateInfoSubmitKey.board, "userOpId :"+openId);
+        }else if(updteInfo > ContentBase.LIMITTIMESINFO.getValue()){
+            return ResponseUtil.fail(102,"这礼拜同步上限");
+        }
+
+        User user = userService.queryByOid(openId);
+        user.setAvatar(userDto.getAvatarUrl());
+        user.setNickname(userDto.getNickName());
+        user.setGender(userDto.getGender());
+        user.setStatus((byte) 0);
+        user.setLastLoginTime(new Date());
+        user.setLastLoginIp(IpUtil.getIpAddr(request));
+        user.setSessionKey(sessionKey);
+
         if (userService.updateById(user) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
-        return ResponseUtil.ok();
+
+
+        Map<Object, Object> result = new HashMap<Object, Object>();
+        result.put("userInfo", userDto);
+        return ResponseUtil.ok(result);
     }
+
 
     @PostMapping("logout")
     public Object logout(@LoginUser Integer userId) {
@@ -370,19 +407,4 @@ public class WxAuthController {
         return ResponseUtil.ok();
     }
 
-    @GetMapping("info")
-    public Object info(@LoginUser Integer userId) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-
-        User user = userService.findById(userId);
-        Map<Object, Object> data = new HashMap<Object, Object>();
-        data.put("nickName", user.getNickname());
-        data.put("avatar", user.getAvatar());
-        data.put("gender", user.getGender());
-        data.put("mobile", user.getMobile());
-
-        return ResponseUtil.ok(data);
-    }
 }

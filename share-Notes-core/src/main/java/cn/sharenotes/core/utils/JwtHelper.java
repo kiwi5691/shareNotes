@@ -28,7 +28,7 @@ public class JwtHelper {
 		    Map<String, Object> map = new HashMap<String, Object>();
 		    Date nowDate = new Date();
 		    // 过期时间：7天2小时
-		    Date expireDate = getAfterDate(nowDate,0,0,7,2,0,0);
+		    Date expireDate = getAfterDate(nowDate,1,0,7,2,0,0);
 	        map.put("alg", "HS256");
 	        map.put("typ", "JWT");
 		    String token = JWT.create()

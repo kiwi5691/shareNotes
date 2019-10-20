@@ -111,6 +111,7 @@ Page({
           type: res.data.type,
           baseComment: res.data.baseComment,
         });
+        console.log("运行评论" + res.data.switch1)
         let data = app.towxml.toJson(
           that.data.originalContent,
           that.data.type

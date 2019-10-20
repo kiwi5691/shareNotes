@@ -140,13 +140,6 @@ Page({
 
     }
   },
-  onChange(event) {
-    const detail = event.detail;
-    this.setData({
-      'switch1': detail.value
-    })
-
-  },
   goEditPost() {
     wx.navigateTo({
       url: "/pages/content/editpost/editpost?post_id=" + this.data.post_id + "&cate_id=" + this.data.cate_id

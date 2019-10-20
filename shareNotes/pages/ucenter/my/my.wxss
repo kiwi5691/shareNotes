@@ -1,0 +1,26 @@
+page {
+  height: 100%;
+  width: 100%;
+  background: #f4f4f4;
+}
+.profile-info {
+  background-color: #f4f4f4;
+  color: #f4f4f4;
+  padding: 30rpx;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    flex-direction: column ;
+
+}
+
+
+
+.profile-info .avatar {
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 50%;
+
+}
+

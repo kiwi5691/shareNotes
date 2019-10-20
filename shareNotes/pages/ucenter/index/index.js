@@ -1,3 +1,4 @@
+const { $Message } = require('../../../dist/base/index');
 var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
 var user = require('../../../utils/user.js');
@@ -10,12 +11,26 @@ Page({
       avatarUrl: '/static/images/person.png'
     },
     msgNumber:0,
-    hasLogin: false,
-    token:'测试'
+    actions5: [
+      {
+        name: '取消'
+      },
+      {
+        name: '确定',
+        color: '#ed3f14'
+      }
+    ],
+    visible5: false,
+    hasLogin: false
   },
   goMsg() {
     wx.navigateTo({
       url: "/pages/ucenter/msg/msg"
+    })
+  },
+  goMy() {
+    wx.navigateTo({
+      url: "/pages/ucenter/my/my"
     })
   },
   goHelp() {
@@ -38,6 +53,11 @@ Page({
       url: "/pages/ucenter/leaning/leaning"
     })
   },
+  handleOpen5() {
+    this.setData({
+      visible5: true
+    });
+  },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
   },
@@ -55,19 +75,30 @@ Page({
       });
      this.getMsgNumber();
     }
-    var tok =wx.getStorageSync('token');
-    this.setData({
-      token:tok
-    })
+
   },
-  copy:function(){
-    wx.setClipboardData({
-      data: this.data.token,
-      success: function (res) {
-        wx.getClipboardData({
-        })
-      }
-    })
+  exitLogin({ detail }) {
+    if (detail.index === 0) {
+      this.setData({
+        visible5: false
+      });
+    } else {
+        this.setData({
+          visible5: false
+        });
+      util.request(api.AuthLogout, {}, 'POST');
+      app.globalData.hasLogin = false;
+      wx.removeStorageSync('token');
+      wx.removeStorageSync('userInfo');
+      $Message({
+        content: '登出成功！',
+        type: 'success'
+      });
+      wx.reLaunch({
+        url: '../../../pages/index/index'
+      });
+        
+    }
   },
   onHide: function () {
     // 页面隐藏

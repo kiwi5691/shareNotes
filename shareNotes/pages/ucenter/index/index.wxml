@@ -6,8 +6,13 @@
   </button>
 
 
-<!-- <i-panel title="消息" bindtap="goMsg"> -->
-<i-panel title="消息" bindtap="copy">
+<i-panel title="我的" bindtap="goMy">
+ <i-cell title="个人信息" >
+        <i-icon slot="icon" type="mine" size="28"/>
+    </i-cell>
+</i-panel>
+
+<i-panel title="消息" bindtap="goMsg">
  <i-cell title="我的消息" >
         <i-icon slot="icon" type="message" size="28"/>
         <i-badge count="{{msgNumber}}" slot="footer"  />
@@ -27,7 +32,7 @@
 </i-panel>
 
   <i-panel title="关于" bindtap="goAbout">
-  <i-cell title="关于我" is-link>
+  <i-cell title="关于创作者" is-link>
         <i-icon slot="icon" type="feedback" size="28"/>
     </i-cell>
 </i-panel>
@@ -39,4 +44,10 @@
 </i-panel>
 
 
+<i-button  wx:if="{{hasLogin}}" bind:click="handleOpen5" type="error " size="small">退出登录</i-button>
 
+<i-modal title="退出登录？" visible="{{ visible5 }}" actions="{{ actions5 }}" bind:click="exitLogin">
+    <view>欢迎再次回来~</view>
+</i-modal>
+
+<i-message id="message" />

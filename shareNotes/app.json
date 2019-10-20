@@ -18,7 +18,8 @@
     "pages/ucenter/msgDetail/msgDetail",
     "pages/ucenter/leaning/leaning",
     "pages/ucenter/issue/issue",
-    "pages/content/oplog/oplog"
+    "pages/content/oplog/oplog",
+    "pages/ucenter/my/my"
   ],
   "window": {
     "backgroundTextStyle": "light",

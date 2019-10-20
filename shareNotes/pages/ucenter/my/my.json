@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+        "i-input": "../../dist/input/index",
+        "i-button": "../../dist/button/index",
+        "i-modal": "../../dist/modal/index",
+        "i-message": "../../dist/message/index",
+        "i-cell": "../../dist/cell/index",
+        "i-panel": "../../dist/panel/index",
+        "i-icon": "../../dist/icon/index", 
+        "i-avatar": "../../dist/avatar/index",
+        "i-divider": "../../dist/divider/index"
+  }
+}
