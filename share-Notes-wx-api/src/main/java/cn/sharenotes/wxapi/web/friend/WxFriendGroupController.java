@@ -63,6 +63,9 @@ public class WxFriendGroupController {
             return ResponseUtil.fail(709,"用户没有登陆");
         }
         boolean b = userGroupsSerive.addFriend(userId, friendId);
+        if(userId.equals(friendId)){
+            return ResponseUtil.fail(709,"无需添加自己为好友");
+        }
         if(b){
             return ResponseUtil.ok();
         }

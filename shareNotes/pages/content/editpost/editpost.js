@@ -442,6 +442,14 @@ Page({
       currentWordNumber: len
     });
   },
+  addCode(){
+    var text = "```\n hello world\n```";
+    var realtext = this.data.context + text
+    this.setData({
+      context: realtext
+    });
+    this.updateTextArea(this.data.context)
+  },
   // 工具添加事件
   addTitle() {
     if (this.data.switch1) {

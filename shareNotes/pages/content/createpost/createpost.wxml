@@ -60,6 +60,8 @@
 字体加厚</i-button>
 <i-button bind:click="addOblique" type="background"><i-icon type="enter" size="30" color="#80848f" />
 字体变斜</i-button>
+<i-button wx:if="{{!switch1}}" bind:click="addCode" type="background"><i-icon type="flashlight" size="30" color="#80848f" />
+代码块</i-button>
     <i-button bind:click="addUnSortList" type="background"><i-icon type="other" size="30" color="#80848f" />
 无序列表</i-button>
 <i-button bind:click="addSortList" type="background"><i-icon type="keyboard" size="30" color="#80848f" />

@@ -145,7 +145,14 @@ Page({
   onShow: function () {
 
   },
-
+  addCode() {
+    var text = "```\n hello world\n```";
+    var realtext = this.data.context + text
+    this.setData({
+      context: realtext
+    });
+    this.updateTextArea(this.data.context)
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

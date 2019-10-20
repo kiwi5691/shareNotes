@@ -1,3 +1,7 @@
+  <i-notice-bar icon="remind" closable>
+    一礼拜只能修改三次！
+</i-notice-bar>   
+     
      <view class="profile-info"  >
     
       <image class="avatar" src="{{userInfo.avatarUrl}}"></image>

@@ -20,9 +20,9 @@ Page({
     user_Id: 0,
     scroolHeight: 0,
     fixedTop: 0,
-    checkUserId:false
+    checkUserId: false
   },
-  getListMain:function(){
+  getListMain: function () {
     let that = this;
     util.request(api.ShowFriendList).then(function (res) {
 
@@ -30,6 +30,7 @@ Page({
       if (res.errno === 0) {
         that.setData({
           listMain: res.data,
+          spinShow: false
         });
       } else if (res.errno === 701) {
         that.setData({
@@ -40,19 +41,7 @@ Page({
     });
   },
 
-  
-  //   util.request(api.ShowFriendList, {
-  //     showType: that.data.showType,
-  //   }).then(function (res) {
-  //     if (res.errno === 0) {
-  //       console.log(res.data);
-  //       that.setData({
-  //         listMain: that.data.groupDtoMap.concat(res.data.list),
-  //       });
-  //     }
-  //   });
-  // },
-  
+
 
   //点击右侧字母导航定位触发
 
@@ -79,23 +68,24 @@ Page({
   // 页面滑动时触发
 
   onPageScroll: function (e) {
+    if (this.data.listMain.length != 0) {
+      this.setData({ scroolHeight: e.detail.scrollTop });
 
-    this.setData({ scroolHeight: e.detail.scrollTop });
+      for (let i in this.data.oHeight) {
 
-    for (let i in this.data.oHeight) {
+        if (e.detail.scrollTop < this.data.oHeight[i].height) {
 
-      if (e.detail.scrollTop < this.data.oHeight[i].height) {
+          this.setData({
 
-        this.setData({
+            isActive: this.data.oHeight[i].key,
 
-          isActive: this.data.oHeight[i].key,
+            fixedTitle: this.data.oHeight[i].nickname
 
-          fixedTitle: this.data.oHeight[i].nickname
+          });
 
-        });
+          return false;
 
-        return false;
-
+        }
       }
     }
   },
@@ -115,31 +105,55 @@ Page({
 
         that.setData({
 
-          oHeight: that.data.oHeight.concat(newArry)
-
+          oHeight: that.data.oHeight.concat(newArry),
         })
 
       }).exec();
     };
   },
+  addFriend: function (id) {
+    var friendId = id;
+    let that = this;
+    util.request(api.AddFriend + friendId).then(function (res) {
 
+      if (res.errno === 0) {
+        $Message({
+          content: "添加好友成功",
+          type: 'success'
+        });
+      } else {
+        $Message({
+          content: res.errmsg,
+          type: 'warning'
+        });
+      }
+    });
+  },
   onLoad: function (options) {
+    if (app.globalData.hasLogin) {
+      let userInfo = wx.getStorageSync('userInfo');
+      this.setData({
+        userInfo: userInfo,
+        hasLogin: true
+      });
+    }
 
-
+    if (options.id) {
+      this.addFriend(options.id);
+    }
     var that = this;
-    that.getListMain();  
+    that.getListMain();
     that.getBrands();
     that.getUserId();
 
   },
-  goFriendCate:function(e) {
+  goFriendCate: function (e) {
     var fid = e.currentTarget.dataset.fid
     var fname = e.currentTarget.dataset.fname
     wx.navigateTo({
-      url: "/pages/friendContet/friendCate/friendCate?fid=" + fid+"&fname="+fname
+      url: "/pages/friendContet/friendCate/friendCate?fid=" + fid + "&fname=" + fname
     })
   },
-
   toLogin: function () {
     wx.vibrateShort();
     wx.switchTab({
@@ -152,7 +166,7 @@ Page({
   },
   onPullDownRefresh() {
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    this.getListMain();  
+    this.getListMain();
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
   },
@@ -161,13 +175,15 @@ Page({
       let userInfo = wx.getStorageSync('userInfo');
       this.setData({
         userInfo: userInfo,
-        hasLogin:true
+        hasLogin: true
       });
     }
-   var that = this;
-    that.getListMain();  
+
+    var that = this;
+    that.getListMain();
     that.getBrands();
     that.getUserId();
+
   },
   getUserId: function () {
     let that = this;
@@ -177,35 +193,34 @@ Page({
         user_Id: userIdT,
         checkUserId: true
       });
-    } else {
-      $Message({
-        content: "您尚登录",
-        type: 'error'
-      });
-     
     }
+
+
   },
-  onShareAppMessage (res)  {
+  onShareAppMessage(res) {
     var oid = this.data.user_Id
     var check = this.data.checkUserId
     let userInfo = wx.getStorageSync('userInfo')
+    console.log(oid);
+
     var shareObj = {
-        title: 'ShareNotes',
-        imageUrl: '',
-      shareTickets: [titile = "addfriend", fid = oid],
-        withShareTicket: true,
-        success: (res) => {
-          console.log("转发成功", res);
-        },
-        fail: (res) => {
-          console.log("转发失败", res);
-        }
+      title: 'ShareNotes',
+      imageUrl: '',
+      path: "../../../pages/index/index",
+
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
       }
-    if (check) { 
+    }
+    if (check) {
       shareObj.title = userInfo.nickName + '想添加您为好友';
       shareObj.imageUrl = userInfo.avatarUrl;
+      shareObj.path = "/pages/share/index/index?id=" + oid;
     }
     return shareObj;
- 
+
   }
 })

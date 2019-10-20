@@ -8,6 +8,7 @@
         "i-panel": "../../dist/panel/index",
         "i-icon": "../../dist/icon/index", 
         "i-avatar": "../../dist/avatar/index",
-        "i-divider": "../../dist/divider/index"
+        "i-divider": "../../dist/divider/index",
+        "i-notice-bar": "../../dist/notice-bar/index"
   }
 }
