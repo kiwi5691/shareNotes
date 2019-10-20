@@ -25,7 +25,7 @@ public class ContentUtils {
     }
 
     public static Boolean getTypeInBoolean(Integer type){
-        if (type.equals(ContentBase.ALLOWACCESS)) {
+        if (type.equals(0)) {
             return   true;
         } else {
             return   false;

@@ -10,6 +10,7 @@ import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @author kiwi
  * @date 3/19/19
  */
+
 @RestController
 @RequestMapping("/wx/friend")
 public class WxFriendPostController {
@@ -76,11 +78,10 @@ public class WxFriendPostController {
             result.put("type", ContentUtils.getType( postCommentDto.getType()));
             result.put("visits", postCommentDto.getVisits());
             result.put("title", postCommentDto.getTitle());
-            result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getType()));
+            result.put("switch1", ContentUtils.getTypeInBoolean(postCommentDto.getDisallowComment()));
             result.put("updateTime", postCommentDto.getUpdateTime());
             result.put("createTime", postCommentDto.getCreateTime());
             result.put("baseComment", postCommentDto.getCommentDtoList());
-            result.put("allowComment", ContentUtils.returnTypeInBoolean(postCommentDto.getDisallowComment()));
 
             return ResponseUtil.ok(result);
         }
