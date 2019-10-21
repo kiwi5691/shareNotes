@@ -135,12 +135,14 @@ public class WxCategoryController {
         String name = JacksonUtil.parseString(body, "name");
         boolean isPcOrPr = JacksonUtil.parseBoolean(body, "isPcOrPr");
         String iconSelected = JacksonUtil.parseString(body, "iconSelected");
+        Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
 
         List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(userId, CategoryUtils.chekcIsPcOrPr(isPcOrPr));
+        CategoryDetailDTO detail = categoriesService.findCategoriesDetailByCid(userId, categoryId);
 
         if (!CollectionUtils.isEmpty(nameList)) {
             if(methodName.equals("update")){
-                nameList.remove(name);
+                nameList.remove(detail.getName());
             }
             if (nameList.contains(name)) {
                 return null;

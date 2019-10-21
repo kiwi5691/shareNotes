@@ -69,10 +69,10 @@ public class WxPostController {
     @PostMapping("/add")
     public Object addPostContent(@LoginUser Integer userId, @RequestBody String body) {
         Integer categoryId = JacksonUtil.parseInteger(body, "categoryId");
+        String originalContent = JacksonUtil.parseString(body, "originalContent");
 
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "add");
 
-        String originalContent = JacksonUtil.parseString(body, "originalContent");
         if(!wxMaSecCheckService.checkMessage(originalContent)){
             return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
         }
@@ -157,11 +157,13 @@ public class WxPostController {
         boolean allowComment = JacksonUtil.parseBoolean(body, "allowComment");
         String originalContent = JacksonUtil.parseString(body, "originalContent");
         Integer categoryId = JacksonUtil.parseInteger(body, "categoryId");
+        Integer postId = JacksonUtil.parseInteger(body, "postId");
 
         List<String> titles = postContentService.findAllPostsNameByCategoryId(categoryId);
+        PostCommentDto dto = postCommentService.findPostsByPostId(postId);
         if (!CollectionUtils.isEmpty(titles)) {
             if (methodName.equals("update")) {
-                titles.remove(title);
+                titles.remove(dto.getTitle());
             }
             if (titles.contains(title)) {
                 return null;
