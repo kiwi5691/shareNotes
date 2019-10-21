@@ -73,7 +73,7 @@ public class WxPostController {
 
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "add");
 
-        if(!wxMaSecCheckService.checkMessage(originalContent)){
+        if(!wxMaSecCheckService.checkMessage(originalContent) && originalContent != null){
             return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
         }
         if (postContentVo == null) {
