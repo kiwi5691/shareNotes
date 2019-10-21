@@ -47,7 +47,8 @@ public class UserGroupsSeriveImp implements UserGroupsSerive {
 
         }
 
-        Map<GroupDtoKey, List<GroupDto>> groupDtoMap = NameIdUtils.sort(friendGroup);
+        Map<GroupDtoKey, List<GroupDto>> groupDtoMap = new NameIdUtils().sort(friendGroup);
+
         return groupDtoMap;
     }
 
