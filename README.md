@@ -14,7 +14,8 @@
 
 因为此小程序属于记事服务，属于企业级小程序。所以只有体验版
 欢迎来体验呀。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191022094217657.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70)
+<img src="https://img-blog.csdnimg.cn/20191022094217657.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70" width = "200" height = "200" alt="图片名称">
+
 
 
 
