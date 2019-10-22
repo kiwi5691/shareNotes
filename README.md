@@ -5,7 +5,17 @@
 ## 项目介绍
 
 `shareNotes` 小程序可以让朋友之间轻松的共享公共的笔记，其笔记输入可以是纯文本，也可以是markdown或者html格式。
-##
+
+## 项目实例
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2019102209481690.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191022094505884.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191022094716537.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191022094830934.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70)
+因为此小程序属于记事服务，属于企业级小程序。所以只有体验版
+欢迎来体验呀。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191022094217657.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70)
+
+
 
 ## 项目结构
 ``` 
@@ -16,6 +26,7 @@ shareNotes
 └── shareNotes -- 小程序前端
 ```
 
+### 项目
 
 ## 技术选型
 
