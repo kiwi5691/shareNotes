@@ -57,6 +57,13 @@ Page({
       });
     
   },
+  goSearch: function () {
+
+    wx.navigateTo({
+      url: '../search/search/search',
+    });
+
+  },
   toggleRight2() {
     wx.vibrateShort();
     this.setData({

@@ -1,3 +1,4 @@
+
 <!--index.wxml-->
 <i-tabs current="{{ current }}" bindchange="handleChange">
     <i-tab key="tab1" title="公共"></i-tab>
@@ -38,7 +39,10 @@
 <i-drawer mode="right" visible="{{showRight2}}" mask-closable="{{false}}">
     <view class="demo-container">
      <i-button bind:click="adddetial" shape="circle"  type="success" >创建目录</i-button>
-     <view hidden="{{!hasLogin}}">
+      <view hidden="{{!hasLogin}}">
+     <i-button bind:click="goSearch" shape="circle"  type="content" >搜索</i-button>
+     </view>
+       <view hidden="{{!hasLogin}}">
      <i-button bind:click="goOplog" shape="circle"  type="warning" >操作日志</i-button>
      </view>
      <i-button bind:click="toggleRight2" shape="circle" type="primary">关闭抽屉</i-button>

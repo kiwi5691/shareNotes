@@ -1,0 +1,4 @@
+<!--pages/search/search/search.wxml-->
+<i-panel title="搜索">
+    <i-input value="{{ keywords }}" mode="wrapped" placeholder="搜索" maxlength="50"  />
+</i-panel>

@@ -19,7 +19,8 @@
     "pages/ucenter/leaning/leaning",
     "pages/ucenter/issue/issue",
     "pages/content/oplog/oplog",
-    "pages/ucenter/my/my"
+    "pages/ucenter/my/my",
+    "pages/search/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",
