@@ -10,6 +10,7 @@
         <module>share-Notes-db</module>
         <module>share-Notes-core</module>
         <module>share-Notes-wx-api</module>
+        <module>share-Notes-backend-api</module>
     </modules>
 
 

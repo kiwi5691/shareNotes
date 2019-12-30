@@ -80,7 +80,6 @@
             <groupId>cn.sharenotes</groupId>
             <artifactId>shareNotes-db</artifactId>
             <version>0.0.1</version>
-            <scope>compile</scope>y
         </dependency>
         <dependency>
             <groupId>cn.sharenotes</groupId>

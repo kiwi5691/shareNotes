@@ -1,31 +1,45 @@
 package cn.sharenotes.db.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
-
+@Document(indexName = "Posts",type = "docs", shards = 5, replicas = 1)
 public class Posts {
+    @Id
     private Integer id;
 
+    @Field(type = FieldType.Keyword)
     private Integer type;
 
+    @Field(type = FieldType.Date)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+    @Field(type = FieldType.Date)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private Integer createFrom;
 
+    @Field(index = false, type = FieldType.Keyword)
     private Integer disallowComment;
 
+    @Field(type = FieldType.Date)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date editTime;
 
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String title;
 
+    @Field(index = false, type = FieldType.Keyword)
     private Integer topPriority;
 
+    @Field(index = false, type = FieldType.Keyword)
     private Long visits;
 
     public Integer getId() {
