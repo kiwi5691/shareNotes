@@ -190,6 +190,16 @@ CREATE TABLE IF NOT EXISTS `msg_request` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
+CREATE TABLE IF NOT EXISTS `system_const` (
+  `id` bigint(20) NOT NULL,
+  `created_ts` datetime DEFAULT NULL,
+  `creator` bigint(20) DEFAULT NULL,
+  `editor` bigint(20) DEFAULT NULL,
+  `last_modified_ts` datetime DEFAULT NULL,
+  `es_Init` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
 -- 消息日志
 DROP TABLE IF EXISTS `sys_msg`;
 CREATE TABLE `sys_msg` (

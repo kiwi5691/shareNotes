@@ -12,8 +12,8 @@
     </i-cell>
 </i-panel>
 
-<i-panel title="消息" bindtap="goMsg">
- <i-cell title="我的消息" >
+<i-panel title="通知" bindtap="goMsg">
+ <i-cell title="我的通知" >
         <i-icon slot="icon" type="message" size="28"/>
         <i-badge count="{{msgNumber}}" slot="footer"  />
     </i-cell>

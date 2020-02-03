@@ -8,8 +8,10 @@
     "i-alert": "../../dist/alert/index",
     "i-icon": "../../dist/icon/index",
      "i-message": "../../dist/message/index",
+        "i-button": "../../dist/button/index",
     "i-modal": "../../dist/modal/index",
-    "i-spin": "../../dist/spin/index"
+    "i-spin": "../../dist/spin/index",
+        "i-drawer": "../../dist/drawer/index"
   },
   "navigationBarTitleText": "朋友的目录",
     "backgroundColor": "#f4f4f4",

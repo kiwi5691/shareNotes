@@ -44,7 +44,13 @@
         "pagePath": "pages/share/index/index",
         "iconPath": "static/images/home.png",
         "selectedIconPath": "static/images/home@selected.png",
-        "text": "共享"
+        "text": "联系"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/mess.png",
+        "selectedIconPath": "static/images/mess@selected.png",
+        "text": "私信"
       },
       {
         "pagePath": "pages/ucenter/index/index",

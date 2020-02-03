@@ -117,7 +117,7 @@ Page({
         });
         if (res.data.sysMsgsnum){
         wx.showTabBarRedDot({
-          index: 2,
+          index: 3,
         })
       }
       }

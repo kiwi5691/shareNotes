@@ -7,3 +7,16 @@ page {
 
 .lab{position: fixed;bottom: 30px;right: 20px; padding: 4rpx 10rpx; margin: 20rpx; border-radius: 4rpx;  color: #fff; font-size: 28rpx;}
 
+.add_icon{
+
+  position: fixed;
+
+  width:42px;
+
+  height:42px;
+
+bottom: 30px;
+
+right: 20px;
+
+}

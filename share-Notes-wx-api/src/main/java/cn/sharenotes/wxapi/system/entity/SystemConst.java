@@ -16,7 +16,7 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "systemConst", schema = "sharenotes_dev", catalog = "")
+@Table(name = "system_const")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SystemConst extends BaseModel {
     private Long id;
@@ -36,7 +36,7 @@ public class SystemConst extends BaseModel {
     }
 
     @Basic
-    @Column(name = "esInit")
+    @Column(name = "es_Init")
     public String getEsInit() {
         return esInit;
     }

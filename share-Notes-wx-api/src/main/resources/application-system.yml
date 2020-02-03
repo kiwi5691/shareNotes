@@ -1,6 +1,6 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://134.175.132.161:3306/sharenotes_dev?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: sharenotes_dev
     password: YwbTrt5C8LFxXXbm
@@ -8,9 +8,9 @@ spring:
   jpa:
     properties:
       hibernate:
-        ddl-auto: create
+        ddl-auto: update
         hbm2ddl:
-          auto: create
+          auto: update
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     show-sql: true

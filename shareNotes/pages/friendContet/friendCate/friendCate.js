@@ -25,6 +25,13 @@ Page({
     publicCate: [],
     hiddenAlertPr: true,
     current: 'tab1',
+    showRigh2: false,
+  },
+  toggleRight2() {
+    wx.vibrateShort();
+    this.setData({
+      showRight2: !this.data.showRight2
+    });
   },
   handleChange({ detail }) {
     this.setData({
