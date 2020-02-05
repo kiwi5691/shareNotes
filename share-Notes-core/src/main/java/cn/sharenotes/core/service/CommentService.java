@@ -12,11 +12,11 @@ public interface CommentService {
      *
      * @return
      */
-    public Integer addComment(int userid,int post_id,String content,Boolean isanonymous);
+    Integer addComment(int userid,int post_id,String content,Boolean isanonymous);
     /**
      * 删除评论
      *
      * @return
      */
-    public Integer delectComment(int id);
+    Integer delectComment(int id);
 }

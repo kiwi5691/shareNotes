@@ -3,6 +3,7 @@ package cn.sharenotes.wxapi.system.entity;
 import cn.sharenotes.wxapi.system.entity.base.BaseModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jdk.nashorn.internal.objects.annotations.Constructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.ibatis.annotations.ConstructorArgs;
@@ -13,37 +14,25 @@ import javax.persistence.*;
  * @author kiwi
  * @date 2019/11/24 11:24
  */
+@Data
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "system_const")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SystemConst extends BaseModel {
-    private Long id;
-    //es是否建立了索引库 Y,N
-    private String esInit;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GenericGenerator(name = "snowf-id", strategy = "com.kiwi.cloud.common.core.utils.SnowflakeIDGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Long id;
 
     @Basic
-    @Column(name = "es_Init")
-    public String getEsInit() {
-        return esInit;
-    }
+    @Column(name = "is_Init")
+    private String isInit;
 
-    public void setEsInit(String esInit) {
-        this.esInit = esInit;
-    }
-
+    @Basic
+    @Column(name = "const_Name")
+    private String constName;
 
 }

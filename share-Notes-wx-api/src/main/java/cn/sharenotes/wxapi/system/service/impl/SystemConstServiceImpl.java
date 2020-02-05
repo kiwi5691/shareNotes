@@ -28,30 +28,31 @@ public class SystemConstServiceImpl implements SystemConstService {
 
     @Override
     public void initEs() {
+        Boolean isInit= false;
         List<SystemConst> systemConsts= (List<SystemConst>) systemConstDao.findAll();
-        if(systemConsts!=null) {
+        if(systemConsts.size()!=0) {
             systemConsts.stream().forEach(systemConst -> {
-                if (systemConst.getEsInit() == null || systemConst.getEsInit() == "N") {
-                    System.out.println(systemConst);
-                    init();
-                    systemConst.setEsInit("Y");
+                if (systemConst.getConstName().equals("elasticSearch索引库") && systemConst.getIsInit().equals("Y")) {
+                    return;
                 } else {
-                    log.info("elasticSearch index already established");
+                    initES();
                 }
             });
         }else {
-            SystemConst systemConst = new SystemConst();
-            systemConst.setEsInit("Y");
-            systemConst.setCreatedTs(new Date());
-            systemConst.setCreator((long) 1357902468);
-            systemConst.setEditor((long) 1357902468);
-            systemConst.setLastModifiedTs(new Date());
-            systemConstDao.save(systemConst);
-            init();
+            initES();
         }
     }
-    public void init() {
+    public void initES() {
+        SystemConst systemConst = new SystemConst();
+        systemConst.setIsInit("Y");
+        systemConst.setConstName("elasticSearch索引库");
+        systemConst.setCreatedTs(new Date());
+        systemConst.setCreator((long) 1357902468);
+        systemConst.setEditor((long) 1357902468);
+        systemConst.setLastModifiedTs(new Date());
+        systemConstDao.save(systemConst);
         elasticsearchTemplate.createIndex(PostsWithBLOBs.class);
+//        systemConstDao.
         log.info("elasticSearch index init ",PostsWithBLOBs.class.getName());
     }
 }

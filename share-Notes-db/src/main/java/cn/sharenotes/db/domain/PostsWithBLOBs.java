@@ -1,8 +1,10 @@
 package cn.sharenotes.db.domain;
 
+import lombok.ToString;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+@ToString
 public class PostsWithBLOBs extends Posts {
     @Field(index = false, type = FieldType.Keyword)
     private String formatContent;

@@ -1,5 +1,6 @@
 package cn.sharenotes.core.service;
 
+import cn.sharenotes.db.domain.PostsWithBLOBs;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
 
@@ -12,7 +13,10 @@ import java.util.List;
  */
 public interface PostContentService {
     List<PostDTO> findPostsByCateId(Integer cateId);
+
     List<PostDTO> friendFindPostsByCateId(Integer cateId);
+
+    List<PostsWithBLOBs> listPostsWithBLOBs();
 
     Integer addPostContent(Integer categoryId,PostContentVo postContentVo);
 

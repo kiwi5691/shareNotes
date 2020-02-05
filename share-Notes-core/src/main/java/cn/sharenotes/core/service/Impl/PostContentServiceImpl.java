@@ -70,6 +70,16 @@ public class PostContentServiceImpl implements PostContentService {
     }
 
     @Override
+    public List<PostsWithBLOBs> listPostsWithBLOBs() {
+        PostsExample postsExample = new PostsExample();
+        postsExample.setOrderByClause("update_time DESC");
+        postsExample.createCriteria();
+        List<PostsWithBLOBs> postsWithBLOBs = new ArrayList<>();
+        postsMapper.selectByExampleWithBLOBs(postsExample);
+        return postsWithBLOBs;
+    }
+
+    @Override
     public Integer addPostContent(Integer categoryId, PostContentVo postContentVo) {
         PostsWithBLOBs posts = new PostsWithBLOBs();
         DtoUtils.copyProperties(postContentVo, posts);

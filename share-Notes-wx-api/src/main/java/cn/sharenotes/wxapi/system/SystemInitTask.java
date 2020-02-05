@@ -27,7 +27,6 @@ public class SystemInitTask implements ApplicationRunner {
     public void run(ApplicationArguments args)
             throws Exception
     {
-        log.info("start to run init.");
         // 参数：1、任务体 2、首次执行的延时时间
         //      3、任务执行间隔 4、间隔时间单位
         scheduledExecutorService.scheduleAtFixedRate(new Runnable()
@@ -39,7 +38,7 @@ public class SystemInitTask implements ApplicationRunner {
             }
         }, 0, 3, TimeUnit.SECONDS);
 
-        log.info("end to init.");
+        log.info("inited.");
     }
 
 

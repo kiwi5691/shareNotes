@@ -191,12 +191,14 @@ CREATE TABLE IF NOT EXISTS `msg_request` (
 
 
 CREATE TABLE IF NOT EXISTS `system_const` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_ts` datetime DEFAULT NULL,
   `creator` bigint(20) DEFAULT NULL,
   `editor` bigint(20) DEFAULT NULL,
   `last_modified_ts` datetime DEFAULT NULL,
-  `es_Init` varchar(255) DEFAULT NULL
+  `is_Init` varchar(255) DEFAULT NULL,
+  `const_Name` varchar(255) DEFAULT NULL,
+   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
@@ -229,3 +231,12 @@ CREATE TABLE `attachments` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文件存储表';
 
+DROP TABLE IF EXISTS `user_msg`;
+CREATE TABLE `user_msg` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `msg` varchar(255) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
