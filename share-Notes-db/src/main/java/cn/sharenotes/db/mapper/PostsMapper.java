@@ -24,6 +24,8 @@ public interface PostsMapper {
 
     PostsWithBLOBs selectByPrimaryKey(Integer id);
 
+    List<PostsWithBLOBs> listAllPosts();
+
     int updateByExampleSelective(@Param("record") PostsWithBLOBs record, @Param("example") PostsExample example);
 
     int updateByExampleWithBLOBs(@Param("record") PostsWithBLOBs record, @Param("example") PostsExample example);

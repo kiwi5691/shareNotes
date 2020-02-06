@@ -5,7 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
+    current: 1
 
+  },
+  search: function () {
+
+  },
+  handleChange({ detail }) {
+    const type = detail.type;
+    if (type === 'next') {
+      this.setData({
+        current: this.data.current + 1
+      });
+    } else if (type === 'prev') {
+      this.setData({
+        current: this.data.current - 1
+      });
+    }
   },
 
   /**

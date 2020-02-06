@@ -14,8 +14,8 @@
     <result column="visits" jdbcType="BIGINT" property="visits" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.sharenotes.db.domain.PostsWithBLOBs">
-    <result column="format_content" jdbcType="VARCHAR" property="formatContent" />
-    <result column="original_content" jdbcType="VARCHAR" property="originalContent" />
+    <result column="format_content" jdbcType="LONGVARCHAR" property="formatContent" />
+    <result column="original_content" jdbcType="LONGVARCHAR" property="originalContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -111,6 +111,11 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="listAllPosts"  resultMap="ResultMapWithBLOBs">
+    select
+    *
+    from posts order by update_time DESC
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 

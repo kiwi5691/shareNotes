@@ -1,6 +1,5 @@
 package cn.sharenotes.wxapi.web.search;
 
-import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.db.domain.Posts;
 import cn.sharenotes.db.domain.PostsWithBLOBs;
 import cn.sharenotes.wxapi.service.esService.PostService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -26,33 +24,40 @@ public class search {
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
-    @Autowired
-    private PostContentService postContentService;
 
     @GetMapping("/test/search")
     public String searchPosts(){
-        //
-        List<PostsWithBLOBs> postsWithBLOBsList = new ArrayList<>();
-        postContentService.listPostsWithBLOBs();
-        postsWithBLOBsList.forEach(postsWithBLOBs -> log.info(postsWithBLOBs.toString()));
-        return String.valueOf(postService.findAll("fuck"));
+        Iterable<PostsWithBLOBs> postsWithBLOBs =postService.findAll("");
+        StringBuilder builder = new StringBuilder();
+        for (PostsWithBLOBs p: postsWithBLOBs) {
+            builder.append(p.toString());
+            log.info(builder.toString());
+
+        }
+        return builder.toString();
 
     }
-
-
     @GetMapping("/test/createIndex")
     public String createIndex(){
 
         try {
             elasticsearchTemplate.createIndex(PostsWithBLOBs.class);
-            return "success";
         }catch (Exception e){
-            log.error("ex:"+e);
-            return "fail";
+
         }
+        return "sus";
 
     }
 
 
+    @GetMapping("/fuck/{id}")
+    public String fuck(@PathVariable("id") String id){
 
+        if(id.equals("1")) {
+            return "fuck mother";
+        }else if(id.equals("2")){
+            return "你麻痹的棒棒糖";
+        }
+        return "sb";
+    }
 }

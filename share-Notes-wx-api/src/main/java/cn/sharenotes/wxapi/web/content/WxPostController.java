@@ -6,10 +6,15 @@ import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ContentUtils;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.db.domain.PostCategoriesExample;
+import cn.sharenotes.db.domain.PostsExample;
+import cn.sharenotes.db.domain.PostsWithBLOBs;
+import cn.sharenotes.db.mapper.PostsMapper;
 import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.db.model.dto.PostDTO;
 import cn.sharenotes.db.model.dto.PostTypeDTO;
 import cn.sharenotes.db.model.vo.PostContentVo;
+import cn.sharenotes.db.repository.PostsWithBLOBsRepository;
 import cn.sharenotes.wxapi.annotation.Log;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
@@ -20,10 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Post controller.
@@ -35,6 +37,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/wx/posts")
 public class WxPostController {
+
+    @Resource
+    private PostsWithBLOBsRepository postsWithBLOBsRepository;
+    @Resource
+    private PostsMapper postsMapper;
 
     @Resource
     private PostContentService postContentService;
@@ -119,6 +126,13 @@ public class WxPostController {
         Integer cateId = postContentService.findCateIdByPostId(postId);
         Integer i = postContentService.deletePostContentAndCategory(postId);
         if (i > 0) {
+            PostsExample postsExample = new PostsExample();
+            PostsExample.Criteria criteria = postsExample.createCriteria();
+            criteria.andIdEqualTo(postId);
+
+            List<PostsWithBLOBs> postsWithBLOBs = postsMapper.selectByExampleWithBLOBs(postsExample);
+            Optional<PostsWithBLOBs> optionalPostsWithBLOBs = Optional.ofNullable(postsWithBLOBs.get(0));
+            optionalPostsWithBLOBs.ifPresent(withBLOBs -> postsWithBLOBsRepository.delete(withBLOBs));
             postContentService.updatePostsRedisInfo(cateId);
             //删除文章评论的缓存
             return ResponseUtil.ok();

@@ -1,4 +1,30 @@
 <!--pages/search/search/search.wxml-->
-<i-panel title="搜索">
-    <i-input value="{{ keywords }}" mode="wrapped" placeholder="搜索" maxlength="50"  />
-</i-panel>
+<view>
+     <view>
+        <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+            <!-- 搜索框 -->
+                <view class="weui-search-bar__box">
+                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                    <input type="text" class="weui-search-bar__input" placeholder="请输入搜索内容"/>
+                </view>
+            </view>
+            <!-- 搜索按钮,调用搜索查询方法 -->
+            <view class="weui-search-bar__cancel-btn" bindtap='search'>搜索</view>
+        </view>
+    </view>
+<!-- <view class='bottom'> -->
+
+    <i-page current="{{ current }}" total="5" bind:change="handleChange">
+    <view slot="prev">
+        <view  type="return"></view >
+        上一页
+    </view>
+    <view slot="next">
+        下一页
+        <view  type="enter"></view >
+    </view>
+</i-page>
+
+<!-- </view>  -->
+</view> 

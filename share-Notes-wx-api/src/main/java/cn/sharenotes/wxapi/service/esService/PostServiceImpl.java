@@ -1,22 +1,27 @@
 package cn.sharenotes.wxapi.service.esService;
 
 import cn.sharenotes.db.domain.Posts;
-import cn.sharenotes.wxapi.service.esService.respo.postRepository;
+import cn.sharenotes.db.domain.PostsWithBLOBs;
+import cn.sharenotes.db.repository.PostsWithBLOBsRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class PostServiceImpl implements PostService{
 
     @Autowired
-    private cn.sharenotes.wxapi.service.esService.respo.postRepository postRepository;
+    private PostsWithBLOBsRepository postsWithBLOBsRepository;
     @Override
-    public List<Posts> findAll(String var1) {
-        List<Posts> list = (List<Posts>) this.postRepository.findAll(Sort.by("createTime").ascending());
-
-        return list;
+    public Iterable<PostsWithBLOBs> findAll(String var1) {
+        Iterable<PostsWithBLOBs> postsWithBLOBs = this.postsWithBLOBsRepository.findAll(Sort.by("updateTime").ascending());
+        for (PostsWithBLOBs p: postsWithBLOBs) {
+            log.info(p.toString());
+        }
+        return postsWithBLOBs;
     }
 }

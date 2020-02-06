@@ -1,25 +1,34 @@
 package cn.sharenotes.db.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.io.Serializable;
 import java.util.Date;
-@Document(indexName = "posts",type = "docs", shards = 5, replicas = 1)
-public class Posts {
+@ToString
+public class Posts implements Serializable {
+    private static final long serialVersionUID = 6320548148250372657L;
+
     @Id
     private Integer id;
 
     @Field(type = FieldType.Keyword)
     private Integer type;
 
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date,
+            format = DateFormat.custom,
+            pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
-    @Field(type = FieldType.Date)
+    @Field(fielddata = true,type = FieldType.Date,
+            format = DateFormat.custom,
+            pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
