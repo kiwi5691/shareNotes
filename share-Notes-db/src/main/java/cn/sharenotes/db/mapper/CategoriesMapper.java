@@ -33,4 +33,6 @@ public interface CategoriesMapper {
     int updateByPrimaryKey(Categories record);
 
     List<String> selectAllName();
+
+    String selectByCateId(Integer id);
 }

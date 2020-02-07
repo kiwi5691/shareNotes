@@ -22,6 +22,7 @@ public interface PostCategoriesMapper {
 
     List<PostCategories> selectByExample(PostCategoriesExample example);
 
+    List clearData();
     List<Integer> selectPostidByCateid(Integer cateid);
 
     PostCategories selectByPrimaryKey(Integer id);

@@ -167,6 +167,9 @@
   <select id="selectAllName" resultType="java.lang.String">
     select name from categories
   </select>
+  <select id="selectByCateId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select name from categories where id =#{id};
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update categories
     <set>

@@ -5,6 +5,7 @@
 ## 项目介绍
 
 `shareNotes` 小程序可以让朋友之间轻松的共享公共的笔记，其笔记输入可以是纯文本，也可以是markdown或者html格式。
+并且添加了由Netty+WebSocket实现的IM，实现即使交流的功能
 
 ## 项目实例
 <img src="https://img-blog.csdnimg.cn/2019102209481690.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNzU3MTc5NQ==,size_16,color_FFFFFF,t_70" width = "200" height = "400" alt="图片名称">
@@ -43,6 +44,7 @@ Swagger-UI | 文档生产工具 |
 ActiveMq | 消息队列 | 
 Redis | 分布式缓存 | 
 Docker | 应用容器引擎 | 
+ElasticSearch | 基于Lucene的搜索服务器 | 
 Druid | 数据库连接池 | 
 AOP | 面向切面编程 |
 JWT | JWT登录支持 | 
@@ -66,6 +68,7 @@ iView | UI组件库 |
 - 安装 MySQL (5.7+)
 - 安装 ActivetMQ （5.15.9） 其版本和JDK对应
 - 安装 微信开发者工具
+- 安装 ElasticSearch (6.3.2+) 需要添加上分词器
 
 ## 配置
 ### 数据库

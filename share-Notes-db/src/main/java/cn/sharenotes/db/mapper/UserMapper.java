@@ -2,7 +2,10 @@ package cn.sharenotes.db.mapper;
 
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.domain.UserExample;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +21,8 @@ public interface UserMapper {
     int insertSelective(User record);
 
     List<User> selectByExample(UserExample example);
+
+    Map selectNameAndAvatarById(Integer id);
 
     User selectOneByExample(UserExample example);
 

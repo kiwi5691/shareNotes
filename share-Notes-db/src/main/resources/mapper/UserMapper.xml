@@ -95,6 +95,9 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectNameAndAvatarById" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+    select  nickname,avatar from user where id =#{id}
+  </select>
   <select id="selectOneByExample" parameterType="cn.sharenotes.db.domain.UserExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

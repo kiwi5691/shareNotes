@@ -1,30 +1,40 @@
-<!--pages/search/search/search.wxml-->
-<view>
-     <view>
-        <view class="weui-search-bar">
-            <view class="weui-search-bar__form">
-            <!-- 搜索框 -->
-                <view class="weui-search-bar__box">
-                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                    <input type="text" class="weui-search-bar__input" placeholder="请输入搜索内容"/>
-                </view>
-            </view>
-            <!-- 搜索按钮,调用搜索查询方法 -->
-            <view class="weui-search-bar__cancel-btn" bindtap='search'>搜索</view>
-        </view>
-    </view>
-<!-- <view class='bottom'> -->
+<view class="search">  
 
-    <i-page current="{{ current }}" total="5" bind:change="handleChange">
-    <view slot="prev">
-        <view  type="return"></view >
-        上一页
-    </view>
-    <view slot="next">
-        下一页
-        <view  type="enter"></view >
-    </view>
-</i-page>
+  <view class="search-bar">  
 
-<!-- </view>  -->
-</view> 
+    <view class="search-wrap">  
+
+        <icon type="search" size="16" class="icon-search" />  
+
+        <input type="text" placeholder="请输入搜索内容" class="search-input" name="searchKeyword" bindinput="bindKeywordInput" value="{{searchKeyword}}" />  
+
+    </view>  
+
+    <view class="search-cancel" bindtap="keywordSearch">搜索</view>  
+
+  </view>  
+
+  <view class="search-result">  
+
+    <scroll-view scroll-y="true" bindscrolltolower="searchScrollLower">  
+
+      <view class="result-item" wx:for="{{searchSongList}}" wx:key="unique"  data-data="{{item}}" >
+        <!-- <view class="icon{{item.avatar=='0' ? ' nocopyright' : ''}}"></view> -->
+        <image  src="{{item.avatar}}"  style="margin-left: 15rpx; height: 60rpx;width:60rpx;"></image>
+        <text class="title">{{item.cateName}}:{{item.title}}</text>
+        <view class="subtitle">
+          <text>{{item.updateTime}}:{{item.createFrom}}</text>
+
+        </view>  
+
+      </view>  
+
+      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
+
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>  
+
+    </scroll-view>    
+
+  </view>  
+
+</view>

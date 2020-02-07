@@ -2,20 +2,18 @@ package cn.sharenotes.wxapi.system.service.impl;
 
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.db.domain.PostsWithBLOBs;
-import cn.sharenotes.db.repository.PostsWithBLOBsRepository;
+import cn.sharenotes.db.domain.index.PostsIndex;
+import cn.sharenotes.db.repository.PostsIndexRepository;
+import cn.sharenotes.db.utils.DtoUtils;
 import cn.sharenotes.wxapi.system.dao.SystemConstDao;
 import cn.sharenotes.wxapi.system.entity.SystemConst;
 import cn.sharenotes.wxapi.system.service.SystemConstService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +25,7 @@ import java.util.List;
 @Service("systemConstService")
 public class SystemConstServiceImpl implements SystemConstService {
     @Autowired
-    private PostsWithBLOBsRepository postsWithBLOBsRepository;
+    private PostsIndexRepository postsIndexRepository;
     @Autowired
     private PostContentService postContentService;
     @Autowired
@@ -45,22 +43,32 @@ public class SystemConstServiceImpl implements SystemConstService {
                 if (systemConst.getConstName().equals("elasticSearch索引库") && systemConst.getIsInit().equals("Y")) {
                     return;
                 } else {
-                    initES();
+                    initedES();
                 }
             });
         }else {
-            initES();
+            initedES();
         }
     }
-    public void initES() {
+    public void initedES() {
 
         try{
 
-            List<PostsWithBLOBs> postsWithBLOBsList = new ArrayList<>();
-            postsWithBLOBsList= postContentService.listPostsWithBLOBs();
-            elasticsearchTemplate.createIndex(PostsWithBLOBs.class);
-            if(postsWithBLOBsList.size()!=0){
-            postsWithBLOBsRepository.saveAll(postsWithBLOBsList);
+            List<PostsIndex> postsIndices = new ArrayList<>();
+            List<PostsWithBLOBs> postsWithBLOBs = new ArrayList<>();
+            postsWithBLOBs= postContentService.listPostsWithBLOBs();
+            for (PostsWithBLOBs p: postsWithBLOBs) {
+                if(p!=null){
+                PostsIndex postsIndex = new PostsIndex();
+
+                DtoUtils.copyProperties(p, postsIndex);
+                postsIndices.add(postsIndex);
+                }
+            }
+
+            elasticsearchTemplate.createIndex(PostsIndex.class);
+            if(postsIndices.size()!=0){
+            postsIndexRepository.saveAll(postsIndices);
             }
             SystemConst systemConst = new SystemConst();
             systemConst.setIsInit("Y");
@@ -70,7 +78,7 @@ public class SystemConstServiceImpl implements SystemConstService {
             systemConst.setEditor((long) 1357902468);
             systemConst.setLastModifiedTs(new Date());
             systemConstDao.save(systemConst);
-            log.info("elasticSearch index init "+PostsWithBLOBs.class.getName());
+            log.info("elasticSearch index init "+PostsIndex.class.getName());
 
         }catch (Exception e){
             log.error("ElasticSearch无法连接，具体错误："+e);
