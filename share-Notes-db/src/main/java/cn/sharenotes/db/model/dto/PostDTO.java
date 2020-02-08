@@ -20,6 +20,7 @@ public class PostDTO implements Serializable {
 
     private Integer type;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     private String title;

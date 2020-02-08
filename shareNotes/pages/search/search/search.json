@@ -1,6 +1,7 @@
 {
   "usingComponents": {
         "i-input": "../../dist/input/index",
+    "i-message": "../../dist/message/index",
             "i-icon": "../../dist/icon/index",
                 "i-page": "../../dist/page/index",
                   "i-divider": "../../dist/divider/index",
@@ -10,6 +11,7 @@
                     "i-cell": "../../dist/cell/index"
   },
     "navigationBarTitleText": "搜索",
-    "backgroundColor": "#f4f4f4"
+    "backgroundColor": "#f4f4f4",
+    "enablePullDownRefresh": true
    
 }

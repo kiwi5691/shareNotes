@@ -16,25 +16,27 @@
 
   <view class="search-result">  
 
-    <scroll-view scroll-y="true" bindscrolltolower="searchScrollLower">  
 
-      <view class="result-item" wx:for="{{searchSongList}}" wx:key="unique"  data-data="{{item}}" >
-        <!-- <view class="icon{{item.avatar=='0' ? ' nocopyright' : ''}}"></view> -->
-        <image  src="{{item.avatar}}"  style="margin-left: 15rpx; height: 60rpx;width:60rpx;"></image>
+      <view  wx:for="{{searchSongList}}" wx:key="id">
+         <!-- <image  src="{{item.avatar}}"  style="margin-left: 10rpx; height: 60rpx;width:60rpx;"></image>
         <text class="title">{{item.cateName}}:{{item.title}}</text>
         <view class="subtitle">
           <text>{{item.updateTime}}:{{item.createFrom}}</text>
 
-        </view>  
+        </view>   -->
 
+<i-card title="{{item.title}}" extra="目录:{{item.cateName}}" thumb="{{item.avatar}}">
+    <view slot="content">来自:{{item.createFrom}}</view>
+    <view slot="footer">更新时间:{{item.updateTime}}</view>
+</i-card>
       </view>  
 
       <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
 
       <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>  
 
-    </scroll-view>    
 
   </view>  
 
 </view>
+<i-message id="message" />
