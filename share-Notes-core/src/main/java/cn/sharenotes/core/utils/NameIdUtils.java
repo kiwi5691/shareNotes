@@ -1,11 +1,7 @@
 package cn.sharenotes.core.utils;
 
-import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.dto.GroupDto;
 import cn.sharenotes.db.model.dto.GroupDtoKey;
-import com.sun.deploy.net.URLEncoder;
-
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public  class NameIdUtils {

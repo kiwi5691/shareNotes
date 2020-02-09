@@ -20,7 +20,8 @@
     "pages/ucenter/issue/issue",
     "pages/content/oplog/oplog",
     "pages/ucenter/my/my",
-    "pages/search/search/search"
+    "pages/search/search/search",
+    "pages/chat/chat/chat"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -47,7 +48,7 @@
         "text": "联系"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/chat/chat",
         "iconPath": "static/images/mess.png",
         "selectedIconPath": "static/images/mess@selected.png",
         "text": "私信"

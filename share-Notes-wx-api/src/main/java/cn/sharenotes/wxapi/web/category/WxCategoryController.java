@@ -138,7 +138,10 @@ public class WxCategoryController {
         Integer categoryId = JacksonUtil.parseInteger(body, "cateId");
 
         List<String> nameList = categoriesService.findAllCategoryNameByUserOpenIdWithMenuId(userId, CategoryUtils.chekcIsPcOrPr(isPcOrPr));
-        CategoryDetailDTO detail = categoriesService.findCategoriesDetailByCid(userId, categoryId);
+        CategoryDetailDTO detail = new CategoryDetailDTO();
+        if(methodName.equals("update")) {
+             detail = categoriesService.findCategoriesDetailByCid(userId, categoryId);
+        }
 
         if (!CollectionUtils.isEmpty(nameList)) {
             if(methodName.equals("update")){

@@ -2,10 +2,7 @@ package cn.sharenotes.wxapi.service.esService;
 
 import cn.sharenotes.core.utils.WxResponseCode;
 import cn.sharenotes.db.domain.index.PostsIndex;
-import cn.sharenotes.db.mapper.CategoriesMapper;
-import cn.sharenotes.db.mapper.PostCategoriesMapper;
-import cn.sharenotes.db.mapper.PostsMapper;
-import cn.sharenotes.db.mapper.UserMapper;
+import cn.sharenotes.db.mapper.*;
 import cn.sharenotes.db.model.dto.PageSearchDto;
 import cn.sharenotes.db.model.vo.PostSearchVo;
 import cn.sharenotes.db.repository.PostsIndexRepository;
@@ -30,6 +27,8 @@ import java.util.*;
 public class PostServiceImpl implements PostService{
 
     @Autowired
+    private UserGroupsMapper userGroupsMapper;
+    @Autowired
     private CategoriesMapper categoriesMapper;
     @Autowired
     private UserMapper userMapper;
@@ -51,27 +50,31 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<PostSearchVo> postSearchVoTransfer(List<PostsIndex> postsIndices) {
-
+    public List<PostSearchVo> postSearchVoTransfer(Integer userId,List<PostsIndex> postsIndices) {
+        List<Integer> firendIds = this.filterUnFriends(userId);
         List<PostSearchVo> postSearchVos = new ArrayList<>();
+        postsIndices.stream().filter(postsIndex ->  !firendIds.contains(postsIndex.getCreateFrom()));
         for (PostsIndex var1: postsIndices) {
-            PostSearchVo postSearchVo = new PostSearchVo();
-            postSearchVo.setId(var1.getId());
-            postSearchVo.setTitle(var1.getTitle());
-            postSearchVo.setUpdateTime(var1.getUpdateTime());
-//TODO 根据 朋友， 自身ID逻辑过滤
-            Map<String,Object> result = new HashMap<>();
-            //这里因为Mybatis默认一级缓存，所以不会造成数据IO压力
-            result=userMapper.selectNameAndAvatarById(var1.getCreateFrom());
-            postSearchVo.setAvatar(String.valueOf( result.get("avatar")));
-            postSearchVo.setCreateFrom(String.valueOf(result.get("nickname")));
+                    PostSearchVo postSearchVo = new PostSearchVo();
+                    postSearchVo.setId(var1.getId());
+                    postSearchVo.setTitle(var1.getTitle());
+                    postSearchVo.setUpdateTime(var1.getUpdateTime());
+                    Map<String, Object> result = new HashMap<>();
+                    //这里因为Mybatis默认一级缓存，所以不会造成数据IO压力
+                    result = userMapper.selectNameAndAvatarById(var1.getCreateFrom());
+                    postSearchVo.setAvatar(String.valueOf(result.get("avatar")));
+                    postSearchVo.setCreateFrom(String.valueOf(result.get("nickname")));
 
-            postSearchVo.setCateName(this.constructCateName(var1.getId()));
-            postSearchVos.add(postSearchVo);
-        }
+                    postSearchVo.setCateName(this.constructCateName(var1.getId()));
+                    postSearchVos.add(postSearchVo);
+            }
+
         return postSearchVos;
     }
 
+    public List<Integer> filterUnFriends(Integer userId){
+        return  userGroupsMapper.selectFrindByUseId(userId);
+    }
     @Override
     public Integer accordingPostIdGetUserId(Integer id) {
         return postsMapper.listAllPostsName(id);

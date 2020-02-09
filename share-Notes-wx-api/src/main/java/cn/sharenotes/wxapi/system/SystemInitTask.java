@@ -20,24 +20,10 @@ public class SystemInitTask implements ApplicationRunner {
     @Autowired
     private SystemConstService systemConstService;
 
-    private ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(
-            1);
-
     @Override
-    public void run(ApplicationArguments args)
-            throws Exception
-    {
-        // 参数：1、任务体 2、首次执行的延时时间
-        //      3、任务执行间隔 4、间隔时间单位
-        scheduledExecutorService.scheduleAtFixedRate(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                systemConstService.initEs();
-            }
-        }, 0, 3, TimeUnit.SECONDS);
+    public void run(ApplicationArguments args) throws Exception {
 
+        systemConstService.initEs();
         log.info("inited.");
     }
 

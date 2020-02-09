@@ -1,0 +1,4 @@
+<textarea style="border: 1px solid black;" bindinput='inputTitle'></textarea>
+<button style="border: 1px solid violet;" bindtap='send'>发送消息</button>
+<button style="border: 1px solid red;" bindtap='closeWebSocket'>关闭WebSocket连接</button>
+<view wx:for="{{list}}">{{item}}</view>

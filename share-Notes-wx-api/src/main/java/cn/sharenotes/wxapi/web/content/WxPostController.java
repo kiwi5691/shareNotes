@@ -125,14 +125,15 @@ public class WxPostController {
     public Object deletePostContent(@LoginUser Integer userId,@RequestBody String body) {
         Integer postId = JacksonUtil.parseInteger(body, "postId");
         Integer cateId = postContentService.findCateIdByPostId(postId);
+        PostsExample postsExample = new PostsExample();
+        PostsExample.Criteria criteria = postsExample.createCriteria();
+        criteria.andIdEqualTo(postId);
+
+        List<PostsWithBLOBs> postsWithBLOBs = postsMapper.selectByExampleWithBLOBs(postsExample);
+        Optional<PostsWithBLOBs> optionalPostsIndex = Optional.ofNullable(postsWithBLOBs.get(0));
+
         Integer i = postContentService.deletePostContentAndCategory(postId);
         if (i > 0) {
-            PostsExample postsExample = new PostsExample();
-            PostsExample.Criteria criteria = postsExample.createCriteria();
-            criteria.andIdEqualTo(postId);
-
-            List<PostsWithBLOBs> postsWithBLOBs = postsMapper.selectByExampleWithBLOBs(postsExample);
-            Optional<PostsWithBLOBs> optionalPostsIndex = Optional.ofNullable(postsWithBLOBs.get(0));
             PostsIndex postsIndex = new PostsIndex();
             optionalPostsIndex.ifPresent(postsWithBLOBs1 -> {
                 DtoUtils.copyProperties(postsWithBLOBs1, postsIndex);

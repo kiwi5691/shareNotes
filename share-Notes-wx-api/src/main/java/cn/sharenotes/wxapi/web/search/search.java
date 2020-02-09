@@ -40,7 +40,7 @@ public class search {
 
 
     @PostMapping("/search/all")
-    public Object searchPosts(@Nullable @RequestBody String body){
+    public Object searchPosts(@LoginUser Integer userId,@Nullable @RequestBody String body){
 
         PageSearchDto pageSearchDto = bodyBuilder(body);
         if(pageSearchDto!=null){
@@ -48,7 +48,7 @@ public class search {
         Page<PostsIndex> posts =postService.findAll(pageSearchDto);
         List<PostsIndex> postsIndices = posts.get().collect(Collectors.toList());
         List<PostSearchVo> postSearchVos = new ArrayList<>();
-        postSearchVos = postService.postSearchVoTransfer(postsIndices);
+        postSearchVos = postService.postSearchVoTransfer(userId,postsIndices);
         Map<String, Object> result = new HashMap<>();
         result.put("status", postSearchVos.size());
         result.put("data", postSearchVos);

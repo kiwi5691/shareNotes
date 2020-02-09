@@ -15,7 +15,7 @@ public interface PostService {
 
     Page<PostsIndex> findAll(PageSearchDto pageSearchDto);
 
-    List<PostSearchVo> postSearchVoTransfer(List<PostsIndex> postsIndices);
+    List<PostSearchVo> postSearchVoTransfer(Integer userId,List<PostsIndex> postsIndices);
 
     Integer accordingPostIdGetUserId(Integer id);
 
