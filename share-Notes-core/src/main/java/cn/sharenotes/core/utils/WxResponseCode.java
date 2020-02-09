@@ -11,7 +11,7 @@ public class WxResponseCode {
     public static final Integer AUTH_INVALID_MOBILE = 707;
     public static final Integer AUTH_OPENID_UNACCESS = 708;
     public static final Integer AUTH_OPENID_BINDED = 709;
-
+    public static final Integer errPostId = -8977767;
 
 
 }

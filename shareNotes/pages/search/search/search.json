@@ -12,6 +12,5 @@
   },
     "navigationBarTitleText": "搜索",
     "backgroundColor": "#f4f4f4",
-    "enablePullDownRefresh": true
-   
-}
+    "onReachBottomDistance": 50
+    }

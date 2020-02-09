@@ -155,6 +155,9 @@
   <select id="selectPostidByCateid" resultType="java.lang.Integer">
     select post_id from post_categories where category_id =#{categoryId,jdbcType=INTEGER}
   </select>
+  <select id="selectCateidByPostId"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select category_id from post_categories where post_id =#{id}
+  </select>
     <select id="clearData" resultType="list">
    select p1.id from posts p1 where  p1.id not in(
     SELECT p.id  FROM `posts` p ,`post_categories` pc  where p.id = pc.post_id

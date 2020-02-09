@@ -50,8 +50,8 @@ public class SysMsgController {
     @GetMapping("/getAllMsg")
     public Object getAllMsg(@LoginUser Integer userId){
         MsgUtils.getType(1);
-        // TODO: 2019/10/12  type 1 评论 ，2 好友，3系统
-        // TODO: 2019/10/12  返回type( MsgUtils.getType(1)的String)，content，msgId  合成的msgList  dto
+        //  type 1 评论 ，2 好友，3系统
+        //    返回type( MsgUtils.getType(1)的String)，content，msgId  合成的msgList  dto
         List<MsgListDto> sysMsgs = sysMsgService.getSysMsg(userId);
         if(CollectionUtils.isEmpty(sysMsgs)){
             return ResponseUtil.fail(1101,"您还没有消息");

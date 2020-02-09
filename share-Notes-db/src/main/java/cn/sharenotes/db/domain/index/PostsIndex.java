@@ -34,12 +34,12 @@ public class PostsIndex implements Serializable {
     private Integer type;
 
     @Field(type = FieldType.Keyword)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
 
     @Field(type = FieldType.Keyword)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word")

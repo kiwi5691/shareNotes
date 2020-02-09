@@ -2,12 +2,14 @@ package cn.sharenotes.wxapi.web.search;
 
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.core.utils.WxResponseCode;
 import cn.sharenotes.db.domain.Posts;
 import cn.sharenotes.db.domain.PostsWithBLOBs;
 import cn.sharenotes.db.domain.index.PostsIndex;
 import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.model.dto.PageSearchDto;
 import cn.sharenotes.db.model.vo.PostSearchVo;
+import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.esService.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +50,7 @@ public class search {
         List<PostSearchVo> postSearchVos = new ArrayList<>();
         postSearchVos = postService.postSearchVoTransfer(postsIndices);
         Map<String, Object> result = new HashMap<>();
-        if(postSearchVos.size()==0)
-            result.put("status", 0);
-        else {
-            result.put("status", postSearchVos.size());
-        }
+        result.put("status", postSearchVos.size());
         result.put("data", postSearchVos);
         return ResponseUtil.ok(result);
         }else {
@@ -60,19 +58,28 @@ public class search {
         }
     }
 
-    @RequestMapping("fuck")
-    public Object f(){
-        Map<String,Object> h = new HashMap<>();
-        h=userMapper.selectNameAndAvatarById(3);
+    @GetMapping("search/idforpage/{id}")
+    public Object requestForPage(@LoginUser Integer userId,@PathVariable("id") Integer id) {
 
-        for (String key : h.keySet()) {
-            System.out.println("key= "+ key + " and value= " + h.get(key));
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            if (!postService.accordingPostIdGetUserId(id).equals(userId)) {
+                result.put("status", "fid");
+            } else {
+                result.put("status", "own");
+                if(!postService.getCatedByPostId(id).equals(WxResponseCode.errPostId)){
+                    result.put("cateId", postService.getCatedByPostId(id));
+                }else {
+                    return ResponseUtil.fail(111, "文章已失效");
+                }
+            }
+            return ResponseUtil.ok(result);
+        } catch (Exception e) {
+            log.error("e"+e);
+            return ResponseUtil.fail(111, "文章已失效");
         }
-        System.out.println("test:"+h.get("avatar"));
-        System.out.println("test:"+h.get("username"));
-        return h;
     }
-
     public PageSearchDto bodyBuilder(String body){
         PageSearchDto pageSearchDto = new PageSearchDto();
 

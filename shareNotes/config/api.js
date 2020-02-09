@@ -11,7 +11,7 @@ module.exports = {
   AuthUpdate: WxApiRoot + 'auth/profile', //账号名字修改
   SyncByWeixin: WxApiRoot + 'auth/sync', //同步微信信息
   AuthLoginByWeixin: WxApiRoot + 'auth/login_by_weixin', //微信登录
-  
+
   StorageUpload: WxApiRoot + 'storage/upload', //存储上传,
   FetchStorage: WxApiRoot + 'storage/fetch/', //存储获取,
   
@@ -49,5 +49,6 @@ module.exports = {
   DelComment: WxApiRoot + 'comment/delete', //删除评论,
 
   Search: WxApiRoot + 'search/all', //搜索,
+  RequestForPage: WxApiRoot + 'search/idforpage/', //根据id获取页面,
 
 };

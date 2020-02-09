@@ -18,25 +18,24 @@
 
 
       <view  wx:for="{{searchSongList}}" wx:key="id">
-         <!-- <image  src="{{item.avatar}}"  style="margin-left: 10rpx; height: 60rpx;width:60rpx;"></image>
-        <text class="title">{{item.cateName}}:{{item.title}}</text>
-        <view class="subtitle">
-          <text>{{item.updateTime}}:{{item.createFrom}}</text>
 
-        </view>   -->
 
-<i-card title="{{item.title}}" extra="目录:{{item.cateName}}" thumb="{{item.avatar}}">
+<i-card bindtap="goPostDetail" data-id='{{item.id}}' title="{{item.title}}" extra="目录:{{item.cateName}}" thumb="{{item.avatar}}">
     <view slot="content">来自:{{item.createFrom}}</view>
     <view slot="footer">更新时间:{{item.updateTime}}</view>
 </i-card>
       </view>  
 
-      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
+      <view class="loading" hidden="{{!searchLoading}}">
+              <i-spin custom>加载中...</i-spin>
 
-      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>  
+      </view>
+
+
+
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}"><i-divider  color="#2d8cf0" lineColor="#2d8cf0">加已加载全部</i-divider></view>
 
 
   </view>  
-
-</view>
 <i-message id="message" />
+</view>

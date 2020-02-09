@@ -117,6 +117,10 @@
     *
     from posts order by update_time DESC
   </select>
+  <select id="listAllPostsName"   parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select create_from
+    from posts where id =#{id}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />

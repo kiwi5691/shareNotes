@@ -25,6 +25,8 @@ public interface PostCategoriesMapper {
     List clearData();
     List<Integer> selectPostidByCateid(Integer cateid);
 
+    Integer selectCateidByPostId(Integer id);
+
     PostCategories selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") PostCategories record, @Param("example") PostCategoriesExample example);

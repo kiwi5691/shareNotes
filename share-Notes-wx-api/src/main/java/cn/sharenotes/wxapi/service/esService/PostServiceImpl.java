@@ -1,8 +1,10 @@
 package cn.sharenotes.wxapi.service.esService;
 
+import cn.sharenotes.core.utils.WxResponseCode;
 import cn.sharenotes.db.domain.index.PostsIndex;
 import cn.sharenotes.db.mapper.CategoriesMapper;
 import cn.sharenotes.db.mapper.PostCategoriesMapper;
+import cn.sharenotes.db.mapper.PostsMapper;
 import cn.sharenotes.db.mapper.UserMapper;
 import cn.sharenotes.db.model.dto.PageSearchDto;
 import cn.sharenotes.db.model.vo.PostSearchVo;
@@ -32,6 +34,8 @@ public class PostServiceImpl implements PostService{
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private PostsMapper postsMapper;
     @Autowired
     private PostCategoriesMapper postCategoriesMapper;
     @Autowired
@@ -67,6 +71,18 @@ public class PostServiceImpl implements PostService{
         }
         return postSearchVos;
     }
+
+    @Override
+    public Integer accordingPostIdGetUserId(Integer id) {
+        return postsMapper.listAllPostsName(id);
+    }
+
+    @Override
+    public Integer getCatedByPostId(Integer id) {
+        Optional<Integer> cateId= Optional.ofNullable(postCategoriesMapper.selectCateidByPostId(id));
+        return cateId.orElse(WxResponseCode.errPostId);
+    }
+
 
     public String constructCateName(Integer id){
 
