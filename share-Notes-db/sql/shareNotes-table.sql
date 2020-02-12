@@ -234,7 +234,9 @@ CREATE TABLE `attachments` (
 DROP TABLE IF EXISTS `user_msg`;
 CREATE TABLE `user_msg` (
   `id` bigint(20) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `is_sign` tinyint(2) NOT NULL,
+  `send_id` int(11) NOT NULL,
+  `accept_id` int(11)  NOT NULL,
   `msg` varchar(255) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

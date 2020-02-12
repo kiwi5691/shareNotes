@@ -53,7 +53,8 @@ public class PostServiceImpl implements PostService{
     public List<PostSearchVo> postSearchVoTransfer(Integer userId,List<PostsIndex> postsIndices) {
         List<Integer> firendIds = this.filterUnFriends(userId);
         List<PostSearchVo> postSearchVos = new ArrayList<>();
-        postsIndices.stream().filter(postsIndex ->  !firendIds.contains(postsIndex.getCreateFrom()));
+        postsIndices.removeIf(postsIndex ->
+            !firendIds.contains(postsIndex.getCreateFrom()));
         for (PostsIndex var1: postsIndices) {
                     PostSearchVo postSearchVo = new PostSearchVo();
                     postSearchVo.setId(var1.getId());

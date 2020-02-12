@@ -48,7 +48,7 @@
         "text": "联系"
       },
       {
-        "pagePath": "pages/chat/chat",
+        "pagePath": "pages/chat/chat/chat",
         "iconPath": "static/images/mess.png",
         "selectedIconPath": "static/images/mess@selected.png",
         "text": "私信"
