@@ -54,7 +54,7 @@ public class PostServiceImpl implements PostService{
         List<Integer> firendIds = this.filterUnFriends(userId);
         List<PostSearchVo> postSearchVos = new ArrayList<>();
         postsIndices.removeIf(postsIndex ->
-            !firendIds.contains(postsIndex.getCreateFrom()));
+            firendIds.contains(postsIndex.getCreateFrom()));
         for (PostsIndex var1: postsIndices) {
                     PostSearchVo postSearchVo = new PostSearchVo();
                     postSearchVo.setId(var1.getId());

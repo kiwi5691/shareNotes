@@ -1,0 +1,15 @@
+{
+  "usingComponents": {
+    "i-message": "../../dist/message/index",
+    "i-alert": "../../dist/alert/index",
+        "i-card": "../../dist/card/index",
+        "i-icon": "../../dist/icon/index",
+            "i-cell": "../../dist/cell/index",
+            "i-cell-group": "../../dist/cell-group/index",
+                "i-panel": "../../dist/panel/index",
+                    "i-divider": "../../dist/divider/index",
+                        "i-notice-bar": "../../dist/notice-bar/index"
+  },
+  "navigationBarTitleText": "聊天列表"
+       
+}

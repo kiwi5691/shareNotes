@@ -21,7 +21,8 @@
     "pages/content/oplog/oplog",
     "pages/ucenter/my/my",
     "pages/search/search/search",
-    "pages/chat/chat/chat"
+    "pages/chat/chat/chat",
+    "pages/chat/list/list"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -48,7 +49,7 @@
         "text": "联系"
       },
       {
-        "pagePath": "pages/chat/chat/chat",
+        "pagePath": "pages/chat/list/list",
         "iconPath": "static/images/mess.png",
         "selectedIconPath": "static/images/mess@selected.png",
         "text": "私信"

@@ -60,6 +60,11 @@ Page({
   
     });
   },
+  toggleLeft1() {
+    this.setData({
+      showRight2: !this.data.showRight2
+    });
+  },
   onLoad: function (options) {
 
     this.setData({

@@ -1,4 +1,6 @@
 var api = require('../config/api.js');
+var chatApi = require('../config/chatApi.js');
+
 var app = getApp();
 
 function formatTime(date) {

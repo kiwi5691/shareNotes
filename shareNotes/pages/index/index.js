@@ -10,7 +10,6 @@ Page({
     current: 'tab1',
     visible2: false,
     hiddenAlertPr:true,
-    hasLogin: false,
     hiddenAlertPu: true,
     showRigh2: false,
     msg:'',

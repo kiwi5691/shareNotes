@@ -1,6 +1,6 @@
 
 // var WxApiRoot = 'https://wechat.kiwi1.cn/wx/';
-var WxApiRoot = 'http://localhost:8088/wx/';
+var WxApiRoot = 'http://localhost:8082/wx/';
 
 module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口

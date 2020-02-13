@@ -1,5 +1,6 @@
 var util = require('./utils/util.js');
 var api = require('./config/api.js');
+var chatApi = require('./config/chatApi.js');
 var user = require('./utils/user.js');
 const Towxml = require('./towxml/main');
 App({
