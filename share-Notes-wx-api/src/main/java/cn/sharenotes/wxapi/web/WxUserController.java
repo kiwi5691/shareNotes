@@ -19,12 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.*;
 
 /**
  * 用户服务
@@ -35,7 +37,6 @@ import java.util.Map;
 @RequestMapping("/wx/user")
 @Validated
 public class WxUserController {
-
     final private  String SendTo= "805344479@qq.com";
     @Resource
     private RedisManager redisManager;
@@ -44,17 +45,9 @@ public class WxUserController {
 
     @Autowired
     private WxMaSecCheckService wxMaSecCheckService;
-
-    @GetMapping("test/{msg}")
-    public String test(@PathVariable("msg")String msg){
-        if(wxMaSecCheckService.checkMessage(msg)){
-            return  "ok";
-        }else {
-            return  "fuck";
-
-        }
-
-    }
+    //为邮件发送创建线程池,这里使用无界任务队列 LinkedBlockingQueue
+    public static ExecutorService emailExePool =new
+            ThreadPoolExecutor(1, 10, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
 
     @GetMapping("img/{msg}")
     public String img(@PathVariable("msg") File msg) throws WxErrorException {
@@ -90,18 +83,23 @@ public class WxUserController {
 
 
 
+    //这里使用DeferredResult异步调用请求
     @ApiOperation(value = "用户提交issue")
     @PostMapping("submitIssue")
-    public Object submitIssue(@LoginUser Integer userId,@RequestBody String body) throws IOException {
+    public DeferredResult<Object> submitIssue(@LoginUser Integer userId, @RequestBody String body) throws IOException {
+
+        DeferredResult<Object> result = new DeferredResult<Object>(10*1000L);
 
         Integer submitTimes;
         String titleName = JacksonUtil.parseString(body, "titleName");
         String context = JacksonUtil.parseString(body, "context");
         if (userId == null) {
-            return ResponseUtil.fail(102,"请登录");
+            result.setResult(ResponseUtil.fail(102,"请登录"));
+            return result;
         }
         else if (context.length()< ContentBase.LIMITWORDS.getValue()) {
-            return ResponseUtil.fail(102,"最少五个字");
+            result.setResult(ResponseUtil.fail(102,"最少五个字"));
+            return result;
         }
 
         submitTimes=redisManager.get(IssueSubmitKey.board, "userId :"+userId, Integer .class);
@@ -112,13 +110,33 @@ public class WxUserController {
         else if(submitTimes <= ContentBase.LIMITTIMES.getValue()){
             redisManager.incr(IssueSubmitKey.board, "userId :"+userId);
         }else if(submitTimes > ContentBase.LIMITTIMES.getValue()){
-            return ResponseUtil.fail(102,"今日提交issue上限");
+            result.setResult(ResponseUtil.fail(102,"今日提交issue上限"));
+            return   result;
         }
+        result.onTimeout(new Runnable() {
+            @Override
+            public void run() {
+                result.setResult(ResponseUtil.fail(102,"发送超时，请重新发送"));
+            }
+        });
+        result.onCompletion(new Runnable() {
+            @Override
+            public void run() {
+                result.setResult(ResponseUtil.ok());
+            }
+        });
+        emailExePool.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    emailService.sendEmail(SendTo,"issue By:"+titleName, EmailTemplate.issueTemplate(titleName,context));
+                } catch (Exception e) {
+                    result.setResult(ResponseUtil.fail(102,"发送异常，请联系开发者"));
+                }
+            }
+        });
 
-
-        emailService.sendEmail(SendTo,"issue By:"+titleName, EmailTemplate.issueTemplate(titleName,context));
-
-        return ResponseUtil.ok();
+        return result;
     }
 
 

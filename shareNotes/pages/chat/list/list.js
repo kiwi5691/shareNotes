@@ -15,7 +15,7 @@ Page({
     hiddenAlertPu: true,
     groupList: [],
     hasLogin: false,
-
+    userIdT:0,
   },
   toLogin: function () {
         wx.vibrateShort();
@@ -33,8 +33,12 @@ Page({
    */
   onLoad: function (options) {
     if (this.data.hasLogin) {
-      var userIdT = wx.getStorageSync('userId');
-      this.getGroupList(userIdT);
+      this.setData({
+        userIdT:  wx.getStorageSync('userId')
+      });
+
+      console.log("id" + this.data.userIdT);
+      this.getGroupList(this.data.userIdT);
     }
   },
 
@@ -68,8 +72,11 @@ Page({
   onShow: function () {
 
     if (app.globalData.hasLogin) {
-      var userIdT = wx.getStorageSync('userId');
-      this.getGroupList(userIdT);
+      this.setData({
+        userIdT:  wx.getStorageSync('userId')
+      });
+      console.log("id" + this.data.userIdT);
+      this.getGroupList(this.data.userIdT);
     }
     this.setData({
       hasLogin: app.globalData.hasLogin

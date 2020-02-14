@@ -2,9 +2,24 @@ Page({
 
   data: {
     list: [],
-    title: ''
+    title: '',
+    nickName:'',
+    fid:'',
+    userId:''
   },
 
+  onLoad: function (options) {
+    this.setData({
+      userId: options.userId,
+      fid: options.fid,
+      nickName: options.nickName
+    });
+    wx.setNavigationBarTitle({
+      title: options.nickName
+    })
+
+    this.getPostsAll();
+  },
   onShow: function (options) {
     var _this = this;
 
