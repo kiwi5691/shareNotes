@@ -47,6 +47,22 @@
 		"game": {
 			"currentL": -1,
 			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/chat/chat/chat",
+					"pathName": "pages/chat/chat/chat",
+					"query": "userId=3&fid=4&nickName=fucked&avatar=https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLlGeK8U1Z9HtSFt8Ky4HWL7wI2aNZIIXkdtruJrQZWW4ic06ksmhHdFzz1FuAZs6KF7slGJgYMVAQ/132",
+					"scene": null
+				}
+			]
 		}
 	}
 }

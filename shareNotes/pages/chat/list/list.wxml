@@ -8,7 +8,7 @@
       <view class="info">
       			<image src="{{ item.avatar }}" ></image>
       		</view>
-      <i-cell is-link url="/pages/chat/chat/chat?userId={{userIdT}}&fid={{item.id}}&nickName={{item.nickname}}"
+      <i-cell is-link url="/pages/chat/chat/chat?userId={{userIdT}}&fid={{item.id}}&nickName={{item.nickname}}&avatar={{item.avatar}}"
       title="{{ item.nickname }}" label="{{ item.lastChatWords }}" value="{{ item.lastChatTimePac }}">
       </i-cell>
   </view>

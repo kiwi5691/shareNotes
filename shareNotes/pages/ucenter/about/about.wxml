@@ -1,5 +1,5 @@
 <i-panel title="关于">
-<i-card  full="true" extra="kiwi"  thumb="https://wx.qlogo.cn/mmopen/vi_32/jztWyPiaickdpCJCMFFsBVGeBBwVmQGm3Og3icPsff2qhiagianseQg8D1zksCmycPKYhAxCHA7OODjaTnDufj4BCGw/132">
+<i-card  full="true" extra="kiwi"  thumb="https://avatar.csdnimg.cn/5/7/5/1_weixin_37571795_1571562074.jpg">
     <view slot="content">Share Notes</view>
 </i-card></i-panel>
 

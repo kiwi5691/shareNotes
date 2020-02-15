@@ -130,6 +130,8 @@ public class WxUserController {
             public void run() {
                 try {
                     emailService.sendEmail(SendTo,"issue By:"+titleName, EmailTemplate.issueTemplate(titleName,context));
+
+                    result.setResult(ResponseUtil.ok());
                 } catch (Exception e) {
                     result.setResult(ResponseUtil.fail(102,"发送异常，请联系开发者"));
                 }
