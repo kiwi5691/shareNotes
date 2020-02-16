@@ -8,7 +8,7 @@
           <!--自己的消息  -->
           <view  class="chat-news" id='msg-{{index}}' wx:if="{{item.sendId == userId}}">
               <view style="text-align: right;padding-right: 20rpx;">
-                  <text class="name">{{userInfo.nickName}}</text>
+                  <text class="name">{{item.isSign=='1'?'已读':'未读'}}:{{userInfo.nickName}}</text>
                   <image class='new_img' src="{{userInfo.avatarUrl}}"></image>
               </view>
               <view class='my_right'>
@@ -24,7 +24,8 @@
             <view   class="chat-news" id='msg-{{index}}' wx:else>
               <view style="text-align: left;padding-left: 20rpx;">
                   <image class='new_img' src="{{avatar}}"></image>
-                  <text class="name">{{nickName}}</text>
+                  <text class="name">{{nickName}}:{{item.isSign=='1'?'已读':'未读'}}</text>
+
               </view>
               <view class='you_left'>
                   <block wx:if="{{item.type=='text'}}">      

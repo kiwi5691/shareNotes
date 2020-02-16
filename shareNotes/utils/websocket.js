@@ -18,7 +18,6 @@ function DataContent(action, chatMsg, extand){
   var DataContent={
     // dataContent:{
     action : action,
-    //todo 这里的o/o 可能会出现问题
     chatMsg : chatMsg,
     extand : extand
     // }
@@ -31,7 +30,10 @@ function keepalive(){
   send(dataContent);
 
 }
+//todo 每次重连后获取服务器的未签收消息
+function fetchUnReadMsg(){
 
+}
 function connect( func) {
   // wx.connectSocket({
   //   url: url,
@@ -76,4 +78,5 @@ module.exports = {
   DataContent: DataContent,
   ChatMsg:ChatMsg,
   url:url,
+  fetchUnReadMsg:fetchUnReadMsg,
 }

@@ -51,6 +51,8 @@ Page({
   },
   onShow: function () {
     this.getMsgs(this.data.userId, this.data.fid);
+    var fid =this.data.fid;
+    var userId =this.data.userId;
     wx.connectSocket({
       url: 'ws://localhost:8088/ws',
       header: { 'content-type': 'application/json' },
@@ -67,23 +69,30 @@ Page({
         icon: "success",
         duration: 2000
       })
+      // 构建ChatMsg
+      var chatMsg = new websocket.ChatMsg(this.data.userId, null, null, null);
+      // 构建DataContent
+      var contentDC = websocket.DataContent(app.globalData.CONNECT, chatMsg, null);
+      // 发送websocket
+      websocket.send(JSON.stringify(contentDC));
+
+
       //心跳
-      var that = this;
       //将计时器赋值给setInter
-      // var keepalive =  setInterval(function () {
-      //todo 心跳包发送成功，但是需要设置定时器
+      var keepalive =  setInterval(function () {
       var dataContent = websocket.DataContent(app.globalData.KEEPALIVE, null, null);
-        console.log("keepalive:"+JSON.stringify(dataContent));
         websocket.send(JSON.stringify(dataContent));
-      // }, 10000);
+      }, 10000);
       //接受服务器消息
     });
+    var _this = this;
     wx.onSocketMessage(function (res) {
+
       if(res.data!=null){
-        console.log(JSON.parse(res.data));
         var list = [];
-        list = wx.getStorageSync('userMsgs:fid' + that.data.fid+":uid:"+that.data.userId);
-        temp =  JSON.parse(res.data);
+
+        list = wx.getStorageSync('userMsgs:fid' + fid+":uid:"+userId);
+        var temp =  JSON.parse(res.data);
         var weChatMsg ={
           id:temp.chatMsg.msgId,
           sendId : temp.chatMsg.senderId,
@@ -92,10 +101,20 @@ Page({
           type: temp.extand,
         };
         list.push(weChatMsg);
-        that.setData({
+
+        _this.setData({
           newslist: list,
           toView: 'msg-' + (list.length - 1)
-        })
+        });
+        wx.setStorageSync('userMsgs:fid' + fid+":uid:"+userId, _this.data.newslist);
+
+        // 构建ChatMsg
+        // var chatMsg = new websocket.ChatMsg(weChatMsg.senderId, weChatMsg.receiverId, weChatMsg.msg, weChatMsg.id);
+        // 构建DataContent
+        var signedDC = websocket.DataContent(app.globalData.SIGNED, null, weChatMsg.id);
+        // 发送websocket
+        websocket.send(JSON.stringify(signedDC));
+
       }
     });//func回调可以拿到服务器返回的数据
     wx.onSocketError(function (res) {
@@ -146,8 +165,30 @@ Page({
           increase: false
         })
       }, 500)
-      websocket.send('{ "content": "' + this.data.message + '", "date": "' + utils.formatTime(new Date()) + '","type":"text", "nickName": "' + this.data.userInfo.nickName + '", "avatarUrl": "' + this.data.userInfo.avatarUrl + '" }')
-      this.bottom()
+      //构造消息
+      var chatMsg = new websocket.ChatMsg(this.data.userId, this.data.fid, this.data.message, null);
+      var dataContent = new websocket.DataContent(app.globalData.CHAT, chatMsg, null);
+      console.log("dataContent"+JSON.stringify(dataContent));
+      //发送
+      websocket.send(JSON.stringify(dataContent));
+      //重新构造数组
+      var list = [];
+      list = wx.getStorageSync('userMsgs:fid' + this.data.fid+":uid:"+this.data.userId);
+      var weChatMsg ={
+        sendId : this.data.userId,
+        acceptId : this.data.fid,
+        msg : this.data.message,
+        isSign : 1,
+        type:'text'
+      };
+      list.push(weChatMsg);
+      this.setData({
+        newslist: list,
+        toView: 'msg-' + (list.length - 1)
+      });
+      wx.setStorageSync('userMsgs:fid' + this.data.fid+":uid:"+this.data.userId, this.data.newslist);
+
+      // this.bottom();
     }
   },
   //监听input值的改变
