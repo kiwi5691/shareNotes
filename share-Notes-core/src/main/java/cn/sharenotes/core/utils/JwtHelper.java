@@ -27,7 +27,7 @@ public class JwtHelper {
 		    Algorithm algorithm = Algorithm.HMAC256(SECRET);
 		    Map<String, Object> map = new HashMap<String, Object>();
 		    Date nowDate = new Date();
-		    // 过期时间：7天2小时
+		    // 过期时间：1年
 		    Date expireDate = getAfterDate(nowDate,1,0,7,2,0,0);
 	        map.put("alg", "HS256");
 	        map.put("typ", "JWT");

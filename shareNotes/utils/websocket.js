@@ -31,7 +31,6 @@ function keepalive(){
 
 }
 
-//todo 每次重连后获取服务器的未签收消息
 function signMsgList(unSignedMsgIds){
 // 构建批量签收对象的模型
   var dataContentSign = new DataContent(app.globalData.SIGNED, null, unSignedMsgIds);

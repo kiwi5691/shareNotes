@@ -1,6 +1,7 @@
 // pages/chat/chat.js
 const app = getApp();
 var api = require('../../../config/chatApi.js');
+var BaseApi = require('../../../config/api.js');
 var websocket = require('../../../utils/websocket.js');
 var utils = require('../../../utils/util.js');
 Page({
@@ -10,7 +11,7 @@ Page({
    */
   data: {
     scrollHeight:0,
-    isMsgs: true,
+    noeMsg: true,
     newslist: [],
     toView: '' ,
     userInfo: {},
@@ -38,12 +39,13 @@ Page({
      
         that.setData({
           newslist: res.data.userMsgs,
-          toView: 'msg-' + (res.data.userMsgs.length - 1)
-         });
+          toView: 'msg-' + (res.data.userMsgs.length - 1),
+          noeMsg: true
+        });
         wx.setStorageSync('userMsgs:fid' + fid+":uid:"+userId, res.data.userMsgs);
       }else{
         that.setData({
-          isMsgs: !that.data.isMsgs
+          noeMsg: false
         })
       }
     });
@@ -57,10 +59,10 @@ Page({
       url: 'ws://localhost:8088/ws',
       header: { 'content-type': 'application/json' },
       success: function () {
-        console.log('信道连接成功~');
+        // console.log('信道连接成功~');
       },
       fail: function () {
-        console.log('信道连接失败~')
+        console.log('信道连接失败，请联系开发者')
       }
     })
     wx.onSocketOpen(() => {
@@ -90,20 +92,49 @@ Page({
             flag++;
           }
         }
-        //todo 测试定时器
-        console.log("unSignId"+JSON.stringify(unSignId)+"flag"+flag);
+        // console.log("unSignId"+JSON.stringify(unSignId)+"flag"+flag);
         if(flag!=0&&unSignId[0]!=''){
-          console.log("in")
           //这里全部发送已读过去
-          // websocket.signMsgList(unSignId);
+          var unSignIdArray=unSignId.join(",");
+          websocket.signMsgList(unSignIdArray);
         }
         _this.setData({
           newslist: list,
+          noeMsg: true,
           toView: 'msg-' + (list.length - 1)
         });
         wx.setStorageSync('userMsgs:fid' + _this.data.fid+":uid:"+_this.data.userId, list);
       },10000);
 
+      var _this =this;
+      var selfUnReadMsg = setInterval(function () {
+        var list = [];
+        list = wx.getStorageSync('userMsgs:fid' + _this.data.fid+":uid:"+_this.data.userId);
+
+        var thisUserId =_this.data.userId;
+        var flag=0;
+        for (var i = 0 ; i < list.length ; i ++) {
+          if(list[i].sendId == thisUserId&&list[i].isSign=='0'){
+            flag=1;
+            break;
+          }
+        }
+        if(flag==1){
+        utils.request(api.SelUnReadMsg, {
+          userId: _this.data.userId,
+          fid: _this.data.fid,
+        }, 'POST').then(function (res) {
+          if (res.errno === 0) {
+
+            _this.setData({
+              newslist: res.data.userMsgs,
+            });
+            wx.setStorageSync('userMsgs:fid' + _this.data.fid+":uid:"+_this.data.userId, res.data.userMsgs);
+          }
+
+        });
+        }
+      },10000);
       //心跳
       //将计时器赋值给setInter
       var keepalive =  setInterval(function () {
@@ -126,6 +157,7 @@ Page({
           acceptId : temp.chatMsg.receiverId,
           msg : temp.chatMsg.msg,
           type: temp.extand,
+          isSign: 1,
         };
         list.push(weChatMsg);
 
@@ -195,7 +227,7 @@ Page({
       //构造消息
       var chatMsg = new websocket.ChatMsg(this.data.userId, this.data.fid, this.data.message, null);
       var dataContent = new websocket.DataContent(app.globalData.CHAT, chatMsg, null);
-      console.log("dataContent"+JSON.stringify(dataContent));
+      // console.log("dataContent"+JSON.stringify(dataContent));
       //发送
       websocket.send(JSON.stringify(dataContent));
       //重新构造数组
@@ -211,6 +243,7 @@ Page({
       list.push(weChatMsg);
       this.setData({
         newslist: list,
+        noeMsg: true,
         toView: 'msg-' + (list.length - 1)
       });
       wx.setStorageSync('userMsgs:fid' + this.data.fid+":uid:"+this.data.userId, this.data.newslist);
@@ -298,20 +331,47 @@ Page({
     var that = this;
     var query = wx.createSelectorQuery();
     query.select('#scrollMsg').boundingClientRect(function (rect) {
-      console.log(rect.height)
+      // console.log(rect.height)
       that.setData({
         scrollTop: rect.height + 'px'
       });
-    }).exec(); 
+    }).exec();
+  },
+//上传图片
+  upload: function (res) {
+    var that = this;
+    const uploadTask = wx.uploadFile({
+      url: BaseApi.StorageUpload,
+      filePath: res.tempFilePaths[0],
+      name: 'file',
+      success: function (res) {
+        var _res = JSON.parse(res.data);
+        if (_res.errno === 0) {
+          that.setData({
+            hasPicture: true,
+            imgsrc: _res.data.url
+          })
+        } else {
+          $Message({
+            content: _res.errmsg,
+            type: 'error'
+          });
+        }
 
-    // var query = wx.createSelectorQuery()
-    // query.select('#flag').boundingClientRect()
-    // query.selectViewport().scrollOffset()
-    // query.exec(function (res) {
-    //   wx.pageScrollTo({
-    //     scrollTop: res[0].bottom  // #the-id节点的下边界坐标  
-    //   })
-    //   res[1].scrollTop // 显示区域的竖直滚动位置  
-    // })
-  },  
+      },
+      fail: function (e) {
+        wx.showModal({
+          title: '错误',
+          content: '请联系开发者',
+          showCancel: false
+        })
+      },
+    })
+    uploadTask.onProgressUpdate((res) => {
+      console.log('上传进度', res.progress)
+      console.log('已经上传的数据长度', res.totalBytesSent)
+      console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+    })
+
+  },
 })

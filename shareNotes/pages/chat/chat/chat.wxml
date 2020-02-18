@@ -1,6 +1,6 @@
 <!--pages/chat/chat.wxml-->
 <view class="news" bindtap='outbtn'>
-   <view class="chat-notice" hidden="{{isMsgs}}">没有聊天记录</view>
+   <view class="chat-notice" hidden="{{noeMsg}}">没有聊天记录</view>
    <view class="historycon">
    <scroll-view  id="scrollMsg" scroll-y="true"   class="history"  scroll-into-view='{{toView}}'>
        <block wx:for="{{newslist}}" wx:for-index="index"  wx:key="id" >

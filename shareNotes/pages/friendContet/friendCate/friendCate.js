@@ -26,6 +26,10 @@ Page({
     hiddenAlertPr: true,
     current: 'tab1',
     showRigh2: false,
+    userIdT:'',
+    fid:'',
+    nickName:'',
+    avatar:'',
   },
   toggleRight2() {
     wx.vibrateShort();
@@ -69,7 +73,11 @@ Page({
 
     this.setData({
       id: options.fid,
-      fname: options.fname
+      fname: options.fname,
+      userIdT:wx.getStorageSync('userId'),
+      fid: options.fid,
+      nickName:options.fname,
+      avatar:options.avatar,
     });
 
     wx.setNavigationBarTitle({
@@ -109,6 +117,13 @@ Page({
     this.setData({
       visible5: true
     })
+  },
+
+  onChat: function () {
+      wx.navigateTo({
+        url: '/pages/chat/chat/chat?userId='+this.data.userIdT+'&fid='+this.data.fid+'&nickName='+this.data.nickName+'&avatar='+this.data.avatar,
+      });
+
   },
   handleClick5({ detail }) {
     if (detail.index === 0) {

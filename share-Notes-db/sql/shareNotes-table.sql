@@ -189,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `msg_request` (
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+-- 系统常量
 
 CREATE TABLE IF NOT EXISTS `system_const` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -201,6 +202,19 @@ CREATE TABLE IF NOT EXISTS `system_const` (
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+
+-- JWT 维护
+
+DROP TABLE IF EXISTS `jwt_token`;
+CREATE TABLE `jwt_token` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255)  NOT NULL,
+  `extend` varchar(255) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 消息日志
 DROP TABLE IF EXISTS `sys_msg`;
@@ -230,6 +244,8 @@ CREATE TABLE `attachments` (
          `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文件存储表';
+
+-- 用户消息
 
 DROP TABLE IF EXISTS `user_msg`;
 CREATE TABLE `user_msg` (

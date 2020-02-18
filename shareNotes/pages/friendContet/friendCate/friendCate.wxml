@@ -20,7 +20,7 @@
 
 <i-drawer mode="right" visible="{{showRight2}}" bind:close="toggleLeft1">
     <view class="demo-container">
-     <i-button bind:click="adddetial" shape="circle"  type="info" >私信好友</i-button>  
+     <i-button bind:click="onChat" shape="circle"  type="info" >私信好友</i-button>
      <i-button bind:click="onChange" shape="circle" type="error">删除好友</i-button>
     </view>
 </i-drawer>
