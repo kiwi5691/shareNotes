@@ -75,7 +75,34 @@ Page({
       var contentDC = websocket.DataContent(app.globalData.CONNECT, chatMsg, null);
       // 发送websocket
       websocket.send(JSON.stringify(contentDC));
+      var _this =this;
+      var fetchReadMsg = setInterval(function () {
+        var list = [];
+        list = wx.getStorageSync('userMsgs:fid' + _this.data.fid+":uid:"+_this.data.userId);
 
+        var thisFid =_this.data.fid;
+        var unSignId =[];
+        var flag=0;
+        for (var i = 0 ; i < list.length ; i ++) {
+          if(list[i].sendId == thisFid&&list[i].isSign=='0'){
+            unSignId[flag]=list[i].id;
+            list[i].isSign=1;
+            flag++;
+          }
+        }
+        //todo 测试定时器
+        console.log("unSignId"+JSON.stringify(unSignId)+"flag"+flag);
+        if(flag!=0&&unSignId[0]!=''){
+          console.log("in")
+          //这里全部发送已读过去
+          // websocket.signMsgList(unSignId);
+        }
+        _this.setData({
+          newslist: list,
+          toView: 'msg-' + (list.length - 1)
+        });
+        wx.setStorageSync('userMsgs:fid' + _this.data.fid+":uid:"+_this.data.userId, list);
+      },10000);
 
       //心跳
       //将计时器赋值给setInter
@@ -264,6 +291,8 @@ Page({
     })
     
   },
+
+
   //聊天消息始终显示最底端
   bottom: function () {
     var that = this;
