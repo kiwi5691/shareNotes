@@ -337,7 +337,7 @@ Page({
       });
     }).exec();
   },
-//上传图片
+//todo 上传图片
   upload: function (res) {
     var that = this;
     const uploadTask = wx.uploadFile({

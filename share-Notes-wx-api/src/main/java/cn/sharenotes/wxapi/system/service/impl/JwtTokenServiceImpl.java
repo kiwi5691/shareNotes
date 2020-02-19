@@ -14,7 +14,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
 
     @Override
-    public void save(JwtToken jwtToken) {
+    public void save(String token,Integer id) {
+        JwtToken jwtToken = new JwtToken(id,id,token,null);
         jwtTokenDao.save(jwtToken);
     }
 }

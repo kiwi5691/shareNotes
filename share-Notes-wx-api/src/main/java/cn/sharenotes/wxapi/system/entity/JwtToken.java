@@ -3,9 +3,7 @@ package cn.sharenotes.wxapi.system.entity;
 import cn.sharenotes.wxapi.system.entity.base.BaseModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jdk.nashorn.internal.objects.annotations.Constructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.apache.ibatis.annotations.ConstructorArgs;
 
 import javax.persistence.*;
@@ -14,6 +12,8 @@ import javax.persistence.*;
  * @author kiwi
  * @date 2019/11/24 11:24
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = true)

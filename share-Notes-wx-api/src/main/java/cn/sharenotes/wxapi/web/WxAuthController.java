@@ -19,6 +19,7 @@ import cn.sharenotes.db.model.dto.WxLoginInfo;
 import cn.sharenotes.core.service.UserService;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import cn.sharenotes.wxapi.service.UserTokenManager;
+import cn.sharenotes.wxapi.system.service.JwtTokenService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -48,6 +49,8 @@ import static cn.sharenotes.core.utils.WxResponseCode.*;
 @Validated
 public class WxAuthController {
 
+    @Autowired
+    private JwtTokenService jwtTokenService;
     @Autowired
     private UserService userService;
 
@@ -178,6 +181,7 @@ public class WxAuthController {
         // token
         String token = UserTokenManager.generateToken(user1.getId());
 
+        jwtTokenService.save(token,user1.getId());
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("token", token);
         result.put("userInfo", userDto);
