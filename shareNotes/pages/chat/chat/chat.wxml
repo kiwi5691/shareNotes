@@ -16,7 +16,7 @@
                     <view class='new_txt'>{{item.msg}}</view>
                   </block>
                   <block wx:if="{{item.type=='image'}}">
-                    <image class="selectImg" src="{{item.images}}" data-src="{{item.images}}" lazy-load="true" bindtap="previewImg"></image>  
+                    <image class="selectImg" src="{{item.msg}}" data-src="{{item.msg}}" lazy-load="true" bindtap="previewImg"></image>
                   </block> 
               </view>
           </view> 
@@ -32,7 +32,7 @@
                     <view class='new_txt'>{{item.msg}}</view>
                   </block>
                   <block wx:if="{{item.type=='image'}}">
-                    <image class="selectImg" src="{{item.images}}" data-src="{{item.images}}" lazy-load="true" bindtap="previewImg"></image>  
+                    <image class="selectImg" src="{{item.msg}}" data-src="{{item.msg}}" lazy-load="true" bindtap="previewImg"></image>
                   </block>
               </view>
           </view>  
@@ -60,4 +60,6 @@
 
 
        <view id="flag"></view> 
+
+<i-message id="message" />
 

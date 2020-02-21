@@ -1,5 +1,6 @@
 // pages/chat/chat.js
 const app = getApp();
+const { $Message } = require('../../../dist/base/index');
 var api = require('../../../config/chatApi.js');
 var BaseApi = require('../../../config/api.js');
 var websocket = require('../../../utils/websocket.js');
@@ -14,6 +15,7 @@ Page({
     noeMsg: true,
     newslist: [],
     toView: '' ,
+    files: [],
     userInfo: {},
     scrollTop: 0,
     increase: false,//图片添加区域隐藏
@@ -23,7 +25,10 @@ Page({
     nickName:'',
     fid:'',
     userId:'',
-    avatar:''
+    avatar:'',
+    keepalive:null,//keepalive定时器
+    selfUnReadMsg:null,//selfUnReadMsg定时器
+    fetchReadMsg:null,//fetchReadMsg定时器
   },
   /**
    * 生命周期函数--监听页面加载
@@ -78,7 +83,7 @@ Page({
       // 发送websocket
       websocket.send(JSON.stringify(contentDC));
       var _this =this;
-      var fetchReadMsg = setInterval(function () {
+      _this.data.fetchReadMsg = setInterval(function () {
         var list = [];
         list = wx.getStorageSync('userMsgs:fid' + _this.data.fid+":uid:"+_this.data.userId);
 
@@ -107,7 +112,7 @@ Page({
       },10000);
 
       var _this =this;
-      var selfUnReadMsg = setInterval(function () {
+      _this.data.selfUnReadMsg = setInterval(function () {
         var list = [];
         list = wx.getStorageSync('userMsgs:fid' + _this.data.fid+":uid:"+_this.data.userId);
 
@@ -120,7 +125,7 @@ Page({
           }
         }
         if(flag==1){
-        utils.request(api.SelUnReadMsg, {
+        utils.request(api.GetFMsgs, {
           userId: _this.data.userId,
           fid: _this.data.fid,
         }, 'POST').then(function (res) {
@@ -137,7 +142,8 @@ Page({
       },10000);
       //心跳
       //将计时器赋值给setInter
-      var keepalive =  setInterval(function () {
+      var _this=this;
+      _this.data.keepalive =  setInterval(function () {
       var dataContent = websocket.DataContent(app.globalData.KEEPALIVE, null, null);
         websocket.send(JSON.stringify(dataContent));
       }, 10000);
@@ -202,12 +208,30 @@ Page({
   },
   // 页面卸载
   onUnload() {
+
+    //卸载定时器
+    //todo 没卸载掉，明天测试
+    clearInterval(this.data.keepalive);
+    clearInterval(this.data.selfUnReadMsg);
+    clearInterval(this.data.fetchReadMsg);
     wx.closeSocket();
+
     wx.showToast({
       title: '连接已断开~',
       icon: "none",
       duration: 2000
     })
+  },
+  startSetInter: function(){
+    var that = this;
+    //将计时器赋值给setInter
+    that.data.setInter = setInterval(
+        function () {
+          var numVal = that.data.num + 1;
+          that.setData({ num: numVal });
+          console.log('setInterval==' + that.data.num);
+        }
+        , 2000);
   },
   //事件处理函数
   send: function () {
@@ -237,7 +261,7 @@ Page({
         sendId : this.data.userId,
         acceptId : this.data.fid,
         msg : this.data.message,
-        isSign : 1,
+        isSign : 0,
         type:'text'
       };
       list.push(weChatMsg);
@@ -280,30 +304,13 @@ Page({
     var that = this
     wx.chooseImage({
       count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
       success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths
-        // console.log(tempFilePaths)
-        wx.uploadFile({
-          url: 'http://192.168.137.91/index/index/upload', //仅为示例，非真实的接口地址
-          filePath: tempFilePaths[0],
-          name: 'file',
-          headers: {
-            'Content-Type': 'form-data'
-          },
-          success: function (res) {
-            if (res.data) {
-              that.setData({
-                increase: false
-              })
-              websocket.send('{"images":"' + res.data + '","date":"' + utils.formatTime(new Date()) + '","type":"image","nickName":"' + that.data.userInfo.nickName + '","avatarUrl":"' + that.data.userInfo.avatarUrl + '"}')
-              that.bottom()
-            }
-          }
-        })
-
+        that.setData({
+          files: that.data.files.concat(res.tempFilePaths)
+        });
+        that.upload(res);
       }
     })
   },
@@ -337,7 +344,6 @@ Page({
       });
     }).exec();
   },
-//todo 上传图片
   upload: function (res) {
     var that = this;
     const uploadTask = wx.uploadFile({
@@ -347,10 +353,33 @@ Page({
       success: function (res) {
         var _res = JSON.parse(res.data);
         if (_res.errno === 0) {
+            that.setData({
+              increase: false
+            })
+          console.log("_res.data.url"+_res.data.url);
+          var chatMsg = new websocket.ChatMsg(that.data.userId, that.data.fid, _res.data.url, null);
+          var dataContent = new websocket.DataContent(app.globalData.CHAT, chatMsg, "images");
+          // console.log("dataContent"+JSON.stringify(dataContent));
+          //发送
+          websocket.send(JSON.stringify(dataContent));
+          //重新构造数组
+          var list = [];
+          list = wx.getStorageSync('userMsgs:fid' + that.data.fid+":uid:"+that.data.userId);
+          var weChatMsg ={
+            sendId : that.data.userId,
+            acceptId : that.data.fid,
+            msg : _res.data.url,
+            isSign : 0,
+            type:'images'
+          };
+          list.push(weChatMsg);
           that.setData({
-            hasPicture: true,
-            imgsrc: _res.data.url
-          })
+            newslist: list,
+            noeMsg: true,
+            toView: 'msg-' + (list.length - 1)
+          });
+          wx.setStorageSync('userMsgs:fid' + that.data.fid+":uid:"+that.data.userId, that.data.newslist);
+
         } else {
           $Message({
             content: _res.errmsg,
