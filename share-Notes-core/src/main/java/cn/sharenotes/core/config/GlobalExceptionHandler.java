@@ -4,6 +4,7 @@ import cn.sharenotes.core.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.elasticsearch.client.transport.NoNodeAvailableException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -43,6 +44,13 @@ public class GlobalExceptionHandler {
     public Object badArgumentHandler(MissingServletRequestParameterException e) {
         log.error(e.getMessage(), e);
         return ResponseUtil.badArgumentValue();
+    }
+
+    @ExceptionHandler(NoNodeAvailableException.class)
+    @ResponseBody
+    public Object unEsStart(NoNodeAvailableException e) {
+        log.error(e.getMessage(), e);
+        return ResponseUtil.unEsStart();
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

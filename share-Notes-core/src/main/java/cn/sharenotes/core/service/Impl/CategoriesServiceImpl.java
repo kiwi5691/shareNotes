@@ -1,9 +1,13 @@
 package cn.sharenotes.core.service.Impl;
 
+import cn.sharenotes.core.aop.annotation.IndexMethod;
+import cn.sharenotes.core.aop.annotation.MethodType;
+import cn.sharenotes.core.aop.cache.IndexThreadLocal;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.CategoriesService;
 import cn.sharenotes.db.domain.Categories;
 import cn.sharenotes.db.domain.CategoriesExample;
+import cn.sharenotes.db.domain.PostsWithBLOBs;
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.mapper.*;
 import cn.sharenotes.db.model.dto.CategoryDTO;
@@ -135,10 +139,15 @@ public class CategoriesServiceImpl implements CategoriesService {
         return strings;
     }
 
+    @IndexMethod(method = MethodType.DELETES)
     @Override
     public Integer deleteCategoryByCategoryId(Integer menuId,Integer categoryId) {
         List<Integer> postlist = postCategoriesMapper.selectPostidByCateid(categoryId);
         if(!CollectionUtils.isEmpty(postlist)){
+
+            List<PostsWithBLOBs> postsWithBLOBs =  postsMapper.listPostsWithBLOBsByIds(postlist);
+            IndexThreadLocal.setList(postsWithBLOBs);
+
             for (Integer postid: postlist) {
                 postsMapper.deleteByPrimaryKey(postid);
                 commentsMapper.deleteByPostId(postid);

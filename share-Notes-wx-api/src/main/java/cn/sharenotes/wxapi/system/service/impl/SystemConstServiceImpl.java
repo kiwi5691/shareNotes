@@ -9,6 +9,7 @@ import cn.sharenotes.wxapi.system.dao.SystemConstDao;
 import cn.sharenotes.wxapi.system.entity.SystemConst;
 import cn.sharenotes.wxapi.system.service.SystemConstService;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.client.transport.NoNodeAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
@@ -80,8 +81,10 @@ public class SystemConstServiceImpl implements SystemConstService {
             systemConstDao.save(systemConst);
             log.info("elasticSearch index init "+PostsIndex.class.getName());
 
+        }catch (NoNodeAvailableException e){
+            log.error("error：ElasticSearch无法连接，具体错误："+e);
         }catch (Exception e){
-            log.error("ElasticSearch无法连接，具体错误："+e);
+            log.error("error：其他错误"+e);
         }
 
     }

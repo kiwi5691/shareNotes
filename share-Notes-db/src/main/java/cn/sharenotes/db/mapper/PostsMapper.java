@@ -11,6 +11,8 @@ public interface PostsMapper {
 
     int deleteByExample(PostsExample example);
 
+    List<PostsWithBLOBs> listPostsWithBLOBsByIds(List<Integer> ids);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(PostsWithBLOBs record);

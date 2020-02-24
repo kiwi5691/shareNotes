@@ -1,6 +1,9 @@
 package cn.sharenotes.wxapi.web.content;
 
 import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
+import cn.sharenotes.core.aop.annotation.IndexMethod;
+import cn.sharenotes.core.aop.annotation.MethodType;
+import cn.sharenotes.core.aop.cache.IndexThreadLocal;
 import cn.sharenotes.core.service.PostCommentService;
 import cn.sharenotes.core.service.PostContentService;
 import cn.sharenotes.core.utils.ContentUtils;
@@ -125,20 +128,9 @@ public class WxPostController {
     public Object deletePostContent(@LoginUser Integer userId,@RequestBody String body) {
         Integer postId = JacksonUtil.parseInteger(body, "postId");
         Integer cateId = postContentService.findCateIdByPostId(postId);
-        PostsExample postsExample = new PostsExample();
-        PostsExample.Criteria criteria = postsExample.createCriteria();
-        criteria.andIdEqualTo(postId);
-
-        List<PostsWithBLOBs> postsWithBLOBs = postsMapper.selectByExampleWithBLOBs(postsExample);
-        Optional<PostsWithBLOBs> optionalPostsIndex = Optional.ofNullable(postsWithBLOBs.get(0));
 
         Integer i = postContentService.deletePostContentAndCategory(postId);
         if (i > 0) {
-            PostsIndex postsIndex = new PostsIndex();
-            optionalPostsIndex.ifPresent(postsWithBLOBs1 -> {
-                DtoUtils.copyProperties(postsWithBLOBs1, postsIndex);
-                postsIndexRepository.delete(postsIndex);
-            });
             postContentService.updatePostsRedisInfo(cateId);
             //删除文章评论的缓存
             return ResponseUtil.ok();

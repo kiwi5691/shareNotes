@@ -30,7 +30,7 @@ import java.time.Duration;
 import java.util.*;
 
 @Component
-@PropertySource("redis.properties")
+@PropertySource("classpath:/redis.properties")
 @Slf4j
 @EnableCaching
 @Configuration

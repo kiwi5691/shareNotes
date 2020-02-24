@@ -141,6 +141,10 @@ public class ResponseUtil {
         return fail(402, "内容错误");
     }
 
+    public static Object unEsStart() {
+        return fail(6045,"elasticSearch尚未启动");
+    }
+
     public static Object unlogin() {
         return fail(501, "请登录");
     }

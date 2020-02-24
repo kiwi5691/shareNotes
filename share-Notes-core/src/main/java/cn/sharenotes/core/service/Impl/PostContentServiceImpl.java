@@ -1,5 +1,8 @@
 package cn.sharenotes.core.service.Impl;
 
+import cn.sharenotes.core.aop.annotation.IndexMethod;
+import cn.sharenotes.core.aop.annotation.MethodType;
+import cn.sharenotes.core.aop.cache.IndexThreadLocal;
 import cn.sharenotes.core.redis.KeyPrefix.OwnerContentKey;
 import cn.sharenotes.core.redis.RedisManager;
 import cn.sharenotes.core.service.PostContentService;
@@ -31,8 +34,6 @@ import java.util.stream.Collectors;
 @Service
 public class PostContentServiceImpl implements PostContentService {
 
-    @Resource
-    private PostsIndexRepository postsIndexRepository;
     @Resource
     private PostsMapper postsMapper;
 
@@ -79,6 +80,7 @@ public class PostContentServiceImpl implements PostContentService {
         return postsWithBLOBs;
     }
 
+    @IndexMethod(method = MethodType.SAVE)
     @Override
     public Integer addPostContent(Integer categoryId, PostContentVo postContentVo) {
         PostsWithBLOBs posts = new PostsWithBLOBs();
@@ -89,7 +91,7 @@ public class PostContentServiceImpl implements PostContentService {
         postsMapper.insert(posts);
         PostsIndex postsIndex = new PostsIndex();
         DtoUtils.copyProperties(posts, postsIndex);
-        postsIndexRepository.save(postsIndex);
+        IndexThreadLocal.set(postsIndex);
         return posts.getId();
     }
 
@@ -103,6 +105,7 @@ public class PostContentServiceImpl implements PostContentService {
         return postCategoriesMapper.insert(postCategories);
     }
 
+    @IndexMethod(method = MethodType.UPDATE)
     @Override
     public Integer updatePostContent(Integer postId, PostContentVo postContentVo) {
         PostsWithBLOBs posts = new PostsWithBLOBs();
@@ -112,12 +115,27 @@ public class PostContentServiceImpl implements PostContentService {
         posts.setEditTime(new Date());
         PostsIndex postsIndex = new PostsIndex();
         DtoUtils.copyProperties(posts, postsIndex);
-        postsIndexRepository.save(postsIndex);
+        IndexThreadLocal.set(postsIndex);
         return postsMapper.updateByPrimaryKeySelective(posts);
     }
 
+    @IndexMethod(method = MethodType.DELETE)
     @Override
     public Integer deletePostContentAndCategory(Integer postId) {
+        //获取实体 start
+        PostsExample postsExample = new PostsExample();
+        PostsExample.Criteria criteria1 = postsExample.createCriteria();
+        criteria1.andIdEqualTo(postId);
+
+        List<PostsWithBLOBs> postsWithBLOBs = postsMapper.selectByExampleWithBLOBs(postsExample);
+        Optional<PostsWithBLOBs> optionalPostsIndex = Optional.ofNullable(postsWithBLOBs.get(0));
+        PostsIndex postsIndex = new PostsIndex();
+        optionalPostsIndex.ifPresent(postsWithBLOBs1 -> {
+            DtoUtils.copyProperties(postsWithBLOBs1, postsIndex);
+            IndexThreadLocal.set(postsIndex);
+        });
+        //end
+
         postsMapper.deleteByPrimaryKey(postId);
 
         commentsMapper.deleteByPostId(postId);
