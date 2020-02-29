@@ -51,9 +51,14 @@ Page({
         that.setData({
           groupList: res.data.groupList,
         });
+        if (res.data.isRemain) {
+          wx.showTabBarRedDot({
+            index: 2,
+          })
+        }
       }else{
         that.setData({
-          hiddenAlertPu: !that.data.hiddenAlertPu
+          hiddenAlertPu: false
         })
       }
     });

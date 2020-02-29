@@ -1,6 +1,6 @@
 
-// var WxApiRoot = 'https://wechat.kiwi1.cn/wx/';
-var WxApiRoot = 'http://localhost:8080/wx/';
+// var WxApiRoot = 'https://wechat.kiwi1.cn/msg/wx/';
+var WxApiRoot = 'http://localhost:8085/msg/wx/';
 
 module.exports = {
   ListURL: WxApiRoot + 'getUserList', //聊天列表

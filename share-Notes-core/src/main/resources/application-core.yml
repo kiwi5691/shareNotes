@@ -7,8 +7,8 @@ sharenotes:
     local:
       storagePath: storage
       # wx模块的WxStorageController的fetch方法对应的地址
-#      address: https://wechat.kiwi1.cn/wx/storage/fetch/
-      address: http://localhost:8082/wx/storage/fetch/
+      address: https://wechat.kiwi1.cn/wx/storage/fetch/
+#      address: http://localhost:8082/wx/storage/fetch/
     # 阿里云对象存储配置信息
     aliyun:
       endpoint: oss-cn-shenzhen.aliyuncs.com

@@ -11,7 +11,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    scrollHeight:0,
     noeMsg: true,
     newslist: [],
     toView: '' ,
@@ -62,6 +61,7 @@ Page({
     var userId =this.data.userId;
     wx.connectSocket({
       url: 'ws://localhost:8088/ws',
+      // url: 'wss://wechat.kiwi1.cn/ws',
       header: { 'content-type': 'application/json' },
       success: function () {
         // console.log('信道连接成功~');
@@ -272,7 +272,6 @@ Page({
       });
       wx.setStorageSync('userMsgs:fid' + this.data.fid+":uid:"+this.data.userId, this.data.newslist);
 
-      // this.bottom();
     }
   },
   //监听input值的改变
@@ -333,17 +332,6 @@ Page({
   },
 
 
-  //聊天消息始终显示最底端
-  bottom: function () {
-    var that = this;
-    var query = wx.createSelectorQuery();
-    query.select('#scrollMsg').boundingClientRect(function (rect) {
-      // console.log(rect.height)
-      that.setData({
-        scrollTop: rect.height + 'px'
-      });
-    }).exec();
-  },
   upload: function (res) {
     var that = this;
     const uploadTask = wx.uploadFile({
