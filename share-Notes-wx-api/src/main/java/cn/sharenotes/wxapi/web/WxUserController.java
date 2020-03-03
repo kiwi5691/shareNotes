@@ -4,11 +4,16 @@ import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.sharenotes.core.enums.ContentBase;
 import cn.sharenotes.core.jms.ActiveMQService;
 import cn.sharenotes.core.jms.EmailService;
+import cn.sharenotes.core.notify.NotifyService;
+import cn.sharenotes.core.notify.NotifyType;
 import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
 import cn.sharenotes.core.redis.RedisManager;
+import cn.sharenotes.core.service.UserService;
+import cn.sharenotes.core.utils.DateTimeUtil;
 import cn.sharenotes.core.utils.EmailTemplate;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.db.domain.User;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -24,6 +29,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -37,7 +43,12 @@ import java.util.concurrent.*;
 @RequestMapping("/wx/user")
 @Validated
 public class WxUserController {
-    final private  String SendTo= "805344479@qq.com";
+    private  final String SendTo= "805344479@qq.com";
+    private final String SENDSTATUS ="已成功";
+    @Resource
+    private UserService userService;
+    @Resource
+    private NotifyService notifyService;
     @Resource
     private RedisManager redisManager;
     @Resource
@@ -122,6 +133,7 @@ public class WxUserController {
         result.onCompletion(new Runnable() {
             @Override
             public void run() {
+
                 result.setResult(ResponseUtil.ok());
             }
         });
@@ -130,7 +142,7 @@ public class WxUserController {
             public void run() {
                 try {
                     emailService.sendEmail(SendTo,"issue By:"+titleName, EmailTemplate.issueTemplate(titleName,context));
-
+                    weChatNotify(titleName,userId);
                     result.setResult(ResponseUtil.ok());
                 } catch (Exception e) {
                     result.setResult(ResponseUtil.fail(102,"发送异常，请联系开发者"));
@@ -141,5 +153,19 @@ public class WxUserController {
         return result;
     }
 
+
+
+    public void weChatNotify(String issueName,Integer userId){
+        String[] parms = new String[]{
+                SENDSTATUS,
+                SendTo,
+                issueName,
+                DateTimeUtil.getDateTimeDisplayString(LocalDateTime.now()),
+        };
+        User user = userService.findById(userId);
+
+        notifyService.notifyWxTemplate(user.getWeixinOpenid(), NotifyType.ISSUE, parms);
+
+    }
 
 }

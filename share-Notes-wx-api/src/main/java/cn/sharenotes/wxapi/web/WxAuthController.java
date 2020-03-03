@@ -5,13 +5,13 @@ import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.sharenotes.core.enums.ContentBase;
+import cn.sharenotes.core.notify.NotifyService;
+import cn.sharenotes.core.notify.NotifyType;
+import cn.sharenotes.core.notify.config.NotifyProperties;
 import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
 import cn.sharenotes.core.redis.KeyPrefix.UpdateInfoSubmitKey;
 import cn.sharenotes.core.redis.RedisManager;
-import cn.sharenotes.core.utils.IpUtil;
-import cn.sharenotes.core.utils.JacksonUtil;
-import cn.sharenotes.core.utils.RegexUtil;
-import cn.sharenotes.core.utils.ResponseUtil;
+import cn.sharenotes.core.utils.*;
 import cn.sharenotes.core.utils.bcrypt.BCryptPasswordEncoder;
 import cn.sharenotes.db.domain.User;
 import cn.sharenotes.db.model.dto.UserDto;
@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +49,10 @@ import static cn.sharenotes.core.utils.WxResponseCode.*;
 @RequestMapping("/wx/auth")
 @Validated
 public class WxAuthController {
+    private final String UPDATEPROFILE ="更新资料";
 
+    @Autowired
+    private NotifyService notifyService;
     @Autowired
     private JwtTokenService jwtTokenService;
     @Autowired
@@ -311,11 +315,6 @@ public class WxAuthController {
 
     /**
      * 账号信息更新
-     *
-     * @param body    请求内容
-     * @return 登录结果
-     * 成功则 { errno: 0, errmsg: '成功' }
-     * 失败则 { errno: XXX, errmsg: XXX }
      */
     @PostMapping("profile")
     public Object profile(@LoginUser Integer userId, @RequestBody String body) {
@@ -344,6 +343,8 @@ public class WxAuthController {
         if (userService.updateById(user) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
+
+        weChatNotify(nickname,user.getWeixinOpenid());
 
         return ResponseUtil.ok();
     }
@@ -397,6 +398,7 @@ public class WxAuthController {
         }
 
 
+        weChatNotify(userDto.getNickName(),user.getWeixinOpenid());
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("userInfo", userDto);
         return ResponseUtil.ok(result);
@@ -411,4 +413,14 @@ public class WxAuthController {
         return ResponseUtil.ok();
     }
 
+    public void weChatNotify(String userName,String openId){
+        String[] parms = new String[]{
+                userName,
+                UPDATEPROFILE,
+                DateTimeUtil.getDateTimeDisplayString(LocalDateTime.now()),
+        };
+
+        notifyService.notifyWxTemplate(openId, NotifyType.RESOURCE, parms);
+
+    }
 }

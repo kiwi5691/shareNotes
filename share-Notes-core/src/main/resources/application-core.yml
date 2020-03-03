@@ -29,3 +29,18 @@ sharenotes:
       secretKey: xxxxxx
       bucketName: litemall
 
+  notify:
+    mail:
+      enable: true
+      host: smtp.qq.com
+      username: 805344479@qq.com
+      password: scyvkutzgxnxbbeh
+      sendfrom: 805344479@qq.com
+      sendto: 805344479@qq.com
+    wx:
+      enable: false
+      template:
+        - name: issue
+          templateId: 7vp_guTAdm0orjNAGdn9kKPuG5BxXER23xhwkYKgVS8
+        - name: resource
+          templateId: pO2oVYNNBKL5XR4_cumeh1I1tP5339Ev1F7UC86rN9g

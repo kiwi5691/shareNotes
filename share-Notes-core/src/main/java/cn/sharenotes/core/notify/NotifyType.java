@@ -1,8 +1,8 @@
 package cn.sharenotes.core.notify;
 
 public enum NotifyType {
-    PAY_SUCCEED("mail"),
-    SHIP("template");
+    ISSUE("issue"),
+    RESOURCE("resource");
 
     NotifyType(String type) {
         this.type = type;

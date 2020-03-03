@@ -23,7 +23,6 @@ public class NotifyService {
 
     /**
      * 微信模版消息通知,不跳转
-     * <p>
      * 该方法会尝试从数据库获取缓存的FormId去发送消息
      *
      * @param touser     接收者openId
@@ -41,7 +40,6 @@ public class NotifyService {
 
     /**
      * 微信模版消息通知，带跳转
-     * <p>
      * 该方法会尝试从数据库获取缓存的FormId去发送消息
      *
      * @param touser     接收者openId
