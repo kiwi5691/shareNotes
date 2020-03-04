@@ -1,9 +1,13 @@
 package cn.sharenotes.core.notify;
 
+import cn.binarywang.wx.miniapp.bean.WxMaSubscribeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +21,7 @@ public class NotifyService {
     private String sendTo;
 
 
+    @Autowired
     private WxTemplateSender wxTemplateSender;
     private List<Map<String, String>> wxTemplate = new ArrayList<>();
 
@@ -27,15 +32,15 @@ public class NotifyService {
      *
      * @param touser     接收者openId
      * @param notifyType 通知类别，通过该枚举值在配置文件中获取相应的模版ID
-     * @param params     通知模版内容里的参数，类似"您的验证码为{1}"中{1}的值
+     * @param wxMaSubscribeData     通知模版内容
      */
     @Async
-    public void notifyWxTemplate(String touser, NotifyType notifyType, String[] params) {
+    public void notifyWxTemplate(String touser, NotifyType notifyType, List<WxMaSubscribeMessage.Data> wxMaSubscribeData) {
         if (wxTemplateSender == null)
             return;
 
         String templateId = getTemplateId(notifyType, wxTemplate);
-        wxTemplateSender.sendWechatMsg(touser, templateId, params);
+        wxTemplateSender.sendWechatMsg(touser, templateId, wxMaSubscribeData);
     }
 
     /**
@@ -44,16 +49,16 @@ public class NotifyService {
      *
      * @param touser     接收者openId
      * @param notifyType 通知类别，通过该枚举值在配置文件中获取相应的模版ID
-     * @param params     通知模版内容里的参数，类似"您的验证码为{1}"中{1}的值
+     * @param wxMaSubscribeData     通知模版内容里
      * @param page       点击消息跳转的页面
      */
     @Async
-    public void notifyWxTemplate(String touser, NotifyType notifyType, String[] params, String page) {
+    public void notifyWxTemplate(String touser, NotifyType notifyType, List<WxMaSubscribeMessage.Data> wxMaSubscribeData, String page) {
         if (wxTemplateSender == null)
             return;
 
         String templateId = getTemplateId(notifyType, wxTemplate);
-        wxTemplateSender.sendWechatMsg(touser, templateId, params, page);
+        wxTemplateSender.sendWechatMsg(touser, templateId, wxMaSubscribeData, page);
     }
 
     /**

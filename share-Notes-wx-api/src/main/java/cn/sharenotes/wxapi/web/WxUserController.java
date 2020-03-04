@@ -1,6 +1,7 @@
 package cn.sharenotes.wxapi.web;
 
 import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
+import cn.binarywang.wx.miniapp.bean.WxMaSubscribeMessage;
 import cn.sharenotes.core.enums.ContentBase;
 import cn.sharenotes.core.jms.ActiveMQService;
 import cn.sharenotes.core.jms.EmailService;
@@ -8,12 +9,14 @@ import cn.sharenotes.core.notify.NotifyService;
 import cn.sharenotes.core.notify.NotifyType;
 import cn.sharenotes.core.redis.KeyPrefix.IssueSubmitKey;
 import cn.sharenotes.core.redis.RedisManager;
+import cn.sharenotes.core.service.UserFormIdService;
 import cn.sharenotes.core.service.UserService;
 import cn.sharenotes.core.utils.DateTimeUtil;
 import cn.sharenotes.core.utils.EmailTemplate;
 import cn.sharenotes.core.utils.JacksonUtil;
 import cn.sharenotes.core.utils.ResponseUtil;
 import cn.sharenotes.db.domain.User;
+import cn.sharenotes.db.domain.UserFormid;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,8 +33,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -47,6 +49,8 @@ public class WxUserController {
     private final String SENDSTATUS ="已成功";
     @Resource
     private UserService userService;
+    @Resource
+    private UserFormIdService userFormIdService;
     @Resource
     private NotifyService notifyService;
     @Resource
@@ -65,7 +69,7 @@ public class WxUserController {
         if(wxMaSecCheckService.checkImage(msg)){
             return  "ok";
         }else {
-            return  "fuck";
+            return  "fail";
 
         }
 
@@ -98,6 +102,7 @@ public class WxUserController {
     @ApiOperation(value = "用户提交issue")
     @PostMapping("submitIssue")
     public DeferredResult<Object> submitIssue(@LoginUser Integer userId, @RequestBody String body) throws IOException {
+        User user = userService.findById(userId);
 
         DeferredResult<Object> result = new DeferredResult<Object>(10*1000L);
 
@@ -142,7 +147,7 @@ public class WxUserController {
             public void run() {
                 try {
                     emailService.sendEmail(SendTo,"issue By:"+titleName, EmailTemplate.issueTemplate(titleName,context));
-                    weChatNotify(titleName,userId);
+//                    weChatNotify(titleName,user.getWeixinOpenid());
                     result.setResult(ResponseUtil.ok());
                 } catch (Exception e) {
                     result.setResult(ResponseUtil.fail(102,"发送异常，请联系开发者"));
@@ -155,17 +160,45 @@ public class WxUserController {
 
 
 
-    public void weChatNotify(String issueName,Integer userId){
-        String[] parms = new String[]{
-                SENDSTATUS,
-                SendTo,
-                issueName,
-                DateTimeUtil.getDateTimeDisplayString(LocalDateTime.now()),
-        };
-        User user = userService.findById(userId);
+    public void weChatNotify(String issueName,String openId){
+        List<WxMaSubscribeMessage.Data> wxMaSubscribeDatas = new ArrayList<>();
+        WxMaSubscribeMessage.Data wxMaSubscribeData = new WxMaSubscribeMessage.Data();
+        wxMaSubscribeData.setName("phrase1");
+        wxMaSubscribeData.setValue(SENDSTATUS);
+        //每个参数 存放到大集合中
+        wxMaSubscribeDatas.add(wxMaSubscribeData);
+        wxMaSubscribeData=null;
+        wxMaSubscribeData.setName("character_string2");
+        wxMaSubscribeData.setValue(SendTo);
+        //每个参数 存放到大集合中
+        wxMaSubscribeDatas.add(wxMaSubscribeData);
+        wxMaSubscribeData=null;
+        wxMaSubscribeData.setName("thing3");
+        wxMaSubscribeData.setValue(issueName);
+        //每个参数 存放到大集合中
+        wxMaSubscribeDatas.add(wxMaSubscribeData);
+        wxMaSubscribeData=null;
+        wxMaSubscribeData.setName("time4");
+        wxMaSubscribeData.setValue(DateTimeUtil.getDateTimeDisplayString(LocalDateTime.now()));
+        //每个参数 存放到大集合中
+        wxMaSubscribeDatas.add(wxMaSubscribeData);
 
-        notifyService.notifyWxTemplate(user.getWeixinOpenid(), NotifyType.ISSUE, parms);
+        notifyService.notifyWxTemplate(openId, NotifyType.ISSUE, wxMaSubscribeDatas);
 
     }
 
+    /*
+    * 废弃，微信再不支持模板消息
+     */
+    @Deprecated
+    public void saveFormId(String formId,String openId){
+        UserFormid userFormid = new UserFormid();
+        userFormid.setOpenid(openId);
+        userFormid.setFormid(formId);
+        userFormid.setIsprepay(true);
+        userFormid.setUseamount(1);
+        userFormid.setExpireTime(new Date());
+        userFormIdService.addUserFormId(userFormid);
+
+    }
 }

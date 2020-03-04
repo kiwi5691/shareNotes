@@ -29,3 +29,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/storage/
+/share-Notes-wx-api/src/main/java/cn/sharenotes/wxapi/

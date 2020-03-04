@@ -23,6 +23,7 @@ import cn.sharenotes.wxapi.annotation.Log;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -83,8 +84,15 @@ public class WxPostController {
         String originalContent = JacksonUtil.parseString(body, "originalContent");
 
         PostContentVo postContentVo = getBodyIntoPostContentVo(userId, body, "add");
-
-        if(!wxMaSecCheckService.checkMessage(originalContent) && originalContent != null){
+        boolean unSafe = true;
+        if(originalContent != null) {
+            try{
+                unSafe =wxMaSecCheckService.checkMessage(originalContent);
+            }catch (WxErrorException e) {
+                return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
+            }
+        }
+        if(!unSafe){
             return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
         }
         if (postContentVo == null) {
@@ -112,7 +120,15 @@ public class WxPostController {
             return ResponseUtil.fail(803, "修改文章失败，文章标题已存在");
         }
         String originalContent = JacksonUtil.parseString(body, "originalContent");
-        if(!wxMaSecCheckService.checkMessage(originalContent)){
+        boolean unSafe = true;
+        if(originalContent != null) {
+            try{
+                unSafe =wxMaSecCheckService.checkMessage(originalContent);
+            }catch (WxErrorException e) {
+                return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
+            }
+        }
+        if(!unSafe){
             return ResponseUtil.fail(202, "添加文章失败，出现违禁词");
         }
         if (postContentService.updatePostContent(postId, postContentVo) > 0) {

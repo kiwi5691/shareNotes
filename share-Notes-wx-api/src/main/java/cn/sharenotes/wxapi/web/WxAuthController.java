@@ -4,6 +4,7 @@ package cn.sharenotes.wxapi.web;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import cn.binarywang.wx.miniapp.bean.WxMaSubscribeMessage;
 import cn.sharenotes.core.enums.ContentBase;
 import cn.sharenotes.core.notify.NotifyService;
 import cn.sharenotes.core.notify.NotifyType;
@@ -33,10 +34,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static cn.sharenotes.core.utils.WxResponseCode.*;
 
@@ -344,7 +342,7 @@ public class WxAuthController {
             return ResponseUtil.updatedDataFailed();
         }
 
-        weChatNotify(nickname,user.getWeixinOpenid());
+//        weChatNotify(nickname,user.getWeixinOpenid());
 
         return ResponseUtil.ok();
     }
@@ -398,7 +396,7 @@ public class WxAuthController {
         }
 
 
-        weChatNotify(userDto.getNickName(),user.getWeixinOpenid());
+//        weChatNotify(userDto.getNickName(),user.getWeixinOpenid());
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("userInfo", userDto);
         return ResponseUtil.ok(result);
@@ -414,13 +412,26 @@ public class WxAuthController {
     }
 
     public void weChatNotify(String userName,String openId){
-        String[] parms = new String[]{
-                userName,
-                UPDATEPROFILE,
-                DateTimeUtil.getDateTimeDisplayString(LocalDateTime.now()),
-        };
+        List<WxMaSubscribeMessage.Data> wxMaSubscribeDatas = new ArrayList<>();
+        WxMaSubscribeMessage.Data wxMaSubscribeData = new WxMaSubscribeMessage.Data();
+        wxMaSubscribeData.setName("thing1");
+        wxMaSubscribeData.setValue(userName);
+        //每个参数 存放到大集合中
+        wxMaSubscribeDatas.add(wxMaSubscribeData);
+        WxMaSubscribeMessage.Data wxMaSubscribeData1 = new WxMaSubscribeMessage.Data();
+        wxMaSubscribeData1.setName("phrase2");
+        wxMaSubscribeData1.setValue(UPDATEPROFILE);
+        //每个参数 存放到大集合中
+        wxMaSubscribeDatas.add(wxMaSubscribeData1);
+        WxMaSubscribeMessage.Data wxMaSubscribeData2 = new WxMaSubscribeMessage.Data();
 
-        notifyService.notifyWxTemplate(openId, NotifyType.RESOURCE, parms);
+        wxMaSubscribeData2.setName("time3");
+        wxMaSubscribeData2.setValue(DateTimeUtil.getDateTimeDisplayString(LocalDateTime.now()));
+        //每个参数 存放到大集合中
+        wxMaSubscribeDatas.add(wxMaSubscribeData2);
+
+
+        notifyService.notifyWxTemplate(openId, NotifyType.RESOURCE, wxMaSubscribeDatas);
 
     }
 }

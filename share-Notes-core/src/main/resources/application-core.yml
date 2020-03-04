@@ -31,14 +31,14 @@ sharenotes:
 
   notify:
     mail:
-      enable: true
+      enable: false
       host: smtp.qq.com
       username: 805344479@qq.com
       password: scyvkutzgxnxbbeh
       sendfrom: 805344479@qq.com
       sendto: 805344479@qq.com
     wx:
-      enable: false
+      enable: true
       template:
         - name: issue
           templateId: 7vp_guTAdm0orjNAGdn9kKPuG5BxXER23xhwkYKgVS8

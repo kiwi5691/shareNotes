@@ -4,6 +4,9 @@ import cn.sharenotes.core.service.UserFormIdService;
 import cn.sharenotes.db.domain.UserFormid;
 import cn.sharenotes.db.domain.UserFormidExample;
 import cn.sharenotes.db.mapper.UserFormidMapper;
+import javafx.print.Collation;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -11,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserFormIdServiceImpl implements UserFormIdService {
 
     @Resource
@@ -22,6 +26,9 @@ public class UserFormIdServiceImpl implements UserFormIdService {
         //符合找到该用户记录，且可用次数大于1，且还未过期
         example.or().andOpenidEqualTo(openId).andExpireTimeGreaterThan(new Date());
         List<UserFormid> userFormidList =userFormidMapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(userFormidList)){
+            return null;
+        }
         Optional<UserFormid> userFormid = Optional.ofNullable(userFormidList.get(0));
         return userFormid.orElse(null);
     }

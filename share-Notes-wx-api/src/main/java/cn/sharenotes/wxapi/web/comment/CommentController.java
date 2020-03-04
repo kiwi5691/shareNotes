@@ -11,6 +11,7 @@ import cn.sharenotes.db.model.dto.PostCommentDto;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,13 @@ public class CommentController {
         if(content.isEmpty()){
             return ResponseUtil.fail(901, "添加评论失败，文章没内容");
         }
-        if(!wxMaSecCheckService.checkMessage(content)){
+        boolean unSafe = true;
+        try{
+            unSafe =wxMaSecCheckService.checkMessage(content);
+        }catch (WxErrorException e) {
+            return ResponseUtil.fail(202, "添加评论失败，出现违禁词");
+        }
+        if(!unSafe){
             return ResponseUtil.fail(202, "添加评论失败，出现违禁词");
         }
         if(commentService.addComment(userId,postId,content,isanonymous)>0){

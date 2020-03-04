@@ -13,6 +13,7 @@ import cn.sharenotes.wxapi.annotation.Log;
 import cn.sharenotes.wxapi.annotation.LoginUser;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -60,15 +61,26 @@ public class WxCategoryController {
     @ApiOperation(value = "添加目录")
     @PostMapping("/add")
     public Object addCategory(@LoginUser Integer userId,@RequestBody String body) {
-        if(!wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name"))){
-            ResponseUtil.fail(500,"违法违规标题");
+        boolean unSafe = true;
+        try{
+            unSafe =wxMaSecCheckService.checkMessage(JacksonUtil.parseString(body, "name"));
+        }catch (WxErrorException e) {
+            return ResponseUtil.fail(500,"违法违规标题");
+        }
+        if(!unSafe){
+            return ResponseUtil.fail(500,"违法违规标题");
         }
         CategoryVO categoryVO = getBodyIntoCategoryVO(userId, body,"add");
         if (categoryVO == null) {
             return ResponseUtil.fail(602, "添加目录失败，目录名存在");
         }
         String name = JacksonUtil.parseString(body, "name");
-       if(!wxMaSecCheckService.checkMessage(name)){
+        try{
+            unSafe =wxMaSecCheckService.checkMessage(name);
+        }catch (WxErrorException e) {
+            return ResponseUtil.fail(202, "添加目录失败，出现违禁词");
+        }
+        if(!unSafe){
             return ResponseUtil.fail(202, "添加目录失败，出现违禁词");
         }
         if (categoriesService.addCategory(userId, categoryVO) > 0) {
@@ -104,7 +116,13 @@ public class WxCategoryController {
 
         }
         String name = JacksonUtil.parseString(body, "name");
-        if(!wxMaSecCheckService.checkMessage(name)){
+        boolean unSafe = true;
+        try{
+            unSafe =wxMaSecCheckService.checkMessage(name);
+        }catch (WxErrorException e) {
+            return ResponseUtil.fail(202, "添加目录失败，出现违禁词");
+        }
+        if(!unSafe){
             return ResponseUtil.fail(202, "添加目录失败，出现违禁词");
         }
 
